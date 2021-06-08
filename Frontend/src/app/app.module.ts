@@ -15,6 +15,7 @@ import { PaginaInicioComponent } from './componentes/pagina-inicio/pagina-inicio
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InicioFuncionarioComponent } from './componentes/inicio-funcionario/inicio-funcionario.component';
 import { InicioDeudorComponent } from './componentes/inicio-deudor/inicio-deudor.component';
+import { HttpClientModule } from '@angular/common/http'; 
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { InicioDeudorComponent } from './componentes/inicio-deudor/inicio-deudor
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

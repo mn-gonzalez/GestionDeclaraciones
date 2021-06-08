@@ -5,7 +5,7 @@ const Login = require('../modelos/login');
 
 app.post('/login/deudor', (req, res) =>{
 	let body = req.body;
-	var deudor = { rut_deudor: body.rut_deudor, contrasena: body.contrasena} ;
+	var deudor = { rut: body.rut, contrasena: body.contrasena} ;
 
 	Login.iniciar_sesion_deudor(deudor, (err, results) => {
 		if(err){
@@ -18,7 +18,7 @@ app.post('/login/deudor', (req, res) =>{
 
 app.post('/login/funcionario', (req, res) =>{
 	let body = req.body;
-	var funcionario = { rut_funcionario: body.rut_funcionario, contrasena: body.contrasena} ;
+	var funcionario = { rut: body.rut, contrasena: body.contrasena} ;
 
 	Login.iniciar_sesion_funcionario(funcionario, (err, results) => {
 		if(err){

@@ -10,13 +10,13 @@ class Login{
             throw new Error('There is not a callback function. Please provide them');
         }
         db.any('SELECT rut FROM deudor WHERE rut=$1 AND contrasena=$2',
-        	[deudor.rut_deudor,
+        	[deudor.rut,
         	deudor.contrasena])
         .then(function(results){
             let usuario = 'NULL';
 
             for(const user of results){
-                usuario = user.rut_deudor;
+                usuario = user.rut;
             }
     		return callback(null, usuario);
     	})
@@ -30,13 +30,13 @@ class Login{
             throw new Error('There is not a callback function. Please provide them');
         }
         db.any('SELECT rut FROM funcionario WHERE rut=$1 AND contrasena=$2',
-        	[funcionario.rut_funcionario,
+        	[funcionario.rut,
         	funcionario.contrasena])
         .then(function(results){
             let usuario = 'NULL';
 
             for(const user of results){
-                usuario = user.rut_funcionario;
+                usuario = user.rut;
             }
     		return callback(null, usuario);
     	})

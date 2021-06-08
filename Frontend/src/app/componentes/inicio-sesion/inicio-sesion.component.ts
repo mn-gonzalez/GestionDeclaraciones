@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray} from '@angular/forms'
+import { FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
+import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -11,8 +13,9 @@ export class InicioSesionComponent implements OnInit {
   form_funcionario : FormGroup;
   hide_deudor = true;
   hide_funcionario = true;
+  usuario: string = 'NULL';
 
-  constructor() { 
+  constructor(private inicioSesionService: InicioSesionService, private router: Router) { 
     this.form_deudor = new FormGroup({
       'rut_deudor': new FormControl(""),
       'contrasena_deudor': new FormControl("")
@@ -25,11 +28,37 @@ export class InicioSesionComponent implements OnInit {
   }
 
   login_deudor(){
-    console.log(this.form_deudor.value);
+    let datos = this.form_deudor.value;
+
+    this.inicioSesionService.ingresar_como_deudor(datos).subscribe({
+      next: (result) => {this.usuario = result.results; 
+        if(this.usuario == 'NULL'){
+          console.log("El usuario o la clave son incorrectos");
+        }
+        else{
+          //this.router.navigate(['inicio-deudor/'+this.usuario])
+          this.router.navigate(['/home-deudor']);
+        }
+      },
+      error: (err) => {console.log(err)}
+    });
   }
 
   login_funcionario(){
-    console.log(this.form_funcionario.value);
+    let datos = this.form_funcionario.value;
+
+    this.inicioSesionService.ingresar_como_funcionario(datos).subscribe({
+      next: (result) => {this.usuario = result.results; 
+        if(this.usuario == 'NULL'){
+          console.log("El usuario o la clave son incorrectos");
+        }
+        else{
+          //this.router.navigate(['inicio-deudor/'+this.usuario])
+          this.router.navigate(['/home-funcionario']);
+        }
+      },
+      error: (err) => {console.log(err)}
+    });
   }
 
   ngOnInit(): void {
