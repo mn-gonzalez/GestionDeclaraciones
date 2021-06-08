@@ -1,0 +1,28 @@
+.tabs{
+    justify-content: space-around;
+}
+
+.toolbar{
+    justify-content: space-between;
+}
+
+.boton_sesion{
+    padding: 10px 24px;
+}
+
+.fechas{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 50px;
+}
+
+.tarjeta{
+    margin-right: 20px;
+    min-width: 250px;
+    min-height: 200px;
+}
+
+.contenido_tarjeta{
+    font-size: 15px;
+    justify-content: center;
+}
