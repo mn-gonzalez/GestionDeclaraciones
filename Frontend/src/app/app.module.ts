@@ -13,9 +13,18 @@ import { MatInputModule } from '@angular/material/input';
 import { InicioSesionComponent } from './componentes/inicio-sesion/inicio-sesion.component';
 import { PaginaInicioComponent } from './componentes/pagina-inicio/pagina-inicio.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InicioFuncionarioComponent } from './componentes/inicio-funcionario/inicio-funcionario.component';
-import { InicioDeudorComponent } from './componentes/inicio-deudor/inicio-deudor.component';
-import { HttpClientModule } from '@angular/common/http'; 
+import { InicioFuncionarioComponent } from './componentes/funcionario/inicio-funcionario/inicio-funcionario.component';
+import { InicioDeudorComponent } from './componentes/deudor/inicio-deudor/inicio-deudor.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RegistrarDeclaracionComponent } from './componentes/deudor/declaraciones/registrar-declaracion/registrar-declaracion.component';
+import { ListarDeclaracionesComponent } from './componentes/deudor/declaraciones/listar-declaraciones/listar-declaraciones.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatStepperModule } from '@angular/material/stepper';
+import {MatCheckboxModule} from '@angular/material/checkbox'; 
+import {MatRadioModule} from '@angular/material/radio'; 
+import {MatSelectModule} from '@angular/material/select'; 
+import {MatTableModule} from '@angular/material/table'; 
 
 @NgModule({
   declarations: [
@@ -23,7 +32,9 @@ import { HttpClientModule } from '@angular/common/http';
     InicioSesionComponent,
     PaginaInicioComponent,
     InicioFuncionarioComponent,
-    InicioDeudorComponent
+    InicioDeudorComponent,
+    RegistrarDeclaracionComponent,
+    ListarDeclaracionesComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +48,14 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSidenavModule,
+    MatListModule,
+    MatStepperModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

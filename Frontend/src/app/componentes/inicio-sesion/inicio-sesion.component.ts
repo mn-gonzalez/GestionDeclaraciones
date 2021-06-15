@@ -64,4 +64,8 @@ export class InicioSesionComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  login_deudor2(){
+    this.router.navigate(['/home-deudor']);
+  }
+
 }

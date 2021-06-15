@@ -1,0 +1,102 @@
+.fondo{
+    padding: 15px;
+}
+
+.titulo{
+    color: #66003c;
+}
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+}
+
+.form_nombre{
+    display: flex;
+}
+
+.form_direccion{
+    display: flex;
+}
+
+.form_contacto{
+    display: flex;
+}
+
+.form_trabajo{
+    display: flex;
+}
+
+.datos_personales{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputs{
+    max-width: 200px;
+    padding-right: 15px;
+}
+
+.input_direccion{
+    width: 500px;
+    padding-right: 15px;
+}
+
+.div_estado_civil{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+.estado_civil{
+    display: flex;
+    flex-direction: column;
+}
+
+.opciones{
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+.formulario_ingresos{
+    display:flex;
+    justify-content: center;
+}
+
+.div_form_ingresos{
+    display: flex;
+    justify-content: center;
+    border: 1px solid currentColor;
+}
+
+.form_ingresos{
+    display:flex;
+    justify-content: center;
+    padding: 5px;
+    max-height: 55px;
+}
+
+.mat-column-mes{
+    border: 1px solid currentColor;
+    text-align: center;
+}
+
+.mat-column-ingresos_pesos{
+    border: 1px solid currentColor;
+    text-align: center;
+}
+
+.mat-column-utm{
+    border: 1px solid currentColor;
+    text-align: center;
+}
+
+.mat-column-ingresos_utm{
+    border: 1px solid currentColor;
+    text-align: center;
+}
+
+.mat-table{
+    padding-top:20px;
+    width: 650px;
+}

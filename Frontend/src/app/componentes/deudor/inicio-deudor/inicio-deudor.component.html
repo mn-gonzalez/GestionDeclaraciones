@@ -1,0 +1,19 @@
+<mat-toolbar class="toolbar">
+    <span>Gestión de Declaraciones Juradas</span>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav opened="true" mode="side" class="sidenav">
+        <mat-nav-list>
+            <a class="nav-list" mat-list-item> Mis Datos</a>
+            <a class="nav-list" mat-list-item> Declaraciones</a>
+            <a class="nav-list" mat-list-item> Postergación de cobro</a>
+            <a class="nav-list" mat-list-item> Devolucion de pagarés</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="sidenav-content">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+
