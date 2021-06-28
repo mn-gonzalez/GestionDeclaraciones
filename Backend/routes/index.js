@@ -11,7 +11,7 @@ app.get("/", (req, res) => res.json({message: 'Api para BD de gestion de declara
 */
 
 app.use(require('./login'));
-//app.use(require('./declaracion'));
+app.use(require('./declaracion'));
 //app.use(require('./solicitudes'));
 //app.use(require('./deudor'));
 //app.use(require('./funcionario'));

@@ -105,7 +105,7 @@
               </div>
     
               <div>
-                <button mat-stroked-button matStepperNext>Siguiente</button>
+                <button mat-stroked-button matStepperNext (click)="registrarDeclaracion()">Siguiente</button>
               </div>
             </form>
         </mat-step>
@@ -125,7 +125,7 @@
                             <th mat-header-cell *matHeaderCellDef> Monto en Pesos </th>
                             <div class="div_form_ingresos" mat-cell *matCellDef="let element">
                                 <mat-form-field  class="form_ingresos">
-                                    <input matInput formControlName="{{element.formControl}}" required>
+                                    <input matInput formControlName="{{element.formControl}}" required ng-change="actualizarValorEnUTM()">
                                 </mat-form-field>
                             </div>
                         </ng-container>
@@ -150,7 +150,7 @@
                 </div>
                 
                 <div>
-                    <button mat-button matStepperNext>Siguiente</button>
+                    <button mat-button matStepperNext (click)="registrarIngresosDeclaracion()">Siguiente</button>
                 </div>
                 </form>
             </div>
@@ -222,7 +222,7 @@
                     </table>
                 </div>
                 <div>
-                    <button mat-button matStepperNext>Siguiente</button>
+                    <button mat-button matStepperNext (click)="registrarDatosConyuge()">Siguiente</button>
                 </div>
             </form>
         </mat-step>

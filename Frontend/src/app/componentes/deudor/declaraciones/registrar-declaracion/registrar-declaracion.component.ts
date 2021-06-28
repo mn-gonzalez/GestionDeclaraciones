@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup,FormControl, Validators} from '@angular/forms';
+import { DeclaracionService } from "src/app/servicios/declaracion.service";
 
 interface Region{
   nombre: string;
@@ -19,6 +20,12 @@ interface Ingreso{
   styleUrls: ['./registrar-declaracion.component.css']
 })
 export class RegistrarDeclaracionComponent implements OnInit {
+
+  rut_deudor: string;
+  id_declaracion: number;
+  id_ingresos_deudor: number;
+  rut_conyuge: string;
+  id_ingresos_coyuge: number;
 
   isLinear = false;
   datosPersonales: FormGroup;
@@ -62,8 +69,9 @@ export class RegistrarDeclaracionComponent implements OnInit {
   displayedColumns: string[] = ['mes', 'ingresos_pesos', 'utm', 'ingresos_utm'];
   dataSource = this.ingresos;
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private declaracionService: DeclaracionService) { 
     this.datosPersonales = new FormGroup({
+      'id': new FormControl(""),
       'rut_deudor': new FormControl(""),
       'nombres': new FormControl(""),
       'ap_paterno': new FormControl(""),
@@ -81,33 +89,30 @@ export class RegistrarDeclaracionComponent implements OnInit {
     });
 
     this.ingresosDeudor = new FormGroup({
-      'enero': new FormControl(""),
-      'febrero': new FormControl(""),
-      'marzo': new FormControl(""),
-      'abril': new FormControl(""),
-      'mayo': new FormControl(""),
-      'junio': new FormControl(""),
-      'julio': new FormControl(""),
-      'agosto': new FormControl(""),
-      'septiembre': new FormControl(""),
-      'octubre': new FormControl(""),
-      'noviembre': new FormControl(""),
-      'diciembre': new FormControl(""),
-      'enero_utm': new FormControl(""),
-      'febrero_utm': new FormControl(""),
-      'marzo_utm': new FormControl(""),
-      'abril_utm': new FormControl(""),
-      'mayo_utm': new FormControl(""),
-      'junio_utm': new FormControl(""),
-      'julio_utm': new FormControl(""),
-      'agosto_utm': new FormControl(""),
-      'septiembre_utm': new FormControl(""),
-      'octubre_utm': new FormControl(""),
-      'noviembre_utm': new FormControl(""),
-      'diciembre_utm': new FormControl("")
-    });
-
-    this.datosConyuge = new FormGroup({
+      'enero': new FormControl(0),
+      'febrero': new FormControl(0),
+      'marzo': new FormControl(0),
+      'abril': new FormControl(0),
+      'mayo': new FormControl(0),
+      'junio': new FormControl(0),
+      'julio': new FormControl(0),
+      'agosto': new FormControl(0),
+      'septiembre': new FormControl(0),
+      'octubre': new FormControl(0),
+      'noviembre': new FormControl(0),
+      'diciembre': new FormControl(0),
+      'enero_utm': new FormControl(0),
+      'febrero_utm': new FormControl(0),
+      'marzo_utm': new FormControl(0),
+      'abril_utm': new FormControl(0),
+      'mayo_utm': new FormControl(0),
+      'junio_utm': new FormControl(0),
+      'julio_utm': new FormControl(0),
+      'agosto_utm': new FormControl(0),
+      'septiembre_utm': new FormControl(0),
+      'octubre_utm': new FormControl(0),
+      'noviembre_utm': new FormControl(0),
+      'diciembre_utm': new FormControl(0)
     });
 
     this.ingresosConyuge = new FormGroup({
@@ -115,34 +120,124 @@ export class RegistrarDeclaracionComponent implements OnInit {
       'nombres': new FormControl(""),
       'ap_paterno': new FormControl(""),
       'ap_materno': new FormControl(""),
-      'enero': new FormControl(""),
-      'febrero': new FormControl(""),
-      'marzo': new FormControl(""),
-      'abril': new FormControl(""),
-      'mayo': new FormControl(""),
-      'junio': new FormControl(""),
-      'julio': new FormControl(""),
-      'agosto': new FormControl(""),
-      'septiembre': new FormControl(""),
-      'octubre': new FormControl(""),
-      'noviembre': new FormControl(""),
-      'diciembre': new FormControl(""),
-      'enero_utm': new FormControl(""),
-      'febrero_utm': new FormControl(""),
-      'marzo_utm': new FormControl(""),
-      'abril_utm': new FormControl(""),
-      'mayo_utm': new FormControl(""),
-      'junio_utm': new FormControl(""),
-      'julio_utm': new FormControl(""),
-      'agosto_utm': new FormControl(""),
-      'septiembre_utm': new FormControl(""),
-      'octubre_utm': new FormControl(""),
-      'noviembre_utm': new FormControl(""),
-      'diciembre_utm': new FormControl("")
+      'enero': new FormControl(0),
+      'febrero': new FormControl(0),
+      'marzo': new FormControl(0),
+      'abril': new FormControl(0),
+      'mayo': new FormControl(0),
+      'junio': new FormControl(0),
+      'julio': new FormControl(0),
+      'agosto': new FormControl(0),
+      'septiembre': new FormControl(0),
+      'octubre': new FormControl(0),
+      'noviembre': new FormControl(0),
+      'diciembre': new FormControl(0),
+      'enero_utm': new FormControl(0),
+      'febrero_utm': new FormControl(0),
+      'marzo_utm': new FormControl(0),
+      'abril_utm': new FormControl(0),
+      'mayo_utm': new FormControl(0),
+      'junio_utm': new FormControl(0),
+      'julio_utm': new FormControl(0),
+      'agosto_utm': new FormControl(0),
+      'septiembre_utm': new FormControl(0),
+      'octubre_utm': new FormControl(0),
+      'noviembre_utm': new FormControl(0),
+      'diciembre_utm': new FormControl(0)
     });
   }
 
   ngOnInit(): void {
+    //this.obtenerDatosDeclaracion();
+  }
+
+  obtenerIdDeclaracionPendiente(){
+
+  }
+
+  actualizarValorEnUTM(){
+    console.log("Se actualizo el valor");
+  }
+
+  obtenerDatosDeclaracion(){
+    this.id_declaracion = 2;
+    this.declaracionService.obtenerDatosDeclaracion(this.id_declaracion).subscribe({
+      next: result => {
+        this.datosPersonales.get('id')!.setValue(this.id_declaracion);
+        this.datosPersonales.get('rut_deudor')!.setValue(result.rut_deudor);
+        this.datosPersonales.get('nombres')!.setValue(result.nombres);
+        this.datosPersonales.get('ap_paterno')!.setValue(result.ap_paterno);
+        this.datosPersonales.get('ap_materno')!.setValue(result.ap_materno);
+        this.datosPersonales.get('correo')!.setValue(result.correo);
+        this.datosPersonales.get('direccion')!.setValue(result.direccion);
+        this.datosPersonales.get('telefono')!.setValue(result.telefono);
+        this.datosPersonales.get('estado_civil')!.setValue(result.estado_civil);
+        this.datosPersonales.get('afp')!.setValue(result.afp);
+        this.datosPersonales.get('trabajo')!.setValue(result.trabajo);
+        this.datosPersonales.get('tel_trabajo')!.setValue(result.tel_trabajo);
+        this.datosPersonales.get('region')!.setValue(result.region);
+        this.datosPersonales.get('comuna')!.setValue(result.comuna);
+        this.datosPersonales.get('ciudad')!.setValue(result.ciudad);
+      },
+      error: result => {
+        console.log(result);
+      }
+    });
+  }
+
+  registrarDeclaracion(){
+    let datosDeclaracion = this.datosPersonales.value;
+
+    this.declaracionService.registrarDatosPersonales(datosDeclaracion).subscribe({
+      next: result =>{
+        //console.log(result);
+      }, 
+      error: result =>{
+        console.log(result);
+      }
+    });
+  }
+
+  registrarIngresosDeclaracion(){
+    let ingresosDeclaracion = this.ingresosDeudor.value;
+    this.id_declaracion = 2;
+    this.rut_deudor = '18892403';
+
+    this.declaracionService.registrarIngresosDeudor(this.rut_deudor, this.id_declaracion ,ingresosDeclaracion).subscribe({
+      next: result =>{
+        //console.log(result);
+      }, 
+      error: result =>{
+        console.log(result);
+      }
+    });
+  }
+
+  registrarDatosConyuge(){
+    let datosConyugeDeclaracion = this.ingresosConyuge.value;
+    this.id_declaracion = 2;
+    this.rut_conyuge = this.ingresosConyuge.get('rut_conyuge')!.value;
+    this.rut_deudor = '18892403';
+
+    this.declaracionService.registrarDatosConyuge(datosConyugeDeclaracion).subscribe({
+      next: result =>{
+        this.declaracionService.registrarIngresosConyuge(this.rut_conyuge, datosConyugeDeclaracion).subscribe({
+          next: result =>{
+            //console.log(result);
+          }, 
+          error: result =>{
+            console.log(result);
+          }
+        });
+      }, 
+      error: result =>{
+        console.log(result);
+      }
+    });
+  }
+
+  verificarDeclaracionPendiente(){
+    
   }
 
 }

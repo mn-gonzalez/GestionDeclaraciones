@@ -3,17 +3,18 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const postgres = require('./common/postgres');
 var cors = require('cors');
-const bodyParser = require('body-parser');
-
 var corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
+const postgres = require('./common/postgres');
+const bodyParser = require('body-parser');
+require('./config/config');
+require('./config/passport');
 
 var app = express();
 

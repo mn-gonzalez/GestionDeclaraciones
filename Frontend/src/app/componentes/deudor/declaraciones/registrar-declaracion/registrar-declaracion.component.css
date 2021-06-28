@@ -100,3 +100,8 @@
     padding-top:20px;
     width: 650px;
 }
+
+.botones{
+    display: flex;
+    
+}
