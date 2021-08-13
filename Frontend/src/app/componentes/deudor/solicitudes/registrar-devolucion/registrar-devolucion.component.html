@@ -1,0 +1,84 @@
+<div class="fondo">
+    <div></div>
+    <div class="titulo">
+        <h2>Solicitud de Devolución de Pagarés de Deudas Canceladas o Créditos Anulados</h2>
+    </div>
+    <div class="solicitud">
+        <form [formGroup]="datosSolicitud">
+            <div class="formulario">
+                <h3>Antedecentes Personales</h3>
+
+                <mat-form-field appearance="outline" class="input">
+                    <mat-label>Rut</mat-label>
+                    <input matInput placeholder="Ej. 12345678" formControlName="rut">
+                </mat-form-field>
+
+                <div class="form_nombre">
+                    <mat-form-field appearance="outline" class="input">
+                        <mat-label>Nombres</mat-label>
+                        <input matInput formControlName="nombres">
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="outline" class="input">
+                        <mat-label>Apellido Paterno</mat-label>
+                        <input matInput formControlName="ap_paterno">
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="outline" class="input">
+                        <mat-label>Apellido Materno</mat-label>
+                        <input matInput formControlName="ap_materno">
+                    </mat-form-field>
+                </div>
+
+                <h3>Datos de contacto</h3>
+
+                <div class="form_contacto">
+                    <mat-form-field appearance="outline" class="input">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder="Ej. 12345678" formControlName="correo">
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="input">
+                        <mat-label>Teléfono</mat-label>
+                        <input matInput placeholder="Ej. 12345678" formControlName="telefono">
+                    </mat-form-field>
+                </div>
+
+                <h3>Datos de Entrega</h3>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Tipo de Deuda</mat-label>
+                    <input matInput placeholder="Ej. 12345678" formControlName="tipo_deuda">
+                </mat-form-field>
+
+                <div class="form_retiro">
+                    <label class="opciones">Retira Personalmente en Oficinas AFC:</label>
+                    <mat-radio-group formControlName="retiro_oficina">
+                        <mat-radio-button class="opciones" value="1">Si</mat-radio-button>
+                        <mat-radio-button class="opciones" value="2">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Domicilio</mat-label>
+                    <input matInput placeholder="Ej. 12345678" formControlName="domicilio">
+                </mat-form-field>
+
+                <h3>Solicitud</h3>
+
+                <div class="opcion_solicitud">
+                    <mat-radio-group formControlName="solicitud">
+                        <mat-radio-button class="opciones" value="1">Solicito la devolución de los pagares correspondientes
+                            a las deudas ya detalladas, por encontrarse las deudas ya canceladas.
+                        </mat-radio-button>
+                        <mat-radio-button class="opciones" value="2">Pagare(s) anulado(s) en reemplazo por cambio de situación académica</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div>
+                    <button mat-stroked-button>Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

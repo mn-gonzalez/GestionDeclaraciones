@@ -1,0 +1,39 @@
+.tabs{
+    justify-content: space-around;
+}
+
+.mat-tab-label{
+    background-color: #66003c;
+}
+
+.toolbar{
+    justify-content: space-between;
+    background-color: #990066;
+    color: white;
+}
+
+.boton_sesion{
+    padding: 10px 24px;
+}
+
+.fechas{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 100px;
+}
+
+.tarjeta{
+    margin-right: 25px;
+    min-width: 250px;
+    min-height: 200px;
+}
+
+.cuerpo_tarjeta{
+    padding: 20px;
+}
+
+.contenido_tarjeta{
+    font-size: 15px;
+    padding-top: 10px;
+    justify-content: center;
+}

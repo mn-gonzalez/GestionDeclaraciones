@@ -1,0 +1,20 @@
+.toolbar{
+    display: flex;
+    justify-content: center;
+    background-color: #990066;
+    height: 70px;
+    color: white;
+}
+
+.sidenav-container{
+    height: 100%;
+}
+
+.sidenav{
+    width: 250px;
+    background-color: #e0e0e0;
+}
+
+.nav-list{
+    color: #66003c;
+}

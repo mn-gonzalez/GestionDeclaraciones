@@ -1,0 +1,40 @@
+<div class="fondo">
+    <div>
+        <h2>Declaraciones Deudor</h2>
+    </div>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Position Column -->
+        <ng-container matColumnDef="anio">
+          <th mat-header-cell *matHeaderCellDef> Año </th>
+          <td mat-cell *matCellDef="let element"> {{element.anio}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="total_ingresos">
+          <th mat-header-cell *matHeaderCellDef> Total Ingresos</th>
+          <td mat-cell *matCellDef="let element"> {{element.total_ingresos}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="total_ingresos_utm">
+          <th mat-header-cell *matHeaderCellDef> Total Ingresos UTM </th>
+          <td mat-cell *matCellDef="let element"> {{element.total_ingresos_utm}} </td>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef> Estado </th>
+          <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element"> <button (click)="verDatosDeclaracion(element.id)">Detalles</button> </td>
+            
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+</div>
