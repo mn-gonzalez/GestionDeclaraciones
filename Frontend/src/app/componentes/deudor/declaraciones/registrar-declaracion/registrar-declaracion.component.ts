@@ -8,6 +8,7 @@ interface Region{
 }
 
 interface Ingreso{
+  id: string;
   nombre: string;
   formControl: string;
   valor: string;
@@ -51,19 +52,21 @@ export class RegistrarDeclaracionComponent implements OnInit {
     { nombre: "Región Metropolitana de Santiago", comunas: ["Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "TilVl", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor"]}
   ];
 
+  comunas: string[];
+
   ingresos: Ingreso[] = [
-    {nombre: "Enero", formControl:"enero", valor:"49.673",formControlUTM:"enero_utm" },
-    {nombre: "Febrero", formControl:"febrero",valor:"49.723", formControlUTM:"febrero_utm"},
-    {nombre: "Marzo", formControl:"marzo", valor:"50.021", formControlUTM:"marzo_utm"},
-    {nombre: "Abril", formControl:"abril", valor:"50.221", formControlUTM:"abril_utm"},
-    {nombre: "Mayo", formControl:"mayo", valor:"50.372",formControlUTM:"mayo_utm"},
-    {nombre: "Junio", formControl:"junio", valor:"50.372", formControlUTM:"junio_utm"},
-    {nombre: "Julio", formControl:"julio", valor:"50.322", formControlUTM:"julio_utm"},
-    {nombre: "Agosto", formControl:"agosto",valor:"50.272", formControlUTM:"agosto_utm"},
-    {nombre: "Septiembre", formControl:"septiembre", valor:"50.322", formControlUTM:"septiembre_utm"},
-    {nombre: "Octubre", formControl:"octubre", valor:"50.372", formControlUTM:"octubre_utm"},
-    {nombre: "Noviembre", formControl:"noviembre", valor:"50.674", formControlUTM:"noviembre_utm"},
-    {nombre: "Diciembre",  formControl:"diciembre", valor:"51.029",formControlUTM:"diciembre_utm"}
+    {id: "1", nombre: "Enero", formControl:"enero", valor:"49.673",formControlUTM:"enero_utm" },
+    {id: "2", nombre: "Febrero", formControl:"febrero",valor:"49.723", formControlUTM:"febrero_utm"},
+    {id: "3", nombre: "Marzo", formControl:"marzo", valor:"50.021", formControlUTM:"marzo_utm"},
+    {id: "4", nombre: "Abril", formControl:"abril", valor:"50.221", formControlUTM:"abril_utm"},
+    {id: "5", nombre: "Mayo", formControl:"mayo", valor:"50.372",formControlUTM:"mayo_utm"},
+    {id: "6", nombre: "Junio", formControl:"junio", valor:"50.372", formControlUTM:"junio_utm"},
+    {id: "7", nombre: "Julio", formControl:"julio", valor:"50.322", formControlUTM:"julio_utm"},
+    {id: "8", nombre: "Agosto", formControl:"agosto",valor:"50.272", formControlUTM:"agosto_utm"},
+    {id: "9", nombre: "Septiembre", formControl:"septiembre", valor:"50.322", formControlUTM:"septiembre_utm"},
+    {id: "10", nombre: "Octubre", formControl:"octubre", valor:"50.372", formControlUTM:"octubre_utm"},
+    {id: "11", nombre: "Noviembre", formControl:"noviembre", valor:"50.674", formControlUTM:"noviembre_utm"},
+    {id: "12", nombre: "Diciembre",  formControl:"diciembre", valor:"51.029",formControlUTM:"diciembre_utm"}
   ];
 
   displayedColumns: string[] = ['mes', 'ingresos_pesos', 'utm', 'ingresos_utm'];
@@ -147,11 +150,32 @@ export class RegistrarDeclaracionComponent implements OnInit {
     });
   }
 
+  documento_renta: File;
+  casado = false;
+
   ngOnInit(): void {
     //this.obtenerDatosDeclaracion();
+    this.obtenerDatosDeudor();
   }
 
-  obtenerIdDeclaracionPendiente(){
+  verificarDeclaracionPendiente(){
+
+  }
+
+  obtenerDatosDeudor(){
+    this.rut_deudor = "18892403";
+
+    this.declaracionService.obtenerDatosDeudor(this.rut_deudor).subscribe({
+      next: result =>{
+        this.datosPersonales.get('rut_deudor')!.setValue(result.rut);
+        this.datosPersonales.get('nombres')!.setValue(result.nombres);
+        this.datosPersonales.get('ap_paterno')!.setValue(result.ap_paterno);
+        this.datosPersonales.get('ap_materno')!.setValue(result.ap_materno);
+      }
+    });
+  }
+
+  obtenerIdDeclaracion(){
 
   }
 
@@ -231,13 +255,76 @@ export class RegistrarDeclaracionComponent implements OnInit {
         });
       }, 
       error: result =>{
-        console.log(result);
+        this.declaracionService.registrarIngresosConyuge(this.rut_conyuge, datosConyugeDeclaracion).subscribe({
+          next: result =>{
+            //console.log(result);
+          }, 
+          error: result =>{
+            console.log(result);
+          }
+        });
       }
     });
   }
 
-  verificarDeclaracionPendiente(){
-    
+  upload(event: any){
+    const documento = event.target.files[0];
+    this.documento_renta = documento;
   }
 
+  subirDocumentos(){
+    this.declaracionService.subirDocumentacionDeclaracion("RENTA",this.documento_renta);
+  }
+
+  seleccionarComunas(region: string) {
+    for(let elemento of this.regiones){
+      if(elemento.nombre == region){
+        this.comunas = elemento.comunas;
+      }
+    }
+    console.log(region);
+  }
+
+  convertirUTM(event: Event){
+    const idInput = (event.target as HTMLInputElement).id;
+    const valor = (event.target as HTMLInputElement).value;
+
+    for(let ingreso of this.ingresos){
+      if(ingreso.id == idInput){
+        const valor_utm = ingreso.valor.replace(".","");
+        let nuevo_valor = parseInt(valor)/parseInt(valor_utm);
+        nuevo_valor = Math.round(nuevo_valor * 100) / 100
+
+        this.ingresosDeudor.get(ingreso.formControlUTM)!.setValue(nuevo_valor);
+      }
+    }
+  }
+
+  convertirUTMConyuge(event: Event){
+    const idInput = (event.target as HTMLInputElement).id;
+    const valor = (event.target as HTMLInputElement).value;
+
+    for(let ingreso of this.ingresos){
+      if(ingreso.id == idInput){
+        const valor_utm = ingreso.valor.replace(".","");
+        let nuevo_valor = parseInt(valor)/parseInt(valor_utm);
+        nuevo_valor = Math.round(nuevo_valor * 100) / 100
+
+        this.ingresosConyuge.get(ingreso.formControlUTM)!.setValue(nuevo_valor);
+      }
+    }
+  }
+
+  verificacionEstadoCivil(valor: string){
+    console.log(valor);
+    if(valor == "3"){
+      this.casado = true;
+    }
+    else if(valor == "4"){
+      this.casado = true;
+    }
+    else{
+      this.casado = false;
+    }
+  }
 }

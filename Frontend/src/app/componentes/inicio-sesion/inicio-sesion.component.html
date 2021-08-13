@@ -4,69 +4,41 @@
         <span>Gestión de Declaraciones Juradas</span>
     </mat-toolbar>
 
-    <mat-tab-group  mat-stretch-tabs class="tabs">
-        <mat-tab class="pestana-deudor" label="Ex-alumnos">
-            <div class="formulario-deudor">
-                <form [formGroup]="form_deudor" (ngSubmit)="login_deudor2()">
-                    <mat-card class="tarjeta">
-                        <mat-card-header class="header-tarjeta">
-                          <img class="imagen" mat-card-image src="../../../assets/imagenes/Utalca.svg" id="logo"/>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div class="contenido_tarjeta">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Rut</mat-label>
-                                    <input matInput placeholder="18892403" formControlName="rut_deudor">
-                                </mat-form-field>
-    
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Contraseña</mat-label>
-                                    <input matInput [type]="hide_deudor ? 'password' : 'text'" placeholder="Contraseña" formControlName="contrasena_deudor">
-                                    <button mat-icon-button matSuffix (click)="hide_deudor = !hide_deudor" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide_deudor">
-                                        <mat-icon>{{hide_deudor ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                    </button>
-                                </mat-form-field>
+    <div class="formulario-deudor">
+        <form [formGroup]="form_ingreso" (ngSubmit)="ingresar()">
+            <mat-card class="tarjeta">
+                <mat-card-header class="header-tarjeta">
+                  <img class="imagen" mat-card-image src="../../../assets/imagenes/Utalca.svg" id="logo"/>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="tipo_ingreso">
+                        <label>Ingresar como:</label>
+                        <mat-radio-group formControlName="tipo_ingreso">
+                            <mat-radio-button class="opciones" value="1">Deudor</mat-radio-button>
+                            <mat-radio-button class="opciones" value="2">Funcionario</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
 
-                                <div class="div-boton">
-                                    <button class="boton_sesion" mat-raised-button>Ingresar</button>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card>
-                </form>
-            </div>
-        </mat-tab>
+                    <div class="contenido_tarjeta">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rut</mat-label>
+                            <input matInput placeholder="18892403" formControlName="rut">
+                        </mat-form-field>
 
-        <mat-tab label="Funcionarios">
-            <div class="formulario-deudor">
-                <form [formGroup]="form_funcionario" (ngSubmit)="login_funcionario()">
-                    <mat-card class="tarjeta">
-                        <mat-card-header class="header-tarjeta">
-                          <img class="imagen" mat-card-image src="../../../assets/imagenes/Utalca.svg" id="logo"/>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div class="contenido_tarjeta">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Rut</mat-label>
-                                    <input matInput placeholder="18892403" formControlName="rut_funcionario">
-                                </mat-form-field>
-    
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Contraseña</mat-label>
-                                    <input matInput [type]="hide_funcionario ? 'password' : 'text'" placeholder="Contraseña" formControlName="contrasena_funcionario">
-                                    <button mat-icon-button matSuffix (click)="hide_funcionario = !hide_funcionario" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide_funcionario">
-                                        <mat-icon>{{hide_funcionario ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                    </button>
-                                </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Contraseña</mat-label>
+                            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Contraseña" formControlName="contrasena">
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
 
-                                <div class="div-boton">
-                                    <button class="boton_sesion" mat-raised-button>Ingresar</button>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card>
-                </form>
-            </div>
-        </mat-tab>
-    </mat-tab-group>
+                        <div class="div-boton">
+                            <button class="boton_sesion" mat-raised-button>Ingresar</button>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </form>
+    </div>
 </div>

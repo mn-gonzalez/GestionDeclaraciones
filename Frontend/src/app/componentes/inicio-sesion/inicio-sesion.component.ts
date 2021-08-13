@@ -9,26 +9,31 @@ import { Router } from '@angular/router';
   styleUrls: ['./inicio-sesion.component.css']
 })
 export class InicioSesionComponent implements OnInit {
-  form_deudor : FormGroup;
-  form_funcionario : FormGroup;
-  hide_deudor = true;
-  hide_funcionario = true;
+  form_ingreso : FormGroup;
+  hide = true;
   usuario: string = 'NULL';
 
   constructor(private inicioSesionService: InicioSesionService, private router: Router) { 
-    this.form_deudor = new FormGroup({
-      'rut_deudor': new FormControl(""),
-      'contrasena_deudor': new FormControl("")
-    });
-
-    this.form_funcionario = new FormGroup({
-      'rut_funcionario': new FormControl(""),
-      'contrasena_funcionario': new FormControl("")
+    this.form_ingreso = new FormGroup({
+      'rut': new FormControl(""),
+      'contrasena': new FormControl(""),
+      'tipo_ingreso': new FormControl("")
     });
   }
 
+  ingresar(){
+    if(this.form_ingreso.get('tipo_ingreso')!.value == "1"){
+      //this.login_deudor();
+      this.login_deudor2();
+    }
+    else if(this.form_ingreso.get('tipo_ingreso')!.value == "2"){
+      //this.login_funcionario();
+      this.login_funcionario2();
+    }
+  }
+
   login_deudor(){
-    let datos = this.form_deudor.value;
+    let datos = this.form_ingreso.value;
 
     this.inicioSesionService.ingresar_como_deudor(datos).subscribe({
       next: (result) => {this.usuario = result.results; 
@@ -45,7 +50,7 @@ export class InicioSesionComponent implements OnInit {
   }
 
   login_funcionario(){
-    let datos = this.form_funcionario.value;
+    let datos = this.form_ingreso.value;
 
     this.inicioSesionService.ingresar_como_funcionario(datos).subscribe({
       next: (result) => {this.usuario = result.results; 
@@ -66,6 +71,10 @@ export class InicioSesionComponent implements OnInit {
 
   login_deudor2(){
     this.router.navigate(['/home-deudor']);
+  }
+
+  login_funcionario2(){
+    this.router.navigate(['/home-funcionario']);
   }
 
 }

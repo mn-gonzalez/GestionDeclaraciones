@@ -6,6 +6,7 @@ import { Observable } from "rxjs";
 import { Declaracion } from "../modelos/declaracion";
 import { Ingresos } from "../modelos/ingresos";
 import { Conyuge } from '../modelos/conyuge';
+import { Deudor } from '../modelos/deudor';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,15 @@ import { Conyuge } from '../modelos/conyuge';
 export class DeclaracionService {
 
   constructor(private http: HttpClient) { }
+
+  obtenerDatosDeudor(rut: string): Observable<Deudor>{
+    return this.http.get<Deudor>(env.api.concat("/deudor/obtener/"+rut))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
 
   obtenerDatosDeclaracion(id: number): Observable<Declaracion>{
     return this.http.get<Declaracion>(env.api.concat("/declaracion/obtener/"+id))
@@ -156,5 +166,16 @@ export class DeclaracionService {
 
   verificarDeclaracionPendiente(){
 
+  }
+
+  subirDocumentacionDeclaracion(tipo: string, documento: File) {
+    const formData = new FormData();
+    formData.append('tipo', tipo);
+    formData.append('documento', documento);
+
+    this.http.post(env.api.concat("/documentacion/subir"), formData)
+    .subscribe((response) => {
+         console.log('response received is ', response);
+    })
   }
 }

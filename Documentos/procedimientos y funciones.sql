@@ -267,3 +267,13 @@ END;
 $$ LANGUAGE 'plpgsql';
 
 
+CREATE OR REPLACE PROCEDURE almacenar_documento(
+	tipo archivos.tipo%TYPE,
+	ref_documento archivos.ref_documento%TYPE
+) AS $$
+
+BEGIN
+	INSERT INTO archivos(tipo, ref_documento)
+	VALUES (tipo, ref_documento);
+END;
+$$ LANGUAGE 'plpgsql';

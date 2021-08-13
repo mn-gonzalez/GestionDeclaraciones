@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'login', component: InicioSesionComponent },
   { path: 'pagina-inicio', component: PaginaInicioComponent },
   { path: 'home-deudor', loadChildren: () => import('./componentes/deudor/inicio-deudor.module').then(m => m.InicioDeudorModule)},
-  { path: 'home-funcionario', component: InicioFuncionarioComponent}
+  { path: 'home-funcionario', loadChildren: () => import('./componentes/funcionario/inicio-funcionario.module').then(m => m.InicioFuncionarioModule)}
 ];
 
 @NgModule({

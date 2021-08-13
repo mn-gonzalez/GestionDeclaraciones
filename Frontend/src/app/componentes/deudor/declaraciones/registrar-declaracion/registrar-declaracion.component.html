@@ -10,36 +10,37 @@
 
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>Rut</mat-label>
-                        <input matInput placeholder="Ej. 12345678" formControlName="rut_deudor" required>
+                        <input matInput placeholder="Ej. 12345678" formControlName="rut_deudor" readonly>
                     </mat-form-field>
 
                     <div class="form_nombre">
                         <mat-form-field appearance="outline" class="inputs" >
                             <mat-label>Nombres</mat-label>
-                            <input matInput placeholder="Last name, First name" formControlName="nombres" required>
+                            <input matInput placeholder="Last name, First name" formControlName="nombres" readonly>
                         </mat-form-field>
             
                         <mat-form-field appearance="outline" class="inputs">
                             <mat-label>Apellido Paterno</mat-label>
-                            <input matInput placeholder="Last name, First name" formControlName="ap_paterno" required>
+                            <input matInput placeholder="Last name, First name" formControlName="ap_paterno" readonly>
                         </mat-form-field>
             
                         <mat-form-field appearance="outline" class="inputs">
                             <mat-label>Apellido Materno</mat-label>
-                            <input matInput placeholder="Last name, First name" formControlName="ap_materno" required>
+                            <input matInput placeholder="Last name, First name" formControlName="ap_materno" readonly>
                         </mat-form-field>
                     </div>
 
                     <div class="div_estado_civil">
                         <label>Estado Civil:</label>
                         <mat-radio-group class="estado_civil" formControlName="estado_civil">
-                            <mat-radio-button class="opciones" value="1">Soltero sin hijos</mat-radio-button>
-                            <mat-radio-button class="opciones" value="2">Soltero con hijos</mat-radio-button>
-                            <mat-radio-button class="opciones" value="3">Casado</mat-radio-button>
-                            <mat-radio-button class="opciones" value="4">Casado con deudor Reprog.Cred.Univ. o Fiscal</mat-radio-button>
+                            <mat-radio-button (change)="verificacionEstadoCivil($event.value)" class="opciones" value="1">Soltero sin hijos</mat-radio-button>
+                            <mat-radio-button (change)="verificacionEstadoCivil($event.value)" class="opciones" value="2">Soltero con hijos</mat-radio-button>
+                            <mat-radio-button (change)="verificacionEstadoCivil($event.value)" class="opciones" value="3">Casado</mat-radio-button>
+                            <mat-radio-button (change)="verificacionEstadoCivil($event.value)" class="opciones" value="4">Casado con deudor Reprog.Cred.Univ. o Fiscal</mat-radio-button>
                         </mat-radio-group>
                     </div>
                 </div>
+                
 
                 <h3>Domicilio</h3>
                 <div class="form_direccion">
@@ -50,7 +51,7 @@
         
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>Región</mat-label>
-                        <mat-select formControlName="region" name="region">
+                        <mat-select formControlName="region" name="region" (selectionChange)="seleccionarComunas($event.value)">
                             <mat-option *ngFor="let region of regiones" [value]="region.nombre">
                                 {{region.nombre}}
                             </mat-option>
@@ -60,8 +61,8 @@
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>Comuna</mat-label>
                         <mat-select formControlName="comuna" name="comuna">
-                            <mat-option *ngFor="let region of regiones" [value]="region.nombre">
-                                {{region.nombre}}
+                            <mat-option *ngFor="let comuna of comunas" [value]="comuna">
+                                {{comuna}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -103,13 +104,19 @@
                     </mat-form-field>
                 </div>
               </div>
-    
-              <div>
-                <button mat-stroked-button matStepperNext (click)="registrarDeclaracion()">Siguiente</button>
+
+              <div class="botones">
+                <div class="boton">
+                    <button mat-stroked-button (click)="registrarDeclaracion()">Guardar</button>
+                </div>
+        
+                <div class="boton">
+                    <button mat-stroked-button matStepperNext >Siguiente</button>
+                </div>
               </div>
             </form>
         </mat-step>
-        <mat-step [stepControl]="ingresosDeudor" >
+        <mat-step [stepControl]="ingresosDeudor">
             <div>
                 <form [formGroup]="ingresosDeudor">
                 <ng-template matStepLabel>Ingresos del Deudor</ng-template>
@@ -125,7 +132,7 @@
                             <th mat-header-cell *matHeaderCellDef> Monto en Pesos </th>
                             <div class="div_form_ingresos" mat-cell *matCellDef="let element">
                                 <mat-form-field  class="form_ingresos">
-                                    <input matInput formControlName="{{element.formControl}}" required ng-change="actualizarValorEnUTM()">
+                                    <input matInput formControlName="{{element.formControl}}" id="{{element.id}}" required (keyup)="convertirUTM($event)">
                                 </mat-form-field>
                             </div>
                         </ng-container>
@@ -148,14 +155,20 @@
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
                 </div>
-                
-                <div>
-                    <button mat-button matStepperNext (click)="registrarIngresosDeclaracion()">Siguiente</button>
+
+                <div class="botones">
+                    <div class="boton">
+                        <button mat-button (click)="registrarIngresosDeclaracion()">Guardar</button>
+                    </div>
+                    
+                    <div class="boton">
+                        <button mat-button matStepperNext>Siguiente</button>
+                    </div>
                 </div>
                 </form>
             </div>
         </mat-step>
-        <mat-step [stepControl]="ingresosConyuge">
+        <mat-step [stepControl]="ingresosConyuge" *ngIf="casado">
             <form [formGroup]="ingresosConyuge">
               <ng-template matStepLabel>Datos e Ingresos del Conyuge</ng-template>
 
@@ -198,7 +211,7 @@
                             <th mat-header-cell *matHeaderCellDef> Monto en Pesos </th>
                             <div class="div_form_ingresos" mat-cell *matCellDef="let element">
                                 <mat-form-field  class="form_ingresos">
-                                    <input matInput formControlName="{{element.formControl}}" required>
+                                    <input matInput formControlName="{{element.formControl}}" id="{{element.id}}" required (keyup)="convertirUTMConyuge($event)">
                                 </mat-form-field>
                             </div>
                         </ng-container>
@@ -221,8 +234,14 @@
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
                 </div>
-                <div>
-                    <button mat-button matStepperNext (click)="registrarDatosConyuge()">Siguiente</button>
+
+                <div class="botones">
+                    <div class="boton">
+                        <button mat-button (click)="registrarDatosConyuge()">Guardar</button>
+                    </div>
+                    <div class="boton">
+                        <button mat-button matStepperNext>Siguiente</button>
+                    </div>
                 </div>
             </form>
         </mat-step>
@@ -230,6 +249,48 @@
         <mat-step [stepControl]="ingresosConyuge">
             <form [formGroup]="ingresosConyuge">
               <ng-template matStepLabel>Documentación</ng-template>
+                <div class="formulario_documentacion">
+                    <div class="documento">
+                        <div class="label_documento">
+                            <label>Certificado de rentas</label>
+                        </div>
+                        <div class="input_documento">
+                            <input type="file" (change)="upload($event)" accept="application/pdf">
+                            <button mat-icon-button><mat-icon (click)="subirDocumentos()" class="material-icons-outlined">save</mat-icon></button>
+                        </div>
+                        <div></div>
+                    </div>
+
+                    <div class="documento">
+                        <div class="label_documento">
+                            <label>Formulario N°22 Compacto</label>
+                        </div>
+                        <div class="input_documento">
+                            <input type="file" (change)="upload($event)">
+                            <button mat-icon-button><mat-icon (click)="subirDocumentos()" class="material-icons-outlined">save</mat-icon></button>
+                        </div>
+                    </div>
+
+                    <div class="documento">
+                        <div class="label_documento">
+                            <label>Carpeta Tributaria</label>
+                        </div>
+                        <div class="input_documento">
+                            <input type="file" (change)="upload($event)">
+                            <button mat-icon-button><mat-icon (click)="subirDocumentos()" class="material-icons-outlined">save</mat-icon></button>
+                        </div>
+                    </div>
+
+                    <div class="documento">
+                        <div class="label_documento">
+                            <label>Certificado de Cotizaciones Previsionales</label>
+                        </div>
+                        <div class="input_documento">
+                            <input type="file" (change)="upload($event)">
+                            <button mat-icon-button><mat-icon (click)="subirDocumentos()" class="material-icons-outlined">save</mat-icon></button>
+                        </div>
+                    </div>
+                </div>
                 
                 <div>
                     <button mat-button matStepperNext>Siguiente</button>

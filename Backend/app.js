@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var corsOptions = {
-  origin: '*',
+  origin: 'http://localhost:4200',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 var indexRouter = require('./routes/index');
@@ -13,6 +13,8 @@ var usersRouter = require('./routes/users');
 
 const postgres = require('./common/postgres');
 const bodyParser = require('body-parser');
+const multer = require('multer');
+
 require('./config/config');
 require('./config/passport');
 

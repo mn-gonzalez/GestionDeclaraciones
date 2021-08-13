@@ -1,1 +1,18 @@
-<p>inicio-funcionario works!</p>
+<mat-toolbar class="toolbar">
+    <span>Gestión de Declaraciones Juradas</span>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav opened="true" mode="side" class="sidenav">
+        <mat-nav-list>
+            <a class="nav-list" mat-list-item> Mis Datos</a>
+            <a class="nav-list" (click)="listaDeudores()" mat-list-item>Lista Deudores</a>
+            <a class="nav-list" mat-list-item> Declaraciones</a>
+            <a class="nav-list" mat-list-item> Postergaciones de cobro</a>
+            <a class="nav-list" mat-list-item> Devoluciones de pagarés</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="sidenav-content">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

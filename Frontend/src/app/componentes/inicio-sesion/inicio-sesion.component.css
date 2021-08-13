@@ -17,10 +17,9 @@
 
 .toolbar{
     justify-content: center;
-}
-
-.pestana-deudor{
-    display: flex;
+    background-color: #990066;
+    height: 70px;
+    color: white;
 }
 
 .formulario-deudor{
@@ -59,4 +58,15 @@
 .boton_sesion{
     min-height: 40px;
     min-width: 100px;
+}
+
+.tipo_ingreso{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+}
+
+.opciones{
+    padding-left: 60px;
+    padding-top: 10px;
 }

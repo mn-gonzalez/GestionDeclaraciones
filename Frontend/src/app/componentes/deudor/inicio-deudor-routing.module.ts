@@ -3,11 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { InicioDeudorComponent } from './inicio-deudor/inicio-deudor.component'
 import { ListarDeclaracionesComponent } from './declaraciones/listar-declaraciones/listar-declaraciones.component';
 import { RegistrarDeclaracionComponent } from './declaraciones/registrar-declaracion/registrar-declaracion.component';
+import { RegistrarDevolucionComponent } from './solicitudes/registrar-devolucion/registrar-devolucion.component';
 
 const routes: Routes = [
     { path: '', component:InicioDeudorComponent, 
     children:[
-        {path: 'declaracion', component: ListarDeclaracionesComponent},
+        {path: 'declaraciones', component: ListarDeclaracionesComponent},
+        {path: 'devolucion', component: RegistrarDevolucionComponent},
         {path: '', component: RegistrarDeclaracionComponent}
     ]
     }

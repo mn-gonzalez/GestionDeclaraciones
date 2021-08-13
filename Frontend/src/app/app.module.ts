@@ -25,6 +25,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio'; 
 import {MatSelectModule} from '@angular/material/select'; 
 import {MatTableModule} from '@angular/material/table'; 
+import {MatTreeModule} from '@angular/material/tree'; 
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import {MatTableModule} from '@angular/material/table';
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
-    MatTableModule
+    MatTableModule,
+    MatTreeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
