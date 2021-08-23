@@ -2,22 +2,10 @@ const express = require('express');
 const app = express();
 
 const bcrypt = require('bcrypt');
-const Deudor = require('../modelos/deudor');
+const Funcionario = require('../modelos/funcionario');
 const passport = require('passport');
 
-app.get('/deudor/get/:rut', (req, res) => {
-	let rut = req.params.rut;
-
-	Deudor.obtener_datos_deudor(rut, (err, deudor) => {
-		if(err){
-			return res.status(400).json(err);
-		}
-
-		return res.json(deudor);
-	});
-});
-
-app.put('/deudor/add', (req, res, next) => {
+app.put('/funcionario/add', (req, res, next) => {
 		const body = req.body;
 		let salt = parseInt(process.env.DECLARACION_BCRYPT_SALT);
 
@@ -30,20 +18,19 @@ app.put('/deudor/add', (req, res, next) => {
 	            });
 	        }
 
-	        let nuevoDeudor = new Deudor(body.rut, body.nombres, body.ap_paterno, body.ap_materno, 
-            	hashedPassword, body.correo, body.telefono, body.direccion);
+	        let nuevoFuncionario = new Funcionario(body.rut, body.nombre, body.correo, body.telefono, 
+            	hashedPassword);
 
-	        Deudor.registrar_deudor(nuevoDeudor, (err, result) => {
+	        Funcionario.registrar_funcionario(nuevoFuncionario, (err, result) => {
 	        	if (err) {
                 	return next(err);
 	            }
 
 	            return res.json({
-	                message: "El deudor se ha registrado correctamente"
+	                message: "El funcionario se ha registrado correctamente"
 	            });
 	        });
 		});
 });
-
 
 module.exports = app;

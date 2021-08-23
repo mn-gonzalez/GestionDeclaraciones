@@ -3,30 +3,63 @@ const app = express();
 
 const Login = require('../modelos/login');
 
-app.post('/login/deudor', (req, res) =>{
-	let body = req.body;
-	var deudor = { rut: body.rut, contrasena: body.contrasena} ;
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
 
-	Login.iniciar_sesion_deudor(deudor, (err, results) => {
-		if(err){
-			return res.status(400).json(err);
-		}
+app.post('/login/deudor', function(req, res){
+	passport.authenticate('login_deudor', {session: false}, (err, deudor, info) => {
+		if (err || !deudor) {
+            return res.status(400).json({
+                message: info ? info.mensaje : 'Ingreso fallido',
+                deudor: deudor
+            });
+        }
 
-		return res.json({results});
-	});
-})
+        req.login(deudor, {session: false}, (err)=>{
+        	if(err){
+        		res.send(err);
+        	}
+
+        	const token = jwt.sign(deudor,
+                process.env.DECLARACION_JWT_SECRET, {
+                    expiresIn: 60 * 60 * 24 // 24 horas
+                }
+            );
+
+            return res.json({
+                token
+            });
+        });
+	})
+	(req, res);
+});
 
 app.post('/login/funcionario', (req, res) =>{
-	let body = req.body;
-	var funcionario = { rut: body.rut, contrasena: body.contrasena} ;
+	passport.authenticate('login_funcionario', {session: false}, (err, funcionario, info) => {
+		if (err || !funcionario) {
+            return res.status(400).json({
+                message: info ? info.mensaje : 'Ingreso fallido',
+                funcionario: funcionario
+            });
+        }
 
-	Login.iniciar_sesion_funcionario(funcionario, (err, results) => {
-		if(err){
-			return res.status(400).json(err);
-		}
+        req.login(funcionario, {session: false}, (err)=>{
+        	if(err){
+        		res.send(err);
+        	}
 
-		return res.json({results});
-	});
-})
+        	const token = jwt.sign(funcionario,
+                process.env.DECLARACION_JWT_SECRET, {
+                    expiresIn: 60 * 60 * 24 // 24 horas
+                }
+            );
+
+            return res.json({
+                token
+            });
+        });
+	})
+	(req, res);
+});
 
 module.exports = app;

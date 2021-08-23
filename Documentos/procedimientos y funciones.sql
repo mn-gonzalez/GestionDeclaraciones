@@ -1,43 +1,3 @@
-CREATE OR REPLACE FUNCTION inicio_sesion_deudor(
-	usuario deudor.rut%TYPE,
-	contrasena deudor.contrasena%TYPE
-) RETURNS TABLE (
-	rut deudor.rut%TYPE,
-	nombre persona.nombres%TYPE,
-	ap_paterno persona.ap_paterno%TYPE,
-	ap_materno persona.ap_materno%TYPE
-) AS $$
-
-BEGIN
-	RETURN QUERY
-	SELECT deudor.rut AS rut,
-	deudor.nombres AS nombre,
-	deudor.ap_paterno AS ap_paterno,
-	deudor.ap_materno AS ap_materno
-	FROM deudor, persona
-	WHERE deudor.rut = persona.rut
-	AND deudor.rut = usuario
-	AND deudor.contrasena = contrasena;
-END;
-$$ LANGUAGE 'plpgsql';
-
-CREATE OR REPLACE FUNCTION inicio_sesion_funcionario(
-	usuario funcionario.rut%TYPE,
-	contrasena funcionario.contrasena%TYPE
-) RETURNS TABLE (
-	rut funcionario.rut%TYPE,
-	nombre funcionario.nombre%TYPE
-) AS $$
-
-BEGIN
-	RETURN QUERY
-	SELECT funcionario.rut AS rut,
-	funcionario.nombre AS nombre
-	FROM funcionario
-	WHERE funcionario.rut = usuario
-	AND funcionario.contrasena = contrasena;
-END;
-$$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION datos_personales_deudor(
 	rut deudor.rut%TYPE
@@ -67,9 +27,9 @@ CREATE OR REPLACE PROCEDURE registrar_deudor(
 	nombres persona.nombres%TYPE,
 	ap_paterno persona.ap_paterno%TYPE,
 	ap_materno persona.ap_materno%TYPE,
+	contrasena deudor.contrasena%TYPE,
 	correo deudor.correo%TYPE,
 	telefono deudor.telefono%TYPE,
-	contrasena deudor.contrasena%TYPE,
 	direccion deudor.direccion%TYPE
 ) AS $$
 
@@ -84,8 +44,22 @@ END;
 $$ LANGUAGE 'plpgsql';
 
 /*
-CALL registrar_deudor('18892403','Manuel Nicolas', 'Gonzalez', 'Guerrero', 'hola@utalca.com','963720528','qwerty','29 oriente 42');
+CALL registrar_deudor('18892403','Manuel Nicolas', 'Gonzalez', 'Guerrero','qwerty', 'hola@utalca.com','963720528','29 oriente 42');
 */
+
+CREATE OR REPLACE PROCEDURE registrar_funcionario(
+	rut funcionario.rut%TYPE,
+	nombre funcionario.nombre%TYPE,
+	correo funcionario.correo%TYPE,
+	telefono funcionario.telefono%TYPE,
+	contrasena funcionario.contrasena%TYPE
+) AS $$
+
+BEGIN
+	INSERT INTO funcionario(rut, nombre, correo, telefono, contrasena)
+	VALUES (rut, nombre, correo, telefono, contrasena);
+END;
+$$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE PROCEDURE registrar_declaracion_jurada(
 	rut_deudor declaracion.rut_deudor%TYPE,
