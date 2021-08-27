@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup,FormControl, Validators} from '@angular/forms';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
+import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 
 interface Region{
   nombre: string;
@@ -72,7 +73,9 @@ export class RegistrarDeclaracionComponent implements OnInit {
   displayedColumns: string[] = ['mes', 'ingresos_pesos', 'utm', 'ingresos_utm'];
   dataSource = this.ingresos;
 
-  constructor(private fb: FormBuilder, private declaracionService: DeclaracionService) { 
+  constructor(private fb: FormBuilder, private declaracionService: DeclaracionService, 
+    private auth: InicioSesionService) { 
+
     this.datosPersonales = new FormGroup({
       'id': new FormControl(""),
       'rut_deudor': new FormControl(""),
@@ -163,7 +166,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
   }
 
   obtenerDatosDeudor(){
-    this.rut_deudor = "18892403";
+    this.rut_deudor = this.auth.informacion_token().rut;
 
     this.declaracionService.obtenerDatosDeudor(this.rut_deudor).subscribe({
       next: result =>{

@@ -27,6 +27,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table'; 
 import { MatTreeModule } from '@angular/material/tree'; 
 import { MatButtonModule } from '@angular/material/button';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function jwtTokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
@@ -59,7 +64,12 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatTableModule,
     MatTreeModule,
-    MatButtonModule
+    MatButtonModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: jwtTokenGetter
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

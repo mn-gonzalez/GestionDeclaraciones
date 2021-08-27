@@ -101,6 +101,29 @@ class Declaracion{
         	return callback(err);
         })
 	}
+
+	static obtener_declaraciones(rut_deudor, callback){
+		if(!callback || !(typeof callback === 'function')){
+            throw new Error('There is not a callback function. Please provide them');
+        }
+        db.any('SELECT * FROM declaracion WHERE declaracion.rut_deudor = $1', rut_deudor).then(function(results){
+            let declaraciones = [];
+
+            for(const declaracion of results){
+                declaraciones.push(new Declaracion(declaracion.id, declaracion.anio, declaracion.rut_deudor,
+                	declaracion.nombres, declaracion.ap_paterno, declaracion.ap_materno, declaracion.correo,
+                	declaracion.telefono, declaracion.direccion, declaracion.region, declaracion.comuna,
+                	declaracion.ciudad, declaracion.estado_civil, declaracion.afp, declaracion.trabajo, 
+                	declaracion.tel_trabajo, declaracion.estado, declaracion.ref_ingresos_deudor, 
+                	declaracion.ingreso_total_deudor, declaracion.ingreso_total_conyuge, declaracion.ref_conyuge));
+            }
+
+            return callback(null, results);
+        })
+        .catch(function(err){
+            return callback(err);
+        })
+	}
 }
 
 module.exports = Declaracion;

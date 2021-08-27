@@ -5,7 +5,7 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav opened="true" mode="side" class="sidenav">
         <mat-nav-list>
-            <a class="nav-list" mat-list-item> Mis Datos</a>
+            <a class="nav-list" (click)="misDatos()" mat-list-item> Mis Datos</a>
             <mat-divider></mat-divider>
             <a class="nav-list" (click)="registrarDeclaracion()" mat-list-item> Registrar Declaración Jurada</a>
             <a class="nav-list" (click)="listarDeclaracion()"mat-list-item> Historial de Declaraciones Juradas</a>

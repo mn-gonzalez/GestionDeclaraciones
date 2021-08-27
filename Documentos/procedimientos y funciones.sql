@@ -1,6 +1,6 @@
 
 CREATE OR REPLACE FUNCTION datos_personales_deudor(
-	rut deudor.rut%TYPE
+	rut_deudor deudor.rut%TYPE
 ) RETURNS TABLE(
 	rut deudor.rut%TYPE,
 	nombres persona.nombres%TYPE,
@@ -12,6 +12,7 @@ CREATE OR REPLACE FUNCTION datos_personales_deudor(
 ) AS $$
 
 BEGIN
+	RETURN QUERY 
 	SELECT deudor.rut AS rut,
 	persona.nombres AS nombres,
 	persona.ap_paterno AS ap_paterno,
@@ -19,8 +20,45 @@ BEGIN
 	deudor.correo AS correo,
 	deudor.telefono AS telefono,
 	deudor.direccion AS direccion
+	FROM persona, deudor
+	WHERE persona.rut = deudor.rut
+	AND rut_deudor = deudor.rut;
 END;
 $$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION declaraciones_deudor(
+	rut deudor.rut%TYPE
+) RETURNS TABLE(
+	id declaracion.id%TYPE,
+	anio declaracion.anio%TYPE,
+	rut_deudor declaracion.rut_deudor%TYPE,
+	nombres declaracion.nombres%TYPE,
+	ap_paterno declaracion.ap_paterno%TYPE
+	ap_materno declaracion.ap_materno%TYPE,
+	correo declaracion.correo%TYPE,
+	telefono declaracion.telefono%TYPE,
+	direccion declaracion.direccion%TYPE,
+	region declaracion.region%TYPE,
+	comuna declaracion.comuna%TYPE,
+	ciudad declaracion.ciudad%TYPE,
+	estado_civil declaracion.estado_civil%TYPE,
+	afp declaracion.afp%TYPE,
+	trabajo declaracion.trabajo%TYPE,
+	tel_trabajo declaracion.tel_trabajo%TYPE,
+	estado declaracion.estado%TYPE,
+	ref_ingresos_deudor declaracion.ref_ingresos_deudor%TYPE,
+	ingreso_total_deudor declaracion.ingreso_total_deudor%TYPE,
+	ingreso_total_conyuge declaracion.ingreso_total_conyuge%TYPE,
+	ref_conyuge declaracion.ref_conyuge%TYPE 
+)AS $$
+
+BEGIN
+	RETURN QUERY 
+	SELECT *
+	FROM declaracion
+	WHERE declaracion.rut_deudor = rut;
+END;
+$$ LANGUAGE 'plpgsql'
 
 CREATE OR REPLACE PROCEDURE registrar_deudor(
 	rut persona.rut%TYPE,
@@ -60,6 +98,14 @@ BEGIN
 	VALUES (rut, nombre, correo, telefono, contrasena);
 END;
 $$ LANGUAGE 'plpgsql';
+
+/*
+CALL registrar_funcionario('13950244','Elizabeth Guerrero', 'eguerrero@utalca.cl','241430','hola1234');
+*/
+
+/*
+13.950.244-2
+*/
 
 CREATE OR REPLACE PROCEDURE registrar_declaracion_jurada(
 	rut_deudor declaracion.rut_deudor%TYPE,
@@ -251,3 +297,4 @@ BEGIN
 	VALUES (tipo, ref_documento);
 END;
 $$ LANGUAGE 'plpgsql';
+

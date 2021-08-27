@@ -69,6 +69,23 @@ class Deudor{
         })
     }
 
+    static obtener_deudores(callback){
+    	if(!callback || !(typeof callback === 'function')){
+            throw new Error('There is not a callback function. Please provide them');
+        }
+        db.any('SELECT * FROM deudor,persona WHERE deudor.rut=persona.rut')
+        .then(function(results){
+            if(results.length === 0){
+            	return callback({mensaje : "No existen usuarios"});
+            }
+
+            return callback(null, results);
+        })
+        .catch(function(err){
+            return callback(err);
+        })
+    }
+
 	verificar_contrasena(contrasena, callback){
 		bcrypt.compare(contrasena, this.contrasena, function(err, res){
 			if(err){

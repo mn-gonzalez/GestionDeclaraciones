@@ -17,6 +17,16 @@ app.get('/deudor/get/:rut', (req, res) => {
 	});
 });
 
+app.get('/deudores/getAll', (req, res) => {
+	Deudor.obtener_deudores((err, deudores) => {
+		if(err){
+			return res.status(400).json(err);
+		}
+
+		return res.json(deudores);
+	});
+});
+
 app.put('/deudor/add', (req, res, next) => {
 		const body = req.body;
 		let salt = parseInt(process.env.DECLARACION_BCRYPT_SALT);
