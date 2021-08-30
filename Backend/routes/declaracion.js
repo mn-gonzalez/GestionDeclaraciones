@@ -17,6 +17,18 @@ app.get('/declaracion/obtener/:id', (req, res) => {
 	});
 });
 
+app.get('/declaraciones/:rut', (req, res, next) => {
+	let rut = req.params.rut;
+
+	Declaracion.obtener_declaraciones(rut, (err, declaraciones) => {
+		if(err){
+			return res.status(400).json(err);
+		}
+
+		return res.json(declaraciones);
+	});
+});
+
 app.put('/declaracion/registrar', (req, res, next) => {
 	let body = req.body;
 	let nuevaDeclaracion;

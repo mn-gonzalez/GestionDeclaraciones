@@ -1,0 +1,48 @@
+<div class="fondo">
+    <h2 class="titulo">Datos Personales</h2>
+    <form [formGroup]="datosPersonales">
+        <div class="formulario">
+            <div class="datos_personales">
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>RUT</mat-label>
+                    <input matInput formControlName="rut" readonly>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Nombres</mat-label>
+                    <input matInput formControlName="nombres" readonly>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Apellido Paterno</mat-label>
+                    <input matInput formControlName="ap_paterno" readonly>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Apellido Materno</mat-label>
+                    <input matInput formControlName="ap_materno" readonly>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Dirección</mat-label>
+                    <input matInput formControlName="direccion" readonly>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Teléfono</mat-label>
+                    <input matInput formControlName="telefono" readonly>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Correo</mat-label>
+                    <input matInput formControlName="correo" readonly>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput formControlName="contrasena" readonly>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>

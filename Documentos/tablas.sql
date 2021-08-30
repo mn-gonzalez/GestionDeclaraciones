@@ -4,7 +4,7 @@ CREATE TABLE funcionario
 	nombre varchar(100) NOT NULL,
 	correo varchar(50) NOT NULL,
 	telefono varchar(15) NOT NULL,
-    contrasena varchar(50) NOT NULL,
+    contrasena varchar(256) NOT NULL,
 	PRIMARY KEY (rut)	
 );
 
@@ -21,7 +21,7 @@ CREATE TABLE deudor
 	rut varchar(12) NOT NULL REFERENCES persona(rut),
 	correo varchar(50) NOT NULL,
 	telefono varchar(15) NOT NULL,
-    contrasena varchar(50) NOT NULL,
+    contrasena varchar(256) NOT NULL,
     direccion varchar(100) NOT NULL,
     PRIMARY KEY (rut) 
 );
@@ -82,7 +82,10 @@ CREATE TABLE declaracion(
 	estado integer NOT NULL,
 	ref_ingresos_deudor integer REFERENCES ingresos(id),
 	ingreso_total_deudor integer DEFAULT 0 NOT NULL,
+	ingreso_total_deudor_utm real DEFAULT 0 NOT NULL,
 	ingreso_total_conyuge integer DEFAULT 0 NOT NULL,
+	ingreso_total_conyuge_utm real DEFAULT 0 NOT NULL,
+	cuota_preliminar real DEFAULT 0 NOT NULL,
 	ref_conyuge varchar(12) REFERENCES conyuge(rut),
 	PRIMARY KEY (id)
 

@@ -10,7 +10,7 @@ const routes: Routes = [
     children:[
         {path: '', component: ListarUsuariosComponent},
         {path: 'declaracion', component: DatosDeclaracionComponent},
-        {path: 'declaraciones', component: DeclaracionesDeudorComponent}
+        {path: 'declaraciones', component: DeclaracionesDeudorComponent, data : {rut_deudor : '18892403'}}
     ]
     }
   ];

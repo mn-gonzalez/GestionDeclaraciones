@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup,FormControl, Validators} from '@angular/forms';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
+import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 
 interface Region{
   nombre: string;
@@ -42,7 +43,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
     { nombre: "Coquimbo", comunas: ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado"]},
     { nombre: "Valparaíso", comunas: ["Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga", "Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "Cartagena", "El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué", "Villa Alemana"]},
     { nombre: "Región del Libertador Gral. Bernardo O’Higgins", comunas: ["Rancagua", "Codegua", "Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu", "La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones", "San Fernando", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz"]},
-    { nombre: "Región del Maule", comunas: ["Talca", "ConsVtución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco", "Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "ReVro", "San Javier", "Villa Alegre", "Yerbas Buenas"]},
+    { nombre: "Región del Maule", comunas: ["Talca", "Constitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco", "Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "ReVro", "San Javier", "Villa Alegre", "Yerbas Buenas"]},
     { nombre: "Región del Biobío", comunas: ["Concepción", "Coronel", "Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa", "Los Ángeles", "Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío", "Chillán", "Bulnes", "Cobquecura", "Coelemu", "Coihueco", "Chillán Viejo", "El Carmen", "Ninhue", "Ñiquén", "Pemuco", "Pinto", "Portezuelo", "Quillón", "Quirihue", "Ránquil", "San Carlos", "San Fabián", "San Ignacio", "San Nicolás", "Treguaco", "Yungay"]},
     { nombre: "Región de la Araucanía", comunas: ["Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli", "Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria"]},
     { nombre: "Región de Los Ríos", comunas: ["Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli", "La Unión", "Futrono", "Lago Ranco", "Río Bueno"]},
@@ -72,7 +73,9 @@ export class RegistrarDeclaracionComponent implements OnInit {
   displayedColumns: string[] = ['mes', 'ingresos_pesos', 'utm', 'ingresos_utm'];
   dataSource = this.ingresos;
 
-  constructor(private fb: FormBuilder, private declaracionService: DeclaracionService) { 
+  constructor(private fb: FormBuilder, private declaracionService: DeclaracionService, 
+    private auth: InicioSesionService) { 
+
     this.datosPersonales = new FormGroup({
       'id': new FormControl(""),
       'rut_deudor': new FormControl(""),
@@ -154,6 +157,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
   casado = false;
 
   ngOnInit(): void {
+    this.rut_deudor = this.auth.informacion_token().rut;
     //this.obtenerDatosDeclaracion();
     this.obtenerDatosDeudor();
   }
@@ -163,7 +167,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
   }
 
   obtenerDatosDeudor(){
-    this.rut_deudor = "18892403";
+    this.rut_deudor = this.auth.informacion_token().rut;
 
     this.declaracionService.obtenerDatosDeudor(this.rut_deudor).subscribe({
       next: result =>{
@@ -225,7 +229,6 @@ export class RegistrarDeclaracionComponent implements OnInit {
   registrarIngresosDeclaracion(){
     let ingresosDeclaracion = this.ingresosDeudor.value;
     this.id_declaracion = 2;
-    this.rut_deudor = '18892403';
 
     this.declaracionService.registrarIngresosDeudor(this.rut_deudor, this.id_declaracion ,ingresosDeclaracion).subscribe({
       next: result =>{
@@ -241,7 +244,6 @@ export class RegistrarDeclaracionComponent implements OnInit {
     let datosConyugeDeclaracion = this.ingresosConyuge.value;
     this.id_declaracion = 2;
     this.rut_conyuge = this.ingresosConyuge.get('rut_conyuge')!.value;
-    this.rut_deudor = '18892403';
 
     this.declaracionService.registrarDatosConyuge(datosConyugeDeclaracion).subscribe({
       next: result =>{

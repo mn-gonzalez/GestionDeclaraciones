@@ -12,13 +12,15 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MisDatosComponent } from './mis-datos/mis-datos.component';
 
 @NgModule({
   declarations: [
     RegistrarPostergacionComponent,
     RegistrarDevolucionComponent,
     ListarPostergacionesComponent,
-    ListarDevolucionesComponent
+    ListarDevolucionesComponent,
+    MisDatosComponent
   ],
   imports: [
     CommonModule,

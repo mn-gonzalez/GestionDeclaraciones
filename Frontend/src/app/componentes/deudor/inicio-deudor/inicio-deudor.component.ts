@@ -25,4 +25,8 @@ export class InicioDeudorComponent implements OnInit {
     this.router.navigate(['/home-deudor/devolucion']);
   }
 
+  misDatos(){
+    this.router.navigate(['/home-deudor/mis-datos']);
+  }
+
 }

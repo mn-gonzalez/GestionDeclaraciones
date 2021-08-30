@@ -15,7 +15,7 @@ app.use(require('./declaracion'));
 app.use(require('./documentacion'));
 //app.use(require('./solicitudes'));
 app.use(require('./deudor'));
-//app.use(require('./funcionario'));
+app.use(require('./funcionario'));
 //app.use(require('./reportes'));
 
 module.exports = app;

@@ -17,4 +17,8 @@ export class InicioFuncionarioComponent implements OnInit {
     this.router.navigate(['/home-funcionario/']);
   }
 
+  listaDeclaraciones(){
+    console.log("lista de declaraciones");
+  }
+
 }

@@ -4,14 +4,14 @@
         <span>Gestión de Declaraciones Juradas</span>
     </mat-toolbar>
 
-    <div class="formulario-deudor">
+    <div class="fondo">
         <form [formGroup]="form_ingreso" (ngSubmit)="ingresar()">
             <mat-card class="tarjeta">
-                <mat-card-header class="header-tarjeta">
+                <mat-card-header class="header_tarjeta">
                   <img class="imagen" mat-card-image src="../../../assets/imagenes/Utalca.svg" id="logo"/>
                 </mat-card-header>
-                <mat-card-content>
-                    <div class="tipo_ingreso">
+                <mat-card-content class="contenido_tarjeta">
+                    <div class="tipo_usuario">
                         <label>Ingresar como:</label>
                         <mat-radio-group formControlName="tipo_ingreso">
                             <mat-radio-button class="opciones" value="1">Deudor</mat-radio-button>
@@ -19,24 +19,22 @@
                         </mat-radio-group>
                     </div>
 
-                    <div class="contenido_tarjeta">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Rut</mat-label>
-                            <input matInput placeholder="18892403" formControlName="rut">
-                        </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Rut</mat-label>
+                        <input matInput placeholder="18892403" formControlName="rut">
+                    </mat-form-field>
 
-                        <mat-form-field appearance="outline">
-                            <mat-label>Contraseña</mat-label>
-                            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Contraseña" formControlName="contrasena">
-                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                            </button>
-                        </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" placeholder="Contraseña" formControlName="contrasena">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
 
-                        <div class="div-boton">
-                            <button class="boton_sesion" mat-raised-button>Ingresar</button>
-                        </div>
-                    </div>
+                    <button mat-raised-button class="boton_sesion">Ingresar</button>
+
+                    <div class="recuperar_contrasena">¿Olvidó su contraseña?</div>
                 </mat-card-content>
             </mat-card>
         </form>

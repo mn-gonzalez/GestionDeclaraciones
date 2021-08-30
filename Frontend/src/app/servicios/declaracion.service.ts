@@ -16,7 +16,7 @@ export class DeclaracionService {
   constructor(private http: HttpClient) { }
 
   obtenerDatosDeudor(rut: string): Observable<Deudor>{
-    return this.http.get<Deudor>(env.api.concat("/deudor/obtener/"+rut))
+    return this.http.get<Deudor>(env.api.concat("/deudor/get/"+rut))
     .pipe(
       map(result => {
         return result;
@@ -25,7 +25,16 @@ export class DeclaracionService {
   }
 
   obtenerDatosDeclaracion(id: number): Observable<Declaracion>{
-    return this.http.get<Declaracion>(env.api.concat("/declaracion/obtener/"+id))
+    return this.http.get<Declaracion>(env.api.concat("/declaracion/get/"+id))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  obtenerDeclaracionesDeudor(rut_deudor: string): Observable<Declaracion[]>{
+    return this.http.get<Declaracion[]>(env.api.concat("/declaraciones/"+rut_deudor))
     .pipe(
       map(result => {
         return result;
