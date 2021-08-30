@@ -82,7 +82,10 @@ CREATE TABLE declaracion(
 	estado integer NOT NULL,
 	ref_ingresos_deudor integer REFERENCES ingresos(id),
 	ingreso_total_deudor integer DEFAULT 0 NOT NULL,
+	ingreso_total_deudor_utm real DEFAULT 0 NOT NULL,
 	ingreso_total_conyuge integer DEFAULT 0 NOT NULL,
+	ingreso_total_conyuge_utm real DEFAULT 0 NOT NULL,
+	cuota_preliminar real DEFAULT 0 NOT NULL,
 	ref_conyuge varchar(12) REFERENCES conyuge(rut),
 	PRIMARY KEY (id)
 

@@ -9,24 +9,24 @@
                     <h3>Datos Personales</h3>
 
                     <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>Rut</mat-label>
+                        <mat-label>RUT</mat-label>
                         <input matInput placeholder="Ej. 12345678" formControlName="rut_deudor" readonly>
                     </mat-form-field>
 
                     <div class="form_nombre">
                         <mat-form-field appearance="outline" class="inputs" >
                             <mat-label>Nombres</mat-label>
-                            <input matInput placeholder="Last name, First name" formControlName="nombres" readonly>
+                            <input matInput placeholder="Primer y Segundo Nombre" formControlName="nombres" readonly>
                         </mat-form-field>
             
                         <mat-form-field appearance="outline" class="inputs">
                             <mat-label>Apellido Paterno</mat-label>
-                            <input matInput placeholder="Last name, First name" formControlName="ap_paterno" readonly>
+                            <input matInput formControlName="ap_paterno" readonly>
                         </mat-form-field>
             
                         <mat-form-field appearance="outline" class="inputs">
                             <mat-label>Apellido Materno</mat-label>
-                            <input matInput placeholder="Last name, First name" formControlName="ap_materno" readonly>
+                            <input matInput formControlName="ap_materno" readonly>
                         </mat-form-field>
                     </div>
 
@@ -46,7 +46,7 @@
                 <div class="form_direccion">
                     <mat-form-field appearance="outline" class="input_direccion">
                         <mat-label>Dirección</mat-label>
-                        <input matInput placeholder="Last name, First name" formControlName="direccion" required>
+                        <input matInput placeholder="Pasaje 1 nro 37" formControlName="direccion" required>
                     </mat-form-field>
         
                     <mat-form-field appearance="outline" class="inputs">
@@ -69,7 +69,7 @@
         
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>Ciudad</mat-label>
-                        <input matInput placeholder="Last name, First name" formControlName="ciudad" required>
+                        <input matInput placeholder="Rancagua" formControlName="ciudad" required>
                     </mat-form-field>
                 </div>
 
@@ -77,12 +77,12 @@
                 <div class="form_contacto">
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>Teléfono</mat-label>
-                        <input matInput placeholder="Last name, First name" formControlName="telefono" required>
+                        <input matInput placeholder="912345678" formControlName="telefono" required>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>Correo Electrónico</mat-label>
-                        <input matInput placeholder="Last name, First name" formControlName="correo" required>
+                        <input matInput placeholder="correo@gmail.com" formControlName="correo" required>
                     </mat-form-field>
                 </div>
 
@@ -90,17 +90,17 @@
                 <div class="form_trabajo">
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>Institución en la que trabaja</mat-label>
-                        <input matInput placeholder="Last name, First name" formControlName="trabajo" required>
+                        <input matInput placeholder="Lugar de trabajo" formControlName="trabajo">
                     </mat-form-field>
     
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>Teléfono del trabajo</mat-label>
-                        <input matInput placeholder="Last name, First name" formControlName="tel_trabajo" required>
+                        <input matInput formControlName="tel_trabajo">
                     </mat-form-field>
     
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>AFP a la que esta afiliado</mat-label>
-                        <input matInput placeholder="Last name, First name" formControlName="afp" required>
+                        <input matInput formControlName="afp">
                     </mat-form-field>
                 </div>
               </div>
