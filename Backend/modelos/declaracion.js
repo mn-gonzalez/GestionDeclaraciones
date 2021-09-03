@@ -1,4 +1,5 @@
 const db = require('../common/postgres');
+const Ingresos = require('../modelos/ingresos');
 
 class Declaracion{
 	contructor(id, anio, rut_deudor, nombres, ap_paterno, ap_materno, correo,

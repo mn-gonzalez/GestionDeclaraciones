@@ -5,11 +5,13 @@ import { ListarDeclaracionesComponent } from './declaraciones/listar-declaracion
 import { RegistrarDeclaracionComponent } from './declaraciones/registrar-declaracion/registrar-declaracion.component';
 import { RegistrarDevolucionComponent } from './solicitudes/registrar-devolucion/registrar-devolucion.component';
 import { MisDatosComponent } from './mis-datos/mis-datos.component';
+import { DatosDeclaracionComponent } from '../funcionario/declaraciones/datos-declaracion/datos-declaracion.component';
 
 const routes: Routes = [
     { path: '', component:InicioDeudorComponent, 
     children:[
         {path: 'declaraciones', component: ListarDeclaracionesComponent},
+        {path: 'declaracion/:id', component: DatosDeclaracionComponent},
         {path: 'devolucion', component: RegistrarDevolucionComponent},
         {path: 'mis-datos', component: MisDatosComponent},
         {path: '', component: RegistrarDeclaracionComponent}

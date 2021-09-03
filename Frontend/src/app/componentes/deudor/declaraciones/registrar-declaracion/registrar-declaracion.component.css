@@ -1,5 +1,5 @@
 .fondo{
-    padding: 15px;
+    padding: 25px;
 }
 
 .titulo{
@@ -78,6 +78,7 @@
 
 .mat-column-mes{
     border: 1px solid currentColor;
+    padding: 0px !important;
     text-align: center;
 }
 
@@ -88,17 +89,23 @@
 
 .mat-column-utm{
     border: 1px solid currentColor;
+    padding: 0px !important;
     text-align: center;
 }
 
 .mat-column-ingresos_utm{
     border: 1px solid currentColor;
+    padding: 0px !important;
     text-align: center;
 }
 
 .mat-table{
     padding-top:20px;
     width: 650px;
+}
+
+.mat-cell{
+    text-align: center;
 }
 
 .botones{

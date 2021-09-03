@@ -137,6 +137,7 @@ $$ LANGUAGE 'plpgsql';
 
 /* 
 CALL registrar_declaracion_jurada('18892403',2020,'Manuel Nicolas','Gonzalez','Guerrero','hola@utalca.cl','963720528',1, '29 oriente 42','Region del Maule', 'Talca', 'Talca','afp', 'Utalca', '241430',1);
+CALL registrar_declaracion_jurada('18892403',2019,'Manuel Nicolas','Gonzalez','Guerrero','hola@utalca.cl','963720528',1, '29 oriente 42','Region del Maule', 'Talca', 'Talca','afp', 'Utalca', '241430',3);
 */
 
 CREATE OR REPLACE PROCEDURE actualizar_declaracion_jurada(

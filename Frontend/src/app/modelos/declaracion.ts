@@ -16,8 +16,12 @@ export class Declaracion{
     trabajo: string;
     tel_trabajo: string;
     estado: number;
+    estado_text: string;
     ref_ingresos_deudor: number;
     ingreso_total_deudor: number;
-    ingreso_total_coyuge: number;
+    ingreso_total_deudor_utm: number;
+    ingreso_total_conyuge: number;
+    ingreso_total_conyuge_utm: number;
+    cuota_preliminar: number; 
     ref_conyuge: string;
 }

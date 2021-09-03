@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup,FormControl, Validators} from '@angular/forms';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
+import { ActivatedRoute } from '@angular/router';
 
 interface Region{
   nombre: string;
@@ -71,7 +72,7 @@ export class DatosDeclaracionComponent implements OnInit {
   displayedColumns: string[] = ['mes', 'ingresos_pesos', 'utm', 'ingresos_utm'];
   dataSource = this.ingresos;
 
-  constructor(private declaracionService: DeclaracionService) {
+  constructor(private declaracionService: DeclaracionService, private activatedRoute: ActivatedRoute) {
     this.datosPersonales = new FormGroup({
       'id': new FormControl(""),
       'rut_deudor': new FormControl(""),
@@ -150,6 +151,33 @@ export class DatosDeclaracionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.id_declaracion = parseInt(this.activatedRoute.snapshot.paramMap.get('id') || "");
+    this.obtenerDatosDeclaracion(); 
+  }
+
+  obtenerDatosDeclaracion(){
+    this.declaracionService.obtenerDatosDeclaracion(this.id_declaracion).subscribe({
+      next: result => {
+        this.datosPersonales.get('id')!.setValue(this.id_declaracion);
+        this.datosPersonales.get('rut_deudor')!.setValue(result.rut_deudor);
+        this.datosPersonales.get('nombres')!.setValue(result.nombres);
+        this.datosPersonales.get('ap_paterno')!.setValue(result.ap_paterno);
+        this.datosPersonales.get('ap_materno')!.setValue(result.ap_materno);
+        this.datosPersonales.get('correo')!.setValue(result.correo);
+        this.datosPersonales.get('direccion')!.setValue(result.direccion);
+        this.datosPersonales.get('telefono')!.setValue(result.telefono);
+        this.datosPersonales.get('estado_civil')!.setValue(result.estado_civil);
+        this.datosPersonales.get('afp')!.setValue(result.afp);
+        this.datosPersonales.get('trabajo')!.setValue(result.trabajo);
+        this.datosPersonales.get('tel_trabajo')!.setValue(result.tel_trabajo);
+        this.datosPersonales.get('region')!.setValue(result.region);
+        this.datosPersonales.get('comuna')!.setValue(result.comuna);
+        this.datosPersonales.get('ciudad')!.setValue(result.ciudad);
+      },
+      error: result => {
+        console.log(result);
+      }
+    });
   }
 
 }

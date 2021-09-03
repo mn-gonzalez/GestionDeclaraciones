@@ -5,7 +5,7 @@ const Declaracion = require('../modelos/declaracion');
 const Ingresos = require('../modelos/ingresos');
 const Conyuge = require('../modelos/conyuge');
 
-app.get('/declaracion/obtener/:id', (req, res) => {
+app.get('/declaracion/get/:id', (req, res) => {
 	let id = req.params.id;
 
 	Declaracion.obtener_datos_declaracion(id, (err, declaracion) => {
