@@ -116,6 +116,19 @@ class Ingresos{
         	return callback(err);
         })
 	}
+
+	static obtener_ingresos_declaracion(id_ingresos, callback){
+		if(!callback || !(typeof callback === 'function')){
+            throw new Error('There is not a callback function. Please provide them');
+        }
+        db.any('SELECT * FROM ingresos WHERE ingresos.id = $1', id_ingresos).then(function(results){
+           
+            return callback(null, results[0]);
+        })
+        .catch(function(err){
+            return callback(err);
+        })
+	}
 }
 
 module.exports = Ingresos;
