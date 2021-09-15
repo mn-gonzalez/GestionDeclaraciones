@@ -6,6 +6,7 @@ import { RegistrarDeclaracionComponent } from './declaraciones/registrar-declara
 import { RegistrarDevolucionComponent } from './solicitudes/registrar-devolucion/registrar-devolucion.component';
 import { MisDatosComponent } from './mis-datos/mis-datos.component';
 import { DatosDeclaracionComponent } from '../funcionario/declaraciones/datos-declaracion/datos-declaracion.component';
+import { MensajesComponent } from './mensajes/mensajes.component';
 
 const routes: Routes = [
     { path: '', component:InicioDeudorComponent, 
@@ -14,6 +15,7 @@ const routes: Routes = [
         {path: 'declaracion/:id', component: DatosDeclaracionComponent},
         {path: 'devolucion', component: RegistrarDevolucionComponent},
         {path: 'mis-datos', component: MisDatosComponent},
+        {path: 'mensajes', component: MensajesComponent},
         {path: '', component: RegistrarDeclaracionComponent}
     ]
     }

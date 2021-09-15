@@ -4,7 +4,8 @@ CREATE TABLE funcionario
 	nombre varchar(100) NOT NULL,
 	correo varchar(50) NOT NULL,
 	telefono varchar(15) NOT NULL,
-    contrasena varchar(256) NOT NULL,
+    contrasena varchar NOT NULL,
+    tipo_usuario varchar(12) NOT NULL,
 	PRIMARY KEY (rut)	
 );
 
@@ -118,4 +119,22 @@ CREATE TABLE utm(
 	noviembre integer NOT NULL, 
 	diciembre integer NOT NULL,
 	PRIMARY KEY (anio)
+);
+
+CREATE TABLE conversacion(
+	id serial NOT NULL,
+	tramite integer NOT NULL,
+	ref_deudor varchar(12) NOT NULL,
+	ref_funcionario varchar(12) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE mensaje(
+	id serial NOT NULL,
+	remitente varchar(12) NOT NULL,
+	destinatario varchar(12) NOT NULL,
+	mensaje text NOT NULL,
+	fecha date NOT NULL,
+	ref_conversacion integer NOT NULL REFERENCES conversacion(id),
+	PRIMARY KEY(id)
 );

@@ -19,7 +19,7 @@ app.put('/funcionario/add', (req, res, next) => {
 	        }
 
 	        let nuevoFuncionario = new Funcionario(body.rut, body.nombre, body.correo, body.telefono, 
-            	hashedPassword);
+            	hashedPassword, body.tipo_usuario);
 
 	        Funcionario.registrar_funcionario(nuevoFuncionario, (err, result) => {
 	        	if (err) {

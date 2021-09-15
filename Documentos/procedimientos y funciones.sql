@@ -90,17 +90,18 @@ CREATE OR REPLACE PROCEDURE registrar_funcionario(
 	nombre funcionario.nombre%TYPE,
 	correo funcionario.correo%TYPE,
 	telefono funcionario.telefono%TYPE,
-	contrasena funcionario.contrasena%TYPE
+	contrasena funcionario.contrasena%TYPE,
+	tipo_usuario funcionario.tipo_usuario%TYPE
 ) AS $$
 
 BEGIN
-	INSERT INTO funcionario(rut, nombre, correo, telefono, contrasena)
-	VALUES (rut, nombre, correo, telefono, contrasena);
+	INSERT INTO funcionario(rut, nombre, correo, telefono, contrasena, tipo_usuario)
+	VALUES (rut, nombre, correo, telefono, contrasena, tipo_usuario);
 END;
 $$ LANGUAGE 'plpgsql';
 
 /*
-CALL registrar_funcionario('13950244','Elizabeth Guerrero', 'eguerrero@utalca.cl','241430','hola1234');
+CALL registrar_funcionario('13950244','Elizabeth Guerrero', 'eguerrero@utalca.cl','241430','hola1234', 'FUNCIONARIO');
 */
 
 /*
