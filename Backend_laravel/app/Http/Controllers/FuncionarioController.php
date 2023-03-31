@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Funcionario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FuncionarioController extends Controller
 {
@@ -33,9 +34,39 @@ class FuncionarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function registrar(Request $request)
     {
-        //
+        $data = $request->validate([
+            'rut' => 'required|max:12',
+            'nombres' =>'required',
+            'ap_paterno' => 'required',
+            'ap_materno' => 'required',
+            'correo' => 'required|email',
+            'tipo_usuario' => 'required',
+            'contrasena' => 'required'
+        ]);
+
+        $data['contrasena'] = bcrypt($request->contrasena);
+
+        //registrar funcionario en la base de datos 
+        DB::table('persona')->insert([
+            'rut'=> $data['rut'],
+            'nombres' => $data['nombres'],
+            'ap_paterno' =>$data['ap_paterno'],
+            'ap_materno' => $data['ap_materno'],
+            'correo'=> $data['correo']
+        ]);
+
+        DB::table('funcionario')->insert([
+            'rut'=> $data['rut'],
+            'contrasena' =>$data['contrasena'],
+            'tipo_usuario' => $data['tipo_usuario']
+        ]);
+
+        $funcionario = new Funcionario($data);
+        $token = $funcionario->createToken('auth_token')->plainTextToken;
+        $response = ['mensaje' => 'El funcionario se ha registrado correctamente', 'token' => $token];
+        return response($response, 200);
     }
 
     /**

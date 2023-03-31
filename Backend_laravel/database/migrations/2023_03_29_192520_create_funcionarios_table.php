@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('tipo_usuario');
             $table->timestamps();
             //foreign keys
-            $table->foreign('rut')->references('rut')->on('persona');
+            $table->foreign('rut')->references('rut')->on('persona')
+            ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

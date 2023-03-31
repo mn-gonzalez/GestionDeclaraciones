@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('deudor', function (Blueprint $table) {
             $table->string('rut');
-            $table->string('correo');
             $table->string('telefono');
             $table->string('contrasena');
             $table->string('ciudad');
@@ -24,7 +23,8 @@ return new class extends Migration
             $table->string('direccion');
             $table->timestamps();
             //foreign keys
-            $table->foreign('rut')->references('rut')->on('persona');
+            $table->foreign('rut')->references('rut')->on('persona')
+            ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

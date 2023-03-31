@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Deudor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DeudorController extends Controller
 {
@@ -33,9 +34,50 @@ class DeudorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function registrar(Request $request)
     {
-        //
+        $data = $request->validate([
+            'rut' => 'required|max:12',
+            'nombres' =>'required',
+            'ap_paterno' => 'required',
+            'ap_materno' => 'required',
+            'correo' => 'required|email',
+            'telefono' => 'nullable',
+            'contrasena' => 'required',
+            'ciudad' => 'nullable',
+            'comuna' => 'nullable',
+            'region' => 'nullable',
+            'direccion' => 'nullable'
+        ]);
+
+        $data['contrasena'] = bcrypt($request->contrasena);
+
+        //$user = User::create($data);
+        //$persona = Persona::registrar($data);
+        //$deudor = Deudor::create($data);
+
+        DB::table('persona')->insert([
+            'rut'=> $data['rut'],
+            'nombres' => $data['nombres'],
+            'ap_paterno' =>$data['ap_paterno'],
+            'ap_materno' => $data['ap_materno'],
+            'correo'=> $data['correo']
+        ]);
+
+        DB::table('deudor')->insert([
+            'rut' => $data['rut'],
+            'telefono' => $data['telefono'],
+            'contrasena' => $data['contrasena'],
+            'ciudad' => $data['ciudad'],
+            'comuna' => $data['comuna'],
+            'region' => $data['region'],
+            'direccion' => $data['direccion']
+        ]);
+
+        $deudor = new Deudor($data);
+        $token = $deudor->createToken('auth_token')->plainTextToken;
+        $response = ['mensaje' => 'El deudor se ha registrado correctamente', 'token' => $token];
+        return response($response, 200);
     }
 
     /**
