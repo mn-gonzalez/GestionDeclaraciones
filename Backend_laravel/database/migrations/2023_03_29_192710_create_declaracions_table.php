@@ -53,11 +53,12 @@ return new class extends Migration
             $table->bigInteger('ingreso_total_deudor')->default('0');
             $table->float('ingreso_total_deudor_utm', 8, 2)->default('0.00');
             $table->bigInteger('ingreso_total_conyuge')->default('0');
-            $table->float('ingreso_total_conyuge_utm, 8, 2')->default('0.00');
+            $table->float('ingreso_total_conyuge_utm', 8, 2)->default('0.00');
             $table->float('cuota_preliminar', 8, 2)->default('0.00');
             $table->timestamps();
             //foreign keys
-            $table->foreign('id')->references('id')->on('tramite');
+            $table->foreign('id')->references('id')->on('tramite')
+            ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

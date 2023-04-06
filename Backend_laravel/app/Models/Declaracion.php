@@ -10,6 +10,13 @@ class Declaracion extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
+        'rut_deudor',
+        'nombres',
+        'ap_paterno',
+        'ap_materno',
+        'fecha' => 'datetime:d/m/Y',
+        'estado', 
         'anio',
         'correo',
         'telefono',

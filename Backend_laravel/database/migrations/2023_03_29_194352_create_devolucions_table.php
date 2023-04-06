@@ -24,7 +24,8 @@ return new class extends Migration
             $table->text('archivo');
             $table->timestamps();
             //foreign keys
-            $table->foreign('id')->references('id')->on('tramite');
+            $table->foreign('id')->references('id')->on('tramite')
+            ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

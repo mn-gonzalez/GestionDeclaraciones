@@ -22,16 +22,16 @@ class AuthController extends Controller
         $deudor = DB::table('deudor')->where('rut', '=', $data['rut'])->first();
 
         if(!$deudor){
-            return response(['El usuario no es correcto']);
+            return response(['El rut ingresado no existe']);
         }
         else{
             if(!Hash::check($data['contrasena'], $deudor->contrasena)){
-                return response(['La contraseña no es correcta']);
+                return response(['mensaje' => 'La contraseña no es correcta', 'login' => false]);
             }
             else{
                 $usuario = new Deudor($data);
                 $token = $usuario->createToken('auth_token')->plainTextToken;
-                $response = ['mensaje'=>'Inicio de sesion exitoso', 'rut_usuario' => $data['rut'],'token' => $token];
+                $response = ['mensaje'=>'Inicio de sesion exitoso', 'rut_usuario' => $data['rut'], 'token' => $token];
                 return response($response, 200);
             }
         }
@@ -47,11 +47,11 @@ class AuthController extends Controller
         $funcionario = DB::table('funcionario')->where('rut', '=', $data['rut'])->first();
 
         if(!$funcionario){
-            return response(['El usuario no es correcto']);
+            return response(['El rut ingresado no existe']);
         }
         else{
             if(!Hash::check($data['contrasena'], $funcionario->contrasena)){
-                return response(['La contraseña no es correcta']);
+                return response(['mensaje' => 'La contraseña no es correcta', 'login' => false]);
             }
             else{
                 $usuario = new Funcionario($data);

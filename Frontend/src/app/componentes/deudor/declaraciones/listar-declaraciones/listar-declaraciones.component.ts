@@ -44,7 +44,7 @@ export class ListarDeclaracionesComponent implements OnInit {
   }
 
   obtener_declaraciones_deudor(){
-    let rut_deudor = this.auth.informacion_token().rut;
+    let rut_deudor = this.auth.usuario_actual;
 
     this.declaracionService.obtenerDeclaracionesDeudor(rut_deudor).subscribe({
       next: (result) => {

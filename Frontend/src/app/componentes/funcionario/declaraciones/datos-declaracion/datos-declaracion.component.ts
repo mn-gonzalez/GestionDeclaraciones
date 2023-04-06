@@ -23,7 +23,7 @@ interface Ingreso{
 })
 export class DatosDeclaracionComponent implements OnInit {
   rut_deudor: string;
-  id_declaracion: number;
+  id_declaracion: string;
   id_ingresos_deudor: number;
   rut_conyuge: string;
   id_ingresos_coyuge: number;
@@ -151,12 +151,12 @@ export class DatosDeclaracionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id_declaracion = parseInt(this.activatedRoute.snapshot.paramMap.get('id') || "");
+    this.id_declaracion = this.activatedRoute.snapshot.paramMap.get('id') || "";
     this.obtenerDatosDeclaracion(); 
   }
 
   obtenerDatosDeclaracion(){
-    this.declaracionService.obtenerDatosDeclaracion(this.id_declaracion).subscribe({
+    this.declaracionService.obtenerDatosDeclaracion(this.id_declaracion, this.rut_deudor).subscribe({
       next: result => {
         this.datosPersonales.get('id')!.setValue(this.id_declaracion);
         this.datosPersonales.get('rut_deudor')!.setValue(result.rut_deudor);

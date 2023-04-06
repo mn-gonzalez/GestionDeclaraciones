@@ -52,10 +52,6 @@ class DeudorController extends Controller
 
         $data['contrasena'] = bcrypt($request->contrasena);
 
-        //$user = User::create($data);
-        //$persona = Persona::registrar($data);
-        //$deudor = Deudor::create($data);
-
         DB::table('persona')->insert([
             'rut'=> $data['rut'],
             'nombres' => $data['nombres'],
@@ -77,6 +73,19 @@ class DeudorController extends Controller
         $deudor = new Deudor($data);
         $token = $deudor->createToken('auth_token')->plainTextToken;
         $response = ['mensaje' => 'El deudor se ha registrado correctamente', 'token' => $token];
+        return response($response, 200);
+    }
+
+    public function obtener_datos(string $rut_deudor)
+    {
+        $usuario = DB::table('persona')->where('rut', $rut_deudor)->first();
+        $response = [
+            'rut' => $usuario->rut,
+            'nombres' => $usuario->nombres,
+            'ap_paterno' => $usuario->ap_paterno,
+            'ap_materno' => $usuario->ap_materno
+        ];
+
         return response($response, 200);
     }
 

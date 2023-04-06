@@ -2,10 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup,FormControl, Validators} from '@angular/forms';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
+import { Router } from '@angular/router';
 
 interface Region{
   nombre: string;
   comunas: string[];
+}
+
+interface Utm{
+  year: number;
+  enero: number;
+  febrero: number;
+  marzo: number;
+  abril: number;
+  mayo: number;
+  junio: number;
+  julio: number;
+  agosto: number;
+  septiembre: number;
+  octubre: number;
+  noviembre: number;
+  diciembre: number;
 }
 
 interface Ingreso{
@@ -16,6 +33,11 @@ interface Ingreso{
   formControlUTM: string;
 }
 
+interface Afp{
+  id: number;
+  nombre: string;
+}
+
 @Component({
   selector: 'app-registrar-declaracion',
   templateUrl: './registrar-declaracion.component.html',
@@ -23,17 +45,43 @@ interface Ingreso{
 })
 export class RegistrarDeclaracionComponent implements OnInit {
 
+  //Atributo que contiene el año actual.
+  year: number
+
+  //Atributo que contiene el rut del deudor que esta realizando la declaracion
   rut_deudor: string;
-  id_declaracion: number;
-  id_ingresos_deudor: number;
+
+  //Atributo que contiene el id de la declaracion que se va a registrar o se esta registrando.
+  id_declaracion: string;
+
+  //Atributo que contiene el rut del conyuge. En el caso de que el deudor este casado.
   rut_conyuge: string;
+
+  //Atributo que contiene el id de los ingresos del coyuge.
   id_ingresos_coyuge: number;
 
+  //Atributo que verifica si la interfaz puede continuar al siguiente paso con campos sin completar.
   isLinear = false;
+
+  //Atributo que verifica si la declaracion ya existe en la base de datos
+  existe_declaracion = false;
+
+  //datos para los formularios donde se almacenan los datos ingresados por el deudor
   datosPersonales: FormGroup;
   ingresosDeudor: FormGroup;
   datosConyuge: FormGroup;
   ingresosConyuge: FormGroup;
+
+  //listado de afps disponibles
+  afps: Afp[] = [
+    {id: 1, nombre: "CAPITAL"},
+    {id: 2, nombre: "CUPRUM"},
+    {id: 3, nombre: "HABITAT"},
+    {id: 4, nombre: "MODELO"},
+    {id: 5, nombre: "PLANVITAL"},
+    {id: 6, nombre: "PROVIDA"},
+    {id: 7, nombre: "UNO"}
+  ];
 
   regiones: Region[] = [
     { nombre: "Arica y Parinacota", comunas: ["Arica", "Camarones", "Putre", "General Lagos"] },
@@ -70,12 +118,18 @@ export class RegistrarDeclaracionComponent implements OnInit {
     {id: "12", nombre: "Diciembre",  formControl:"diciembre", valor:"51.029",formControlUTM:"diciembre_utm"}
   ];
 
+  //array que indica las columnas que se muestran en la tabla de ingresos e ingresos coyuge
   displayedColumns: string[] = ['mes', 'ingresos_pesos', 'utm', 'ingresos_utm'];
+
+  //indica la fuente desde la cual se obtienen los datos que se muestran en la tabla de ingresos
   dataSource = this.ingresos;
 
   constructor(private fb: FormBuilder, private declaracionService: DeclaracionService, 
-    private auth: InicioSesionService) { 
+    private auth: InicioSesionService, private router: Router) { 
 
+    /*
+      Contiene los datos necesarios para almacenar los antecedents personales del deudor en la declaracion.
+    */
     this.datosPersonales = new FormGroup({
       'id': new FormControl(""),
       'rut_deudor': new FormControl(""),
@@ -118,7 +172,12 @@ export class RegistrarDeclaracionComponent implements OnInit {
       'septiembre_utm': new FormControl(0),
       'octubre_utm': new FormControl(0),
       'noviembre_utm': new FormControl(0),
-      'diciembre_utm': new FormControl(0)
+      'diciembre_utm': new FormControl(0),
+      'ingreso_total_deudor': new FormControl(0),
+      'ingreso_total_deudor_utm': new FormControl(0),
+      'ingreso_total_conyuge': new FormControl(0),
+      'ingreso_total_conyuge_utm': new FormControl(0),
+      'cuota_preliminar': new FormControl(0)
     });
 
     this.ingresosConyuge = new FormGroup({
@@ -157,17 +216,50 @@ export class RegistrarDeclaracionComponent implements OnInit {
   casado = false;
 
   ngOnInit(): void {
-    this.rut_deudor = this.auth.informacion_token().rut;
-    //this.obtenerDatosDeclaracion();
-    this.obtenerDatosDeudor();
+    this.year = new Date().getFullYear();
+
+    if(this.auth.usuario_actual == null){
+      this.router.navigate(['/pagina-inicio']);
+    }
+    else{
+      this.rut_deudor = this.auth.usuario_actual;
+      this.id_declaracion = "DEC"+this.rut_deudor+"_"+this.year;
+      //this.obtenerDatosDeclaracion();
+      this.verificarDeclaracionPendiente();
+      this.obtenerDatosDeudor();
+    }
   }
 
+  obtenerValorUTM(){
+
+  }
+
+  //Verifica si es que existe una declaracion para el año actual que aun no este terminada.
+  //Los estado de las declaraciones son : 1-POR TERMINAR, 2-EN REVISION, 3-COMPLETADA 
   verificarDeclaracionPendiente(){
-
+    this.declaracionService.verificarDeclaracionPendiente(this.rut_deudor, this.id_declaracion).subscribe({
+      next: result=>{
+        if(result.id == null){
+          this.existe_declaracion = false;
+        }
+        else{
+          if(result.estado = 1){
+            this.obtenerDatosDeclaracion();
+            this.existe_declaracion = true;
+          }
+          else{
+            //indicar que la declaracion de este año ya se entrego.
+          }
+        }
+      }
+    });
   }
 
+  /*
+    Permite obtener los datos personales de un deudor, para ingresarlos automaticamente en la declaracion.
+  */
   obtenerDatosDeudor(){
-    this.rut_deudor = this.auth.informacion_token().rut;
+    this.rut_deudor = this.auth.usuario_actual;
 
     this.declaracionService.obtenerDatosDeudor(this.rut_deudor).subscribe({
       next: result =>{
@@ -179,17 +271,12 @@ export class RegistrarDeclaracionComponent implements OnInit {
     });
   }
 
-  obtenerIdDeclaracion(){
-
-  }
-
   actualizarValorEnUTM(){
     console.log("Se actualizo el valor");
   }
 
   obtenerDatosDeclaracion(){
-    this.id_declaracion = 2;
-    this.declaracionService.obtenerDatosDeclaracion(this.id_declaracion).subscribe({
+    this.declaracionService.obtenerDatosDeclaracion(this.id_declaracion,this.rut_deudor).subscribe({
       next: result => {
         this.datosPersonales.get('id')!.setValue(this.id_declaracion);
         this.datosPersonales.get('rut_deudor')!.setValue(result.rut_deudor);
@@ -206,6 +293,34 @@ export class RegistrarDeclaracionComponent implements OnInit {
         this.datosPersonales.get('region')!.setValue(result.region);
         this.datosPersonales.get('comuna')!.setValue(result.comuna);
         this.datosPersonales.get('ciudad')!.setValue(result.ciudad);
+
+        this.ingresosDeudor.get('enero')!.setValue(result.enero);
+        this.ingresosDeudor.get('febrero')!.setValue(result.febrero);
+        this.ingresosDeudor.get('marzo')!.setValue(result.marzo);
+        this.ingresosDeudor.get('abril')!.setValue(result.abril);
+        this.ingresosDeudor.get('mayo')!.setValue(result.mayo);
+        this.ingresosDeudor.get('junio')!.setValue(result.junio);
+        this.ingresosDeudor.get('julio')!.setValue(result.julio);
+        this.ingresosDeudor.get('agosto')!.setValue(result.agosto);
+        this.ingresosDeudor.get('septiembre')!.setValue(result.septiembre);
+        this.ingresosDeudor.get('octubre')!.setValue(result.octubre);
+        this.ingresosDeudor.get('noviembre')!.setValue(result.noviembre);
+        this.ingresosDeudor.get('diciembre')!.setValue(result.diciembre);
+
+        this.ingresosDeudor.get('enero_utm')!.setValue(result.enero_utm);
+        this.ingresosDeudor.get('febrero_utm')!.setValue(result.febrero_utm);
+        this.ingresosDeudor.get('marzo_utm')!.setValue(result.marzo_utm);
+        this.ingresosDeudor.get('abril_utm')!.setValue(result.abril_utm);
+        this.ingresosDeudor.get('mayo_utm')!.setValue(result.mayo_utm);
+        this.ingresosDeudor.get('junio_utm')!.setValue(result.junio_utm);
+        this.ingresosDeudor.get('julio_utm')!.setValue(result.julio_utm);
+        this.ingresosDeudor.get('agosto_utm')!.setValue(result.agosto_utm);
+        this.ingresosDeudor.get('septiembre_utm')!.setValue(result.septiembre_utm);
+        this.ingresosDeudor.get('octubre_utm')!.setValue(result.octubre_utm);
+        this.ingresosDeudor.get('noviembre_utm')!.setValue(result.noviembre_utm);
+        this.ingresosDeudor.get('diciembre_utm')!.setValue(result.diciembre_utm);
+
+        this.seleccionarComunas(this.datosPersonales.get('region')!.value);
       },
       error: result => {
         console.log(result);
@@ -215,24 +330,41 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
   registrarDeclaracion(){
     let datosDeclaracion = this.datosPersonales.value;
+    datosDeclaracion.id = this.id_declaracion;
 
-    this.declaracionService.registrarDatosPersonales(datosDeclaracion).subscribe({
-      next: result =>{
-        //console.log(result);
-      }, 
-      error: result =>{
-        console.log(result);
-      }
-    });
+    //si la declaracion no existe en la base de datos, entonces se crea una nueva
+    //de lo contrario solo se actualizan los datos.
+    if(this.existe_declaracion == false){
+      this.declaracionService.registrarDatosPersonales(datosDeclaracion).subscribe({
+        next: result =>{
+          //console.log(result);
+        }, 
+        error: result =>{
+          console.log(result);
+        }
+      });
+    }
+    else{
+      this.declaracionService.actualizarDatosPersonales(datosDeclaracion).subscribe({
+        next: result =>{
+          //console.log(result);
+        }, 
+        error: result =>{
+          console.log(result);
+        }
+      });
+    }
   }
 
+  /*
+    Permite registrar/actualizar los ingresos de una declaracion (inicialmente se ingresan con valor cero en la BD)
+  */  
   registrarIngresosDeclaracion(){
     let ingresosDeclaracion = this.ingresosDeudor.value;
-    this.id_declaracion = 2;
 
     this.declaracionService.registrarIngresosDeudor(this.rut_deudor, this.id_declaracion ,ingresosDeclaracion).subscribe({
       next: result =>{
-        //console.log(result);
+        console.log(result);
       }, 
       error: result =>{
         console.log(result);
@@ -242,7 +374,6 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
   registrarDatosConyuge(){
     let datosConyugeDeclaracion = this.ingresosConyuge.value;
-    this.id_declaracion = 2;
     this.rut_conyuge = this.ingresosConyuge.get('rut_conyuge')!.value;
 
     this.declaracionService.registrarDatosConyuge(datosConyugeDeclaracion).subscribe({
@@ -328,5 +459,74 @@ export class RegistrarDeclaracionComponent implements OnInit {
     else{
       this.casado = false;
     }
+  }
+
+  calcularIngresoTotalDeudor(){
+    let total = 0;
+    let total_utm = 0;
+
+    total = this.ingresosDeudor.get('enero')!.value +
+      this.ingresosDeudor.get('febrero')!.value +
+      this.ingresosDeudor.get('marzo')!.value +
+      this.ingresosDeudor.get('abril')!.value +
+      this.ingresosDeudor.get('mayo')!.value +
+      this.ingresosDeudor.get('junio')!.value +
+      this.ingresosDeudor.get('julio')!.value +
+      this.ingresosDeudor.get('agosto')!.value +
+      this.ingresosDeudor.get('septiembre')!.value +
+      this.ingresosDeudor.get('octubre')!.value + 
+      this.ingresosDeudor.get('noviembre')!.value + 
+      this.ingresosDeudor.get('diciembre')!.value;
+
+      total_utm = this.ingresosDeudor.get('enero_utm')!.value +
+      this.ingresosDeudor.get('febrero_utm')!.value +
+      this.ingresosDeudor.get('marzo_utm')!.value +
+      this.ingresosDeudor.get('abril_utm')!.value +
+      this.ingresosDeudor.get('mayo_utm')!.value +
+      this.ingresosDeudor.get('junio_utm')!.value +
+      this.ingresosDeudor.get('julio_utm')!.value +
+      this.ingresosDeudor.get('agosto_utm')!.value +
+      this.ingresosDeudor.get('septiembre_utm')!.value +
+      this.ingresosDeudor.get('octubre_utm')!.value + 
+      this.ingresosDeudor.get('noviembre_utm')!.value + 
+      this.ingresosDeudor.get('diciembre_utm')!.value;
+
+    this.ingresosDeudor.get('ingreso_total_deudor')!.setValue(total);
+    this.ingresosDeudor.get('ingreso_total_deudor_utm')!.setValue(total_utm);
+  }
+
+  calcularIngresoTotalConyuge(){
+
+    let total = 0;
+    let total_utm = 0;
+
+    total = this.ingresosConyuge.get('enero')!.value +
+      this.ingresosConyuge.get('febrero')!.value +
+      this.ingresosConyuge.get('marzo')!.value +
+      this.ingresosConyuge.get('abril')!.value +
+      this.ingresosConyuge.get('mayo')!.value +
+      this.ingresosConyuge.get('junio')!.value +
+      this.ingresosConyuge.get('julio')!.value +
+      this.ingresosConyuge.get('agosto')!.value +
+      this.ingresosConyuge.get('septiembre')!.value +
+      this.ingresosConyuge.get('octubre')!.value + 
+      this.ingresosConyuge.get('noviembre')!.value + 
+      this.ingresosConyuge.get('diciembre')!.value;
+
+      total_utm = this.ingresosConyuge.get('enero_utm')!.value +
+      this.ingresosConyuge.get('febrero_utm')!.value +
+      this.ingresosConyuge.get('marzo_utm')!.value +
+      this.ingresosConyuge.get('abril_utm')!.value +
+      this.ingresosConyuge.get('mayo_utm')!.value +
+      this.ingresosConyuge.get('junio_utm')!.value +
+      this.ingresosConyuge.get('julio_utm')!.value +
+      this.ingresosConyuge.get('agosto_utm')!.value +
+      this.ingresosConyuge.get('septiembre_utm')!.value +
+      this.ingresosConyuge.get('octubre_utm')!.value + 
+      this.ingresosConyuge.get('noviembre_utm')!.value + 
+      this.ingresosConyuge.get('diciembre_utm')!.value;
+
+    this.ingresosDeudor.get('ingreso_total_conyuge')!.setValue(total);
+    this.ingresosDeudor.get('ingreso_total_conyuge_utm')!.setValue(total_utm);
   }
 }

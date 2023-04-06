@@ -16,7 +16,7 @@ export class DeclaracionService {
   constructor(private http: HttpClient) { }
 
   obtenerDatosDeudor(rut: string): Observable<Deudor>{
-    return this.http.get<Deudor>(env.api.concat("/deudor/get/"+rut))
+    return this.http.get<Deudor>(env.api.concat("/deudor/"+rut))
     .pipe(
       map(result => {
         return result;
@@ -24,8 +24,17 @@ export class DeclaracionService {
     );
   }
 
-  obtenerDatosDeclaracion(id: number): Observable<Declaracion>{
-    return this.http.get<Declaracion>(env.api.concat("/declaracion/get/"+id))
+  verificarDeclaracionPendiente(rut :string ,id_declaracion: string): Observable<Declaracion>{
+    return this.http.get<Declaracion>(env.api.concat("/"+rut+"/declaraciones/"+id_declaracion))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  obtenerDatosDeclaracion(id: string, rut: string): Observable<Declaracion>{
+    return this.http.get<Declaracion>(env.api.concat("/"+rut+"/declaraciones/"+id))
     .pipe(
       map(result => {
         return result;
@@ -34,7 +43,7 @@ export class DeclaracionService {
   }
 
   obtenerDeclaracionesDeudor(rut_deudor: string): Observable<Declaracion[]>{
-    return this.http.get<Declaracion[]>(env.api.concat("/declaraciones/"+rut_deudor))
+    return this.http.get<Declaracion[]>(env.api.concat("/"+rut_deudor+"/declaraciones/"))
     .pipe(
       map(result => {
         return result;
@@ -45,13 +54,16 @@ export class DeclaracionService {
   registrarDatosPersonales(datos : Declaracion): Observable<boolean>{
 
     let anioActual = new Date().getFullYear();
-
+    let fecha = this.obtenerFechaActual();
+    
     const body = new HttpParams()
+    .set('id', datos.id)
     .set('anio', anioActual)
     .set('rut_deudor', datos.rut_deudor)
     .set('nombres', datos.nombres)
     .set('ap_paterno', datos.ap_paterno)
     .set('ap_materno', datos.ap_materno)
+    .set('fecha', fecha)
     .set('correo', datos.correo)
     .set('telefono', datos.telefono)
     .set('direccion', datos.direccion)
@@ -64,7 +76,7 @@ export class DeclaracionService {
     .set('tel_trabajo', datos.tel_trabajo)
     .set('estado', 1)
 
-    return this.http.put<{ mensaje: string}>(env.api.concat("/declaracion/registrar"), body)
+    return this.http.post<{ mensaje: string}>(env.api.concat("/"+datos.rut_deudor+"/declaracion/registrar"), body)
     .pipe(
       map(result => {
         console.log(result.mensaje);
@@ -73,7 +85,52 @@ export class DeclaracionService {
     );
   }
 
-  registrarIngresosDeudor(rut_deudor: string, id_declaracion: number, datos: Ingresos): Observable<boolean>{
+  actualizarDatosPersonales(datos: Declaracion): Observable<boolean>{
+    let anioActual = new Date().getFullYear();
+    let fecha = this.obtenerFechaActual();
+    
+    const body = new HttpParams()
+    .set('id', datos.id)
+    .set('anio', anioActual)
+    .set('rut_deudor', datos.rut_deudor)
+    .set('nombres', datos.nombres)
+    .set('ap_paterno', datos.ap_paterno)
+    .set('ap_materno', datos.ap_materno)
+    .set('fecha', fecha)
+    .set('correo', datos.correo)
+    .set('telefono', datos.telefono)
+    .set('direccion', datos.direccion)
+    .set('region', datos.region)
+    .set('comuna', datos.comuna)
+    .set('ciudad', datos.ciudad)
+    .set('estado_civil', datos.estado_civil)
+    .set('afp', datos.afp)
+    .set('trabajo', datos.trabajo)
+    .set('tel_trabajo', datos.tel_trabajo)
+    .set('estado', 1)
+
+    return this.http.put<{ mensaje: string}>(env.api.concat("/"+datos.rut_deudor+"/"+datos.id+"/actualizarDatos"), body)
+    .pipe(
+      map(result => {
+        console.log(result.mensaje);
+        return true;
+      })
+    );
+  }
+
+  obtenerFechaActual(){
+    let fecha;
+    let dia = new Date().getDay();
+    let mes = new Date().getMonth();
+    let anio = new Date().getFullYear();
+
+    fecha = anio + "-" + mes + "-" + dia;
+    fecha.toString();
+
+    return fecha;
+  }
+
+  registrarIngresosDeudor(rut_deudor: string, id_declaracion: string, datos: Declaracion): Observable<boolean>{
     let anioActual = new Date().getFullYear();
 
     const body = new HttpParams()
@@ -104,8 +161,13 @@ export class DeclaracionService {
     .set('octubre_utm', datos.octubre_utm)
     .set('noviembre_utm', datos.noviembre_utm)
     .set('diciembre_utm', datos.diciembre_utm)
+    .set('ingreso_total_deudor', datos.ingreso_total_deudor)
+    .set('ingreso_total_deudor_utm', datos.ingreso_total_deudor_utm)
+    .set('ingreso_total_conyuge', datos.ingreso_total_conyuge)
+    .set('ingreso_total_conyuge_utm', datos.ingreso_total_conyuge_utm)
+    .set('cuota_preliminar', datos.cuota_preliminar)
 
-    return this.http.put<{ mensaje: string}>(env.api.concat("/declaracion/registrarIngresos"), body)
+    return this.http.put<{ mensaje: string}>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/actualizarIngresos"), body)
     .pipe(
       map(result => {
         console.log(result.mensaje);
@@ -171,10 +233,6 @@ export class DeclaracionService {
         return true;
       })
     );
-  }
-
-  verificarDeclaracionPendiente(){
-
   }
 
   subirDocumentacionDeclaracion(tipo: string, documento: File) {
