@@ -2,12 +2,13 @@ const db = require('../common/postgres');
 const bcrypt = require('bcrypt');
 
 class Funcionario{
-	constructor(rut, nombre, correo, telefono, contrasena){
+	constructor(rut, nombre, correo, telefono, contrasena, tipo_usuario){
 		this.rut = rut;
 		this.nombre = nombre;
 		this.correo = correo;
 		this.telefono = telefono;
 		this.contrasena = contrasena;
+		this.tipo_usuario = tipo_usuario;
 	}
 
 	static verificar_funcionario(rut, callback){
@@ -24,7 +25,7 @@ class Funcionario{
             let result = results[0];
 
             return callback(null, new Funcionario(result.rut, result.nombre, result.correo,
-            	result.telefono, result.contrasena));
+            	result.telefono, result.contrasena, result.tipo_usuario));
         })
         .catch(function(err){
             return callback(err);
@@ -44,12 +45,13 @@ class Funcionario{
 		if(!callback || !(typeof callback === 'function')){
             throw new Error('There is not a callback function. Please provide them');
         }
-        db.none('CALL registrar_funcionario($1,$2,$3,$4,$5)',[
+        db.none('CALL registrar_funcionario($1,$2,$3,$4,$5,$6)',[
         	funcionario.rut,
         	funcionario.nombre,
         	funcionario.correo,
         	funcionario.telefono,
-        	funcionario.contrasena
+        	funcionario.contrasena,
+        	funcionario.tipo_usuario
         	])
         .then(function(results){
         	return callback(null, true);

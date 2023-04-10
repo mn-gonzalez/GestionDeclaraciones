@@ -4,8 +4,9 @@ const Ingresos = require('../modelos/ingresos');
 class Declaracion{
 	contructor(id, anio, rut_deudor, nombres, ap_paterno, ap_materno, correo,
 		telefono, direccion, region, comuna, ciudad, estado_civil, afp, 
-		trabajo, tel_trabajo, estado, ref_ingresos_deudor, ingreso_total_deudor, 
-		ingreso_total_conyuge, ref_conyuge){
+		trabajo, tel_trabajo, estado, ref_ingresos_deudor, ingreso_total_deudor,
+		ingreso_total_deudor_utm, ingreso_total_conyuge, ingreso_total_conyuge_utm,
+		cuota_preliminar, ref_conyuge){
 
 		this.id = id;
 		this.anio = anio;
@@ -26,7 +27,10 @@ class Declaracion{
 		this.estado = estado;
 		this.ref_ingresos_deudor = ref_ingresos_deudor;
 		this.ingreso_total_deudor = ingreso_total_deudor;
+		this.ingreso_total_deudor_utm = ingreso_total_deudor_utm;
 		this.ingreso_total_conyuge = ingreso_total_conyuge;
+		this.ingreso_total_conyuge_utm = ingreso_total_conyuge_utm;
+		this.cuota_preliminar = cuota_preliminar;
 		this.ref_conyuge = ref_conyuge;
 	}
 
@@ -65,17 +69,6 @@ class Declaracion{
             throw new Error('There is not a callback function. Please provide them');
         }
         db.any('SELECT * FROM declaracion WHERE declaracion.id = $1', id_declaracion).then(function(results){
-            let declaraciones = [];
-
-            for(const declaracion of results){
-                declaraciones.push(new Declaracion(declaracion.id, declaracion.anio, declaracion.rut_deudor,
-                	declaracion.nombres, declaracion.ap_paterno, declaracion.ap_materno, declaracion.correo,
-                	declaracion.telefono, declaracion.direccion, declaracion.region, declaracion.comuna,
-                	declaracion.ciudad, declaracion.estado_civil, declaracion.afp, declaracion.trabajo, 
-                	declaracion.tel_trabajo, declaracion.estado, declaracion.ref_ingresos_deudor, 
-                	declaracion.ingreso_total_deudor, declaracion.ingreso_total_conyuge, declaracion.ref_conyuge));
-            }
-
             return callback(null, results[0]);
         })
         .catch(function(err){
@@ -108,17 +101,6 @@ class Declaracion{
             throw new Error('There is not a callback function. Please provide them');
         }
         db.any('SELECT * FROM declaracion WHERE declaracion.rut_deudor = $1', rut_deudor).then(function(results){
-            let declaraciones = [];
-
-            for(const declaracion of results){
-                declaraciones.push(new Declaracion(declaracion.id, declaracion.anio, declaracion.rut_deudor,
-                	declaracion.nombres, declaracion.ap_paterno, declaracion.ap_materno, declaracion.correo,
-                	declaracion.telefono, declaracion.direccion, declaracion.region, declaracion.comuna,
-                	declaracion.ciudad, declaracion.estado_civil, declaracion.afp, declaracion.trabajo, 
-                	declaracion.tel_trabajo, declaracion.estado, declaracion.ref_ingresos_deudor, 
-                	declaracion.ingreso_total_deudor, declaracion.ingreso_total_conyuge, declaracion.ref_conyuge));
-            }
-
             return callback(null, results);
         })
         .catch(function(err){

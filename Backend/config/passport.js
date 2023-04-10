@@ -60,7 +60,8 @@ passport.use('login_funcionario', new LocalStrategy({
 				return done(null, {
 					rut: funcionario.rut,
 					nombre: funcionario.nombre,
-					correo: funcionario.correo
+					correo: funcionario.correo,
+					tipo_usuario: funcionario.tipo_usuario
 				});
 			});
 		});

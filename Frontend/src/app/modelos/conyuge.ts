@@ -1,6 +1,31 @@
 export class Conyuge{
-    rut_conyuge: string;
+    id: number;
+    rut: string;
     nombres: string;
     ap_paterno: string;
     ap_materno: string;
+    enero: number;
+    febrero: number;
+    marzo: number;
+    abril: number;
+    mayo: number;
+    junio: number;
+    julio: number;
+    agosto: number;
+    septiembre: number;
+    octubre: number;
+    noviembre: number;
+    diciembre: number;
+    enero_utm: number;
+    febrero_utm: number;
+    marzo_utm: number;
+    abril_utm: number;
+    mayo_utm: number;
+    junio_utm: number;
+    julio_utm: number;
+    agosto_utm: number;
+    septiembre_utm: number;
+    octubre_utm: number;
+    noviembre_utm: number;
+    diciembre_utm: number;
 }

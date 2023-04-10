@@ -16,7 +16,7 @@ export class DeclaracionService {
   constructor(private http: HttpClient) { }
 
   obtenerDatosDeudor(rut: string): Observable<Deudor>{
-    return this.http.get<Deudor>(env.api.concat("/deudor/get/"+rut))
+    return this.http.get<Deudor>(env.api.concat("/deudor/"+rut))
     .pipe(
       map(result => {
         return result;
@@ -24,8 +24,17 @@ export class DeclaracionService {
     );
   }
 
-  obtenerDatosDeclaracion(id: number): Observable<Declaracion>{
-    return this.http.get<Declaracion>(env.api.concat("/declaracion/get/"+id))
+  verificarDeclaracionPendiente(rut :string ,id_declaracion: string): Observable<Declaracion>{
+    return this.http.get<Declaracion>(env.api.concat("/"+rut+"/declaraciones/"+id_declaracion))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  obtenerDatosDeclaracion(id: string, rut: string): Observable<Declaracion>{
+    return this.http.get<Declaracion>(env.api.concat("/"+rut+"/declaraciones/"+id))
     .pipe(
       map(result => {
         return result;
@@ -34,7 +43,7 @@ export class DeclaracionService {
   }
 
   obtenerDeclaracionesDeudor(rut_deudor: string): Observable<Declaracion[]>{
-    return this.http.get<Declaracion[]>(env.api.concat("/declaraciones/"+rut_deudor))
+    return this.http.get<Declaracion[]>(env.api.concat("/"+rut_deudor+"/declaraciones/"))
     .pipe(
       map(result => {
         return result;
@@ -45,13 +54,16 @@ export class DeclaracionService {
   registrarDatosPersonales(datos : Declaracion): Observable<boolean>{
 
     let anioActual = new Date().getFullYear();
-
+    let fecha = this.obtenerFechaActual();
+    
     const body = new HttpParams()
+    .set('id', datos.id)
     .set('anio', anioActual)
     .set('rut_deudor', datos.rut_deudor)
     .set('nombres', datos.nombres)
     .set('ap_paterno', datos.ap_paterno)
     .set('ap_materno', datos.ap_materno)
+    .set('fecha', fecha)
     .set('correo', datos.correo)
     .set('telefono', datos.telefono)
     .set('direccion', datos.direccion)
@@ -64,7 +76,7 @@ export class DeclaracionService {
     .set('tel_trabajo', datos.tel_trabajo)
     .set('estado', 1)
 
-    return this.http.put<{ mensaje: string}>(env.api.concat("/declaracion/registrar"), body)
+    return this.http.post<{ mensaje: string}>(env.api.concat("/"+datos.rut_deudor+"/declaracion/registrar"), body)
     .pipe(
       map(result => {
         console.log(result.mensaje);
@@ -73,7 +85,54 @@ export class DeclaracionService {
     );
   }
 
-  registrarIngresosDeudor(rut_deudor: string, id_declaracion: number, datos: Ingresos): Observable<boolean>{
+  actualizarDatosPersonales(datos: Declaracion): Observable<boolean>{
+    let anioActual = new Date().getFullYear();
+    let fecha = this.obtenerFechaActual();
+    
+    const body = new HttpParams()
+    .set('id', datos.id)
+    .set('anio', anioActual)
+    .set('rut_deudor', datos.rut_deudor)
+    .set('nombres', datos.nombres)
+    .set('ap_paterno', datos.ap_paterno)
+    .set('ap_materno', datos.ap_materno)
+    .set('fecha', fecha)
+    .set('correo', datos.correo)
+    .set('telefono', datos.telefono)
+    .set('direccion', datos.direccion)
+    .set('region', datos.region)
+    .set('comuna', datos.comuna)
+    .set('ciudad', datos.ciudad)
+    .set('estado_civil', datos.estado_civil)
+    .set('afp', datos.afp)
+    .set('trabajo', datos.trabajo)
+    .set('tel_trabajo', datos.tel_trabajo)
+    .set('estado', 1)
+
+    return this.http.put<{ mensaje: string}>(env.api.concat("/"+datos.rut_deudor+"/"+datos.id+"/actualizarDatos"), body)
+    .pipe(
+      map(result => {
+        console.log(result.mensaje);
+        return true;
+      })
+    );
+  }
+
+  obtenerFechaActual(){
+    let fecha;
+    let aux_fecha = new Date();
+    let dia = aux_fecha.getDate();
+    let mes = aux_fecha.getMonth()+1;
+    let anio = aux_fecha.getFullYear();
+
+    fecha = anio + "-" + mes + "-" + dia;
+    fecha.toString();
+    console.log("fecha de hoy: "+fecha);
+
+    return fecha;
+  }
+
+  registrarIngresosDeudor(rut_deudor: string, id_declaracion: string, datos: Declaracion): Observable<boolean>{
     let anioActual = new Date().getFullYear();
 
     const body = new HttpParams()
@@ -104,8 +163,13 @@ export class DeclaracionService {
     .set('octubre_utm', datos.octubre_utm)
     .set('noviembre_utm', datos.noviembre_utm)
     .set('diciembre_utm', datos.diciembre_utm)
+    .set('ingreso_total_deudor', datos.ingreso_total_deudor)
+    .set('ingreso_total_deudor_utm', datos.ingreso_total_deudor_utm)
+    .set('ingreso_total_conyuge', datos.ingreso_total_conyuge)
+    .set('ingreso_total_conyuge_utm', datos.ingreso_total_conyuge_utm)
+    .set('cuota_preliminar', datos.cuota_preliminar)
 
-    return this.http.put<{ mensaje: string}>(env.api.concat("/declaracion/registrarIngresos"), body)
+    return this.http.put<{ mensaje: string}>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/actualizarIngresos"), body)
     .pipe(
       map(result => {
         console.log(result.mensaje);
@@ -114,17 +178,48 @@ export class DeclaracionService {
     );
   }
 
-  registrarDatosConyuge(datosPersonales: Conyuge){
+  obtenerConyugeDeclaracion(rut_deudor: string, id_declaracion: string){
+    return this.http.get<Conyuge>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/obtenerConyuge"))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  registrarConyuge(id_declaracion: string, rut_deudor: string, datosConyuge: Conyuge){
 
     const body = new HttpParams()
-    .set('rut', datosPersonales.rut_conyuge)
-    .set('nombres', datosPersonales.nombres)
-    .set('ap_paterno', datosPersonales.ap_paterno)
-    .set('ap_materno', datosPersonales.ap_materno)
+    .set('rut', datosConyuge.rut)
+    .set('nombres', datosConyuge.nombres)
+    .set('ap_paterno', datosConyuge.ap_paterno)
+    .set('ap_materno', datosConyuge.ap_materno)
+    .set('enero', datosConyuge.enero)
+    .set('febrero', datosConyuge.febrero)
+    .set('marzo', datosConyuge.marzo)
+    .set('abril', datosConyuge.abril)
+    .set('mayo', datosConyuge.mayo)
+    .set('junio', datosConyuge.junio)
+    .set('julio', datosConyuge.julio)
+    .set('agosto', datosConyuge.agosto)
+    .set('septiembre', datosConyuge.septiembre)
+    .set('octubre', datosConyuge.octubre)
+    .set('noviembre', datosConyuge.noviembre)
+    .set('diciembre', datosConyuge.diciembre)
+    .set('enero_utm', datosConyuge.enero_utm)
+    .set('febrero_utm', datosConyuge.febrero_utm)
+    .set('marzo_utm', datosConyuge.marzo_utm)
+    .set('abril_utm', datosConyuge.abril_utm)
+    .set('mayo_utm', datosConyuge.mayo_utm)
+    .set('junio_utm', datosConyuge.junio_utm)
+    .set('julio_utm', datosConyuge.julio_utm)
+    .set('agosto_utm', datosConyuge.agosto_utm)
+    .set('septiembre_utm', datosConyuge.septiembre_utm)
+    .set('octubre_utm', datosConyuge.octubre_utm)
+    .set('noviembre_utm', datosConyuge.noviembre_utm)
+    .set('diciembre_utm', datosConyuge.diciembre_utm)
 
-    console.log(body);
-
-    return this.http.put<{ mensaje: string}>(env.api.concat("/declaracion/registrarConyuge"), body)
+    return this.http.post<{ mensaje: string}>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/registrarConyuge"), body)
     .pipe(
       map(result => {
         console.log(result.mensaje);
@@ -133,48 +228,44 @@ export class DeclaracionService {
     );
   }
 
-  registrarIngresosConyuge(rut_conyuge: string,ingresos: Ingresos){
-    let anioActual = new Date().getFullYear();
-
+  actualizarDatosConyuge(id_declaracion: string, rut_deudor: string, datosConyuge: Conyuge){
     const body = new HttpParams()
-    .set('anio', anioActual)
-    .set('enero', ingresos.enero)
-    .set('febrero', ingresos.febrero)
-    .set('marzo', ingresos.marzo)
-    .set('abril', ingresos.abril)
-    .set('mayo', ingresos.mayo)
-    .set('junio', ingresos.junio)
-    .set('julio', ingresos.julio)
-    .set('agosto', ingresos.agosto)
-    .set('septiembre', ingresos.septiembre)
-    .set('octubre', ingresos.octubre)
-    .set('noviembre', ingresos.noviembre)
-    .set('diciembre', ingresos.diciembre)
-    .set('enero_utm', ingresos.enero_utm)
-    .set('febrero_utm', ingresos.febrero_utm)
-    .set('marzo_utm', ingresos.marzo_utm)
-    .set('abril_utm', ingresos.abril_utm)
-    .set('mayo_utm', ingresos.mayo_utm)
-    .set('junio_utm', ingresos.junio_utm)
-    .set('julio_utm', ingresos.julio_utm)
-    .set('agosto_utm', ingresos.agosto_utm)
-    .set('septiembre_utm', ingresos.septiembre_utm)
-    .set('octubre_utm', ingresos.octubre_utm)
-    .set('noviembre_utm', ingresos.noviembre_utm)
-    .set('diciembre_utm', ingresos.diciembre_utm)
-    .set('ref_persona', rut_conyuge)
+    .set('rut', datosConyuge.rut)
+    .set('nombres', datosConyuge.nombres)
+    .set('ap_paterno', datosConyuge.ap_paterno)
+    .set('ap_materno', datosConyuge.ap_materno)
+    .set('enero', datosConyuge.enero)
+    .set('febrero', datosConyuge.febrero)
+    .set('marzo', datosConyuge.marzo)
+    .set('abril', datosConyuge.abril)
+    .set('mayo', datosConyuge.mayo)
+    .set('junio', datosConyuge.junio)
+    .set('julio', datosConyuge.julio)
+    .set('agosto', datosConyuge.agosto)
+    .set('septiembre', datosConyuge.septiembre)
+    .set('octubre', datosConyuge.octubre)
+    .set('noviembre', datosConyuge.noviembre)
+    .set('diciembre', datosConyuge.diciembre)
+    .set('enero_utm', datosConyuge.enero_utm)
+    .set('febrero_utm', datosConyuge.febrero_utm)
+    .set('marzo_utm', datosConyuge.marzo_utm)
+    .set('abril_utm', datosConyuge.abril_utm)
+    .set('mayo_utm', datosConyuge.mayo_utm)
+    .set('junio_utm', datosConyuge.junio_utm)
+    .set('julio_utm', datosConyuge.julio_utm)
+    .set('agosto_utm', datosConyuge.agosto_utm)
+    .set('septiembre_utm', datosConyuge.septiembre_utm)
+    .set('octubre_utm', datosConyuge.octubre_utm)
+    .set('noviembre_utm', datosConyuge.noviembre_utm)
+    .set('diciembre_utm', datosConyuge.diciembre_utm)
 
-    return this.http.put<{ mensaje: string}>(env.api.concat("/declaracion/registrarIngresosConyuge"), body)
+    return this.http.put<{ mensaje: string}>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/actualizarConyuge"), body)
     .pipe(
       map(result => {
         console.log(result.mensaje);
         return true;
       })
     );
-  }
-
-  verificarDeclaracionPendiente(){
-
   }
 
   subirDocumentacionDeclaracion(tipo: string, documento: File) {

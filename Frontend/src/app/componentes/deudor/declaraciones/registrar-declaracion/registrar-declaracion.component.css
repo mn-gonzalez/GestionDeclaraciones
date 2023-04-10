@@ -72,8 +72,6 @@
 .form_ingresos{
     display:flex;
     justify-content: center;
-    padding: 5px;
-    max-height: 55px;
 }
 
 .mat-column-mes{
