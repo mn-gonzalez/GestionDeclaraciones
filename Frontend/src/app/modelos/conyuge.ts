@@ -1,5 +1,6 @@
 export class Conyuge{
-    rut_conyuge: string;
+    id: number;
+    rut: string;
     nombres: string;
     ap_paterno: string;
     ap_materno: string;

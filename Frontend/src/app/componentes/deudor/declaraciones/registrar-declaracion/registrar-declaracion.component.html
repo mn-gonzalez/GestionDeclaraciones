@@ -166,7 +166,7 @@
 
                 <div class="botones">
                     <div class="boton">
-                        <button mat-button (click)="registrarIngresosDeclaracion()">Guardar</button>
+                        <button mat-button matStepperNext (click)="registrarIngresosDeclaracion()">Guardar y Continuar</button>
                     </div>
                     
                     <div class="boton">
@@ -176,8 +176,8 @@
                 </form>
             </div>
         </mat-step>
-        <mat-step [stepControl]="ingresosConyuge" *ngIf="casado">
-            <form [formGroup]="ingresosConyuge">
+        <mat-step [stepControl]="conyuge" *ngIf="casado">
+            <form [formGroup]="conyuge">
               <ng-template matStepLabel>Datos e Ingresos del Conyuge</ng-template>
 
                 <div>
@@ -245,7 +245,7 @@
 
                 <div class="botones">
                     <div class="boton">
-                        <button mat-button (click)="registrarDatosConyuge()">Guardar</button>
+                        <button mat-button matStepperNext (click)="registrarConyuge()">Guardar y Continuar</button>
                     </div>
                     <div class="boton">
                         <button mat-button matStepperNext>Siguiente</button>
@@ -254,8 +254,8 @@
             </form>
         </mat-step>
 
-        <mat-step [stepControl]="ingresosConyuge">
-            <form [formGroup]="ingresosConyuge">
+        <mat-step [stepControl]="conyuge">
+            <form [formGroup]="conyuge">
               <ng-template matStepLabel>Documentación</ng-template>
                 <div class="formulario_documentacion">
                     <div class="documento">
@@ -306,8 +306,8 @@
             </form>
         </mat-step>
 
-        <mat-step [stepControl]="ingresosConyuge">
-            <form [formGroup]="ingresosConyuge">
+        <mat-step [stepControl]="conyuge">
+            <form [formGroup]="conyuge">
               <ng-template matStepLabel>Finalizar</ng-template>
                 
                 <div>

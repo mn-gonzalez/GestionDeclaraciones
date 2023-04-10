@@ -3,6 +3,7 @@ CREATE TABLE persona(
 	nombres varchar(50) NOT NULL,
 	ap_paterno varchar(50) NOT NULL,
 	ap_materno varchar(50) NOT NULL,
+	correo varchar(50),
 	PRIMARY KEY (rut)
 );
 
@@ -17,7 +18,6 @@ CREATE TABLE funcionario
 CREATE TABLE deudor
 (
 	rut varchar(12) NOT NULL REFERENCES persona(rut),
-	correo varchar(50) NOT NULL,
 	telefono varchar(15) NOT NULL, 
     contrasena varchar(100) NOT NULL,
     ciudad varchar(50) NOT NULL,
@@ -85,11 +85,11 @@ CREATE TABLE declaracion(
 
 CREATE TABLE conyuge(
 	id SERIAL NOT NULL,
-	ref_declaracion varchar(20) NOT NULL REFERENCES declaracion(id),
 	rut varchar(12) NOT NULL,
 	nombres varchar(50) NOT NULL,
 	ap_paterno varchar(50) NOT NULL,
 	ap_materno varchar(50) NOT NULL,
+	ref_declaracion varchar(20) NOT NULL REFERENCES declaracion(id),
 	anio integer NOT NULL,
 	enero integer DEFAULT 0 NOT NULL,
 	febrero integer DEFAULT 0  NOT NULL,

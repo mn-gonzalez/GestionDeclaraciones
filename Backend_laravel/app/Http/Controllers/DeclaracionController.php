@@ -13,9 +13,10 @@ class DeclaracionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function declaraciones($rut_deudor)
     {
-        //
+        $declaraciones = DB::table('declaracion')->join('tramite', 'tramite.id', '=', 'declaracion.id')->where('tramite.rut_deudor', '=', $rut_deudor)->select('tramite.*','declaracion.*')->get();
+        return response()->json($declaraciones);
     }
 
     /**

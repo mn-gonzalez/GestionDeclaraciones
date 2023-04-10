@@ -32,7 +32,7 @@ class Declaracion extends Model
         'marzo',
         'abril',
         'mayo',
-        'junio'.
+        'junio',
         'julio',
         'agosto',
         'septiembre',

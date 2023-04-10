@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DeudorController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\DeclaracionController;
+use App\Http\Controllers\ConyugeController;
 use App\Http\Controllers\AuthController;
 
 /*
@@ -37,6 +38,10 @@ Route::put('{rut_deudor}/{id_declaracion}/actualizarDatos', [DeclaracionControll
 Route::put('{rut_deudor}/declaraciones/{id_declaracion}/actualizarIngresos', [DeclaracionController::class, 'actualizar_ingresos']);
 Route::get('{rut_deudor}/declaraciones',[DeclaracionController::class, 'declaraciones']);
 Route::get('{rut_deudor}/declaraciones/{id_declaracion}',[DeclaracionController::class, 'datos_declaracion']);
+
+//conyuge
+Route::post('{rut_deudor}/declaraciones/{id_declaracion}/registrarConyuge',[ConyugeController::class, 'registrar_conyuge']);
+Route::get('{rut_deudor}/declaraciones/{id_declaracion}/obtenerConyuge',[ConyugeController::class, 'obtener_conyuge']);
 
 //Datos deudor
 Route::get('deudor/{rut_deudor}',[DeudorController::class, 'obtener_datos']);
