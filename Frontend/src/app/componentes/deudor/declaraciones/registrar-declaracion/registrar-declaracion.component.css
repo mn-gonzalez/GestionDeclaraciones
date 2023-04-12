@@ -123,7 +123,7 @@
 }
 
 .label_documento{
-    padding-bottom: 10px;;
+    padding-bottom: 10px;
 }
 
 .input_documento{
@@ -133,7 +133,7 @@
     align-items: center;
     border: 1px solid currentColor;
     border-radius: 5px;
-    max-width: 400px;
+    max-width: 500px;
 }
 
 .botones{

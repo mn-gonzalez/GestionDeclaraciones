@@ -268,12 +268,12 @@ export class DeclaracionService {
     );
   }
 
-  subirDocumentacionDeclaracion(tipo: string, documento: File) {
+  subirDocumentacionDeclaracion(rut_deudor: string, id_declaracion: string, tipo: string, documento: File) {
     const formData = new FormData();
     formData.append('tipo', tipo);
     formData.append('documento', documento);
 
-    this.http.post(env.api.concat("/documentacion/subir"), formData)
+    this.http.post(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/documentacion/subir"), formData)
     .subscribe((response) => {
          console.log('response received is ', response);
     })

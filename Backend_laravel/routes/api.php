@@ -7,6 +7,7 @@ use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\DeclaracionController;
 use App\Http\Controllers\ConyugeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DocumentoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +46,7 @@ Route::get('{rut_deudor}/declaraciones/{id_declaracion}/obtenerConyuge',[Conyuge
 
 //Datos deudor
 Route::get('deudor/{rut_deudor}',[DeudorController::class, 'obtener_datos']);
+
+//documentacion de declaracion
+Route::get('{rut_deudor}/declaraciones/{id_declaracion}/documentacion',[DocumentoController::class, 'obtener_documento_declaracion']);
+Route::post('{rut_deudor}/declaraciones/{id_declaracion}/documentacion/subir',[DocumentoController::class, 'registrar_documento_declaracion']);

@@ -211,8 +211,28 @@ export class RegistrarDeclaracionComponent implements OnInit {
     });
   }
 
+
+  //almacenan de manera temporal los archivos que el deudor va a subir como documentacion.
   documento_renta: File;
+  documento_renta_conyuge: File;
+  documento_licencias: File;
+  documento_cotizaciones: File;
+  documento_formulario22: File;
+  documento_libreta_matrimonio: File;
+  documento_declaracion_sin_ingresos: File;
+  documento_declaracion_sin_ingresos_conyuge: File;
+  documento_finiquito: File;
+  documento_finiquito_conyuge: File;
+  documento_cert_nacimiento: File;
+  documento_carp_tributaria_deudor: File;
+  documento_carp_tributaria_conyuge: File;
+  documento_copia_pagare_conyuge: File;
+
   casado = false;
+  tieneHijos = false;
+  casadoReprog = false;
+  deudorDebePresentarDecSimple = false;
+  conyugeDebePresentarDecSimple = false;
 
   ngOnInit(): void {
     this.year = new Date().getFullYear();
@@ -325,10 +345,13 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
         this.seleccionarComunas(this.datosPersonales.get('region')!.value);
 
+        if(result.estado_civil == 2){
+          this.tieneHijos = true;
+        }
+
         //obtiene el conyuge de la declaracion (si es que existe en la BD)
         this.declaracionService.obtenerConyugeDeclaracion(this.rut_deudor, this.id_declaracion).subscribe({
           next: result =>{
-            console.log(result);
             if(result.id != null){
               this.conyuge.get('rut_conyuge')!.setValue(result.rut);
               this.conyuge.get('nombres')!.setValue(result.nombres);
@@ -454,17 +477,132 @@ export class RegistrarDeclaracionComponent implements OnInit {
     });
   }
 
-  obtenerConyugeDeclaracion(){
+  upload(tipo_documento:string, event: any){
+    let documento = event.target.files[0];
 
+    switch(tipo_documento) { 
+      case "RENTAS_DEUDOR": { 
+        //let documento = event.target.files[0];
+        this.documento_renta = documento;
+        break; 
+      } 
+      case "RENTAS_CONYUGE": { 
+        //let documento = event.target.files[0];
+        this.documento_renta_conyuge = documento;
+        break; 
+      } 
+      case "CERTIFICADO_COTIZACIONES": { 
+        //let documento = event.target.files[0];
+        this.documento_cotizaciones = documento;
+        break; 
+      } 
+      case "FORMULARIO_N22": { 
+        //let documento = event.target.files[0];
+        this.documento_formulario22 = documento;
+        break; 
+      } 
+      case "LIBRETA_MATRIMONIO": { 
+        //let documento = event.target.files[0];
+        this.documento_libreta_matrimonio = documento; 
+        break; 
+      } 
+      case "DEC_JURADA_SIMPLE_DEUDOR": { 
+        //let documento = event.target.files[0];
+        this.documento_declaracion_sin_ingresos = documento;
+        break; 
+      } 
+      case "DEC_JURADA_SIMPLE_CONYUGE": { 
+        //let documento = event.target.files[0];
+        this.documento_declaracion_sin_ingresos_conyuge = documento;
+        break; 
+      } 
+      case "FINIQUITO_DEUDOR": { 
+        //let documento = event.target.files[0];
+        this.documento_finiquito = documento; 
+        break; 
+      }
+      case "FINIQUITO_CONYUGE": { 
+        //let documento = event.target.files[0];
+        this.documento_finiquito_conyuge = documento;
+        break; 
+      } 
+      case "CERT_NACIMIENTO": { 
+        //let documento = event.target.files[0];
+        this.documento_cert_nacimiento = documento; 
+        break; 
+      } 
+      case "CARPETA_TRIBUTARIA_DEUDOR": { 
+        //let documento = event.target.files[0];
+        this.documento_carp_tributaria_deudor = documento;
+        break; 
+      } 
+      case "CARPETA_TRIBUTARIA_CONYUGE": { 
+        //let documento = event.target.files[0];
+        this.documento_carp_tributaria_conyuge = documento;
+        break; 
+      } 
+      case "PAGARE_CONYUGE": { 
+        //let documento = event.target.files[0];
+        this.documento_copia_pagare_conyuge = documento; 
+        break; 
+      } 
+      default: { 
+          console.log("El tipo de documento no esta regitrado en el sistema");
+          break; 
+      }
+    } 
   }
 
-  upload(event: any){
-    const documento = event.target.files[0];
-    this.documento_renta = documento;
+  subirDocumentoRentaDeudor(){
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "RENTA_DEUDOR",this.documento_renta);
   }
 
-  subirDocumentos(){
-    this.declaracionService.subirDocumentacionDeclaracion("RENTA",this.documento_renta);
+  subirDocumentoRentaConyuge(){
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "RENTA_CONYUGE",this.documento_renta_conyuge);
+  }
+
+  subirDocumentoCotizaciones(){
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERTIFICADO_COTIZACIONES",this.documento_cotizaciones);
+  }
+
+  subirDocumentoFormulario22(){
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "FORMULARIO_N22",this.documento_formulario22);
+  }
+
+  subirDocumentoLibretaMatrimonio(){
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "LIBRETA_MATRIMONIO",this.documento_libreta_matrimonio);
+  }
+
+  subirDocumentoDecJuradaDeudor(){
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "DEC_JURADA_SIMPLE_DEUDOR",this.documento_declaracion_sin_ingresos);
+  }
+
+  subirDocumentoDecJuradaConyuge(){
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "DEC_JURADA_SIMPLE_CONYUGE",this.documento_declaracion_sin_ingresos_conyuge);
+  }
+
+  subirDocumentoFinitoDeudor(){
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "FINIQUITO_DEUDOR",this.documento_finiquito);
+  }
+
+  subirDocumentoFinitoConyuge(){
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "FINIQUITO_CONYUGE",this.documento_finiquito_conyuge);
+  }
+
+  subirDocumentoCertNacimiento(){
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERT_NACIMIENTO",this.documento_cert_nacimiento);
+  }
+
+  subirDocumentoCarpTributariaDeudor(){
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CARPETA_TRIBUTARIA_DEUDOR",this.documento_carp_tributaria_deudor);
+  }
+
+  subirDocumentoCarpTributariaConyuge(){
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CARPETA_TRIBUTARIA_CONYUGE",this.documento_carp_tributaria_conyuge);
+  }
+
+  subirDocumentoPagareConyuge(){
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "PAGARE_CONYUGE",this.documento_copia_pagare_conyuge);
   }
 
   seleccionarComunas(region: string) {
@@ -506,16 +644,19 @@ export class RegistrarDeclaracionComponent implements OnInit {
     }
   }
 
-  verificacionEstadoCivil(valor: string){
-    console.log(valor);
-    if(valor == "3"){
+  verificacionEstadoCivil(valor: number){
+    if(valor == 2){
+      this.tieneHijos = true;
+    }
+    else if(valor == 3){
       this.casado = true;
     }
-    else if(valor == "4"){
-      this.casado = true;
+    else if(valor == 4){
+      this.casadoReprog = true;
     }
     else{
       this.casado = false;
+      this.casadoReprog = false;
     }
   }
 
@@ -586,5 +727,13 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
     this.ingresosDeudor.get('ingreso_total_conyuge')!.setValue(total);
     this.ingresosDeudor.get('ingreso_total_conyuge_utm')!.setValue(total_utm);
+  }
+
+  verificarDecJuradaSimpleDeudor(){
+
+  }
+
+  verificarDecJuradaSimpleConyuge(){
+
   }
 }

@@ -34,13 +34,13 @@
                         <label>Estado Civil:</label>
                         <mat-radio-group class="estado_civil" formControlName="estado_civil">
                             <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 1" 
-                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value="1">Soltero sin hijos</mat-radio-button>
+                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value=1>Soltero sin hijos</mat-radio-button>
                             <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 2" 
-                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value="2">Soltero con hijos</mat-radio-button>
+                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value=2>Soltero con hijos</mat-radio-button>
                             <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 3" 
-                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value="3">Casado</mat-radio-button>
+                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value=3>Casado</mat-radio-button>
                             <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 4" 
-                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value="4">Casado con deudor Reprog.Cred.Univ. o Fiscal</mat-radio-button>
+                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value=4>Casado con deudor Reprog.Cred.Univ. o Fiscal</mat-radio-button>
                         </mat-radio-group>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
 
               <div class="botones">
                 <div class="boton">
-                    <button mat-stroked-button matStepperNext (click)="registrarDeclaracion()">Guardar y Continuar</button>
+                    <button mat-stroked-button matStepperNext (click)="registrarDeclaracion()">Guardar</button>
                 </div>
         
                 <div class="boton">
@@ -166,7 +166,7 @@
 
                 <div class="botones">
                     <div class="boton">
-                        <button mat-button matStepperNext (click)="registrarIngresosDeclaracion()">Guardar y Continuar</button>
+                        <button mat-button matStepperNext (click)="registrarIngresosDeclaracion()">Guardar</button>
                     </div>
                     
                     <div class="boton">
@@ -245,7 +245,7 @@
 
                 <div class="botones">
                     <div class="boton">
-                        <button mat-button matStepperNext (click)="registrarConyuge()">Guardar y Continuar</button>
+                        <button mat-button matStepperNext (click)="registrarConyuge()">Guardar</button>
                     </div>
                     <div class="boton">
                         <button mat-button matStepperNext>Siguiente</button>
@@ -260,11 +260,28 @@
                 <div class="formulario_documentacion">
                     <div class="documento">
                         <div class="label_documento">
-                            <label>Certificado de rentas</label>
+                            <label>Certificado de Rentas</label>
                         </div>
                         <div class="input_documento">
-                            <input type="file" (change)="upload($event)" accept="application/pdf">
-                            <button mat-icon-button><mat-icon (click)="subirDocumentos()" class="material-icons-outlined">save</mat-icon></button>
+                            <input type="file" (change)="upload('RENTAS_DEUDOR', $event)" accept="application/pdf">
+                            <div>
+                                <button mat-icon-button><mat-icon (click)="subirDocumentoRentaDeudor()" class="material-icons-outlined">save</mat-icon></button>
+                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+
+                    <div class="documento" *ngIf="casado || casadoReprog">
+                        <div class="label_documento">
+                            <label>Certificado de Rentas Conyuge</label>
+                        </div>
+                        <div class="input_documento">
+                            <input type="file" (change)="upload('RENTAS_CONYUGE',$event)" accept="application/pdf">
+                            <div>
+                                <button mat-icon-button><mat-icon (click)="subirDocumentoRentaConyuge()" class="material-icons-outlined">save</mat-icon></button>
+                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                            </div>
                         </div>
                         <div></div>
                     </div>
@@ -274,18 +291,37 @@
                             <label>Formulario N°22 Compacto</label>
                         </div>
                         <div class="input_documento">
-                            <input type="file" (change)="upload($event)">
-                            <button mat-icon-button><mat-icon (click)="subirDocumentos()" class="material-icons-outlined">save</mat-icon></button>
+                            <input type="file" (change)="upload('FORMULARIO_N22', $event)" accept="application/pdf">
+                            <div>
+                                <button mat-icon-button><mat-icon (click)="subirDocumentoFormulario22()" class="material-icons-outlined">save</mat-icon></button>
+                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                            </div>
                         </div>
                     </div>
 
                     <div class="documento">
                         <div class="label_documento">
-                            <label>Carpeta Tributaria</label>
+                            <label>Carpeta Tributaria Deudor</label>
                         </div>
                         <div class="input_documento">
-                            <input type="file" (change)="upload($event)">
-                            <button mat-icon-button><mat-icon (click)="subirDocumentos()" class="material-icons-outlined">save</mat-icon></button>
+                            <input type="file" (change)="upload('CARPETA_TRIBUTARIA_DEUDOR', $event)" accept="application/pdf">
+                            <div>
+                                <button mat-icon-button><mat-icon (click)="subirDocumentoCarpTributariaDeudor()" class="material-icons-outlined">save</mat-icon></button>
+                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="documento" *ngIf="casado || casadoReprog">
+                        <div class="label_documento">
+                            <label>Carpeta Tributaria Conyuge</label>
+                        </div>
+                        <div class="input_documento">
+                            <input type="file" (change)="upload('CARPETA_TRIBUTARIA_CONYUGE', $event)" accept="application/pdf">
+                            <div>
+                                <button mat-icon-button><mat-icon (click)="subirDocumentoCarpTributariaConyuge()" class="material-icons-outlined">save</mat-icon></button>
+                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                            </div>
                         </div>
                     </div>
 
@@ -294,8 +330,104 @@
                             <label>Certificado de Cotizaciones Previsionales</label>
                         </div>
                         <div class="input_documento">
-                            <input type="file" (change)="upload($event)">
-                            <button mat-icon-button><mat-icon (click)="subirDocumentos()" class="material-icons-outlined">save</mat-icon></button>
+                            <input type="file" (change)="upload('CERTIFICADO_COTIZACIONES', $event)" accept="application/pdf">
+                            <div>
+                                <button mat-icon-button><mat-icon (click)="subirDocumentoCotizaciones()" class="material-icons-outlined">save</mat-icon></button>
+                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="documento" *ngIf="casado || casadoReprog">
+                        <div class="label_documento">
+                            <label>Fotocopia de Libreta de Matrimonio</label>
+                        </div>
+                        <div class="input_documento">
+                            <input type="file" (change)="upload('LIBRETA_MATRIMONIO', $event)" accept="application/pdf">
+                            <div>
+                                <button mat-icon-button><mat-icon (click)="subirDocumentoLibretaMatrimonio()" class="material-icons-outlined">save</mat-icon></button>
+                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="documento">
+                        <div class="label_documento">
+                            <label>Declaracion Jurada Notarial Simple del Deudor (debe acreditar
+                                no haber percibido ingresos en tres o mas meses)</label>
+                        </div>
+                        <div class="input_documento">
+                            <input type="file" (change)="upload('DEC_JURADA_SIMPLE_DEUDOR', $event)" accept="application/pdf">
+                            <div>
+                                <button mat-icon-button><mat-icon (click)="subirDocumentoDecJuradaDeudor()" class="material-icons-outlined">save</mat-icon></button>
+                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="documento" *ngIf="casado || casadoReprog">
+                        <div class="label_documento">
+                            <label>Declaracion Jurada Notarial Simple del Conyuge (debe acreditar
+                                no haber percibido ingresos en tres o mas meses)</label>
+                        </div>
+                        <div class="input_documento">
+                            <input type="file" (change)="upload('DEC_JURADA_SIMPLE_CONYUGE', $event)" accept="application/pdf">
+                            <div>
+                                <button mat-icon-button><mat-icon (click)="subirDocumentoDecJuradaConyuge()" class="material-icons-outlined">save</mat-icon></button>
+                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="documento">
+                        <div class="label_documento">
+                            <label>Finiquito de Trabajo Deudor</label>
+                        </div>
+                        <div class="input_documento">
+                            <input type="file" (change)="upload('FINIQUITO_DEUDOR', $event)" accept="application/pdf">
+                            <div>
+                                <button mat-icon-button><mat-icon (click)="subirDocumentoFinitoDeudor" class="material-icons-outlined">save</mat-icon></button>
+                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="documento" *ngIf="casado || casadoReprog">
+                        <div class="label_documento">
+                            <label>Finiquito de Trabajo Conyuge</label>
+                        </div>
+                        <div class="input_documento">
+                            <input type="file" (change)="upload('FINIQUITO_CONYUGE', $event)" accept="application/pdf">
+                            <div>
+                                <button mat-icon-button><mat-icon (click)="subirDocumentoFinitoConyuge" class="material-icons-outlined">save</mat-icon></button>
+                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="documento" *ngIf="tieneHijos">
+                        <div class="label_documento">
+                            <label>Certificado de Nacimiento de Hijo</label>
+                        </div>
+                        <div class="input_documento">
+                            <input type="file" (change)="upload('CERT_NACIMIENTO', $event)" accept="application/pdf">
+                            <div>
+                                <button mat-icon-button><mat-icon (click)="subirDocumentoCertNacimiento()" class="material-icons-outlined">save</mat-icon></button>
+                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="documento" *ngIf="casadoReprog">
+                        <div class="label_documento">
+                            <label>Copia de Pagaré de Conyuge, para deudores reprogramados Ley 19.287</label>
+                        </div>
+                        <div class="input_documento">
+                            <input type="file" (change)="upload('PAGARE_CONYUGE', $event)" accept="application/pdf">
+                            <div>
+                                <button mat-icon-button><mat-icon (click)="subirDocumentoPagareConyuge()" class="material-icons-outlined">save</mat-icon></button>
+                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                            </div>
                         </div>
                     </div>
                 </div>
