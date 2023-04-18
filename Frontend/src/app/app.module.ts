@@ -11,6 +11,7 @@ import { InicioFuncionarioComponent } from './componentes/funcionario/inicio-fun
 import { InicioDeudorComponent } from './componentes/deudor/inicio-deudor/inicio-deudor.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
+import { InicioSesionService } from './servicios/inicio-sesion.service';
 
 export function jwtTokenGetter() {
   return localStorage.getItem('access_token');
@@ -35,7 +36,7 @@ export function jwtTokenGetter() {
       }
     })
   ],
-  providers: [],
+  providers: [InicioSesionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

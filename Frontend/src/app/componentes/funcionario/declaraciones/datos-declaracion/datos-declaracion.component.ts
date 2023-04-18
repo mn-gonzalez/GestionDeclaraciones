@@ -16,6 +16,11 @@ interface Ingreso{
   formControlUTM: string;
 }
 
+interface Afp{
+  id: number;
+  nombre: string;
+}
+
 @Component({
   selector: 'app-datos-declaracion',
   templateUrl: './datos-declaracion.component.html',
@@ -31,25 +36,35 @@ export class DatosDeclaracionComponent implements OnInit {
   isLinear = false;
   datosPersonales: FormGroup;
   ingresosDeudor: FormGroup;
-  datosConyuge: FormGroup;
-  ingresosConyuge: FormGroup;
+  conyuge: FormGroup;
+
+  //listado de afps disponibles
+  afps: Afp[] = [
+    {id: 1, nombre: "CAPITAL"},
+    {id: 2, nombre: "CUPRUM"},
+    {id: 3, nombre: "HABITAT"},
+    {id: 4, nombre: "MODELO"},
+    {id: 5, nombre: "PLANVITAL"},
+    {id: 6, nombre: "PROVIDA"},
+    {id: 7, nombre: "UNO"}
+  ];
 
   regiones: Region[] = [
-    { nombre: "Arica y Parinacota", comunas: ["Arica", "Camarones", "Putre", "General Lagos"] },
-    { nombre: "Tarapacá", comunas: ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"]},
-    { nombre: "Antofagasta", comunas: ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena"]},
-    { nombre: "Atacama", comunas: ["Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco"]},
-    { nombre: "Coquimbo", comunas: ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado"]},
-    { nombre: "Valparaíso", comunas: ["Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga", "Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "Cartagena", "El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué", "Villa Alemana"]},
-    { nombre: "Región del Libertador Gral. Bernardo O’Higgins", comunas: ["Rancagua", "Codegua", "Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu", "La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones", "San Fernando", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz"]},
-    { nombre: "Región del Maule", comunas: ["Talca", "ConsVtución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco", "Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "ReVro", "San Javier", "Villa Alegre", "Yerbas Buenas"]},
-    { nombre: "Región del Biobío", comunas: ["Concepción", "Coronel", "Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa", "Los Ángeles", "Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío", "Chillán", "Bulnes", "Cobquecura", "Coelemu", "Coihueco", "Chillán Viejo", "El Carmen", "Ninhue", "Ñiquén", "Pemuco", "Pinto", "Portezuelo", "Quillón", "Quirihue", "Ránquil", "San Carlos", "San Fabián", "San Ignacio", "San Nicolás", "Treguaco", "Yungay"]},
-    { nombre: "Región de la Araucanía", comunas: ["Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli", "Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria"]},
-    { nombre: "Región de Los Ríos", comunas: ["Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli", "La Unión", "Futrono", "Lago Ranco", "Río Bueno"]},
-    { nombre: "Región de Los Lagos", comunas: ["Puerto Montt", "Calbuco", "Cochamó", "Fresia", "FruVllar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón", "Queilén", "Quellón", "Quemchi", "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro", "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena"]},
-    { nombre: "Región Aisén del Gral. Carlos Ibáñez del Campo", comunas: ["Coihaique", "Lago Verde", "Aisén", "Cisnes", "Guaitecas", "Cochrane", "O’Higgins", "Tortel", "Chile Chico", "Río Ibáñez"]},
-    { nombre: "Región de Magallanes y de la Antártica Chilena", comunas: ["Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos (Ex Navarino)", "AntárVca", "Porvenir", "Primavera", "Timaukel", "Natales", "Torres del Paine"]},
-    { nombre: "Región Metropolitana de Santiago", comunas: ["Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "TilVl", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor"]}
+    { nombre: "ARICA Y PARINACOTA", comunas: ["ARICA", "CAMARONES", "PUTRE", "GENERAL LAGOS"] },
+    { nombre: "TARAPACÁ", comunas: ["IQUIQUE", "ALTO HOSPICIO", "POZO ALMONTE", "CAMIÑA", "COLCHANE", "HUARA", "PICA"]},
+    { nombre: "ANTOFAGASTA", comunas: ["ANTOFAGASTA", "MEJILLONES", "SIERRA GORDA", "TALTAL", "CALAMA", "OLLAGÜE", "SAN PEDRO DE ATACAMA", "TOCOPILLA", "MARÍA ELENA"]},
+    { nombre: "ATACAMA", comunas: ["COPIAPÓ", "CALDERA", "TIERRA AMARILLA", "CHAÑARAL", "DIEGO DE ALMAGRO", "VALLENAR", "ALTO DEL CARMEN", "FREIRINA", "HUASCO"]},
+    { nombre: "COQUIMBO", comunas: ["LA SERENA", "COQUIMBO", "ANDACOLLO", "LA HIGUERA", "PAIGUANO", "VICUÑA", "ILLAPEL", "CANELA", "LOS VILOS", "SALAMANCA", "OVALLE", "COMBARBALÁ", "MONTE PATRIA", "PUNITAQUI", "RÍO HURTADO"]},
+    { nombre: "VALPARAÍSO", comunas: ["VALPARAÍSO", "CASABLANCA", "CONCÓN", "JUAN FERNÁNDEZ", "PUCHUNCAVÍ", "QUINTERO", "VIÑA DEL MAR", "ISLA DE PASCUA", "LOS ANDES", "CALLE LARGA", "RINCONADA", "SAN ESTEBAN", "LA LIGUA", "CABILDO", "PAPUDO", "PETORCA", "ZAPALLAR", "QUILLOTA", "CALERA", "HIJUELAS", "LA CRUZ", "NOGALES", "SAN ANTONIO", "ALGARROBO", "CARTAGENA", "EL QUISCO", "EL TABO", "SANTO DOMINGO", "SAN FELIPE", "CATEMU", "LLAILLAY", "PANQUEHUE", "PUTAENDO", "SANTA MARÍA", "QUILPUÉ", "LIMACHE", "OLMUÉ", "VILLA ALEMANA"]},
+    { nombre: "REGIÓN DEL LIBERTADOR GRAL. BERNARDO O’HIGGINS", comunas: ["RANCAGUA", "CODEGUA", "COINCO", "COLTAUCO", "DOÑIHUE", "GRANEROS", "LAS CABRAS", "MACHALÍ", "MALLOA", "MOSTAZAL", "OLIVAR", "PEUMO", "PICHIDEGUA", "QUINTA DE TILCOCO", "RENGO", "REQUÍNOA", "SAN VICENTE", "PICHILEMU", "LA ESTRELLA", "LITUECHE", "MARCHIHUE", "NAVIDAD", "PAREDONES", "SAN FERNANDO", "CHÉPICA", "CHIMBARONGO", "LOLOL", "NANCAGUA", "PALMILLA", "PERALILLO", "PLACILLA", "PUMANQUE", "SANTA CRUZ"]},
+    { nombre: "REGIÓN DEL MAULE", comunas: ["TALCA", "CONSTITUCIÓN", "CUREPTO", "EMPEDRADO", "MAULE", "PELARCO", "PENCAHUE", "RÍO CLARO", "SAN CLEMENTE", "SAN RAFAEL", "CAUQUENES", "CHANCO", "PELLUHUE", "CURICÓ", "HUALAÑÉ", "LICANTÉN", "MOLINA", "RAUCO", "ROMERAL", "SAGRADA FAMILIA", "TENO", "VICHUQUÉN", "LINARES", "COLBÚN", "LONGAVÍ", "PARRAL", "REVRO", "SAN JAVIER", "VILLA ALEGRE", "YERBAS BUENAS"]},
+    { nombre: "REGIÓN DEL BIOBÍO", comunas: ["CONCEPCIÓN", "CORONEL", "CHIGUAYANTE", "FLORIDA", "HUALQUI", "LOTA", "PENCO", "SAN PEDRO DE LA PAZ", "SANTA JUANA", "TALCAHUANO", "TOMÉ", "HUALPÉN", "LEBU", "ARAUCO", "CAÑETE", "CONTULMO", "CURANILAHUE", "LOS ÁLAMOS", "TIRÚA", "LOS ÁNGELES", "ANTUCO", "CABRERO", "LAJA", "MULCHÉN", "NACIMIENTO", "NEGRETE", "QUILACO", "QUILLECO", "SAN ROSENDO", "SANTA BÁRBARA", "TUCAPEL", "YUMBEL", "ALTO BIOBÍO", "CHILLÁN", "BULNES", "COBQUECURA", "COELEMU", "COIHUECO", "CHILLÁN VIEJO", "EL CARMEN", "NINHUE", "ÑIQUÉN", "PEMUCO", "PINTO", "PORTEZUELO", "QUILLÓN", "QUIRIHUE", "RÁNQUIL", "SAN CARLOS", "SAN FABIÁN", "SAN IGNACIO", "SAN NICOLÁS", "TREGUACO", "YUNGAY"]},
+    { nombre: "REGIÓN DE LA ARAUCANÍA", comunas: ["TEMUCO", "CARAHUE", "CUNCO", "CURARREHUE", "FREIRE", "GALVARINO", "GORBEA", "LAUTARO", "LONCOCHE", "MELIPEUCO", "NUEVA IMPERIAL", "PADRE LAS CASAS", "PERQUENCO", "PITRUFQUÉN", "PUCÓN", "SAAVEDRA", "TEODORO SCHMIDT", "TOLTÉN", "VILCÚN", "VILLARRICA", "CHOLCHOL", "ANGOL", "COLLIPULLI", "CURACAUTÍN", "ERCILLA", "LONQUIMAY", "LOS SAUCES", "LUMACO", "PURÉN", "RENAICO", "TRAIGUÉN", "VICTORIA"]},
+    { nombre: "REGIÓN DE LOS RÍOS", comunas: ["VALDIVIA", "CORRAL", "LANCO", "LOS LAGOS", "MÁFIL", "MARIQUINA", "PAILLACO", "PANGUIPULLI", "LA UNIÓN", "FUTRONO", "LAGO RANCO", "RÍO BUENO"]},
+    { nombre: "REGIÓN DE LOS LAGOS", comunas: ["PUERTO MONTT", "CALBUCO", "COCHAMÓ", "FRESIA", "FRUVLLAR", "LOS MUERMOS", "LLANQUIHUE", "MAULLÍN", "PUERTO VARAS", "CASTRO", "ANCUD", "CHONCHI", "CURACO DE VÉLEZ", "DALCAHUE", "PUQUELDÓN", "QUEILÉN", "QUELLÓN", "QUEMCHI", "QUINCHAO", "OSORNO", "PUERTO OCTAY", "PURRANQUE", "PUYEHUE", "RÍO NEGRO", "SAN JUAN DE LA COSTA", "SAN PABLO", "CHAITÉN", "FUTALEUFÚ", "HUALAIHUÉ", "PALENA"]},
+    { nombre: "REGIÓN AISÉN DEL GRAL. CARLOS IBÁÑEZ DEL CAMPO", comunas: ["COIHAIQUE", "LAGO VERDE", "AISÉN", "CISNES", "GUAITECAS", "COCHRANE", "O’HIGGINS", "TORTEL", "CHILE CHICO", "RÍO IBÁÑEZ"]},
+    { nombre: "REGIÓN DE MAGALLANES Y DE LA ANTÁRTICA CHILENA", comunas: ["PUNTA ARENAS", "LAGUNA BLANCA", "RÍO VERDE", "SAN GREGORIO", "CABO DE HORNOS (EX NAVARINO)", "ANTÁRVCA", "PORVENIR", "PRIMAVERA", "TIMAUKEL", "NATALES", "TORRES DEL PAINE"]},
+    { nombre: "REGIÓN METROPOLITANA DE SANTIAGO", comunas: ["CERRILLOS", "CERRO NAVIA", "CONCHALÍ", "EL BOSQUE", "ESTACIÓN CENTRAL", "HUECHURABA", "INDEPENDENCIA", "LA CISTERNA", "LA FLORIDA", "LA GRANJA", "LA PINTANA", "LA REINA", "LAS CONDES", "LO BARNECHEA", "LO ESPEJO", "LO PRADO", "MACUL", "MAIPÚ", "ÑUÑOA", "PEDRO AGUIRRE CERDA", "PEÑALOLÉN", "PROVIDENCIA", "PUDAHUEL", "QUILICURA", "QUINTA NORMAL", "RECOLETA", "RENCA", "SAN JOAQUÍN", "SAN MIGUEL", "SAN RAMÓN", "VITACURA", "PUENTE ALTO", "PIRQUE", "SAN JOSÉ DE MAIPO", "COLINA", "LAMPA", "TILVL", "SAN BERNARDO", "BUIN", "CALERA DE TANGO", "PAINE", "MELIPILLA", "ALHUÉ", "CURACAVÍ", "MARÍA PINTO", "SAN PEDRO", "TALAGANTE", "EL MONTE", "ISLA DE MAIPO", "PADRE HURTADO", "PEÑAFLOR"]}
   ];
 
   comunas: string[];
@@ -71,6 +86,29 @@ export class DatosDeclaracionComponent implements OnInit {
 
   displayedColumns: string[] = ['mes', 'ingresos_pesos', 'utm', 'ingresos_utm'];
   dataSource = this.ingresos;
+
+  casado = false;
+  tieneHijos = false;
+  casadoReprog = false;
+  deudorDebePresentarDecSimple = false;
+  conyugeDebePresentarDecSimple = false;
+  year: number;
+
+  //almacenan de manera temporal los archivos que el deudor va a subir como documentacion.
+  documento_renta: File;
+  documento_renta_conyuge: File;
+  documento_licencias: File;
+  documento_cotizaciones: File;
+  documento_formulario22: File;
+  documento_libreta_matrimonio: File;
+  documento_declaracion_sin_ingresos: File;
+  documento_declaracion_sin_ingresos_conyuge: File;
+  documento_finiquito: File;
+  documento_finiquito_conyuge: File;
+  documento_cert_nacimiento: File;
+  documento_carp_tributaria_deudor: File;
+  documento_carp_tributaria_conyuge: File;
+  documento_copia_pagare_conyuge: File;
 
   constructor(private declaracionService: DeclaracionService, private activatedRoute: ActivatedRoute) {
     this.datosPersonales = new FormGroup({
@@ -115,10 +153,15 @@ export class DatosDeclaracionComponent implements OnInit {
       'septiembre_utm': new FormControl(0),
       'octubre_utm': new FormControl(0),
       'noviembre_utm': new FormControl(0),
-      'diciembre_utm': new FormControl(0)
+      'diciembre_utm': new FormControl(0),
+      'ingreso_total_deudor': new FormControl(0),
+      'ingreso_total_deudor_utm': new FormControl(0),
+      'ingreso_total_conyuge': new FormControl(0),
+      'ingreso_total_conyuge_utm': new FormControl(0),
+      'cuota_preliminar': new FormControl(0)
     });
 
-    this.ingresosConyuge = new FormGroup({
+    this.conyuge = new FormGroup({
       'rut_conyuge': new FormControl(""),
       'nombres': new FormControl(""),
       'ap_paterno': new FormControl(""),
@@ -167,17 +210,148 @@ export class DatosDeclaracionComponent implements OnInit {
         this.datosPersonales.get('direccion')!.setValue(result.direccion);
         this.datosPersonales.get('telefono')!.setValue(result.telefono);
         this.datosPersonales.get('estado_civil')!.setValue(result.estado_civil);
-        this.datosPersonales.get('afp')!.setValue(result.afp);
+        //this.datosPersonales.get('afp')!.setValue(result.afp);
         this.datosPersonales.get('trabajo')!.setValue(result.trabajo);
         this.datosPersonales.get('tel_trabajo')!.setValue(result.tel_trabajo);
         this.datosPersonales.get('region')!.setValue(result.region);
         this.datosPersonales.get('comuna')!.setValue(result.comuna);
         this.datosPersonales.get('ciudad')!.setValue(result.ciudad);
+
+        this.ingresosDeudor.get('enero')!.setValue(result.enero);
+        this.ingresosDeudor.get('febrero')!.setValue(result.febrero);
+        this.ingresosDeudor.get('marzo')!.setValue(result.marzo);
+        this.ingresosDeudor.get('abril')!.setValue(result.abril);
+        this.ingresosDeudor.get('mayo')!.setValue(result.mayo);
+        this.ingresosDeudor.get('junio')!.setValue(result.junio);
+        this.ingresosDeudor.get('julio')!.setValue(result.julio);
+        this.ingresosDeudor.get('agosto')!.setValue(result.agosto);
+        this.ingresosDeudor.get('septiembre')!.setValue(result.septiembre);
+        this.ingresosDeudor.get('octubre')!.setValue(result.octubre);
+        this.ingresosDeudor.get('noviembre')!.setValue(result.noviembre);
+        this.ingresosDeudor.get('diciembre')!.setValue(result.diciembre);
+
+        this.ingresosDeudor.get('enero_utm')!.setValue(result.enero_utm);
+        this.ingresosDeudor.get('febrero_utm')!.setValue(result.febrero_utm);
+        this.ingresosDeudor.get('marzo_utm')!.setValue(result.marzo_utm);
+        this.ingresosDeudor.get('abril_utm')!.setValue(result.abril_utm);
+        this.ingresosDeudor.get('mayo_utm')!.setValue(result.mayo_utm);
+        this.ingresosDeudor.get('junio_utm')!.setValue(result.junio_utm);
+        this.ingresosDeudor.get('julio_utm')!.setValue(result.julio_utm);
+        this.ingresosDeudor.get('agosto_utm')!.setValue(result.agosto_utm);
+        this.ingresosDeudor.get('septiembre_utm')!.setValue(result.septiembre_utm);
+        this.ingresosDeudor.get('octubre_utm')!.setValue(result.octubre_utm);
+        this.ingresosDeudor.get('noviembre_utm')!.setValue(result.noviembre_utm);
+        this.ingresosDeudor.get('diciembre_utm')!.setValue(result.diciembre_utm);
+
+        this.year = result.anio;
+
+        this.convertirValorAfp(result.afp);
+        this.seleccionarComunas(this.datosPersonales.get('region')!.value);
+
+        if(result.estado_civil == 2){
+          this.tieneHijos = true;
+        }
+
+        //obtiene el conyuge de la declaracion (si es que existe en la BD)
+        this.declaracionService.obtenerConyugeDeclaracion(this.rut_deudor, this.id_declaracion).subscribe({
+          next: result =>{
+            if(result.id != null){
+              this.conyuge.get('rut_conyuge')!.setValue(result.rut);
+              this.conyuge.get('nombres')!.setValue(result.nombres);
+              this.conyuge.get('ap_paterno')!.setValue(result.ap_paterno);
+              this.conyuge.get('ap_materno')!.setValue(result.ap_materno);
+              this.conyuge.get('enero')!.setValue(result.enero);
+              this.conyuge.get('febrero')!.setValue(result.febrero);
+              this.conyuge.get('marzo')!.setValue(result.marzo);
+              this.conyuge.get('abril')!.setValue(result.abril);
+              this.conyuge.get('mayo')!.setValue(result.mayo);
+              this.conyuge.get('junio')!.setValue(result.junio);
+              this.conyuge.get('julio')!.setValue(result.julio);
+              this.conyuge.get('agosto')!.setValue(result.agosto);
+              this.conyuge.get('septiembre')!.setValue(result.septiembre);
+              this.conyuge.get('octubre')!.setValue(result.octubre);
+              this.conyuge.get('noviembre')!.setValue(result.noviembre);
+              this.conyuge.get('diciembre')!.setValue(result.diciembre);
+      
+              this.conyuge.get('enero_utm')!.setValue(result.enero_utm);
+              this.conyuge.get('febrero_utm')!.setValue(result.febrero_utm);
+              this.conyuge.get('marzo_utm')!.setValue(result.marzo_utm);
+              this.conyuge.get('abril_utm')!.setValue(result.abril_utm);
+              this.conyuge.get('mayo_utm')!.setValue(result.mayo_utm);
+              this.conyuge.get('junio_utm')!.setValue(result.junio_utm);
+              this.conyuge.get('julio_utm')!.setValue(result.julio_utm);
+              this.conyuge.get('agosto_utm')!.setValue(result.agosto_utm);
+              this.conyuge.get('septiembre_utm')!.setValue(result.septiembre_utm);
+              this.conyuge.get('octubre_utm')!.setValue(result.octubre_utm);
+              this.conyuge.get('noviembre_utm')!.setValue(result.noviembre_utm);
+              this.conyuge.get('diciembre_utm')!.setValue(result.diciembre_utm);
+
+              this.casado = true;
+            }
+          }
+        });
       },
       error: result => {
         console.log(result);
       }
     });
+  }
+
+  verificacionEstadoCivil(valor: number){
+    if(valor == 2){
+      this.tieneHijos = true;
+    }
+    else if(valor == 3){
+      this.casado = true;
+    }
+    else if(valor == 4){
+      this.casadoReprog = true;
+    }
+    else{
+      this.casado = false;
+      this.casadoReprog = false;
+    }
+  }
+
+  seleccionarComunas(region: string) {
+    for(let elemento of this.regiones){
+      if(elemento.nombre == region){
+        this.comunas = elemento.comunas;
+      }
+    }
+    console.log(region);
+  }
+
+  convertirValorAfp(valor_afp: number){
+    switch(valor_afp){
+      case 1:
+        this.datosPersonales.get('afp')!.setValue("CAPITAL");
+        break;
+
+      case 2:
+        this.datosPersonales.get('afp')!.setValue("CUPRUM");
+        break;
+
+      case 3:
+        this.datosPersonales.get('afp')!.setValue("HABITAT");
+        break;
+      
+      case 4:
+        this.datosPersonales.get('afp')!.setValue("MODELO");
+        break;
+      
+      case 5:
+        this.datosPersonales.get('afp')!.setValue("PLAVITAL");
+        break;
+
+      case 6:
+        this.datosPersonales.get('afp')!.setValue("PROVIDA");
+        break;
+
+      case 7:
+        this.datosPersonales.get('afp')!.setValue("UNO");
+        break;
+    }
   }
 
 }

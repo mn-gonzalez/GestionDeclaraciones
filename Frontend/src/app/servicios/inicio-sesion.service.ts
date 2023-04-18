@@ -25,6 +25,8 @@ export class InicioSesionService {
         }
         else{
           localStorage.setItem('access_token', result.token);
+          localStorage.setItem('usuario_actual', data.rut);
+          localStorage.setItem('tipo_usuario', 'DEUDOR');
           this.usuario_actual = data.rut;
           return true;
         }
@@ -45,6 +47,9 @@ export class InicioSesionService {
         }
         else{
           localStorage.setItem('access_token', result.token);
+          localStorage.setItem('usuario_actual', data.rut);
+          //esto es temporal, cambiar por el tipo almacenado en la base de datos.
+          localStorage.setItem('tipo_usuario', 'FUNCIONARIO');
           this.usuario_actual = data.rut;
           return true;
         }
@@ -58,7 +63,7 @@ export class InicioSesionService {
 
   logout() {
     localStorage.removeItem('access_token');
-    this.usuario_actual = "";
+    localStorage.removeItem('usuario_actual');
     //llamar al backend de logout
   }
 
@@ -70,5 +75,10 @@ export class InicioSesionService {
     else{
       return false;
     }
+  }
+
+  public obtenerUsuarioActual(){
+    const usuario = localStorage.getItem('usuario_actual');
+    return usuario;
   }
 }

@@ -1,5 +1,5 @@
 <div class="fondo">
-    <h2 class="titulo">Declaración Jurada de Ingresos Año 2021</h2>
+    <h2 class="titulo">Declaración Jurada de Ingresos Año {{this.year}}</h2>
     <mat-horizontal-stepper [linear]="isLinear" #stepper>
         <mat-step [stepControl]="datosPersonales">
             <form [formGroup]="datosPersonales">
@@ -32,11 +32,15 @@
 
                     <div class="div_estado_civil">
                         <label>Estado Civil:</label>
-                        <mat-radio-group class="estado_civil" formControlName="estado_civil">
-                            <mat-radio-button class="opciones" value="1">Soltero sin hijos</mat-radio-button>
-                            <mat-radio-button class="opciones" value="2">Soltero con hijos</mat-radio-button>
-                            <mat-radio-button class="opciones" value="3">Casado</mat-radio-button>
-                            <mat-radio-button class="opciones" value="4">Casado con deudor Reprog. Cred. Univ. o Fiscal</mat-radio-button>
+                        <mat-radio-group class="estado_civil" formControlName="estado_civil" [disabled]=true>
+                            <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 1" 
+                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value=1>Soltero sin hijos</mat-radio-button>
+                            <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 2" 
+                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value=2>Soltero con hijos</mat-radio-button>
+                            <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 3" 
+                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value=3>Casado</mat-radio-button>
+                            <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 4" 
+                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value=4>Casado con deudor Reprog.Cred.Univ. o Fiscal</mat-radio-button>
                         </mat-radio-group>
                     </div>
                 </div>
@@ -51,25 +55,17 @@
         
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>Región</mat-label>
-                        <mat-select formControlName="region" name="region" readonly>
-                            <mat-option *ngFor="let region of regiones" [value]="region.nombre">
-                                {{region.nombre}}
-                            </mat-option>
-                        </mat-select>
+                        <input matInput formControlName="region" name="region" readonly>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>Comuna</mat-label>
-                        <mat-select formControlName="comuna" name="comuna">
-                            <mat-option *ngFor="let comuna of comunas" [value]="comuna">
-                                {{comuna}}
-                            </mat-option>
-                        </mat-select>
+                        <input matInput formControlName="comuna" name="comuna" readonly>
                     </mat-form-field>
         
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>Ciudad</mat-label>
-                        <input matInput placeholder="Last name, First name" formControlName="ciudad" readonly>
+                        <input matInput formControlName="ciudad"  name="ciudad" readonly>
                     </mat-form-field>
                 </div>
 
@@ -100,7 +96,7 @@
     
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>AFP a la que esta afiliado</mat-label>
-                        <input matInput placeholder="Last name, First name" formControlName="afp" readonly>
+                        <input matInput formControlName="afp" name="afp" readonly>
                     </mat-form-field>
                 </div>
               </div>
@@ -126,25 +122,25 @@
 
                         <ng-container matColumnDef="ingresos_pesos">
                             <th mat-header-cell *matHeaderCellDef> Monto en Pesos </th>
-                            <div class="div_form_ingresos" mat-cell *matCellDef="let element">
-                                <mat-form-field  class="form_ingresos">
-                                    <input matInput formControlName="{{element.formControl}}" id="{{element.id}}" readonly>
+                            <td mat-cell *matCellDef="let element"> 
+                                <mat-form-field>
+                                    <input matInput formControlName="{{element.formControl}}" readonly>
                                 </mat-form-field>
-                            </div>
+                            </td>
                         </ng-container>
 
                         <ng-container matColumnDef="utm">
                             <th mat-header-cell *matHeaderCellDef> Valor UTM </th>
-                            <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
+                            <td mat-cell *matCellDef="let element">$ {{element.valor}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="ingresos_utm">
                             <th mat-header-cell *matHeaderCellDef> Monto en UTM </th>
-                            <div class="div_form_ingresos" mat-cell *matCellDef="let element">
-                                <mat-form-field  class="form_ingresos">
+                            <td mat-cell *matCellDef="let element"> 
+                                <mat-form-field>
                                     <input matInput formControlName="{{element.formControlUTM}}" readonly>
                                 </mat-form-field>
-                            </div>
+                            </td>
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -160,8 +156,8 @@
                 </form>
             </div>
         </mat-step>
-        <mat-step [stepControl]="ingresosConyuge">
-            <form [formGroup]="ingresosConyuge">
+        <mat-step [stepControl]="conyuge" *ngIf="casado">
+            <form [formGroup]="conyuge">
               <ng-template matStepLabel>Datos e Ingresos del Conyuge</ng-template>
 
                 <div>
@@ -235,8 +231,8 @@
             </form>
         </mat-step>
 
-        <mat-step [stepControl]="ingresosConyuge">
-            <form [formGroup]="ingresosConyuge">
+        <mat-step [stepControl]="conyuge">
+            <form [formGroup]="conyuge">
               <ng-template matStepLabel>Documentación</ng-template>
                 <div class="formulario_documentacion">
                     <div class="documento">

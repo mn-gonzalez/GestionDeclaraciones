@@ -76,7 +76,7 @@ export class DeclaracionService {
     .set('tel_trabajo', datos.tel_trabajo)
     .set('estado', 1)
 
-    return this.http.post<{ mensaje: string}>(env.api.concat("/"+datos.rut_deudor+"/declaracion/registrar"), body)
+    return this.http.post<{ mensaje: string}>(env.api.concat("/"+datos.rut_deudor+"/declaraciones/registrar"), body)
     .pipe(
       map(result => {
         console.log(result.mensaje);
@@ -109,7 +109,7 @@ export class DeclaracionService {
     .set('tel_trabajo', datos.tel_trabajo)
     .set('estado', 1)
 
-    return this.http.put<{ mensaje: string}>(env.api.concat("/"+datos.rut_deudor+"/"+datos.id+"/actualizarDatos"), body)
+    return this.http.put<{ mensaje: string}>(env.api.concat("/"+datos.rut_deudor+"/declaraciones/"+datos.id+"/actualizarDatos"), body)
     .pipe(
       map(result => {
         console.log(result.mensaje);
@@ -277,5 +277,9 @@ export class DeclaracionService {
     .subscribe((response) => {
          console.log('response received is ', response);
     })
+  }
+
+  actualizarEstadoDeclaracion(){
+    
   }
 }

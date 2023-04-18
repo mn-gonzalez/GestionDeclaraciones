@@ -237,11 +237,11 @@ export class RegistrarDeclaracionComponent implements OnInit {
   ngOnInit(): void {
     this.year = new Date().getFullYear();
 
-    if(this.auth.usuario_actual == null){
+    if(this.auth.isAuthenticated() == false){
       //this.router.navigate(['/pagina-inicio']);
     }
     else{
-      this.rut_deudor = this.auth.usuario_actual;
+      this.rut_deudor = this.auth.obtenerUsuarioActual()!;
       this.id_declaracion = "DEC"+this.rut_deudor+"_"+this.year;
       //this.obtenerDatosDeclaracion();
       this.verificarDeclaracionPendiente();
@@ -735,5 +735,9 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
   verificarDecJuradaSimpleConyuge(){
 
+  }
+
+  finalizarDeclaracion(){
+    
   }
 }

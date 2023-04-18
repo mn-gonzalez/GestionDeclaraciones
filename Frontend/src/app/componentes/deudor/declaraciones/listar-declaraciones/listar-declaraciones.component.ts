@@ -34,8 +34,13 @@ export class ListarDeclaracionesComponent implements OnInit {
           declaracion.estado_text = "EN REVISION";
           break;
         }
-        
+
         case 3:{
+          declaracion.estado_text = "EN CORRECCIÓN"
+          break;
+        }
+        
+        case 4:{
           declaracion.estado_text = "COMPLETADA";
           break;
         }
@@ -44,7 +49,7 @@ export class ListarDeclaracionesComponent implements OnInit {
   }
 
   obtener_declaraciones_deudor(){
-    let rut_deudor = this.auth.usuario_actual;
+    let rut_deudor = this.auth.obtenerUsuarioActual()!;
 
     this.declaracionService.obtenerDeclaracionesDeudor(rut_deudor).subscribe({
       next: (result) => {

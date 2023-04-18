@@ -33,8 +33,8 @@ Route::post('/login_deudor', [AuthController::class, 'login_deudor']);
 Route::post('/login_funcionario', [AuthController::class, 'login_funcionario']);
 
 //Declaraciones deudor
-Route::post('{rut_deudor}/declaracion/registrar', [DeclaracionController::class, 'registrar']);
-Route::put('{rut_deudor}/{id_declaracion}/actualizarDatos', [DeclaracionController::class, 'actualizar_datos_personales']);
+Route::post('{rut_deudor}/declaraciones/registrar', [DeclaracionController::class, 'registrar']);
+Route::put('{rut_deudor}/declaraciones/{id_declaracion}/actualizarDatos', [DeclaracionController::class, 'actualizar_datos_personales']);
 
 Route::put('{rut_deudor}/declaraciones/{id_declaracion}/actualizarIngresos', [DeclaracionController::class, 'actualizar_ingresos']);
 Route::get('{rut_deudor}/declaraciones',[DeclaracionController::class, 'declaraciones']);

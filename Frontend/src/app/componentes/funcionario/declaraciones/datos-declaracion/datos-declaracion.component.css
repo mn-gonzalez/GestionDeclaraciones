@@ -63,47 +63,26 @@
     justify-content: center;
 }
 
-.div_form_ingresos{
-    display: flex;
-    justify-content: center;
-    border: 1px solid currentColor;
-}
-
 .form_ingresos{
-    display:flex;
-    justify-content: center;
     padding: 5px;
-    max-height: 55px;
+    max-height: 40px;
 }
 
-.mat-column-mes{
-    border: 1px solid currentColor;
+.mat-header-cell{
     text-align: center;
+    border: 1px solid currentColor;
+    padding: 2px;
 }
 
-.mat-column-ingresos_pesos{
-    border: 1px solid currentColor;
+.mat-cell{
     text-align: center;
-}
-
-.mat-column-utm{
     border: 1px solid currentColor;
-    text-align: center;
-}
-
-.mat-column-ingresos_utm{
-    border: 1px solid currentColor;
-    text-align: center;
+    padding: 2px;
 }
 
 .mat-table{
     padding-top:20px;
     width: 650px;
-}
-
-.botones{
-    display: flex;
-    
 }
 
 .formulario_documentacion{
@@ -118,7 +97,7 @@
 }
 
 .label_documento{
-    padding-bottom: 10px;;
+    padding-bottom: 10px;
 }
 
 .input_documento{

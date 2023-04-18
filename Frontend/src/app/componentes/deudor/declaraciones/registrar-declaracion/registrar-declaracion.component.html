@@ -55,7 +55,7 @@
         
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>Región</mat-label>
-                        <mat-select formControlName="region" name="region" [(ngModel)]="this.datosPersonales.get('region')!" (selectionChange)="seleccionarComunas($event.value)">
+                        <mat-select formControlName="region" name="region" (selectionChange)="seleccionarComunas($event.value)">
                             <mat-option *ngFor="let region of regiones" [value]="region.nombre">
                                 {{region.nombre}}
                             </mat-option>
@@ -64,7 +64,7 @@
 
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>Comuna</mat-label>
-                        <mat-select formControlName="comuna" name="comuna" [(ngModel)]="this.datosPersonales.get('comuna')!">
+                        <mat-select formControlName="comuna" name="comuna">
                             <mat-option *ngFor="let comuna of comunas" [value]="comuna">
                                 {{comuna}}
                             </mat-option>
@@ -443,7 +443,7 @@
               <ng-template matStepLabel>Finalizar</ng-template>
                 
                 <div>
-                    <button mat-button matStepperNext>Enviar</button>
+                    <button mat-button matStepperNext (click)="finalizarDeclaracion()">Enviar</button>
                 </div>
             </form>
         </mat-step>
