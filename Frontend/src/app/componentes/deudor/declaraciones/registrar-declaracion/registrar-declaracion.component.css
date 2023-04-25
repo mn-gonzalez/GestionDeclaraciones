@@ -111,29 +111,38 @@
     
 }
 
-.formulario_documentacion{
+.formulario-documentacion{
     display: flex;
     flex-direction: column;
-}
-
-.documento{
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 20px;
+    row-gap: 20px;
 }
 
 .label_documento{
     padding-bottom: 10px;
 }
 
-.input_documento{
+.subir-documento{
     display: flex;
-    padding: 10px;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    height: 60px;
     border: 1px solid currentColor;
     border-radius: 5px;
-    max-width: 500px;
+    width: 500px;
+    padding: 10px;
+}
+
+.icono-pdf{
+    max-height: 70%;
+    padding-right: 5px;
+}
+
+.miniatura-pdf{
+    display: flex; 
+    align-items: center; 
+    height: 100%; 
+    width: 55%;
 }
 
 .botones{

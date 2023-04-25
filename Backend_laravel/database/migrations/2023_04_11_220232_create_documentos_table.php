@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('documento', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
             $table->string('tipo');
             $table->string('ubicacion');
             $table->string('ref_declaracion');

@@ -4,9 +4,9 @@ import { environment as env } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Observable } from "rxjs";
 import { Declaracion } from "../modelos/declaracion";
-import { Ingresos } from "../modelos/ingresos";
 import { Conyuge } from '../modelos/conyuge';
 import { Deudor } from '../modelos/deudor';
+import { Documento } from '../modelos/documento';
 
 @Injectable({
   providedIn: 'root'
@@ -268,8 +268,9 @@ export class DeclaracionService {
     );
   }
 
-  subirDocumentacionDeclaracion(rut_deudor: string, id_declaracion: string, tipo: string, documento: File) {
+  subirDocumentacionDeclaracion(rut_deudor: string, id_declaracion: string, nombre: string, tipo: string, documento: File) {
     const formData = new FormData();
+    formData.append('nombre', nombre);
     formData.append('tipo', tipo);
     formData.append('documento', documento);
 
@@ -277,6 +278,38 @@ export class DeclaracionService {
     .subscribe((response) => {
          console.log('response received is ', response);
     })
+  }
+
+  obtenerDocumentacionDeclaracion(rut_deudor: string, id_declaracion: string){
+    return this.http.get<Documento[]>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/documentacion"))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  obtenerArchivoDeclaracion(rut_deudor: string, id_declaracion: string, id_documento: number, nombre_documento: string){
+    const headers = new HttpHeaders()
+    .set('content-type', 'application/pdf')
+    
+    return this.http.get(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/documentacion/"+id_documento), {headers: headers, responseType: 'blob'})
+    .pipe(
+      map(result => {
+        var blob = new Blob([result], { type: 'application/pdf' });
+        var file = new File([blob], nombre_documento+".pdf");
+        return file;
+      })
+    );
+  }
+
+  obtenerUrlArchivo(id_declaracion: string, tipo_documento: string){
+    return this.http.get<string>(env.api.concat("/storage/"+id_declaracion+"/documento/"+tipo_documento))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
   }
 
   actualizarEstadoDeclaracion(){

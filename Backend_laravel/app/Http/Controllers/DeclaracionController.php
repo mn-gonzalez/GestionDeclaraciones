@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Declaracion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class DeclaracionController extends Controller
 {
@@ -280,6 +281,13 @@ class DeclaracionController extends Controller
     public function show(Declaracion $declaracion)
     {
         //
+    }
+
+    public function generarPdfDeclaracion(){
+        $data = [];
+        $pdf = PDF::loadView('declaracion', $data)->setPaper('legal', 'portrait');
+        // download PDF file with download method
+        return $pdf->download('declaracion.pdf');
     }
 
     /**

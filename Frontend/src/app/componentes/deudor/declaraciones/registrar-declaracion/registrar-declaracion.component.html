@@ -257,182 +257,258 @@
         <mat-step [stepControl]="conyuge">
             <form [formGroup]="conyuge">
               <ng-template matStepLabel>Documentación</ng-template>
-                <div class="formulario_documentacion">
-                    <div class="documento">
+                <div class="formulario-documentacion">
+                    <div>
                         <div class="label_documento">
                             <label>Certificado de Rentas</label>
                         </div>
-                        <div class="input_documento">
-                            <input type="file" (change)="upload('RENTAS_DEUDOR', $event)" accept="application/pdf">
-                            <div>
-                                <button mat-icon-button><mat-icon (click)="subirDocumentoRentaDeudor()" class="material-icons-outlined">save</mat-icon></button>
-                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                        <div class="subir-documento">
+                            <input type="file" (change)="upload('RENTAS_DEUDOR', $event)" accept="application/pdf" #renta style="display: none;">
+                            <button style="height:50%;" (click)="renta.click()"> Seleccionar.</button>
+                            <div *ngIf="this.documento_renta == null" class="miniatura-pdf">
+                                <span>No se ha seleccionado ningún archivo.</span>
                             </div>
+                            <div *ngIf="this.documento_renta != null" class="miniatura-pdf">
+                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_renta.name}}</div>
+                            </div>
+                            <button mat-icon-button><mat-icon (click)="subirDocumentoRentaDeudor()" (click)="visualizarPDF('RENTAS_DEUDOR')" class="material-icons-outlined">save</mat-icon></button>
+                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
-                        <div></div>
                     </div>
 
-                    <div class="documento" *ngIf="casado || casadoReprog">
+                    <div *ngIf="casado || casadoReprog">
                         <div class="label_documento">
                             <label>Certificado de Rentas Conyuge</label>
                         </div>
-                        <div class="input_documento">
-                            <input type="file" (change)="upload('RENTAS_CONYUGE',$event)" accept="application/pdf">
-                            <div>
-                                <button mat-icon-button><mat-icon (click)="subirDocumentoRentaConyuge()" class="material-icons-outlined">save</mat-icon></button>
-                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                        <div class="subir-documento">
+                            <input type="file" (change)="upload('RENTAS_CONYUGE',$event)" accept="application/pdf" #rentaConyuge style="display: none;">
+                            <button style="height:50%;" (click)="rentaConyuge.click()"> Seleccionar.</button>
+                            <div *ngIf="this.documento_renta_conyuge == null" class="miniatura-pdf">
+                                <span>No se ha seleccionado ningún archivo.</span>
                             </div>
+                            <div *ngIf="this.documento_renta_conyuge != null" (click)="visualizarPDF('RENTAS_CONYUGE')" class="miniatura-pdf">
+                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_renta_conyuge.name}}</div>
+                            </div>
+                            <button mat-icon-button><mat-icon (click)="subirDocumentoRentaConyuge()" class="material-icons-outlined">save</mat-icon></button>
+                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
-                        <div></div>
                     </div>
 
-                    <div class="documento">
+                    <div>
                         <div class="label_documento">
                             <label>Formulario N°22 Compacto</label>
                         </div>
-                        <div class="input_documento">
-                            <input type="file" (change)="upload('FORMULARIO_N22', $event)" accept="application/pdf">
-                            <div>
-                                <button mat-icon-button><mat-icon (click)="subirDocumentoFormulario22()" class="material-icons-outlined">save</mat-icon></button>
-                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                        <div class="subir-documento">
+                            <input type="file" (change)="upload('FORMULARIO_N22', $event)" accept="application/pdf" #formulario22 style="display: none;">
+                            <button style="height:50%;" (click)="formulario22.click()"> Seleccionar.</button>
+                            <div *ngIf="this.documento_formulario22 == null" class="miniatura-pdf">
+                                <span>No se ha seleccionado ningún archivo.</span>
                             </div>
+                            <div *ngIf="this.documento_formulario22 != null" (click)="visualizarPDF('FORMULARIO_N22')" class="miniatura-pdf">
+                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_formulario22.name}}</div>
+                            </div>
+                            <button mat-icon-button><mat-icon (click)="subirDocumentoFormulario22()" class="material-icons-outlined">save</mat-icon></button>
+                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
                     </div>
 
-                    <div class="documento">
+                    <div>
                         <div class="label_documento">
                             <label>Carpeta Tributaria Deudor</label>
                         </div>
-                        <div class="input_documento">
-                            <input type="file" (change)="upload('CARPETA_TRIBUTARIA_DEUDOR', $event)" accept="application/pdf">
-                            <div>
-                                <button mat-icon-button><mat-icon (click)="subirDocumentoCarpTributariaDeudor()" class="material-icons-outlined">save</mat-icon></button>
-                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                        <div class="subir-documento">
+                            <input type="file" (change)="upload('CARPETA_TRIBUTARIA_DEUDOR', $event)" accept="application/pdf" #carpTributaria style="display: none;">
+                            <button style="height:50%;" (click)="carpTributaria.click()"> Seleccionar.</button>
+                            <div *ngIf="this.documento_carp_tributaria_deudor == null" class="miniatura-pdf">
+                                <span>No se ha seleccionado ningún archivo.</span>
                             </div>
+                            <div *ngIf="this.documento_carp_tributaria_deudor != null" (click)="visualizarPDF('CARPETA_TRIBUTARIA_DEUDOR')" class="miniatura-pdf">
+                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_carp_tributaria_deudor.name}}</div>
+                            </div>
+                            <button mat-icon-button><mat-icon (click)="subirDocumentoCarpTributariaDeudor()" class="material-icons-outlined">save</mat-icon></button>
+                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
                     </div>
 
-                    <div class="documento" *ngIf="casado || casadoReprog">
+                    <div *ngIf="casado || casadoReprog">
                         <div class="label_documento">
                             <label>Carpeta Tributaria Conyuge</label>
                         </div>
-                        <div class="input_documento">
-                            <input type="file" (change)="upload('CARPETA_TRIBUTARIA_CONYUGE', $event)" accept="application/pdf">
-                            <div>
-                                <button mat-icon-button><mat-icon (click)="subirDocumentoCarpTributariaConyuge()" class="material-icons-outlined">save</mat-icon></button>
-                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                        <div class="subir-documento">
+                            <input type="file" (change)="upload('CARPETA_TRIBUTARIA_CONYUGE', $event)" accept="application/pdf" #carpTributariaConyuge style="display: none;">
+                            <button style="height:50%;" (click)="carpTributariaConyuge.click()"> Seleccionar.</button>
+                            <div *ngIf="this.documento_carp_tributaria_conyuge == null" class="miniatura-pdf">
+                                <span>No se ha seleccionado ningún archivo.</span>
                             </div>
+                            <div *ngIf="this.documento_carp_tributaria_conyuge != null" (click)="visualizarPDF('CARPETA_TRIBUTARIA_CONYUGE')" class="miniatura-pdf">
+                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_carp_tributaria_conyuge.name}}</div>
+                            </div>
+                            <button mat-icon-button><mat-icon (click)="subirDocumentoCarpTributariaConyuge()" class="material-icons-outlined">save</mat-icon></button>
+                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
                     </div>
 
-                    <div class="documento">
+                    <div>
                         <div class="label_documento">
                             <label>Certificado de Cotizaciones Previsionales</label>
                         </div>
-                        <div class="input_documento">
-                            <input type="file" (change)="upload('CERTIFICADO_COTIZACIONES', $event)" accept="application/pdf">
-                            <div>
-                                <button mat-icon-button><mat-icon (click)="subirDocumentoCotizaciones()" class="material-icons-outlined">save</mat-icon></button>
-                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                        <div class="subir-documento">
+                            <input type="file" (change)="upload('CERTIFICADO_COTIZACIONES', $event)" accept="application/pdf" #cotizaciones style="display: none;">
+                            <button style="height:50%;" (click)="cotizaciones.click()"> Seleccionar.</button>
+                            <div *ngIf="this.documento_cotizaciones == null" class="miniatura-pdf">
+                                <span>No se ha seleccionado ningún archivo.</span>
                             </div>
+                            <div *ngIf="this.documento_cotizaciones != null" (click)="visualizarPDF('CERTIFICADO_COTIZACIONES')" class="miniatura-pdf">
+                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_cotizaciones.name}}</div>
+                            </div>
+                            <button mat-icon-button><mat-icon (click)="subirDocumentoCotizaciones()" class="material-icons-outlined">save</mat-icon></button>
+                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
                     </div>
 
-                    <div class="documento" *ngIf="casado || casadoReprog">
+                    <div *ngIf="casado || casadoReprog">
                         <div class="label_documento">
                             <label>Fotocopia de Libreta de Matrimonio</label>
                         </div>
-                        <div class="input_documento">
-                            <input type="file" (change)="upload('LIBRETA_MATRIMONIO', $event)" accept="application/pdf">
-                            <div>
-                                <button mat-icon-button><mat-icon (click)="subirDocumentoLibretaMatrimonio()" class="material-icons-outlined">save</mat-icon></button>
-                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                        <div class="subir-documento">
+                            <input type="file" (change)="upload('LIBRETA_MATRIMONIO', $event)" accept="application/pdf" #libretaMatrimonio style="display: none;">
+                            <button style="height:50%;" (click)="libretaMatrimonio.click()"> Seleccionar.</button>
+                            <div *ngIf="this.documento_libreta_matrimonio == null" class="miniatura-pdf">
+                                <span>No se ha seleccionado ningún archivo.</span>
                             </div>
+                            <div *ngIf="this.documento_libreta_matrimonio != null" (click)="visualizarPDF('LIBRETA_MATRIMONIO')" class="miniatura-pdf">
+                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_libreta_matrimonio.name}}</div>
+                            </div>
+                            <button mat-icon-button><mat-icon (click)="subirDocumentoLibretaMatrimonio()" class="material-icons-outlined">save</mat-icon></button>
+                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
                     </div>
 
-                    <div class="documento">
+                    <div>
                         <div class="label_documento">
                             <label>Declaracion Jurada Notarial Simple del Deudor (debe acreditar
                                 no haber percibido ingresos en tres o mas meses)</label>
                         </div>
-                        <div class="input_documento">
-                            <input type="file" (change)="upload('DEC_JURADA_SIMPLE_DEUDOR', $event)" accept="application/pdf">
-                            <div>
-                                <button mat-icon-button><mat-icon (click)="subirDocumentoDecJuradaDeudor()" class="material-icons-outlined">save</mat-icon></button>
-                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                        <div class="subir-documento">
+                            <input type="file" (change)="upload('DEC_JURADA_SIMPLE_DEUDOR', $event)" accept="application/pdf" #decSimple style="display: none;">
+                            <button style="height:50%;" (click)="decSimple.click()"> Seleccionar.</button>
+                            <div *ngIf="this.documento_declaracion_sin_ingresos == null" class="miniatura-pdf">
+                                <span>No se ha seleccionado ningún archivo.</span>
                             </div>
+                            <div *ngIf="this.documento_declaracion_sin_ingresos != null" (click)="visualizarPDF('DEC_JURADA_SIMPLE_DEUDOR')" class="miniatura-pdf">
+                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_declaracion_sin_ingresos.name}}</div>
+                            </div>
+                            <button mat-icon-button><mat-icon (click)="subirDocumentoDecJuradaDeudor()" class="material-icons-outlined">save</mat-icon></button>
+                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
                     </div>
 
-                    <div class="documento" *ngIf="casado || casadoReprog">
+                    <div *ngIf="casado || casadoReprog">
                         <div class="label_documento">
                             <label>Declaracion Jurada Notarial Simple del Conyuge (debe acreditar
                                 no haber percibido ingresos en tres o mas meses)</label>
                         </div>
-                        <div class="input_documento">
-                            <input type="file" (change)="upload('DEC_JURADA_SIMPLE_CONYUGE', $event)" accept="application/pdf">
-                            <div>
-                                <button mat-icon-button><mat-icon (click)="subirDocumentoDecJuradaConyuge()" class="material-icons-outlined">save</mat-icon></button>
-                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                        <div class="subir-documento">
+                            <input type="file" (change)="upload('DEC_JURADA_SIMPLE_CONYUGE', $event)" accept="application/pdf" #decSimpleConyuge style="display: none;">
+                            <button style="height:50%;" (click)="decSimpleConyuge.click()"> Seleccionar.</button>
+                            <div *ngIf="this.documento_declaracion_sin_ingresos_conyuge == null" class="miniatura-pdf">
+                                <span>No se ha seleccionado ningún archivo.</span>
                             </div>
+                            <div *ngIf="this.documento_declaracion_sin_ingresos_conyuge != null" (click)="visualizarPDF('DEC_JURADA_SIMPLE_CONYUGE')" class="miniatura-pdf">
+                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_declaracion_sin_ingresos_conyuge.name}}</div>
+                            </div>
+                            <button mat-icon-button><mat-icon (click)="subirDocumentoDecJuradaConyuge()" class="material-icons-outlined">save</mat-icon></button>
+                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
                     </div>
 
-                    <div class="documento">
+                    <div>
                         <div class="label_documento">
                             <label>Finiquito de Trabajo Deudor</label>
                         </div>
-                        <div class="input_documento">
-                            <input type="file" (change)="upload('FINIQUITO_DEUDOR', $event)" accept="application/pdf">
-                            <div>
-                                <button mat-icon-button><mat-icon (click)="subirDocumentoFinitoDeudor" class="material-icons-outlined">save</mat-icon></button>
-                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                        <div class="subir-documento">
+                            <input type="file" (change)="upload('FINIQUITO_DEUDOR', $event)" accept="application/pdf" #finiquito style="display: none;">
+                            <button style="height:50%;" (click)="finiquito.click()"> Seleccionar.</button>
+                            <div *ngIf="this.documento_finiquito == null" class="miniatura-pdf">
+                                <span>No se ha seleccionado ningún archivo.</span>
                             </div>
+                            <div *ngIf="this.documento_finiquito != null" (click)="visualizarPDF('FINIQUITO_DEUDOR')" class="miniatura-pdf">
+                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_finiquito.name}}</div>
+                            </div>
+                            <button mat-icon-button><mat-icon (click)="subirDocumentoFinitoDeudor()" class="material-icons-outlined">save</mat-icon></button>
+                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
                     </div>
 
-                    <div class="documento" *ngIf="casado || casadoReprog">
+                    <div *ngIf="casado || casadoReprog">
                         <div class="label_documento">
                             <label>Finiquito de Trabajo Conyuge</label>
                         </div>
-                        <div class="input_documento">
-                            <input type="file" (change)="upload('FINIQUITO_CONYUGE', $event)" accept="application/pdf">
-                            <div>
-                                <button mat-icon-button><mat-icon (click)="subirDocumentoFinitoConyuge" class="material-icons-outlined">save</mat-icon></button>
-                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                        <div class="subir-documento">
+                            <input type="file" (change)="upload('FINIQUITO_CONYUGE', $event)" accept="application/pdf" #finiquitoConyuge style="display: none;">
+                            <button style="height:50%;" (click)="finiquitoConyuge.click()"> Seleccionar.</button>
+                            <div *ngIf="this.documento_finiquito_conyuge == null" class="miniatura-pdf">
+                                <span>No se ha seleccionado ningún archivo.</span>
                             </div>
+                            <div *ngIf="this.documento_finiquito_conyuge != null" (click)="visualizarPDF('FINIQUITO_CONYUGE')" class="miniatura-pdf">
+                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_finiquito_conyuge.name}}</div>
+                            </div>
+                            <button mat-icon-button><mat-icon (click)="subirDocumentoFinitoConyuge()" class="material-icons-outlined">save</mat-icon></button>
+                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
                     </div>
 
-                    <div class="documento" *ngIf="tieneHijos">
+                    <div *ngIf="tieneHijos">
                         <div class="label_documento">
                             <label>Certificado de Nacimiento de Hijo</label>
                         </div>
-                        <div class="input_documento">
-                            <input type="file" (change)="upload('CERT_NACIMIENTO', $event)" accept="application/pdf">
-                            <div>
-                                <button mat-icon-button><mat-icon (click)="subirDocumentoCertNacimiento()" class="material-icons-outlined">save</mat-icon></button>
-                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                        <div class="subir-documento">
+                            <input type="file" (change)="upload('CERT_NACIMIENTO', $event)" accept="application/pdf" #certNacimiento style="display: none;">
+                            <button style="height:50%;" (click)="certNacimiento.click()"> Seleccionar.</button>
+                            <div *ngIf="this.documento_cert_nacimiento == null" class="miniatura-pdf">
+                                <span>No se ha seleccionado ningún archivo.</span>
                             </div>
+                            <div *ngIf="this.documento_cert_nacimiento != null" (click)="visualizarPDF('CERT_NACIMIENTO')" class="miniatura-pdf">
+                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_cert_nacimiento.name}}</div>
+                            </div>
+                            <button mat-icon-button><mat-icon (click)="subirDocumentoCertNacimiento()" class="material-icons-outlined">save</mat-icon></button>
+                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
                     </div>
 
-                    <div class="documento" *ngIf="casadoReprog">
+                    <div *ngIf="casadoReprog">
                         <div class="label_documento">
                             <label>Copia de Pagaré de Conyuge, para deudores reprogramados Ley 19.287</label>
                         </div>
-                        <div class="input_documento">
-                            <input type="file" (change)="upload('PAGARE_CONYUGE', $event)" accept="application/pdf">
-                            <div>
-                                <button mat-icon-button><mat-icon (click)="subirDocumentoPagareConyuge()" class="material-icons-outlined">save</mat-icon></button>
-                                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+                        <div class="subir-documento">
+                            <input type="file" (change)="upload('PAGARE_CONYUGE', $event)" accept="application/pdf" #pagareConyuge style="display: none;">
+                            <button style="height:50%;" (click)="pagareConyuge.click()"> Seleccionar.</button>
+                            <div *ngIf="this.documento_copia_pagare_conyuge == null" class="miniatura-pdf">
+                                <span>No se ha seleccionado ningún archivo.</span>
                             </div>
+                            <div *ngIf="this.documento_copia_pagare_conyuge != null" (click)="visualizarPDF('PAGARE_CONYUGE')" class="miniatura-pdf">
+                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_copia_pagare_conyuge.name}}</div>
+                            </div>
+                            <button mat-icon-button><mat-icon (click)="subirDocumentoPagareConyuge()" class="material-icons-outlined">save</mat-icon></button>
+                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
                     </div>
                 </div>
                 
-                <div>
+                <div style="padding-top: 20px;">
                     <button mat-button matStepperNext>Siguiente</button>
                 </div>
             </form>

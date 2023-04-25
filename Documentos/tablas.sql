@@ -121,6 +121,7 @@ CREATE TABLE conyuge(
 CREATE TABLE postergacion(
 	id varchar(20) NOT NULL REFERENCES tramite(id),
 	motivo text NOT NULL,
+	nombre_archivo varchar(100),
 	archivo text NOT NULL,
 	PRIMARY KEY (id)
 );
@@ -134,12 +135,14 @@ CREATE TABLE devolucion(
 	domicilio varchar(255), 
 	solicitud text,
 	observaciones text,
+	nombre_archivo varchar(100),
 	archivo text NOT NULL,
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE documento(
 	id SERIAL NOT NULL,
+	nombre varchar(100) NOT NULL,
 	tipo varchar(100) NOT NULL,
 	ubicacion text NOT NULL,
 	ref_declaracion varchar(20) NOT NULL REFERENCES declaracion(id),

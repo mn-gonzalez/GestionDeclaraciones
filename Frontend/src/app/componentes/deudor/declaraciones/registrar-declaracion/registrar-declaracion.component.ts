@@ -70,6 +70,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
   datosPersonales: FormGroup;
   ingresosDeudor: FormGroup;
   conyuge: FormGroup;
+  documentacion: FormGroup;
 
   //listado de afps disponibles
   afps: Afp[] = [
@@ -264,6 +265,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
         else{
           if(result.estado = 1){
             this.obtenerDatosDeclaracion();
+            this.obtenerDocumentacionDeclaracion();
             this.existe_declaracion = true;
           }
           else{
@@ -547,62 +549,133 @@ export class RegistrarDeclaracionComponent implements OnInit {
         break; 
       } 
       default: { 
-          console.log("El tipo de documento no esta regitrado en el sistema");
+          console.log("El tipo de documento no esta registrado en el sistema");
           break; 
       }
     } 
   }
 
   subirDocumentoRentaDeudor(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "RENTA_DEUDOR",this.documento_renta);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERTIFICADO DE RENTAS", "RENTA_DEUDOR",this.documento_renta);
   }
 
   subirDocumentoRentaConyuge(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "RENTA_CONYUGE",this.documento_renta_conyuge);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERTIFICADO DE RENTAS CONYUGE", "RENTA_CONYUGE",this.documento_renta_conyuge);
   }
 
   subirDocumentoCotizaciones(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERTIFICADO_COTIZACIONES",this.documento_cotizaciones);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "COTIZACIONES","CERTIFICADO_COTIZACIONES",this.documento_cotizaciones);
   }
 
   subirDocumentoFormulario22(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "FORMULARIO_N22",this.documento_formulario22);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "FORMULARIO 22","FORMULARIO_N22",this.documento_formulario22);
   }
 
   subirDocumentoLibretaMatrimonio(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "LIBRETA_MATRIMONIO",this.documento_libreta_matrimonio);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "LIBRETA DE MATRIMONIO", "LIBRETA_MATRIMONIO",this.documento_libreta_matrimonio);
   }
 
   subirDocumentoDecJuradaDeudor(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "DEC_JURADA_SIMPLE_DEUDOR",this.documento_declaracion_sin_ingresos);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "DECLARACION JURADA SIMPLE DEUDOR","DEC_JURADA_SIMPLE_DEUDOR",this.documento_declaracion_sin_ingresos);
   }
 
   subirDocumentoDecJuradaConyuge(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "DEC_JURADA_SIMPLE_CONYUGE",this.documento_declaracion_sin_ingresos_conyuge);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "DECLARACION JURADA SIMPLE CONYUGE","DEC_JURADA_SIMPLE_CONYUGE",this.documento_declaracion_sin_ingresos_conyuge);
   }
 
   subirDocumentoFinitoDeudor(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "FINIQUITO_DEUDOR",this.documento_finiquito);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "FINIQUITO DEUDOR","FINIQUITO_DEUDOR",this.documento_finiquito);
   }
 
   subirDocumentoFinitoConyuge(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "FINIQUITO_CONYUGE",this.documento_finiquito_conyuge);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "FINIQUITO CONYUGE","FINIQUITO_CONYUGE",this.documento_finiquito_conyuge);
   }
 
   subirDocumentoCertNacimiento(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERT_NACIMIENTO",this.documento_cert_nacimiento);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERTIFICADO DE NACIMIENTO","CERT_NACIMIENTO",this.documento_cert_nacimiento);
   }
 
   subirDocumentoCarpTributariaDeudor(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CARPETA_TRIBUTARIA_DEUDOR",this.documento_carp_tributaria_deudor);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CARPETA TRIBUTARIA DEUDOR","CARPETA_TRIBUTARIA_DEUDOR",this.documento_carp_tributaria_deudor);
   }
 
   subirDocumentoCarpTributariaConyuge(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CARPETA_TRIBUTARIA_CONYUGE",this.documento_carp_tributaria_conyuge);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CARPETA TRIBUTARIA CONYUGE","CARPETA_TRIBUTARIA_CONYUGE",this.documento_carp_tributaria_conyuge);
   }
 
   subirDocumentoPagareConyuge(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "PAGARE_CONYUGE",this.documento_copia_pagare_conyuge);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "COPIA DE PAGARE CONYUGE","PAGARE_CONYUGE",this.documento_copia_pagare_conyuge);
+  }
+
+  obtenerDocumentacionDeclaracion(){
+    this.declaracionService.obtenerDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion).subscribe({
+      next: documentos =>{
+        documentos.forEach(documento=>{
+          this.declaracionService.obtenerArchivoDeclaracion(this.rut_deudor, this.id_declaracion, documento.id, documento.nombre).subscribe({
+            next: archivo =>{
+              switch(documento.tipo) { 
+                case "RENTAS_DEUDOR": { 
+                  this.documento_renta = archivo;
+                  break; 
+                } 
+                case "RENTAS_CONYUGE": { 
+                  this.documento_renta_conyuge = archivo;
+                  break; 
+                } 
+                case "CERTIFICADO_COTIZACIONES": { 
+                  this.documento_cotizaciones = archivo;
+                  break; 
+                } 
+                case "FORMULARIO_N22": { 
+                  this.documento_formulario22 = archivo;
+                  break; 
+                } 
+                case "LIBRETA_MATRIMONIO": { 
+                  this.documento_libreta_matrimonio = archivo; 
+                  break; 
+                } 
+                case "DEC_JURADA_SIMPLE_DEUDOR": { 
+                  this.documento_declaracion_sin_ingresos = archivo;
+                  break; 
+                } 
+                case "DEC_JURADA_SIMPLE_CONYUGE": { 
+                  this.documento_declaracion_sin_ingresos_conyuge = archivo;
+                  break; 
+                } 
+                case "FINIQUITO_DEUDOR": { 
+                  this.documento_finiquito = archivo; 
+                  break; 
+                }
+                case "FINIQUITO_CONYUGE": { 
+                  this.documento_finiquito_conyuge = archivo;
+                  break; 
+                } 
+                case "CERT_NACIMIENTO": { 
+                  this.documento_cert_nacimiento = archivo; 
+                  break; 
+                } 
+                case "CARPETA_TRIBUTARIA_DEUDOR": { 
+                  this.documento_carp_tributaria_deudor = archivo;
+                  break; 
+                } 
+                case "CARPETA_TRIBUTARIA_CONYUGE": { 
+                  this.documento_carp_tributaria_conyuge = archivo;
+                  break; 
+                } 
+                case "PAGARE_CONYUGE": { 
+                  this.documento_copia_pagare_conyuge = archivo; 
+                  break; 
+                } 
+                default: { 
+                    console.log("El tipo de documento no esta registrado en el sistema");
+                    break; 
+                }
+              }
+            }
+          });
+        });
+      }
+    });
   }
 
   seleccionarComunas(region: string) {
@@ -739,5 +812,13 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
   finalizarDeclaracion(){
     
+  }
+
+  visualizarPDF(tipo_documento: string){
+    this.declaracionService.obtenerUrlArchivo(this.id_declaracion, tipo_documento).subscribe({
+      next: result =>{
+        window.open(result.toString(), '_blank');
+      }
+    });
   }
 }

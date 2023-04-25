@@ -48,5 +48,10 @@ Route::get('{rut_deudor}/declaraciones/{id_declaracion}/obtenerConyuge',[Conyuge
 Route::get('deudor/{rut_deudor}',[DeudorController::class, 'obtener_datos']);
 
 //documentacion de declaracion
-Route::get('{rut_deudor}/declaraciones/{id_declaracion}/documentacion',[DocumentoController::class, 'obtener_documento_declaracion']);
+Route::get('{rut_deudor}/declaraciones/{id_declaracion}/documentacion',[DocumentoController::class, 'obtener_listado_documentos_declaracion']);
 Route::post('{rut_deudor}/declaraciones/{id_declaracion}/documentacion/subir',[DocumentoController::class, 'registrar_documento_declaracion']);
+Route::get('{rut_deudor}/declaraciones/{id_declaracion}/documentacion/{id_documento}',[DocumentoController::class, 'obtener_documento']);
+Route::get('storage/{id_declaracion}/documento/{tipo_documento}',[DocumentoController::class, 'obtener_url_documento']);
+
+//generar pdf de una declaracion
+Route::get('{rut_deudor}/declaraciones/{id_declaracion}/generarPdf', [DeclaracionController::class, 'generarPdfDeclaracion']);

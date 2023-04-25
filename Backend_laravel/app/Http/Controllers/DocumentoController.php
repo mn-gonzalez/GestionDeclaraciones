@@ -39,6 +39,7 @@ class DocumentoController extends Controller
     public function registrar_documento_declaracion(Request $request, $rut_deudor, $id_declaracion)
     {
         $data = $request->validate([
+            'nombre' => 'required',
             'tipo' => 'required',
             'documento' => 'required|mimes:pdf'
         ]);
@@ -46,35 +47,61 @@ class DocumentoController extends Controller
         $documento = new Documento;
         if($request->file()) {
             $documento->tipo = $request->tipo;
-            $nombre_documento = $request->documento->getClientOriginalName();
+            $nombre_documento = $request->nombre;
             /*
             $ubicacion_documento = Storage::putFileAs('declaraciones', 
                 new File(''.$rut_deudor.'/'.$id_declaracion.'/documentacion'), 
                 $nombre_documento);
             */
-            $ubicacion_documento = $request->file('documento')->storeAs('declaraciones/'.$rut_deudor.'/'.$id_declaracion.'/documentacion', $nombre_documento, 'public');
-            $documento->ubicacion = '/storage/' . $ubicacion_documento;
+            $ubicacion_documento = $request->file('documento')->storeAs('declaraciones/'.$rut_deudor.'/'.$id_declaracion.'/documentacion', $nombre_documento.'.pdf', 'public');
+            //posiblemente tenga que ajustar esto para obtener el archivo y descargarlo.
+            $documento->ubicacion = $ubicacion_documento;
 
-            DB::table('documento')->insert([
-            'tipo' => $data['tipo'],
-            'ubicacion' => $documento->ubicacion,
-            'ref_declaracion' => $id_declaracion
-            ]);
+            $existe = Storage::disk('public')->exists($ubicacion_documento);
+
+            if($existe == false){
+                DB::table('documento')->insert([
+                    'nombre'=>$data['nombre'],
+                    'tipo' => $data['tipo'],
+                    'ubicacion' => $documento->ubicacion,
+                    'ref_declaracion' => $id_declaracion
+                ]);
+
+                $response = ['mensaje' => 'El documento se ha almacenado exitosamente.',
+                    'existe: ', $existe];
+                return response($response, 200);
+            }
 
             $response = ['mensaje' => 'El documento se ha almacenado exitosamente.'];
             return response($response, 200);
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Documento  $documento
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Documento $documento)
+    public function obtener_listado_documentos_declaracion(Request $request, $rut_deudor, $id_declaracion)
     {
-        //
+        $documentos = DB::table('documento')->where('ref_declaracion', $id_declaracion)->get();
+
+        return response()->json($documentos);
+    }
+
+    public function obtener_documento(Request $request, $rut_deudor, $id_declaracion, $id_documento){
+        $documento = DB::table('documento')->where('documento.id', '=', $id_documento)->first();
+        $ubicacion = $documento->ubicacion;
+        
+        $documento = Storage::disk('public')->get($ubicacion);
+
+        return response($documento, 200)->header('Content-Type', 'application/pdf');
+    }
+
+    public function obtener_url_documento(Request $request, $id_declaracion, $tipo_documento)
+    {
+        $documento = DB::table('documento')
+            ->where('documento.tipo', '=', $tipo_documento)
+            ->where('documento.ref_declaracion', '=', $id_declaracion)->first();
+        $ubicacion = $documento->ubicacion;
+
+        $url = url(Storage::url($ubicacion));
+        return response()->json($url);
     }
 
     /**
