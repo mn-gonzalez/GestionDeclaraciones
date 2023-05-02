@@ -23,296 +23,297 @@
 						<th>RUT DEL DEUDOR</th>
 					</tr>
 					<tr>
-						<td>18892403-4</td>
+						<td>{{ $declaracion['rut_deudor'] }}</td>
 					</tr>
 				</table>
 			</div>
 		</div>
 
 		<div class="seccion-nombre">
-            IDENTIFICACION DEL DEUDOR DE CREDITO UNIVERSITARIO SOLIDARIO
-            <div class="nombre">
-                <div style="height: 100%; width:32%; float: left;">
-                	<div>APELLIDO PATERNO</div>
-                	<div>GONZÁLEZ</div>
-                </div>
-                <div style="height: 100%; width:32%; float: left;">
-                	<div>APELLIDO MATERNO</div>
-                	<div>GUERRERO</div>
-                </div>
-                <div style="height: 100%; width:32%; float: left;">
-                	<div>NOMBRES</div>
-                	<div>MANUEL NICOLÁS</div>
-                </div>
+        IDENTIFICACION DEL DEUDOR DE CREDITO UNIVERSITARIO SOLIDARIO
+        <div class="nombre">
+            <div style="height: 100%; width:32%; float: left; padding-left: 3mm;">
+            	<div>APELLIDO PATERNO</div>
+            	<div>{{ $declaracion['ap_paterno'] }}</div>
+            </div>
+            <div style="height: 100%; width:32%; float: left; padding-left: 3mm;">
+            	<div>APELLIDO MATERNO</div>
+            	<div>{{ $declaracion['ap_materno'] }}</div>
+            </div>
+            <div style="height: 100%; width:32%; float: left; padding-left: 3mm;">
+            	<div>NOMBRES</div>
+            	<div>{{ $declaracion['nombres'] }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="seccion-direccion">
+        <div class="nombre">
+        	<div style="height: 100%; width:45%; float: left; padding-left: 3mm;">
+            	<div>DIRECCIÓN</div>
+            	<div>{{ $declaracion['direccion'] }}</div>
+            </div>
+            <div style="height: 100%; width:15%; float: left; padding-left: 3mm;">
+            	<div>COMUNA</div>
+            	<div>{{ $declaracion['comuna'] }}</div>
+            </div>
+            <div style="height: 100%; width:15%; float: left; padding-left: 3mm;">
+            	<div>CIUDAD</div>
+            	<div>{{ $declaracion['ciudad'] }}</div>
+            </div>
+            <div style="height: 100%; width:15%; float: left; padding-left: 3mm;">
+            	<div>TELÉFONO</div>
+            	<div>{{ $declaracion['telefono'] }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="seccion-trabajo">
+        <div class="estado-civil">
+            <span style="float: left;  width: 15%;">ESTADO CIVIL</span>
+            <div class="valor-estado-civil">
+            	<div>{{ $declaracion['estado_civil'] }}</div>
+            </div>
+            <div class="opciones-estado">
+                <div>1. SOLTERO SIN HIJOS</div>
+                <div>2. SOLTERO CON HIJOS</div>
+                <div>3. CASADO</div>
+                <div>4. CASADO CON DEUDOR REPROG. CRED. UNIV. O FISCAL .........................</div>
             </div>
         </div>
 
-        <div class="seccion-direccion">
-            <div class="nombre">
-            	<div style="height: 100%; width:45%; float: left;">
-                	<div>DIRECCIÓN</div>
-                	<div>29 ORIENTE CON 8 SUR PASAJE LOS LIRIOS 287</div>
-                </div>
-                <div style="height: 100%; width:15%; float: left;">
-                	<div>COMUNA</div>
-                	<div>TALCA</div>
-                </div>
-                <div style="height: 100%; width:15%; float: left;">
-                	<div>CIUDAD</div>
-                	<div>TALCA</div>
-                </div>
-                <div style="height: 100%; width:15%; float: left;">
-                	<div>TELÉFONO</div>
-                	<div>963720528</div>
-                </div>
+        <div class="trabajo">
+            <div style="float: left; height:100%; width: 33%;">
+            	<div>INSTITUCIÓN EN LA QUE TRABAJA</div>
+            	<div style="padding-top: 1mm;">{{ $declaracion['trabajo'] }}</div>
+            </div>
+            <div style="float: left; height:100%; width: 25%;">
+            	<div>TELÉFONO DEL TRABAJO</div>
+            	<div style="padding-top: 1mm;">{{ $declaracion['tel_trabajo'] }}</div>
+            </div>
+            <div style="float: left; height:100%; width: 33%;">
+                <div>PRESENTA DECLARACIÓN DE RENTA S.I.I</div>
+                <div style="padding-top: 1mm;">SI........    NO........</div>
             </div>
         </div>
+    </div>
 
-        <div class="seccion-trabajo">
-            <div class="estado-civil">
-                <span style="float: left;  width: 15%;">ESTADO CIVIL</span>
-                <div class="valor-estado-civil">
-                	<div>1</div>
-                </div>
-                <div class="opciones-estado">
-                    <div>1. SOLTERO SIN HIJOS</div>
-                    <div>2. SOLTERO CON HIJOS</div>
-                    <div>3. CASADO</div>
-                    <div>4. CASADO CON DEUDOR REPROG. CRED. UNIV. O FISCAL .........................</div>
-                </div>
+    <div class="seccion-afp">
+        <div class="nombre">
+        	<div style="height: 100%; width:33%; float: left; padding-left: 3mm;">
+            	<div>AFP DE LA QUE ES AFILIADO</div>
+            	<div>{{ $declaracion['afp'] }}</div>
             </div>
-            <div class="trabajo">
-                <div style="float: left; height:100%; width: 33%;">
-                	<div>INSTITUCIÓN EN LA QUE TRABAJA</div>
-                	<div style="padding-top: 1mm;">UNIVERSIDAD DE TALCA</div>
-                </div>
-                <div style="float: left; height:100%; width: 25%">
-                	<div>TELÉFONO DEL TRABAJO</div>
-                	<div style="padding-top: 1mm;">963720528</div>
-                </div>
-                <div style="float: left; height:100%; width: 33%">
-                    <div>PRESENTA DECLARACIÓN DE RENTA S.I.I</div>
-                    <div style="padding-top: 1mm;">SI........    NO........</div>
-                </div>
+            <div style="height: 100%; width:33%; float: left;">
+            	<div>CORREO ELECTRÓNICO DEUDOR</div>
+            	<div>{{ $declaracion['correo'] }}</div>
+            </div>
+            <div style="height: 100%; width:33%; float: left;">
+            	<div>DESEA INFORMACIÓN AL CORREO ELECTRÓNICO</div>
+            	<div>NO</div>
             </div>
         </div>
+    </div>
 
-        <div class="seccion-afp">
-            <div class="nombre">
-            	<div style="height: 100%; width:33%; float: left;">
-                	<div>AFP DE LA QUE ES AFILIADO</div>
-                	<div>AFP MODELO</div>
-                </div>
-                <div style="height: 100%; width:33%; float: left;">
-                	<div>CORREO ELECTRÓNICO DEUDOR</div>
-                	<div>MN_GONZALEZ_16@HOTMAIL.COM</div>
-                </div>
-                <div style="height: 100%; width:33%; float: left;">
-                	<div>DESEA INFORMACIÓN AL CORREO ELECTRÓNICO</div>
-                	<div>NO</div>
-                </div>
+    <div class="seccion-conyuge">
+        <div class="rut-conyuge" style="padding-left: 3mm;">RUT DEL CONYUGE N°</div>
+        <div class="nombre-conyuge">
+        	<div style="height: 100%; width:32%; float: left; padding-left: 3mm;">
+            	<div>APELLIDO PATERNO</div>
+            	<div>{{ $conyuge['ap_paterno'] }}</div>
+            </div>
+            <div style="height: 100%; width:32%; float: left;">
+            	<div>APELLIDO MATERNO</div>
+            	<div>{{ $conyuge['ap_materno'] }}</div>
+            </div>
+            <div style="height: 100%; width:32%; float: left;">
+            	<div>NOMBRES</div>
+            	<div>{{ $conyuge['nombres'] }}</div>
             </div>
         </div>
+    </div>
 
-        <div class="seccion-conyuge">
-            <div class="rut-conyuge">RUT DEL CONYUGE N°</div>
-            <div class="nombre-conyuge">
-            	<div style="height: 100%; width:32%; float: left;">
-                	<div>APELLIDO PATERNO</div>
-                	<div>CONYUGE</div>
-                </div>
-                <div style="height: 100%; width:32%; float: left;">
-                	<div>APELLIDO MATERNO</div>
-                	<div>CONYUGE</div>
-                </div>
-                <div style="height: 100%; width:32%; float: left;">
-                	<div>NOMBRES</div>
-                	<div>NOMBRE CONYUGE</div>
-                </div>
-            </div>
-        </div>
+    <div class="seccion-ingresos">
+    	<table style="width:48%; height:100%; float:right;">
+          <tr>
+            <th></th>
+            <th colspan="3">INGRESOS DEL CONYUGE AÑO 2021</th>
+          </tr>
+          <tr>
+            <td>MES</td>
+            <td>MONTO EN PESOS</td>
+            <td>VALOR UTM</td>
+            <td>MONTO EN UTM</td>
+          </tr>
+          <tr>
+            <td>ENERO</td>
+            <td>{{ $conyuge['enero'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $conyuge['enero_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>FEBRERO</td>
+            <td>{{ $conyuge['febrero'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $conyuge['febrero_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>MARZO</td>
+            <td>{{ $conyuge['marzo'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $conyuge['marzo_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>ABRIL</td>
+            <td>{{ $conyuge['abril'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $conyuge['abril_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>MAYO</td>
+            <td>{{ $conyuge['mayo'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $conyuge['mayo_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>JUNIO</td>
+            <td>{{ $conyuge['junio'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $conyuge['junio_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>JULIO</td>
+            <td>{{ $conyuge['julio'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $conyuge['julio_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>AGOSTO</td>
+            <td>{{ $conyuge['agosto'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $conyuge['agosto_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>SEPTIEMBRE</td>
+            <td>{{ $conyuge['septiembre'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $conyuge['septiembre_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>OCTUBRE</td>
+            <td>{{ $conyuge['octubre'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $conyuge['octubre_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>NOVIEMBRE</td>
+            <td>{{ $conyuge['noviembre'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $conyuge['noviembre_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>DICIEMBRE</td>
+            <td>{{ $conyuge['diciembre'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $conyuge['diciembre_utm'] }}</td>
+          </tr>
+          <tr>
+            <td style="border: 0px solid black;"></td>
+            <td colspan="2">INGRESOS TOTALES EN UTM</td>
+            <td>{{ $declaracion['ingreso_total_conyuge_utm'] }}</td>
+          </tr>
+        </table>
 
-        <div class="seccion-ingresos">
-        	<table style="width:48%; height:100%; float:right;">
-              <tr>
-                <th></th>
-                <th colspan="3">INGRESOS DEL CONYUGE AÑO 2021</th>
-              </tr>
-              <tr>
-                <td>MES</td>
-                <td>MONTO EN PESOS</td>
-                <td>VALOR UTM</td>
-                <td>MONTO EN UTM</td>
-              </tr>
-              <tr>
-                <td>ENERO</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>FEBRERO</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>MARZO</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>ABRIL</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>MAYO</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>JUNIO</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>JULIO</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>AGOSTO</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>SEPTIEMBRE</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>OCTUBRE</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>NOVIEMBRE</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>DICIEMBRE</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td style="border: 0px solid black;"></td>
-                <td colspan="2">INGRESOS TOTALES EN UTM</td>
-                <td></td>
-              </tr>
-            </table>
-
-            <table style="width:48%; height:100%; float: left;">
-              <tr>
-                <th></th>
-                <th colspan="3">INGRESOS DEL DEUDOR AÑO 2021</th>
-              </tr>
-              <tr>
-                <td>MES</td>
-                <td>MONTO EN PESOS</td>
-                <td>VALOR UTM</td>
-                <td>MONTO EN UTM</td>
-              </tr>
-              <tr>
-                <td>ENERO</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>FEBRERO</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>MARZO</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>ABRIL</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>MAYO</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>JUNIO</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>JULIO</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>AGOSTO</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>SEPTIEMBRE</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>OCTUBRE</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>NOVIEMBRE</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>DICIEMBRE</td>
-                <td></td>
-                <td>$ 50.978</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td style="border: 0px solid black;"></td>
-                <td colspan="2">INGRESOS TOTALES EN UTM</td>
-                <td></td>
-              </tr>
-            </table>
-        </div>
+        <table style="width:48%; height:100%; float: left;">
+          <tr>
+            <th></th>
+            <th colspan="3">INGRESOS DEL DEUDOR AÑO 2021</th>
+          </tr>
+          <tr>
+            <td>MES</td>
+            <td>MONTO EN PESOS</td>
+            <td>VALOR UTM</td>
+            <td>MONTO EN UTM</td>
+          </tr>
+          <tr>
+            <td>ENERO</td>
+            <td>{{ $declaracion['enero'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $declaracion['enero_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>FEBRERO</td>
+            <td>{{ $declaracion['febrero'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $declaracion['febrero_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>MARZO</td>
+            <td>{{ $declaracion['marzo'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $declaracion['marzo_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>ABRIL</td>
+            <td>{{ $declaracion['abril'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $declaracion['abril_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>MAYO</td>
+            <td>{{ $declaracion['mayo'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $declaracion['mayo_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>JUNIO</td>
+            <td>{{ $declaracion['junio'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $declaracion['junio_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>JULIO</td>
+            <td>{{ $declaracion['julio'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $declaracion['julio_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>AGOSTO</td>
+            <td>{{ $declaracion['agosto'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $declaracion['agosto_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>SEPTIEMBRE</td>
+            <td>{{ $declaracion['septiembre'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $declaracion['septiembre_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>OCTUBRE</td>
+            <td>{{ $declaracion['octubre'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $declaracion['octubre_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>NOVIEMBRE</td>
+            <td>{{ $declaracion['noviembre'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $declaracion['noviembre_utm'] }}</td>
+          </tr>
+          <tr>
+            <td>DICIEMBRE</td>
+            <td>{{ $declaracion['diciembre'] }}</td>
+            <td>$ 50.978</td>
+            <td>{{ $declaracion['diciembre_utm'] }}</td>
+          </tr>
+          <tr>
+            <td style="border: 0px solid black;"></td>
+            <td colspan="2">INGRESOS TOTALES EN UTM</td>
+            <td>{{ $declaracion['ingreso_total_deudor_utm'] }}</td>
+          </tr>
+        </table>
+    </div>
 
         <div class="textos">
             <p>DECLARO BAJO JURAMENTO QUE TODOS LOS DATOS PROPORCIONADOS SON FIDEDIGNOS, ASIMISMO AUTORIZO AL FONDO SOLIDARIO DE CREDITO UNIVERSITARIO, VERIFICAR MIS REMUNERACIONES O RENTA SOBRE LOS CUALES EFECTUO MIS COTIZACIONES PREVISIONALES, PUDIENDO SOLICITAR A LA ADMINISTRADORA DE FONDOS DE PENSIONES.</p>
@@ -489,6 +490,7 @@
 		  border: 2px solid black;
 		  border-collapse: collapse;
 		  height: 23px;
+      text-align: center;
 		}
 	</style>
 

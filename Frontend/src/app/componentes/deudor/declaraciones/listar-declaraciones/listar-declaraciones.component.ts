@@ -31,17 +31,27 @@ export class ListarDeclaracionesComponent implements OnInit {
         }
 
         case 2:{
-          declaracion.estado_text = "EN REVISION";
+          declaracion.estado_text = "POR REVISAR";
           break;
         }
 
         case 3:{
-          declaracion.estado_text = "EN CORRECCIÓN"
+          declaracion.estado_text = "EN REVISIÓN";
+          break;
+        }
+
+        case 4:{
+          declaracion.estado_text = "EN CORRECCIÓN";
+          break;
+        }
+
+        case 5:{
+          declaracion.estado_text = "ACEPTADA";
           break;
         }
         
-        case 4:{
-          declaracion.estado_text = "COMPLETADA";
+        case 6:{
+          declaracion.estado_text = "FINALIZADA";
           break;
         }
       }

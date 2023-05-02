@@ -22,11 +22,11 @@ interface Afp{
 }
 
 @Component({
-  selector: 'app-datos-declaracion',
-  templateUrl: './datos-declaracion.component.html',
-  styleUrls: ['./datos-declaracion.component.css']
+  selector: 'app-revisar-declaracion',
+  templateUrl: './revisar-declaracion.component.html',
+  styleUrls: ['./revisar-declaracion.component.css']
 })
-export class DatosDeclaracionComponent implements OnInit {
+export class RevisarDeclaracionComponent implements OnInit {
   rut_deudor: string;
   id_declaracion: string;
   id_ingresos_deudor: number;
@@ -94,23 +94,24 @@ export class DatosDeclaracionComponent implements OnInit {
   conyugeDebePresentarDecSimple = false;
   year: number;
 
-  //almacenan de manera temporal los archivos que el deudor va a subir como documentacion.
-  documento_renta: File;
-  documento_renta_conyuge: File;
-  documento_licencias: File;
-  documento_cotizaciones: File;
-  documento_formulario22: File;
-  documento_libreta_matrimonio: File;
-  documento_declaracion_sin_ingresos: File;
-  documento_declaracion_sin_ingresos_conyuge: File;
-  documento_finiquito: File;
-  documento_finiquito_conyuge: File;
-  documento_cert_nacimiento: File;
-  documento_carp_tributaria_deudor: File;
-  documento_carp_tributaria_conyuge: File;
-  documento_copia_pagare_conyuge: File;
+   //almacenan de manera temporal los archivos que el deudor va a subir como documentacion.
+   documento_renta: File;
+   documento_renta_conyuge: File;
+   documento_licencias: File;
+   documento_cotizaciones: File;
+   documento_formulario22: File;
+   documento_libreta_matrimonio: File;
+   documento_declaracion_sin_ingresos: File;
+   documento_declaracion_sin_ingresos_conyuge: File;
+   documento_finiquito: File;
+   documento_finiquito_conyuge: File;
+   documento_cert_nacimiento: File;
+   documento_carp_tributaria_deudor: File;
+   documento_carp_tributaria_conyuge: File;
+   documento_copia_pagare_conyuge: File;
 
   constructor(private declaracionService: DeclaracionService, private activatedRoute: ActivatedRoute) {
+
     this.datosPersonales = new FormGroup({
       'id': new FormControl(""),
       'rut_deudor': new FormControl(""),
@@ -196,6 +197,7 @@ export class DatosDeclaracionComponent implements OnInit {
   ngOnInit(): void {
     this.id_declaracion = this.activatedRoute.snapshot.paramMap.get('id') || "";
     this.obtenerDatosDeclaracion(); 
+    this.obtenerDocumentacionDeclaracion();
   }
 
   obtenerDatosDeclaracion(){
@@ -251,6 +253,8 @@ export class DatosDeclaracionComponent implements OnInit {
         if(result.estado_civil == 2){
           this.tieneHijos = true;
         }
+
+        this.rut_deudor = result.rut_deudor;
 
         //obtiene el conyuge de la declaracion (si es que existe en la BD)
         this.declaracionService.obtenerConyugeDeclaracion(this.rut_deudor, this.id_declaracion).subscribe({
@@ -429,6 +433,29 @@ export class DatosDeclaracionComponent implements OnInit {
     this.declaracionService.obtenerUrlArchivo(this.id_declaracion, tipo_documento).subscribe({
       next: result =>{
         window.open(result.toString(), '_blank');
+      }
+    });
+  }
+
+  aceptarDeclaracion(){
+    //se cambia el estado de la declaracion.
+    this.declaracionService.actualizarEstadoDeclaracion(this.rut_deudor, this.id_declaracion, 5).subscribe({
+      next: result =>{
+        console.log(result);
+      }
+    });
+
+    this.declaracionService.generarPdfDeclaracion(this.rut_deudor, this.id_declaracion).subscribe({
+      next: result =>{
+        console.log(result);
+      }
+    });
+  }
+
+  corregirDeclaracion(){
+    this.declaracionService.actualizarEstadoDeclaracion(this.rut_deudor, this.id_declaracion, 4).subscribe({
+      next: result =>{
+        console.log(result);
       }
     });
   }

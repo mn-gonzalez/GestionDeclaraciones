@@ -120,7 +120,11 @@
 }
 
 .botones{
-    display: flex;
+    padding-top: 20px;
+    display: flex; 
+    flex-direction: row; 
+    justify-content: flex-start;
+    column-gap: 20px;
 }
 
 .boton{

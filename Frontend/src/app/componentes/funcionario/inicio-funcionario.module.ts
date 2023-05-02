@@ -5,12 +5,16 @@ import { ListarUsuariosComponent } from './usuarios/listar-usuarios/listar-usuar
 import { DatosDeclaracionComponent } from './declaraciones/datos-declaracion/datos-declaracion.component';
 import { DeclaracionesDeudorComponent } from './declaraciones/declaraciones-deudor/declaraciones-deudor.component';
 import { MaterialModule } from 'src/app/material.module';
+import { RevisarDeclaracionComponent } from './declaraciones/revisar-declaracion/revisar-declaracion.component';
+import { DeclaracionesPorRevisarComponent } from './declaraciones/declaraciones-por-revisar/declaraciones-por-revisar.component';
 
 @NgModule({
   declarations: [
     ListarUsuariosComponent,
     DatosDeclaracionComponent,
-    DeclaracionesDeudorComponent
+    DeclaracionesDeudorComponent,
+    RevisarDeclaracionComponent,
+    DeclaracionesPorRevisarComponent
   ],
   imports: [
     CommonModule,

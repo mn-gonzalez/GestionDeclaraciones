@@ -18,14 +18,13 @@ class DeudorController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function listado_deudores(Request $request)
     {
-        //
+        $deudores = DB::table('persona')
+            ->select('persona.rut', 'persona.nombres', 'persona.ap_paterno', 'persona.ap_materno')
+            ->join('deudor', 'persona.rut', '=', 'deudor.rut')->get();
+
+        return response($deudores, 200);
     }
 
     /**

@@ -312,7 +312,42 @@ export class DeclaracionService {
     );
   }
 
-  actualizarEstadoDeclaracion(){
-    
+  /*
+    1 - PENDIENTE - EN EDICIÓN
+    2 - POR REVISAR
+    3 - EN REVISION
+    4 - EN CORRECCION 
+    5 - APROBADA
+    6 - FINALIZADA
+  */
+  actualizarEstadoDeclaracion(rut_deudor: string, id_declaracion: string, nuevo_estado: number){
+    const body = new HttpParams()
+    .set('estado', nuevo_estado)
+
+    return this.http.put<{ mensaje: string}>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/actualizarEstado"), body)
+    .pipe(
+      map(result => {
+        console.log(result.mensaje);
+        return true;
+      })
+    );
+  }
+
+  obtenerDeclaracionesSinRevisar(){
+    return this.http.get<Declaracion[]>(env.api.concat("/declaraciones/sinRevisar"))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  generarPdfDeclaracion(rut_deudor: string, id_declaracion: string){
+    return this.http.get<Declaracion[]>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/generarPdf"))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
   }
 }

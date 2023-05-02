@@ -16,7 +16,7 @@ export class DeudorService {
   }
 
   obtenerDeudores(): Observable<Deudor[]>{
-    return this.http.get<Deudor[]>(env.api.concat("/deudores/getAll"))
+    return this.http.get<Deudor[]>(env.api.concat("/deudores"))
     .pipe(
       map(result => {
         return result;

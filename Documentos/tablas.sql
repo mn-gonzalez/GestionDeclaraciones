@@ -166,6 +166,16 @@ CREATE TABLE utm(
 	PRIMARY KEY (anio)
 );
 
+CREATE TABLE revision_tramite(
+	id SERIAL NOT NULL,
+	ref_tramite varchar(20) NOT NULL REFERENCES tramite(id),
+	ref_funcionario varchar(20) NOT NULL REFERENCES funcionario(rut),
+	fecha date NOT NULL,
+	comentarios text,
+	estado integer DEFAULT 1,
+	PRIMARY KEY (id)
+);
+
 CREATE TABLE chat(
 	id SERIAL NOT NULL,
 	tramite integer NOT NULL REFERENCES tramite(id),

@@ -21,16 +21,6 @@ class DeclaracionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -271,34 +261,78 @@ class DeclaracionController extends Controller
         return response($response, 200);
     }
 
+    public function generarPdfDeclaracion(Request $request, $rut_deudor, $id_declaracion){
+        $declaracion = DB::table('tramite')
+            ->join('declaracion','declaracion.id', '=', 'tramite.id')
+            ->where('tramite.id', '=', $id_declaracion)
+            ->select('tramite.*', 'declaracion.*')->first();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Declaracion  $declaracion
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Declaracion $declaracion)
-    {
-        //
-    }
+        $conyuge = DB::table('conyuge')
+            ->where('conyuge.ref_declaracion', '=', $id_declaracion)->first();
 
-    public function generarPdfDeclaracion(){
-        $data = [];
+         if($conyuge == null)
+         {
+            $conyuge = [
+                'rut' => '',
+                'nombres' => '',
+                'ap_paterno' =>'',
+                'ap_materno' => '',
+                'enero'=> 0,
+                'febrero' => 0,
+                'marzo' => 0,
+                'abril' => 0,
+                'mayo' => 0,
+                'junio' => 0,
+                'julio' => 0,
+                'agosto' => 0,
+                'septiembre' => 0,
+                'octubre' => 0,
+                'noviembre' => 0,
+                'diciembre' => 0,
+                'enero_utm'=> 0,
+                'febrero_utm' => 0,
+                'marzo_utm' => 0,
+                'abril_utm' => 0,
+                'mayo_utm' => 0,
+                'junio_utm' => 0,
+                'julio_utm' => 0,
+                'agosto_utm' => 0,
+                'septiembre_utm' => 0,
+                'octubre_utm' => 0,
+                'noviembre_utm' => 0,
+                'diciembre_utm' => 0
+            ];
+         }
+
+
+        $data = [
+            'declaracion'=>(array)$declaracion,
+            'conyuge'=>(array)$conyuge
+        ];
+
         $pdf = PDF::loadView('declaracion', $data)->setPaper('legal', 'portrait');
         // download PDF file with download method
         return $pdf->download('declaracion.pdf');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Declaracion  $declaracion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Declaracion $declaracion)
+    public function declaracionesSinRevisar()
     {
-        //
+        $declaraciones = DB::table('declaracion')->join('tramite', 'tramite.id', '=', 'declaracion.id')->where('tramite.estado', '=', 2)->select('tramite.*','declaracion.*')->get();
+        
+        return response()->json($declaraciones);
+    }
+
+
+    public function actualizar_estado(Request $request, $rut_deudor, $id_declaracion)
+    {
+        $data = $request->validate([
+            'estado'=> 'required'
+        ]);
+
+        DB::table('tramite')->where('id', $id_declaracion)->update(['estado'=> $data['estado']]);
+
+        $response = ['mensaje' => 'El estado de la declaración se ha actualizado correctamente'];
+        return response($response, 200);
     }
 
     /**

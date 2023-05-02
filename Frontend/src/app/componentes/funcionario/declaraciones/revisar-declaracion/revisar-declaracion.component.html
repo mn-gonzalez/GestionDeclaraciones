@@ -438,5 +438,22 @@
                 </div>
             </form>
         </mat-step>
+            
+        <mat-step style="height: 100%;">
+            <ng-template matStepLabel>Revisión</ng-template>
+            <h4 style="padding-bottom: 20px;">Indicar las correcciones que debe hacer el deudor.</h4>
+            <div style="width: 100%; height: 100%;">
+                <label>Correcciones</label>
+                <mat-form-field appearance="outline" style="width: 100%; height: 100%;">
+                    <textarea matInput placeholder="Indicar corrección"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="botones">
+                <button mat-stroked-button (click)="aceptarDeclaracion()">Aceptar Declaración</button>
+                <button mat-stroked-button (click)="corregirDeclaracion()">Devolver Declaración</button>
+            </div>
+        </mat-step>
     </mat-horizontal-stepper>
 </div>
+

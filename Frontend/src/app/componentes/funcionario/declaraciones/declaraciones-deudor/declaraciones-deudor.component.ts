@@ -36,11 +36,21 @@ export class DeclaracionesDeudorComponent implements OnInit {
         }
 
         case 2:{
-          declaracion.estado_text = "EN REVISION";
+          declaracion.estado_text = "POR REVISAR";
+          break;
+        }
+
+        case 3:{
+          declaracion.estado_text = "EN REVISIÓN";
+          break;
+        }
+
+        case 4:{
+          declaracion.estado_text = "EN CORRECCIÓN"
           break;
         }
         
-        case 3:{
+        case 5:{
           declaracion.estado_text = "COMPLETADA";
           break;
         }

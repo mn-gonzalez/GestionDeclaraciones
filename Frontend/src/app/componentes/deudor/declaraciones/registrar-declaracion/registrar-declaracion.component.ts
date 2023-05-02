@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup,FormControl, Validators} from '@angular/forms';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { Router } from '@angular/router';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 interface Region{
   nombre: string;
@@ -125,7 +126,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
   dataSource = this.ingresos;
 
   constructor(private fb: FormBuilder, private declaracionService: DeclaracionService, 
-    private auth: InicioSesionService, private router: Router) { 
+    private auth: InicioSesionService, private router: Router, public dialog: MatDialog) { 
 
     /*
       Contiene los datos necesarios para almacenar los antecedents personales del deudor en la declaracion.
@@ -263,7 +264,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
           this.existe_declaracion = false;
         }
         else{
-          if(result.estado = 1){
+          if(result.estado == 1){
             this.obtenerDatosDeclaracion();
             this.obtenerDocumentacionDeclaracion();
             this.existe_declaracion = true;
@@ -811,7 +812,11 @@ export class RegistrarDeclaracionComponent implements OnInit {
   }
 
   finalizarDeclaracion(){
-    
+    this.declaracionService.actualizarEstadoDeclaracion(this.rut_deudor, this.id_declaracion, 2).subscribe({
+      next: result =>{
+        console.log(result);
+      }
+    });
   }
 
   visualizarPDF(tipo_documento: string){
