@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Declaracion;
+use App\Models\Documento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 use PDF;
 
 class DeclaracionController extends Controller
@@ -310,9 +313,31 @@ class DeclaracionController extends Controller
             'conyuge'=>(array)$conyuge
         ];
 
+        $tipo_documento = 'PDF_DECLARACION';
+        $nombre_documento = 'DECLARACION JURADA DE INGRESOS';
+        $ubicacion_documento = 'declaraciones/'.$rut_deudor.'/'.$id_declaracion.'/documentacion/'.$nombre_documento.'.pdf';
+
+        /*
+            Genera el documento en formato pdf y lo almacena en el storage del servidor.
+        */
         $pdf = PDF::loadView('declaracion', $data)->setPaper('legal', 'portrait');
-        // download PDF file with download method
-        return $pdf->download('declaracion.pdf');
+        Storage::disk('public')->put($ubicacion_documento, $pdf->output());
+
+        $existe = Storage::disk('public')->exists($ubicacion_documento);
+            if($existe == false){
+                DB::table('documento')->insert([
+                    'nombre'=>$nombre_documento,
+                    'tipo' => $tipo_documento,
+                    'ubicacion' => $ubicacion_documento,
+                    'ref_declaracion' => $id_declaracion
+                ]);
+
+                $response = ['mensaje' => 'Se ha generado el pdf de la declaración para firmar'];
+                return response($response, 200);
+            }
+
+        $response = ['mensaje' => 'Se ha generado el pdf de la declaración para firmar'];
+        return response($response, 200);
     }
 
     public function declaracionesSinRevisar()

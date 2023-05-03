@@ -243,7 +243,7 @@
                             <div *ngIf="this.documento_renta == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>
-                            <div *ngIf="this.documento_renta != null" class="miniatura-pdf">
+                            <div *ngIf="this.documento_renta != null" (click)="visualizarPDF('RENTAS_DEUDOR')" class="miniatura-pdf">
                                 <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
                                 <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_renta.name}}</div>
                             </div>
@@ -445,7 +445,7 @@
             <div style="width: 100%; height: 100%;">
                 <label>Correcciones</label>
                 <mat-form-field appearance="outline" style="width: 100%; height: 100%;">
-                    <textarea matInput placeholder="Indicar corrección"></textarea>
+                    <textarea matInput placeholder="Indicar corrección" [formControl]="comentarios"></textarea>
                 </mat-form-field>
             </div>
 

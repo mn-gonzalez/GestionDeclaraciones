@@ -7,6 +7,7 @@ import { Declaracion } from "../modelos/declaracion";
 import { Conyuge } from '../modelos/conyuge';
 import { Deudor } from '../modelos/deudor';
 import { Documento } from '../modelos/documento';
+import { Revision } from '../modelos/revision';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class DeclaracionService {
     );
   }
 
-  verificarDeclaracionPendiente(rut :string ,id_declaracion: string): Observable<Declaracion>{
+  verificarEstadoDeclaracion(rut :string ,id_declaracion: string): Observable<Declaracion>{
     return this.http.get<Declaracion>(env.api.concat("/"+rut+"/declaraciones/"+id_declaracion))
     .pipe(
       map(result => {
@@ -277,7 +278,7 @@ export class DeclaracionService {
     this.http.post(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/documentacion/subir"), formData)
     .subscribe((response) => {
          console.log('response received is ', response);
-    })
+    });
   }
 
   obtenerDocumentacionDeclaracion(rut_deudor: string, id_declaracion: string){
@@ -344,6 +345,32 @@ export class DeclaracionService {
 
   generarPdfDeclaracion(rut_deudor: string, id_declaracion: string){
     return this.http.get<Declaracion[]>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/generarPdf"))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  registrarRevision(rut_funcionario: string, id_declaracion: string, fecha: string, comentarios: string, estado: string){
+    const body = new HttpParams()
+    .set('ref_funcionario', rut_funcionario)
+    .set('ref_tramite', id_declaracion)
+    .set('fecha', fecha)
+    .set('comentarios', comentarios)
+    .set('estado', estado)
+
+    return this.http.post<{ mensaje: string}>(env.api.concat("/revisiones/registrar"), body)
+    .pipe(
+      map(result => {
+        console.log(result.mensaje);
+        return true;
+      })
+    );
+  }
+
+  obtenerRevision(id_declaracion: string){
+    return this.http.get<Revision[]>(env.api.concat("/revisiones/"+id_declaracion))
     .pipe(
       map(result => {
         return result;

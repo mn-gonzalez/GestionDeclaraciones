@@ -7,9 +7,13 @@
         <mat-nav-list>
             <a class="nav-list" mat-list-item> Mis Datos</a>
             <a class="nav-list" (click)="listaDeudores()" mat-list-item>Lista Deudores</a>
+            <mat-divider></mat-divider>
             <a class="nav-list" (click)="listaDeclaracionesSinRevisar()" mat-list-item> Declaraciones sin Revisar</a>
-            <a class="nav-list" (click)="listaDeclaracionesEnRevision()"mat-list-item> Declaraciones en Revisión</a>
+            <a class="nav-list" (click)="listaDeclaracionesEnRevision()" mat-list-item> Declaraciones en Revisión</a>
+            <a class="nav-list" mat-list-item> Declaraciones en Corrección</a>
+            <mat-divider></mat-divider>
             <a class="nav-list" mat-list-item> Postergaciones de cobro</a>
+            <mat-divider></mat-divider>
             <a class="nav-list" mat-list-item> Devoluciones de pagarés</a>
         </mat-nav-list>
     </mat-sidenav>

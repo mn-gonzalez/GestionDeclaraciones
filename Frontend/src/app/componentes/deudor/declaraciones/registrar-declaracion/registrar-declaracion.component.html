@@ -1,6 +1,21 @@
 <div class="fondo">
     <h2 class="titulo">Registrar Declaración Jurada de Ingresos</h2>
     <mat-horizontal-stepper [linear]="isLinear" #stepper>
+
+        <mat-step style="height: 100%;" *ngIf="corregir_declaracion">
+            <ng-template matStepLabel>Revisión</ng-template>
+            <h4 style="padding-bottom: 20px;">Debe realizar las siguientes correcciones a su declaración:</h4>
+            <div style="width: 100%; height: 100%;">
+                <mat-form-field appearance="outline" style="width: 100%; height: 100%;">
+                    <textarea matInput placeholder="Indicar corrección" [formControl]="comentarios"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="botones">
+                <button mat-stroked-button matStepperNext>Siguiente</button>
+            </div>
+        </mat-step>
+
         <mat-step [stepControl]="datosPersonales">
             <form [formGroup]="datosPersonales">
               <ng-template matStepLabel>Datos del Deudor</ng-template>
@@ -268,11 +283,11 @@
                             <div *ngIf="this.documento_renta == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>
-                            <div *ngIf="this.documento_renta != null" class="miniatura-pdf">
+                            <div *ngIf="this.documento_renta != null" (click)="visualizarPDF('RENTAS_DEUDOR')" class="miniatura-pdf">
                                 <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
                                 <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_renta.name}}</div>
                             </div>
-                            <button mat-icon-button><mat-icon (click)="subirDocumentoRentaDeudor()" (click)="visualizarPDF('RENTAS_DEUDOR')" class="material-icons-outlined">save</mat-icon></button>
+                            <button mat-icon-button><mat-icon (click)="subirDocumentoRentaDeudor()" class="material-icons-outlined">save</mat-icon></button>
                             <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
                     </div>

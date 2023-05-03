@@ -48,18 +48,15 @@ class DocumentoController extends Controller
         if($request->file()) {
             $documento->tipo = $request->tipo;
             $nombre_documento = $request->nombre;
-            /*
-            $ubicacion_documento = Storage::putFileAs('declaraciones', 
-                new File(''.$rut_deudor.'/'.$id_declaracion.'/documentacion'), 
-                $nombre_documento);
-            */
-            $ubicacion_documento = $request->file('documento')->storeAs('declaraciones/'.$rut_deudor.'/'.$id_declaracion.'/documentacion', $nombre_documento.'.pdf', 'public');
-            //posiblemente tenga que ajustar esto para obtener el archivo y descargarlo.
-            $documento->ubicacion = $ubicacion_documento;
+            $ubicacion_documento = 'declaraciones/'.$rut_deudor.'/'.$id_declaracion.'/documentacion/'.$nombre_documento.'.pdf';
 
             $existe = Storage::disk('public')->exists($ubicacion_documento);
 
             if($existe == false){
+                $ubicacion_documento = $request->file('documento')->storeAs('declaraciones/'.$rut_deudor.'/'.$id_declaracion.'/documentacion', $nombre_documento.'.pdf', 'public');
+
+                $documento->ubicacion = $ubicacion_documento;
+
                 DB::table('documento')->insert([
                     'nombre'=>$data['nombre'],
                     'tipo' => $data['tipo'],
@@ -67,10 +64,11 @@ class DocumentoController extends Controller
                     'ref_declaracion' => $id_declaracion
                 ]);
 
-                $response = ['mensaje' => 'El documento se ha almacenado exitosamente.',
-                    'existe: ', $existe];
+                $response = ['mensaje' => 'El documento se ha almacenado exitosamente.'];
                 return response($response, 200);
             }
+
+            $ubicacion_documento = $request->file('documento')->storeAs('declaraciones/'.$rut_deudor.'/'.$id_declaracion.'/documentacion', $nombre_documento.'.pdf', 'public');
 
             $response = ['mensaje' => 'El documento se ha almacenado exitosamente.'];
             return response($response, 200);

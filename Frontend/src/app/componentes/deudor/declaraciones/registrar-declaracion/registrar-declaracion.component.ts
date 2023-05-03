@@ -67,11 +67,14 @@ export class RegistrarDeclaracionComponent implements OnInit {
   //Atributo que verifica si la declaracion ya existe en la base de datos
   existe_declaracion = false;
 
+  //Atributo que indica si el deudor debe realizar correcciones a su declaracion.
+  corregir_declaracion = false;
+
   //datos para los formularios donde se almacenan los datos ingresados por el deudor
   datosPersonales: FormGroup;
   ingresosDeudor: FormGroup;
   conyuge: FormGroup;
-  documentacion: FormGroup;
+  comentarios: FormControl;
 
   //listado de afps disponibles
   afps: Afp[] = [
@@ -211,6 +214,8 @@ export class RegistrarDeclaracionComponent implements OnInit {
       'noviembre_utm': new FormControl(0),
       'diciembre_utm': new FormControl(0)
     });
+
+    this.comentarios = new FormControl("");
   }
 
 
@@ -246,7 +251,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
       this.rut_deudor = this.auth.obtenerUsuarioActual()!;
       this.id_declaracion = "DEC"+this.rut_deudor+"_"+this.year;
       //this.obtenerDatosDeclaracion();
-      this.verificarDeclaracionPendiente();
+      this.verificarEstadoDeclaracion();
       this.obtenerDatosDeudor();
     }
   }
@@ -257,20 +262,29 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
   //Verifica si es que existe una declaracion para el año actual que aun no este terminada.
   //Los estado de las declaraciones son : 1-POR TERMINAR, 2-EN REVISION, 3-COMPLETADA 
-  verificarDeclaracionPendiente(){
-    this.declaracionService.verificarDeclaracionPendiente(this.rut_deudor, this.id_declaracion).subscribe({
+  verificarEstadoDeclaracion(){
+    this.declaracionService.verificarEstadoDeclaracion(this.rut_deudor, this.id_declaracion).subscribe({
       next: result=>{
         if(result.id == null){
           this.existe_declaracion = false;
         }
         else{
+          //La declaracion aun no se envia/completa
           if(result.estado == 1){
             this.obtenerDatosDeclaracion();
             this.obtenerDocumentacionDeclaracion();
             this.existe_declaracion = true;
           }
+          //La declaracion se reviso y tiene errores que deben corregirse
+          else if(result.estado == 4){
+            this.corregir_declaracion = true;
+            this.obtenerDatosDeclaracion();
+            this.obtenerDocumentacionDeclaracion();
+            this.obtenerRevision();
+            this.existe_declaracion = true;
+          }
           else{
-            //indicar que la declaracion de este año ya se entrego.
+            //la declaracion ya se envio y no se debe hacer nada mas con este formulario.
           }
         }
       }
@@ -823,6 +837,14 @@ export class RegistrarDeclaracionComponent implements OnInit {
     this.declaracionService.obtenerUrlArchivo(this.id_declaracion, tipo_documento).subscribe({
       next: result =>{
         window.open(result.toString(), '_blank');
+      }
+    });
+  }
+
+  obtenerRevision(){
+    this.declaracionService.obtenerRevision(this.id_declaracion).subscribe({
+      next: result =>{
+        this.comentarios.setValue(result[0].comentarios);
       }
     });
   }

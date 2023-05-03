@@ -166,7 +166,7 @@ CREATE TABLE utm(
 	PRIMARY KEY (anio)
 );
 
-CREATE TABLE revision_tramite(
+CREATE TABLE revision(
 	id SERIAL NOT NULL,
 	ref_tramite varchar(20) NOT NULL REFERENCES tramite(id),
 	ref_funcionario varchar(20) NOT NULL REFERENCES funcionario(rut),

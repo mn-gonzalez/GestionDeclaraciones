@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup,FormControl, Validators} from '@angular/forms';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
 import { ActivatedRoute } from '@angular/router';
+import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 
 interface Region{
   nombre: string;
@@ -37,6 +38,7 @@ export class RevisarDeclaracionComponent implements OnInit {
   datosPersonales: FormGroup;
   ingresosDeudor: FormGroup;
   conyuge: FormGroup;
+  comentarios: FormControl;
 
   //listado de afps disponibles
   afps: Afp[] = [
@@ -110,7 +112,8 @@ export class RevisarDeclaracionComponent implements OnInit {
    documento_carp_tributaria_conyuge: File;
    documento_copia_pagare_conyuge: File;
 
-  constructor(private declaracionService: DeclaracionService, private activatedRoute: ActivatedRoute) {
+  constructor(private declaracionService: DeclaracionService, private activatedRoute: ActivatedRoute,
+    private auth: InicioSesionService) {
 
     this.datosPersonales = new FormGroup({
       'id': new FormControl(""),
@@ -192,6 +195,8 @@ export class RevisarDeclaracionComponent implements OnInit {
       'noviembre_utm': new FormControl(0),
       'diciembre_utm': new FormControl(0)
     });
+
+    this.comentarios = new FormControl("");
   }
 
   ngOnInit(): void {
@@ -453,7 +458,18 @@ export class RevisarDeclaracionComponent implements OnInit {
   }
 
   corregirDeclaracion(){
+    let rut_funcionario = this.auth.obtenerUsuarioActual()!;
+    let fecha = this.declaracionService.obtenerFechaActual();
+    let comentarios = "";
+
     this.declaracionService.actualizarEstadoDeclaracion(this.rut_deudor, this.id_declaracion, 4).subscribe({
+      next: result =>{
+        console.log(result);
+      }
+    });
+
+    this.declaracionService.registrarRevision(rut_funcionario, this.id_declaracion, 
+      fecha, this.comentarios.value, "RECHAZADA").subscribe({
       next: result =>{
         console.log(result);
       }

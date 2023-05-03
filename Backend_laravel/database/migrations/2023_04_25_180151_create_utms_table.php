@@ -13,9 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('utms', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('utm', function (Blueprint $table) {
+            $table->integer('anio')->unique();
+            $table->integer('enero');
+            $table->integer('febrero');
+            $table->integer('marzo');
+            $table->integer('abril');
+            $table->integer('mayo');
+            $table->integer('junio');
+            $table->integer('julio');
+            $table->integer('agosto');
+            $table->integer('septiembre');
+            $table->integer('octubre');
+            $table->integer('noviembre');
+            $table->integer('diciembre');
         });
     }
 
@@ -26,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('utms');
+        Schema::dropIfExists('utm');
     }
 };

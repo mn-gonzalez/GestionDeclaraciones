@@ -8,6 +8,8 @@ use App\Http\Controllers\DeclaracionController;
 use App\Http\Controllers\ConyugeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\RevisionController;
+use App\Http\Controllers\UtmController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,3 +85,7 @@ Route::get('deudor/{rut_deudor}',[DeudorController::class, 'obtener_datos']);
 
 //generar pdf de una declaracion
 Route::get('{rut_deudor}/declaraciones/{id_declaracion}/generarPdf', [DeclaracionController::class, 'generarPdfDeclaracion']);
+
+//revisiones
+Route::post('revisiones/registrar',[RevisionController::class, 'registrar_revision']);
+Route::get('revisiones/{id_declaracion}',[RevisionController::class, 'obtener_revisiones']);
