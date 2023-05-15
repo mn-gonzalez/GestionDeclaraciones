@@ -317,24 +317,28 @@ class DeclaracionController extends Controller
         $nombre_documento = 'DECLARACION JURADA DE INGRESOS';
         $ubicacion_documento = 'declaraciones/'.$rut_deudor.'/'.$id_declaracion.'/documentacion/'.$nombre_documento.'.pdf';
 
-        /*
-            Genera el documento en formato pdf y lo almacena en el storage del servidor.
-        */
+        $existe = Storage::disk('public')->exists($ubicacion_documento);
+
+        if($existe == false){
+            /*
+                Genera el documento en formato pdf y lo almacena en el storage del servidor.
+            */
+            $pdf = PDF::loadView('declaracion', $data)->setPaper('legal', 'portrait');
+            Storage::disk('public')->put($ubicacion_documento, $pdf->output());
+
+            DB::table('documento')->insert([
+                'nombre'=>$nombre_documento,
+                'tipo' => $tipo_documento,
+                'ubicacion' => $ubicacion_documento,
+                'ref_declaracion' => $id_declaracion
+            ]);
+
+            $response = ['mensaje' => 'Se ha generado el pdf de la declaración para firmar'];
+            return response($response, 200);
+        }
+
         $pdf = PDF::loadView('declaracion', $data)->setPaper('legal', 'portrait');
         Storage::disk('public')->put($ubicacion_documento, $pdf->output());
-
-        $existe = Storage::disk('public')->exists($ubicacion_documento);
-            if($existe == false){
-                DB::table('documento')->insert([
-                    'nombre'=>$nombre_documento,
-                    'tipo' => $tipo_documento,
-                    'ubicacion' => $ubicacion_documento,
-                    'ref_declaracion' => $id_declaracion
-                ]);
-
-                $response = ['mensaje' => 'Se ha generado el pdf de la declaración para firmar'];
-                return response($response, 200);
-            }
 
         $response = ['mensaje' => 'Se ha generado el pdf de la declaración para firmar'];
         return response($response, 200);

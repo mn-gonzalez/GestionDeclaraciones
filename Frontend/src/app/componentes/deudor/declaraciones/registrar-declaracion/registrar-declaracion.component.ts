@@ -55,12 +55,6 @@ export class RegistrarDeclaracionComponent implements OnInit {
   //Atributo que contiene el id de la declaracion que se va a registrar o se esta registrando.
   id_declaracion: string;
 
-  //Atributo que contiene el rut del conyuge. En el caso de que el deudor este casado.
-  rut_conyuge: string;
-
-  //Atributo que contiene el id de los ingresos del coyuge.
-  id_ingresos_coyuge: number;
-
   //Atributo que verifica si la interfaz puede continuar al siguiente paso con campos sin completar.
   isLinear = false;
 
@@ -128,7 +122,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
   //indica la fuente desde la cual se obtienen los datos que se muestran en la tabla de ingresos
   dataSource = this.ingresos;
 
-  constructor(private fb: FormBuilder, private declaracionService: DeclaracionService, 
+  constructor(private declaracionService: DeclaracionService, 
     private auth: InicioSesionService, private router: Router, public dialog: MatDialog) { 
 
     /*
@@ -243,7 +237,6 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
   ngOnInit(): void {
     this.year = new Date().getFullYear();
-
     if(this.auth.isAuthenticated() == false){
       //this.router.navigate(['/pagina-inicio']);
     }
@@ -295,7 +288,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
     Permite obtener los datos personales de un deudor, para ingresarlos automaticamente en la declaracion.
   */
   obtenerDatosDeudor(){
-    this.rut_deudor = this.auth.usuario_actual;
+    this.rut_deudor = this.auth.obtenerUsuarioActual()!;
 
     this.declaracionService.obtenerDatosDeudor(this.rut_deudor).subscribe({
       next: result =>{
@@ -306,11 +299,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
       }
     });
   }
-
-  actualizarValorEnUTM(){
-    console.log("Se actualizo el valor");
-  }
-
+  
   /*
     Obtiene los datos de la declaracion (datos personales, ingresos, conyuge y documentos) 
     del año actual y que aun no se finaliza.
@@ -420,7 +409,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
     if(this.existe_declaracion == false){
       this.declaracionService.registrarDatosPersonales(datosDeclaracion).subscribe({
         next: result =>{
-          //console.log(result);
+          
         }, 
         error: result =>{
           console.log(result);
@@ -702,6 +691,9 @@ export class RegistrarDeclaracionComponent implements OnInit {
     console.log(region);
   }
 
+  /*
+    Convierte los ingresos del deudor de peso a utm cada vez que se actualiza o ingresa un nuevo valor.
+  */
   convertirUTM(event: Event){
     const idInput = (event.target as HTMLInputElement).id;
     const valor = (event.target as HTMLInputElement).value;
@@ -715,6 +707,9 @@ export class RegistrarDeclaracionComponent implements OnInit {
         this.ingresosDeudor.get(ingreso.formControlUTM)!.setValue(nuevo_valor);
       }
     }
+
+    this.calcularIngresoTotalDeudor();
+    this.verificarDecJuradaSimpleDeudor();
   }
 
   convertirUTMConyuge(event: Event){
@@ -752,31 +747,31 @@ export class RegistrarDeclaracionComponent implements OnInit {
     let total = 0;
     let total_utm = 0;
 
-    total = this.ingresosDeudor.get('enero')!.value +
-      this.ingresosDeudor.get('febrero')!.value +
-      this.ingresosDeudor.get('marzo')!.value +
-      this.ingresosDeudor.get('abril')!.value +
-      this.ingresosDeudor.get('mayo')!.value +
-      this.ingresosDeudor.get('junio')!.value +
-      this.ingresosDeudor.get('julio')!.value +
-      this.ingresosDeudor.get('agosto')!.value +
-      this.ingresosDeudor.get('septiembre')!.value +
-      this.ingresosDeudor.get('octubre')!.value + 
-      this.ingresosDeudor.get('noviembre')!.value + 
-      this.ingresosDeudor.get('diciembre')!.value;
+    total = parseInt(this.ingresosDeudor.get('enero')!.value) +
+    parseInt(this.ingresosDeudor.get('febrero')!.value) +
+    parseInt(this.ingresosDeudor.get('marzo')!.value) +
+    parseInt(this.ingresosDeudor.get('abril')!.value) +
+    parseInt(this.ingresosDeudor.get('mayo')!.value) +
+    parseInt(this.ingresosDeudor.get('junio')!.value) +
+    parseInt(this.ingresosDeudor.get('julio')!.value) +
+    parseInt(this.ingresosDeudor.get('agosto')!.value) +
+    parseInt(this.ingresosDeudor.get('septiembre')!.value) +
+    parseInt(this.ingresosDeudor.get('octubre')!.value) + 
+    parseInt(this.ingresosDeudor.get('noviembre')!.value) + 
+    parseInt(this.ingresosDeudor.get('diciembre')!.value);
 
-      total_utm = this.ingresosDeudor.get('enero_utm')!.value +
-      this.ingresosDeudor.get('febrero_utm')!.value +
-      this.ingresosDeudor.get('marzo_utm')!.value +
-      this.ingresosDeudor.get('abril_utm')!.value +
-      this.ingresosDeudor.get('mayo_utm')!.value +
-      this.ingresosDeudor.get('junio_utm')!.value +
-      this.ingresosDeudor.get('julio_utm')!.value +
-      this.ingresosDeudor.get('agosto_utm')!.value +
-      this.ingresosDeudor.get('septiembre_utm')!.value +
-      this.ingresosDeudor.get('octubre_utm')!.value + 
-      this.ingresosDeudor.get('noviembre_utm')!.value + 
-      this.ingresosDeudor.get('diciembre_utm')!.value;
+    total_utm = this.ingresosDeudor.get('enero_utm')!.value +
+    this.ingresosDeudor.get('febrero_utm')!.value +
+    this.ingresosDeudor.get('marzo_utm')!.value +
+    this.ingresosDeudor.get('abril_utm')!.value +
+    this.ingresosDeudor.get('mayo_utm')!.value +
+    this.ingresosDeudor.get('junio_utm')!.value +
+    this.ingresosDeudor.get('julio_utm')!.value +
+    this.ingresosDeudor.get('agosto_utm')!.value +
+    this.ingresosDeudor.get('septiembre_utm')!.value +
+    this.ingresosDeudor.get('octubre_utm')!.value + 
+    this.ingresosDeudor.get('noviembre_utm')!.value + 
+    this.ingresosDeudor.get('diciembre_utm')!.value;
 
     this.ingresosDeudor.get('ingreso_total_deudor')!.setValue(total);
     this.ingresosDeudor.get('ingreso_total_deudor_utm')!.setValue(total_utm);
@@ -787,38 +782,57 @@ export class RegistrarDeclaracionComponent implements OnInit {
     let total = 0;
     let total_utm = 0;
 
-    total = this.conyuge.get('enero')!.value +
-      this.conyuge.get('febrero')!.value +
-      this.conyuge.get('marzo')!.value +
-      this.conyuge.get('abril')!.value +
-      this.conyuge.get('mayo')!.value +
-      this.conyuge.get('junio')!.value +
-      this.conyuge.get('julio')!.value +
-      this.conyuge.get('agosto')!.value +
-      this.conyuge.get('septiembre')!.value +
-      this.conyuge.get('octubre')!.value + 
-      this.conyuge.get('noviembre')!.value + 
-      this.conyuge.get('diciembre')!.value;
+    total = parseInt(this.conyuge.get('enero')!.value) +
+    parseInt(this.conyuge.get('febrero')!.value) +
+    parseInt(this.conyuge.get('marzo')!.value) +
+    parseInt(this.conyuge.get('abril')!.value) +
+    parseInt(this.conyuge.get('mayo')!.value) +
+    parseInt(this.conyuge.get('junio')!.value) +
+    parseInt(this.conyuge.get('julio')!.value) +
+    parseInt(this.conyuge.get('agosto')!.value) +
+    parseInt(this.conyuge.get('septiembre')!.value) +
+    parseInt(this.conyuge.get('octubre')!.value) + 
+    parseInt(this.conyuge.get('noviembre')!.value) + 
+    parseInt(this.conyuge.get('diciembre')!.value);
 
-      total_utm = this.conyuge.get('enero_utm')!.value +
-      this.conyuge.get('febrero_utm')!.value +
-      this.conyuge.get('marzo_utm')!.value +
-      this.conyuge.get('abril_utm')!.value +
-      this.conyuge.get('mayo_utm')!.value +
-      this.conyuge.get('junio_utm')!.value +
-      this.conyuge.get('julio_utm')!.value +
-      this.conyuge.get('agosto_utm')!.value +
-      this.conyuge.get('septiembre_utm')!.value +
-      this.conyuge.get('octubre_utm')!.value + 
-      this.conyuge.get('noviembre_utm')!.value + 
-      this.conyuge.get('diciembre_utm')!.value;
+    total_utm = this.conyuge.get('enero_utm')!.value +
+    this.conyuge.get('febrero_utm')!.value +
+    this.conyuge.get('marzo_utm')!.value +
+    this.conyuge.get('abril_utm')!.value +
+    this.conyuge.get('mayo_utm')!.value +
+    this.conyuge.get('junio_utm')!.value +
+    this.conyuge.get('julio_utm')!.value +
+    this.conyuge.get('agosto_utm')!.value +
+    this.conyuge.get('septiembre_utm')!.value +
+    this.conyuge.get('octubre_utm')!.value + 
+    this.conyuge.get('noviembre_utm')!.value + 
+    this.conyuge.get('diciembre_utm')!.value;
 
     this.ingresosDeudor.get('ingreso_total_conyuge')!.setValue(total);
     this.ingresosDeudor.get('ingreso_total_conyuge_utm')!.setValue(total_utm);
   }
 
   verificarDecJuradaSimpleDeudor(){
+    let contador = 0;
+    let decJuradaSimpleDeudor = false;
+    let formControl;
 
+    let meses = ["enero", "febrero", "marzo", "abril", ""];
+
+    for(let ingreso in this.ingresosDeudor.controls){
+      formControl = this.ingresosDeudor.get(ingreso)!;
+
+      if(formControl.value == 0){
+        contador++;
+      }
+      else{
+        contador = 0;
+      }
+
+      if(contador >= 3){
+        decJuradaSimpleDeudor = true;
+      }
+    }
   }
 
   verificarDecJuradaSimpleConyuge(){
@@ -829,6 +843,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
     this.declaracionService.actualizarEstadoDeclaracion(this.rut_deudor, this.id_declaracion, 2).subscribe({
       next: result =>{
         console.log(result);
+        this.router.navigate(['/home-deudor']);
       }
     });
   }

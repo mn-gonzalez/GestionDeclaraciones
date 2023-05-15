@@ -9,6 +9,8 @@ use App\Http\Controllers\ConyugeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\RevisionController;
+use App\Http\Controllers\DevolucionController;
+use App\Http\Controllers\PostergacionController;
 use App\Http\Controllers\UtmController;
 
 /*
@@ -89,3 +91,14 @@ Route::get('{rut_deudor}/declaraciones/{id_declaracion}/generarPdf', [Declaracio
 //revisiones
 Route::post('revisiones/registrar',[RevisionController::class, 'registrar_revision']);
 Route::get('revisiones/{id_declaracion}',[RevisionController::class, 'obtener_revisiones']);
+
+//devoluciones
+Route::post('{rut_deudor}/devoluciones/registrar',[DevolucionController::class, 'registrar_devolucion']);
+Route::get('{rut_deudor}/devoluciones',[DevolucionController::class, 'obtener_devoluciones']);
+Route::get('devoluciones/sinRevisar',[DevolucionController::class, 'obtener_devoluciones_sin_revisar']);
+Route::get('devoluciones/{id_devolucion}',[DevolucionController::class, 'obtener_datos_devolucion']);
+
+//postergaciones
+Route::post('{rut_deudor}/postergaciones/registrar',[PostergacionController::class, 'registrar_postergacion']);
+Route::get('{rut_deudor}/postergaciones',[PostergacionController::class, 'obtener_postergaciones_deudor']);
+Route::get('postergaciones/sinRevisar',[PostergacionController::class, 'postergaciones_sin_revisar']);

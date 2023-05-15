@@ -1,1 +1,59 @@
-<p>registrar-postergacion works!</p>
+<form [formGroup]="datosPostergacion" class="fondo">
+    <div>
+        <h2>Solicitar la postergación del cobro para este año</h2>
+    </div>
+
+    <div>
+        <h3>Antedecentes Personales</h3>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Rut</mat-label>
+            <input matInput placeholder="Ej. 12345678" formControlName="rut_deudor" readonly>
+        </mat-form-field>
+
+        <div style="display: flex; column-gap: 10px;">
+            <mat-form-field appearance="outline">
+                <mat-label>Nombres</mat-label>
+                <input matInput formControlName="nombres" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Apellido Paterno</mat-label>
+                <input matInput formControlName="ap_paterno" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Apellido Materno</mat-label>
+                <input matInput formControlName="ap_materno" readonly>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div style="width: 100%;">
+        <h3>Motivo de la Postergación</h3>
+        <mat-form-field appearance="outline" style="width: 80%;">
+            <mat-label>Motivo</mat-label>
+            <textarea matInput rows="10" cols="40" placeholder="" formControlName="motivo"></textarea>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <h3>Adjuntar Documento</h3>
+        <div class="subir-documento">
+            <input type="file" (change)="upload($event)" accept="application/pdf" #documento style="display: none;">
+            <button style="height:50%;" (click)="documento.click()"> Seleccionar.</button>
+            <div *ngIf="this.docPostergacion == null" class="miniatura-pdf">
+                <span>No se ha seleccionado ningún archivo.</span>
+            </div>
+            <div *ngIf="this.docPostergacion != null" (click)="visualizarPDF()" class="miniatura-pdf">
+                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.docPostergacion.name}}</div>
+            </div>
+            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+        </div>
+    </div>
+
+    <div>
+        <button mat-button (click)="registrarPostergacion()">Enviar</button>
+    </div>
+</form>

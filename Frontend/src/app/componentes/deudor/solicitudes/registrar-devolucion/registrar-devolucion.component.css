@@ -1,55 +1,35 @@
 .fondo{
-    display: grid;
-    grid-template-columns: 15% 70% 15%;
-    grid-template-rows: 40px 10% 60% 40px;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    width:100%; 
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    row-gap: 10px;
 }
 
-.titulo{
-    grid-column: 2;
-    grid-row: 2;
-    padding-bottom: 10px;
-}
-
-.solicitud{
-    grid-column: 2;
-    grid-row: 3;
+.subir-documento{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    border: 1px solid currentColor;
+    border-radius: 5px;
+    width: 500px;
+    padding: 10px;
 }
 
-.formulario{
-    display: flex;
-    flex-direction: column;
+.miniatura-pdf{
+    display: flex; 
+    align-items: center; 
+    height: 100%; 
+    width: 55%;
 }
 
-.form_nombre{
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-}
-
-.form_contacto{
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-}
-
-.form_retiro{
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.opciones{
-    margin-right: 15px;
-    margin-bottom: 20px;
-}
-
-.opcion_solicitud{
-    display: flex;
-    flex-direction: column;
-}
-
-.input{
-    max-width: 200px;
-    margin-right: 10px;
+.icono-pdf{
+    max-height: 70%;
+    padding-right: 5px;
 }

@@ -532,7 +532,16 @@
         <mat-step [stepControl]="conyuge">
             <form [formGroup]="conyuge">
               <ng-template matStepLabel>Finalizar</ng-template>
-                
+                <div>
+                    Una vez que envíe el formulario, debe esperar a que uno de nuestros funcionarios revise su declaración 
+                    para verificar que todo esta correcto. 
+                    
+                    Si todo esta correcto, podrá descargar el formulario en formato PDF
+                    para ser firmado ante notario o mediante Firma Electrónica Avanzada. 
+
+                    Si el formulario o su Documentación tienen algún problema el formulario 
+                    se desbloqueará para que realice las correcciones indicadas por el funcionario.
+                </div>
                 <div>
                     <button mat-button matStepperNext (click)="finalizarDeclaracion()">Enviar</button>
                 </div>

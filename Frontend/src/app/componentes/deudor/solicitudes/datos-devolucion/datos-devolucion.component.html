@@ -1,0 +1,74 @@
+<div class="fondo">
+    <div>
+        <h2>Solicitud de Devolución/Copia de Pagarés</h2>
+    </div>
+
+    <div style="padding-bottom: 3%;">
+        <h3><strong>Antedecentes Personales</strong></h3>
+        <div>
+            Rut: {{this.devolucion.rut_deudor}}
+        </div>
+        <div style="display: flex; column-gap: 5%;">
+            <span>Nombres: {{this.devolucion.nombres}}</span>
+            <span>Apellido Paterno: {{this.devolucion.ap_paterno}}</span>
+            <span>Apellido Materno: {{this.devolucion.ap_materno}}</span>
+        </div>
+    </div>
+
+    <div style="padding-bottom: 3%;">
+        <h3><strong>Datos de contacto</strong></h3>
+        <div style="display: flex; column-gap: 5%;">
+            <span>Email: {{this.devolucion.correo}}</span>
+            <span>Teléfono: {{this.devolucion.telefono}}</span>
+        </div>
+    </div>
+
+    <div style="padding-bottom: 3%;">
+        <h3><strong>Solicitud</strong></h3>
+        <div>
+            <span>Solicitud: {{this.devolucion.solicitud}}</span>
+        </div>
+        <div>
+            <span>Tipo Deuda: {{this.devolucion.tipo_deuda}}</span>
+        </div>
+    </div>
+
+    <div style="padding-bottom: 3%;">
+        <h3><strong>Datos de Entrega</strong></h3>
+        <div>
+            <span>Retira en Oficinas AFC: {{this.devolucion.retiro_oficina}}</span>
+        </div>
+        <div>
+            <span>Domicilio: {{this.devolucion.domicilio}}</span>
+        </div>
+    </div>
+
+    <div style="padding-bottom: 3%;">
+        <div>
+            <label><strong>Fotocopia Simple de Cédula de Identidad</strong></label>
+        </div>
+        <div class="subir-documento">
+            <input type="file" accept="application/pdf" #fotocopia style="display: none;">
+            <div (click)="visualizarPDF()" class="miniatura-pdf">
+                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.devolucion.nombre_archivo}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="funcionario">
+        <h3>Comentarios</h3>
+        <mat-form-field appearance="outline" style="width: 65%;">
+            <textarea matInput rows="5" cols="40" placeholder="Comentarios" formControlName="comentarios"></textarea>
+        </mat-form-field>
+    </div>
+
+    <div class="botones" *ngIf="funcionario">
+        <div>
+            <button mat-button>Aceptar</button>
+        </div>
+        <div>
+            <button mat-button>Rechazar</button>
+        </div>
+    </div>
+</div>

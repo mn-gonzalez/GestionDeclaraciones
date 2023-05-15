@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('postergacion', function (Blueprint $table) {
             $table->string('id');
             $table->text('motivo');
+            $table->text('nombre_archivo');
             $table->text('archivo');
-            $table->timestamps();
             //foreign keys
             $table->foreign('id')->references('id')->on('tramite')
             ->onDelete('cascade')->onUpdate('cascade');

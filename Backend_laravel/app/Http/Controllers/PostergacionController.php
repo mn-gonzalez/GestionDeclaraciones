@@ -4,82 +4,74 @@ namespace App\Http\Controllers;
 
 use App\Models\Postergacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PostergacionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function registrar_postergacion(Request $request, $rut_deudor){
+        $data = $request->validate([
+            'id' => 'required',
+            'rut_deudor' => 'required',
+            'nombres' => 'required',
+            'ap_paterno' => 'required',
+            'ap_materno' => 'required',
+            'fecha' => 'required',
+            'estado' => 'required',
+            'motivo' => 'nullable',
+            'nombre_archivo' => 'required',
+            'archivo' => 'nullable',
+            'documento' => 'required|mimes:pdf'
+        ]);
+
+        $ubicacion_documento = $request->file('documento')->storeAs('postergaciones/'.$rut_deudor.'/'.$data['id'], $data['nombre_archivo'].'.pdf', 'public');
+
+        DB::table('tramite')->insert([
+            'id'=> $data['id'],
+            'rut_deudor' => $data['rut_deudor'],
+            'nombres' => $data['nombres'],
+            'ap_paterno' =>$data['ap_paterno'],
+            'ap_materno' => $data['ap_materno'],
+            'fecha'=> $data['fecha'],
+            'estado' => $data['estado']
+        ]);
+
+        DB::table('postergacion')->insert([
+            'id' => $data['id'],
+            'motivo' => $data['motivo'],
+            'nombre_archivo' => $data['nombre_archivo'],
+            'archivo' => $ubicacion_documento
+        ]);
+
+        $response = ['mensaje' => 'La postergación se ha registrado exitosamente'];
+        return response($response, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function datos_postergacion(Request $request, $id_postergacion){
+        $postergacion = DB::table('postergacion')->join('tramite', 'tramite.id', '=', 'postergacion.id')
+            ->where('tramite.id', '=', $id_postergacion)
+            ->select('tramite.*','postergacion.*')->first();
+
+        $aux_url = $postergacion->archivo;
+        $url = url(Storage::url($aux_url));
+        $postergacion->archivo = $url;
+
+        return response()->json($postergacion);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function obtener_postergaciones_deudor(Request $request, $rut_deudor){
+        $postergaciones = DB::table('postergacion')->join('tramite', 'tramite.id', '=', 'postergacion.id')
+            ->where('tramite.rut_deudor', '=', $rut_deudor)
+            ->select('tramite.*','postergacion.*')->get();
+
+        return response()->json($postergaciones);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Postergacion  $postergacion
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Postergacion $postergacion)
-    {
-        //
-    }
+    public function postergaciones_sin_revisar(){
+        $postergaciones = DB::table('postergacion')->join('tramite', 'tramite.id', '=', 'postergacion.id')
+            ->where('tramite.estado', '=', 2)
+            ->select('tramite.*','postergacion.*')->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Postergacion  $postergacion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Postergacion $postergacion)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Postergacion  $postergacion
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Postergacion $postergacion)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Postergacion  $postergacion
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Postergacion $postergacion)
-    {
-        //
+        return response()->json($postergaciones);
     }
 }

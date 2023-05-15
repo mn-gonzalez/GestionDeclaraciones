@@ -34,7 +34,7 @@ CREATE TABLE tramite(
 	ap_paterno varchar(50) NOT NULL,
 	ap_materno varchar(50) NOT NULL,
 	fecha date NOT NULL,
-	estado integer DEFAULT 0 NOT NULL,
+	estado integer DEFAULT 1 NOT NULL,
 	PRIMARY KEY (id)
 );
 
@@ -128,14 +128,13 @@ CREATE TABLE postergacion(
 
 CREATE TABLE devolucion(
 	id varchar(20) NOT NULL REFERENCES tramite(id),
-	correo varchar(50) NOT NULL,
+	correo varchar(50),
 	telefono varchar(15),
-	tipo_deuda varchar(50),
-	retiro_oficina integer,
+	tipo_deuda varchar(50) NOT NULL,
+	retiro_oficina integer NOT NULL,
 	domicilio varchar(255), 
-	solicitud text,
-	observaciones text,
-	nombre_archivo varchar(100),
+	solicitud text NOT NULL,
+	nombre_archivo varchar(100) NOT NULL,
 	archivo text NOT NULL,
 	PRIMARY KEY (id)
 );

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
-import { DeudorService } from 'src/app/servicios/deudor.service';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Deudor } from 'src/app/modelos/deudor';
 
 
@@ -16,7 +16,7 @@ export class ListarUsuariosComponent implements OnInit {
   dataSource: MatTableDataSource<Deudor>;
   busqueda : FormGroup;
 
-  constructor(private router: Router, private deudorService: DeudorService) {
+  constructor(private router: Router, private deudorService: UsuarioService) {
     this.busqueda = new FormGroup({
       'filtro': new FormControl("")
     });

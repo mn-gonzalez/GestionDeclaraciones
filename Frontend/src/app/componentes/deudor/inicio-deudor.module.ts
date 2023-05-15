@@ -10,6 +10,8 @@ import { ListarDeclaracionesComponent } from './declaraciones/listar-declaracion
 import { MisDatosComponent } from './mis-datos/mis-datos.component';
 import { RegistrarDeclaracionComponent } from './declaraciones/registrar-declaracion/registrar-declaracion.component';
 import { MensajesComponent } from './mensajes/mensajes.component';
+import { MenuDeclaracionComponent } from './declaraciones/menu-declaracion/menu-declaracion.component';
+import { DatosDevolucionComponent } from './solicitudes/datos-devolucion/datos-devolucion.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { MensajesComponent } from './mensajes/mensajes.component';
     ListarDevolucionesComponent,
     ListarDeclaracionesComponent,
     MisDatosComponent,
-    MensajesComponent
+    MensajesComponent,
+    MenuDeclaracionComponent,
+    DatosDevolucionComponent
   ],
   imports: [
     CommonModule,

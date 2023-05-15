@@ -25,8 +25,20 @@ export class InicioDeudorComponent implements OnInit {
     this.router.navigate(['/home-deudor/devolucion']);
   }
 
+  listarDevoluciones(){
+    this.router.navigate(['/home-deudor/devoluciones']);
+  }
+
   misDatos(){
     this.router.navigate(['/home-deudor/mis-datos']);
+  }
+
+  solicitarPostergacion(){
+    this.router.navigate(['/home-deudor/postergacion']);
+  }
+
+  listarPostergaciones(){
+    this.router.navigate(['/home-deudor/postergaciones']);
   }
 
 }

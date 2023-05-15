@@ -9,7 +9,7 @@ import { Deudor } from '../modelos/deudor';
 @Injectable({
   providedIn: 'root'
 })
-export class DeudorService {
+export class UsuarioService {
 
   constructor(private http: HttpClient) {
 
@@ -22,5 +22,9 @@ export class DeudorService {
         return result;
       })
     );
+  }
+
+  registrarDeudor(){
+    
   }
 }

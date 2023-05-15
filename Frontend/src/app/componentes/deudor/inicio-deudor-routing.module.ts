@@ -6,7 +6,12 @@ import { RegistrarDeclaracionComponent } from './declaraciones/registrar-declara
 import { RegistrarDevolucionComponent } from './solicitudes/registrar-devolucion/registrar-devolucion.component';
 import { MisDatosComponent } from './mis-datos/mis-datos.component';
 import { DatosDeclaracionComponent } from '../funcionario/declaraciones/datos-declaracion/datos-declaracion.component';
+import { MenuDeclaracionComponent } from './declaraciones/menu-declaracion/menu-declaracion.component';
 import { MensajesComponent } from './mensajes/mensajes.component';
+import { ListarDevolucionesComponent } from './solicitudes/listar-devoluciones/listar-devoluciones.component';
+import { DatosDevolucionComponent } from './solicitudes/datos-devolucion/datos-devolucion.component';
+import { RegistrarPostergacionComponent } from './solicitudes/registrar-postergacion/registrar-postergacion.component';
+import { ListarPostergacionesComponent } from './solicitudes/listar-postergaciones/listar-postergaciones.component';
 
 const routes: Routes = [
     { path: '', component:InicioDeudorComponent, 
@@ -16,7 +21,12 @@ const routes: Routes = [
         {path: 'devolucion', component: RegistrarDevolucionComponent},
         {path: 'mis-datos', component: MisDatosComponent},
         {path: 'mensajes', component: MensajesComponent},
-        {path: '', component: RegistrarDeclaracionComponent}
+        {path: 'declaracion', component: RegistrarDeclaracionComponent},
+        {path: 'devoluciones', component: ListarDevolucionesComponent},
+        {path: 'devoluciones/:id', component: DatosDevolucionComponent},
+        {path: 'postergacion', component: RegistrarPostergacionComponent},
+        {path: 'postergaciones', component: ListarPostergacionesComponent},
+        {path: '', component: MenuDeclaracionComponent}
     ]
     }
   ];

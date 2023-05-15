@@ -1,0 +1,19 @@
+.fondo{
+    height: 100%; 
+    width: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    padding: 3%;
+}
+
+.icon{
+    padding: 3%;
+    align-self: center;
+    width: 70%;
+    height: 70%;
+}
+
+.mat-card{
+    cursor: pointer;
+}
