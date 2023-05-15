@@ -19,7 +19,14 @@ class AuthController extends Controller
 
         //$data['contrasena'] = bcrypt($request->contrasena);
 
-        $deudor = DB::table('deudor')->where('rut', '=', $data['rut'])->first();
+        $deudor = DB::table('deudor')
+            ->join('persona', 'persona.rut', '=', 'deudor.rut')
+            ->where('persona.rut', '=', $data['rut'])
+            ->select('persona.rut as rut', 
+                'persona.nombres as nombres', 
+                'persona.ap_paterno as ap_paterno', 
+                'persona.ap_materno as ap_materno',
+                'deudor.contrasena as contrasena')->first();
 
         if(!$deudor){
             return response(['El rut ingresado no existe']);
@@ -30,8 +37,14 @@ class AuthController extends Controller
             }
             else{
                 $usuario = new Deudor($data);
+                $nombre = $deudor->nombres.' '.$deudor->ap_paterno.' '.$deudor->ap_materno;
+
                 $token = $usuario->createToken('auth_token')->plainTextToken;
-                $response = ['mensaje'=>'Inicio de sesion exitoso', 'rut_usuario' => $data['rut'], 'token' => $token];
+                $response = ['mensaje'=>'Inicio de sesion exitoso', 
+                'rut_usuario' => $data['rut'], 
+                'nombre' => $nombre,
+                'token' => $token];
+
                 return response($response, 200);
             }
         }
@@ -44,7 +57,14 @@ class AuthController extends Controller
             'contrasena' => 'required'
         ]);
 
-        $funcionario = DB::table('funcionario')->where('rut', '=', $data['rut'])->first();
+        $funcionario = DB::table('funcionario')
+        ->join('persona', 'persona.rut', '=', 'funcionario.rut')
+        ->where('persona.rut', '=', $data['rut'])
+        ->select('persona.rut as rut', 
+                'persona.nombres as nombres', 
+                'persona.ap_paterno as ap_paterno', 
+                'persona.ap_materno as ap_materno',
+                'funcionario.contrasena as contrasena')->first();
 
         if(!$funcionario){
             return response(['El rut ingresado no existe']);
@@ -55,8 +75,14 @@ class AuthController extends Controller
             }
             else{
                 $usuario = new Funcionario($data);
+                $nombre = $funcionario->nombres.' '.$funcionario->ap_paterno.' '.$funcionario->ap_materno;
+
                 $token = $usuario->createToken('auth_token')->plainTextToken;
-                $response = ['mensaje'=>'Inicio de sesion exitoso', 'rut_usuario' => $data['rut'],'token' => $token];
+                $response = ['mensaje'=>'Inicio de sesion exitoso', 
+                'rut_usuario' => $data['rut'],
+                'nombre' => $nombre,
+                'token' => $token];
+
                 return response($response, 200);
             }
         }

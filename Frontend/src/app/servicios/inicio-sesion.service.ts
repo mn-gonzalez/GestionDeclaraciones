@@ -17,7 +17,7 @@ export class InicioSesionService {
     .set('rut', data.rut)
     .set('contrasena', data.contrasena)
 
-    return this.http.post<{mensaje: string, token: string, login: boolean}>(env.api.concat("/login_deudor"), body)
+    return this.http.post<{mensaje: string, nombre: string, token: string, login: boolean}>(env.api.concat("/login_deudor"), body)
     .pipe(
       map(result => {
         if(result.login == false){
@@ -26,6 +26,7 @@ export class InicioSesionService {
         else{
           localStorage.setItem('access_token', result.token);
           localStorage.setItem('usuario_actual', data.rut);
+          localStorage.setItem('nombre', result.nombre);
           localStorage.setItem('tipo_usuario', 'DEUDOR');
           this.usuario_actual = data.rut;
           return true;
@@ -39,7 +40,7 @@ export class InicioSesionService {
     .set('rut', data.rut)
     .set('contrasena', data.contrasena)
 
-    return this.http.post<{mensaje: string, token: string, login: boolean}>(env.api.concat("/login_funcionario"), body)
+    return this.http.post<{mensaje: string,nombre: string, token: string, login: boolean}>(env.api.concat("/login_funcionario"), body)
     .pipe(
       map(result => {
         if(result.login == false){
@@ -48,6 +49,7 @@ export class InicioSesionService {
         else{
           localStorage.setItem('access_token', result.token);
           localStorage.setItem('usuario_actual', data.rut);
+          localStorage.setItem('nombre', result.nombre);
           localStorage.setItem('tipo_usuario', 'FUNCIONARIO');
           this.usuario_actual = data.rut;
           return true;
@@ -64,6 +66,7 @@ export class InicioSesionService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('usuario_actual');
     localStorage.removeItem('tipo_usuario');
+    localStorage.removeItem('nombre');
     //llamar al backend de logout
   }
 
@@ -85,5 +88,10 @@ export class InicioSesionService {
   public obtenerTipoUsuario(){
     const tipo = localStorage.getItem('tipo_usuario');
     return tipo;
+  }
+
+  public obtenerNombreUsuario(){
+    const nombre = localStorage.getItem('nombre');
+    return nombre;
   }
 }

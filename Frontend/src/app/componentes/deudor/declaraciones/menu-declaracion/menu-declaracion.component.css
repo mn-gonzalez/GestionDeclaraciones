@@ -14,6 +14,9 @@
     height: 70%;
 }
 
-.mat-card{
+.tarjeta{
     cursor: pointer;
+    display: flex; 
+    flex-direction: column; 
+    width: 200px;
 }

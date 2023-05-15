@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Deudor } from 'src/app/modelos/deudor';
+import { MatDialog } from '@angular/material/dialog';
+import { RegistrarDeudorComponent } from '../registrar-deudor/registrar-deudor.component';
 
 
 @Component({
@@ -16,7 +18,8 @@ export class ListarUsuariosComponent implements OnInit {
   dataSource: MatTableDataSource<Deudor>;
   busqueda : FormGroup;
 
-  constructor(private router: Router, private deudorService: UsuarioService) {
+  constructor(private router: Router, private usuarioService: UsuarioService, 
+    public dialog: MatDialog) {
     this.busqueda = new FormGroup({
       'filtro': new FormControl("")
     });
@@ -37,7 +40,7 @@ export class ListarUsuariosComponent implements OnInit {
   }
 
   obtenerDeudores(){
-    this.deudorService.obtenerDeudores().subscribe({
+    this.usuarioService.obtenerDeudores().subscribe({
       next: (result) => {this.dataSource.data = result;},
       error: (err) => {console.log(err)}
     });
@@ -46,6 +49,14 @@ export class ListarUsuariosComponent implements OnInit {
   verDeclaracionesDeudor(rut: string){
     console.log(rut);
     this.router.navigate(['/home-funcionario/declaraciones/'+rut]);
+  }
+
+  menuRegistrarDeudor(){
+    const dialogRef = this.dialog.open(RegistrarDeudorComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 }

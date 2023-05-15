@@ -1,20 +1,19 @@
 <div class="fondo">
     <h1 style="align-self: flex-start; padding-bottom: 3%;">Declaración Jurada de Ingresos 2023</h1>
-    <div style="display:flex; flex-direction: row; justify-content: flex-start; column-gap: 10%;">
-        <div style="width: 22%;">
+    <div style="display:flex; flex-direction: row; justify-content: space-evenly; column-gap: 10%;">
+        <div>
             <h2 >Paso 1</h2>
-            <mat-card style="display: flex; flex-direction: column;" (click)="menuRegistrarDeclaracion()">
+            <mat-card class="tarjeta" (click)="menuRegistrarDeclaracion()">
                 <img class="icon" mat-card-image src="../../../assets/imagenes/documento.png">
                 <mat-card-header>
                     <mat-card-title style="font-size: 14px;">Registrar Declaración Jurada</mat-card-title>
-                    <img>
                 </mat-card-header>
             </mat-card>
         </div>
         
-        <div style="width: 22%;">
+        <div>
             <h2>Paso 2</h2>
-            <mat-card style="display: flex; flex-direction: column;" (click)="descargarDeclaracion()">
+            <mat-card class="tarjeta" (click)="descargarDeclaracion()">
                 <img class="icon" mat-card-image src="../../../assets/imagenes/descargar.png">
                 <mat-card-header>
                     <mat-card-title style="font-size: 14px;">Descargar Declaración en PDF</mat-card-title>
@@ -22,9 +21,9 @@
             </mat-card>
         </div>
 
-        <div style="width: 22%;">
+        <div>
             <h2>Paso 3</h2>
-            <mat-card style="display: flex; flex-direction: column;" (click)="menuSubirDeclaracion()">
+            <mat-card class="tarjeta" (click)="menuSubirDeclaracion()">
                 <img class="icon" mat-card-image src="../../../assets/imagenes/subir.png">
                 <mat-card-header>
                     <mat-card-title style="font-size: 14px;">Subir Declaración Firmada</mat-card-title>

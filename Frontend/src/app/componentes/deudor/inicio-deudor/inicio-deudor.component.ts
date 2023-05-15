@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 
 @Component({
   selector: 'app-inicio-deudor',
@@ -7,10 +8,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./inicio-deudor.component.css']
 })
 export class InicioDeudorComponent implements OnInit {
+  nombre: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private auth: InicioSesionService) { }
 
   ngOnInit(): void {
+    this.nombre = this.auth.obtenerNombreUsuario()!;
   }
 
   registrarDeclaracion(){

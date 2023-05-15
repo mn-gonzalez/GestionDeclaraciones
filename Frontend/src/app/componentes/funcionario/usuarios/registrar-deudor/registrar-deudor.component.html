@@ -1,0 +1,27 @@
+<form [formGroup]="datosDeudor" class="formulario">
+    <h2>Ingrese los datos del deudor.</h2>
+    <mat-form-field appearance="outline">
+        <mat-label>RUT</mat-label>
+        <input matInput placeholder="Ej. 12.345.678-9" formControlName="rut_deudor">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Nombres</mat-label>
+        <input matInput placeholder="Primer y Segundo Nombre" formControlName="nombres">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Apellido Paterno</mat-label>
+        <input matInput formControlName="ap_paterno">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Apellido Materno</mat-label>
+        <input matInput formControlName="ap_materno">
+    </mat-form-field>
+
+    <div class="botones">
+        <button mat-raised-button (click)="registrarDeudor()">Registrar</button>
+        <button mat-raised-button (click)="cerrar()">Cancelar</button>
+    </div>
+</form>

@@ -7,6 +7,8 @@ import { DeclaracionesDeudorComponent } from './declaraciones/declaraciones-deud
 import { MaterialModule } from 'src/app/material.module';
 import { RevisarDeclaracionComponent } from './declaraciones/revisar-declaracion/revisar-declaracion.component';
 import { DeclaracionesPorRevisarComponent } from './declaraciones/declaraciones-por-revisar/declaraciones-por-revisar.component';
+import { RegistrarDeudorComponent } from './usuarios/registrar-deudor/registrar-deudor.component';
+import { RegistrarFuncionarioComponent } from './usuarios/registrar-funcionario/registrar-funcionario.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { DeclaracionesPorRevisarComponent } from './declaraciones/declaraciones-
     DatosDeclaracionComponent,
     DeclaracionesDeudorComponent,
     RevisarDeclaracionComponent,
-    DeclaracionesPorRevisarComponent
+    DeclaracionesPorRevisarComponent,
+    RegistrarDeudorComponent,
+    RegistrarFuncionarioComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +26,7 @@ import { DeclaracionesPorRevisarComponent } from './declaraciones/declaraciones-
     MaterialModule
   ],
   entryComponents: [
-
+    RegistrarDeudorComponent
   ],
 })
 export class InicioFuncionarioModule { }
