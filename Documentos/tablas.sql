@@ -18,12 +18,12 @@ CREATE TABLE funcionario
 CREATE TABLE deudor
 (
 	rut varchar(12) NOT NULL REFERENCES persona(rut),
-	telefono varchar(15) NOT NULL, 
+	telefono varchar(15), 
     contrasena varchar(100) NOT NULL,
-    ciudad varchar(50) NOT NULL,
-    comuna varchar(50) NOT NULL,
-    region varchar(50) NOT NULL,
-    direccion varchar(100) NOT NULL,
+    ciudad varchar(50),
+    comuna varchar(50),
+    region varchar(50),
+    direccion varchar(100),
     PRIMARY KEY (rut) 
 );
 
@@ -149,7 +149,7 @@ CREATE TABLE documento(
 );
 
 CREATE TABLE utm(
-	anio integer NOT NULL,
+	year integer NOT NULL,
 	enero integer NOT NULL, 
 	febrero integer NOT NULL, 
 	marzo integer NOT NULL, 

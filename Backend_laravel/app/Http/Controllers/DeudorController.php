@@ -40,7 +40,7 @@ class DeudorController extends Controller
             'nombres' =>'required',
             'ap_paterno' => 'required',
             'ap_materno' => 'required',
-            'correo' => 'required|email',
+            'correo' => 'nullable',
             'telefono' => 'nullable',
             'contrasena' => 'required',
             'ciudad' => 'nullable',

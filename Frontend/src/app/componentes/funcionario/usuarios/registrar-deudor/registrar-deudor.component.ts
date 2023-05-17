@@ -26,7 +26,16 @@ export class RegistrarDeudorComponent implements OnInit {
   }
 
   registrarDeudor(){
+    let datos = this.datosDeudor.value;
+    let contrasena = this.datosDeudor.get('rut_deudor')!.value.split('-');
 
+    this.usuarioService.registrarDeudor(datos, contrasena).subscribe({
+      next: result =>{
+        this.dialogRef.close();
+      }, 
+      error: result =>{
+      }
+    });
   }
 
   cerrar(){

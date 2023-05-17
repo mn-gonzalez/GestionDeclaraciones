@@ -6,15 +6,19 @@ import { DatosDeclaracionComponent } from './declaraciones/datos-declaracion/dat
 import { DeclaracionesDeudorComponent } from './declaraciones/declaraciones-deudor/declaraciones-deudor.component';
 import { DeclaracionesPorRevisarComponent } from './declaraciones/declaraciones-por-revisar/declaraciones-por-revisar.component';
 import { RevisarDeclaracionComponent } from './declaraciones/revisar-declaracion/revisar-declaracion.component';
+import { ListarFuncionariosComponent } from './usuarios/listar-funcionarios/listar-funcionarios.component';
+import { ListarUtmComponent } from './utm/listar-utm/listar-utm.component';
 
 const routes: Routes = [
     { path: '', component:InicioFuncionarioComponent, 
     children:[
-        {path: '', component: ListarUsuariosComponent},
+        {path: 'deudores', component: ListarUsuariosComponent},
+        {path: 'funcionarios', component: ListarFuncionariosComponent},
         {path: 'declaracion/:id', component: DatosDeclaracionComponent},
         {path: 'declaraciones/:rut', component: DeclaracionesDeudorComponent},
         {path: 'declaraciones/revisar/pendientes', component: DeclaracionesPorRevisarComponent},
-        {path: 'declaraciones/revisar/:id', component: RevisarDeclaracionComponent}
+        {path: 'declaraciones/revisar/:id', component: RevisarDeclaracionComponent},
+        {path: 'utm', component: ListarUtmComponent}
     ]
     }
   ];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Utm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UtmController extends Controller
 {
@@ -11,7 +12,7 @@ class UtmController extends Controller
     public function registrar_utm(Request $request)
     {
         $data = $request->validate([
-            'anio' => 'required'
+            'year' => 'required',
             'enero'=> 'required',
             'febrero'=> 'required',
             'marzo' => 'required',
@@ -27,7 +28,7 @@ class UtmController extends Controller
         ]);
 
         DB::table('utm')->insert([
-            'anio'=> $data['anio'],
+            'year'=> $data['year'],
             'enero' => $data['enero'],
             'febrero' => $data['febrero'],
             'marzo' =>$data['marzo'],
@@ -42,7 +43,7 @@ class UtmController extends Controller
             'diciembre' => $data['diciembre']
         ]);
 
-        $response = ['mensaje' => 'La utm del año'.$data['anio'].'se ha registrado correctamente'];
+        $response = ['mensaje' => 'La utm del año'.$data['year'].'se ha registrado correctamente'];
         return response($response, 200);
     }
 
@@ -50,13 +51,13 @@ class UtmController extends Controller
     {
         $listado_utm = DB::table('utm')->get();
 
-        return response()->json($listado_utm)
+        return response()->json($listado_utm);
     }
 
     public function datos_utm(Request $request, $year)
     {
         $utm = DB::table('utm')
-            ->where('utm.anio', $year)->first();
+            ->where('utm.year', $year)->first();
 
         return response()->json($utm);
     }
@@ -64,7 +65,7 @@ class UtmController extends Controller
     public function actualizar_datos_utm(Request $request, $year)
     {
         $data = $request->validate([
-            'anio' => 'required'
+            'year' => 'required',
             'enero'=> 'required',
             'febrero'=> 'required',
             'marzo' => 'required',
@@ -80,7 +81,7 @@ class UtmController extends Controller
         ]);
 
         DB::table('utm')
-            ->where('utm.anio', $year)
+            ->where('utm.year', $year)
             ->update([
             'enero' => $data['enero'],
             'febrero' => $data['febrero'],

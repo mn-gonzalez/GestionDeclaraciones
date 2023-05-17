@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('utm', function (Blueprint $table) {
-            $table->integer('anio')->unique();
+            $table->integer('year')->unique();
             $table->integer('enero');
             $table->integer('febrero');
             $table->integer('marzo');

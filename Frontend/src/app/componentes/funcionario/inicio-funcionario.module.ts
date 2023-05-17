@@ -9,6 +9,9 @@ import { RevisarDeclaracionComponent } from './declaraciones/revisar-declaracion
 import { DeclaracionesPorRevisarComponent } from './declaraciones/declaraciones-por-revisar/declaraciones-por-revisar.component';
 import { RegistrarDeudorComponent } from './usuarios/registrar-deudor/registrar-deudor.component';
 import { RegistrarFuncionarioComponent } from './usuarios/registrar-funcionario/registrar-funcionario.component';
+import { ListarFuncionariosComponent } from './usuarios/listar-funcionarios/listar-funcionarios.component';
+import { RegistrarUtmComponent } from './utm/registrar-utm/registrar-utm.component';
+import { ListarUtmComponent } from './utm/listar-utm/listar-utm.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { RegistrarFuncionarioComponent } from './usuarios/registrar-funcionario/
     RevisarDeclaracionComponent,
     DeclaracionesPorRevisarComponent,
     RegistrarDeudorComponent,
-    RegistrarFuncionarioComponent
+    RegistrarFuncionarioComponent,
+    ListarFuncionariosComponent,
+    RegistrarUtmComponent,
+    ListarUtmComponent
   ],
   imports: [
     CommonModule,

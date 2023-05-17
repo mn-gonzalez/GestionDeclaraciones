@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from "rxjs";
 
 import { Deudor } from '../modelos/deudor';
+import { Funcionario } from '../modelos/funcionario';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,54 @@ export class UsuarioService {
     );
   }
 
-  registrarDeudor(){
-    
+  registrarDeudor(datosDeudor: any, contrasena: string){
+    const body = new HttpParams()
+    .set('rut', datosDeudor.rut_deudor)
+    .set('nombres', datosDeudor.nombres)
+    .set('ap_paterno', datosDeudor.ap_paterno)
+    .set('ap_materno', datosDeudor.ap_materno)
+    .set('contrasena', contrasena)
+    .set('correo', "")
+    .set('telefono', "")
+    .set('ciudad', "")
+    .set('comuna', "")
+    .set('region', "")
+    .set('direccion', "")
+
+    return this.http.post<{ mensaje: string}>(env.api.concat("/registrar_deudor"), body)
+    .pipe(
+      map(result => {
+        console.log(result.mensaje);
+        return true;
+      })
+    );
+  }
+
+  obtenerFuncionarios(): Observable<Funcionario[]>{
+    return this.http.get<Funcionario[]>(env.api.concat("/funcionarios"))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  registrarFuncionario(datosFuncionario: any, contrasena: string){
+    const body = new HttpParams()
+    .set('rut', datosFuncionario.rut)
+    .set('nombres', datosFuncionario.nombres)
+    .set('ap_paterno', datosFuncionario.ap_paterno)
+    .set('ap_materno', datosFuncionario.ap_materno)
+    .set('contrasena', contrasena)
+    .set('correo', datosFuncionario.correo)
+    .set('tipo_usuario', datosFuncionario.tipo_usuario)
+
+    return this.http.post<{ mensaje: string}>(env.api.concat("/registrar_funcionario"), body)
+    .pipe(
+      map(result => {
+        console.log(result.mensaje);
+        return true;
+      })
+    );
   }
 }

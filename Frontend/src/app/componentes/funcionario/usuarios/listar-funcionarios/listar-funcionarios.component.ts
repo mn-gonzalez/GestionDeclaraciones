@@ -3,30 +3,30 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
-import { Deudor } from 'src/app/modelos/deudor';
+import { Funcionario } from 'src/app/modelos/funcionario';
 import { MatDialog } from '@angular/material/dialog';
-import { RegistrarDeudorComponent } from '../registrar-deudor/registrar-deudor.component';
-
+import { RegistrarFuncionarioComponent } from '../registrar-funcionario/registrar-funcionario.component';
 
 @Component({
-  selector: 'app-listar-usuarios',
-  templateUrl: './listar-usuarios.component.html',
-  styleUrls: ['./listar-usuarios.component.css']
+  selector: 'app-listar-funcionarios',
+  templateUrl: './listar-funcionarios.component.html',
+  styleUrls: ['./listar-funcionarios.component.css']
 })
-export class ListarUsuariosComponent implements OnInit {
-  displayedColumns: string[] = ['rut', 'nombres', 'ap_paterno', 'ap_materno', 'acciones'];
-  dataSource: MatTableDataSource<Deudor>;
+export class ListarFuncionariosComponent implements OnInit {
+  displayedColumns: string[] = ['rut', 'nombres', 'ap_paterno', 'ap_materno'];
+  dataSource: MatTableDataSource<Funcionario>;
   busqueda : FormGroup;
 
   constructor(private router: Router, private usuarioService: UsuarioService, 
     public dialog: MatDialog) {
-    this.busqueda = new FormGroup({
-      'filtro': new FormControl("")
-    });
+
+      this.busqueda = new FormGroup({
+        'filtro': new FormControl("")
+      });
    }
 
   ngOnInit(): void {
-    this.obtenerDeudores();
+    this.obtenerFuncionarios();
     this.dataSource = new MatTableDataSource();
   }
 
@@ -35,28 +35,18 @@ export class ListarUsuariosComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toUpperCase();
   }
 
-  submit(){
-
-  }
-
-  obtenerDeudores(){
-    this.usuarioService.obtenerDeudores().subscribe({
+  obtenerFuncionarios(){
+    this.usuarioService.obtenerFuncionarios().subscribe({
       next: (result) => {this.dataSource.data = result;},
       error: (err) => {console.log(err)}
     });
   }
 
-  verDeclaracionesDeudor(rut: string){
-    console.log(rut);
-    this.router.navigate(['/home-funcionario/declaraciones/'+rut]);
-  }
-
-  menuRegistrarDeudor(){
-    const dialogRef = this.dialog.open(RegistrarDeudorComponent);
+  menuRegistrarFuncionario(){
+    const dialogRef = this.dialog.open(RegistrarFuncionarioComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.obtenerDeudores();
+      this.obtenerFuncionarios();
     });
   }
-
 }

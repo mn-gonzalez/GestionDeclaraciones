@@ -1,4 +1,4 @@
-export class Conyuge{
+export class UTM{
     year: number;
     enero: number;
     febrero: number;

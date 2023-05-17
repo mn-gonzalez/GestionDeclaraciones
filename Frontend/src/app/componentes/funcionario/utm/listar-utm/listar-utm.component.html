@@ -1,0 +1,88 @@
+<div class="fondo">
+    <form [formGroup]="busqueda">
+        <mat-form-field appearance="standard">
+            <mat-label>Búsqueda</mat-label>
+            <input matInput (keyup)="applyFilter($event)" formControlName="filtro" #input>
+        </mat-form-field>
+        <button mat-raised-button (click)="menuRegistrarUTM()">Registrar UTM</button>
+    </form>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef> Año </th>
+          <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="enero">
+          <th mat-header-cell *matHeaderCellDef> Enero</th>
+          <td mat-cell *matCellDef="let element"> ${{element.enero}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="febrero">
+          <th mat-header-cell *matHeaderCellDef> Febrero </th>
+          <td mat-cell *matCellDef="let element"> ${{element.febrero}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="marzo">
+          <th mat-header-cell *matHeaderCellDef> Marzo </th>
+          <td mat-cell *matCellDef="let element"> ${{element.marzo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="abril">
+            <th mat-header-cell *matHeaderCellDef> Abril </th>
+            <td mat-cell *matCellDef="let element"> ${{element.abril}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mayo">
+            <th mat-header-cell *matHeaderCellDef> Mayo </th>
+            <td mat-cell *matCellDef="let element"> ${{element.mayo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="junio">
+            <th mat-header-cell *matHeaderCellDef> Junio </th>
+            <td mat-cell *matCellDef="let element"> ${{element.junio}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="julio">
+            <th mat-header-cell *matHeaderCellDef> Julio </th>
+            <td mat-cell *matCellDef="let element"> ${{element.julio}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="agosto">
+            <th mat-header-cell *matHeaderCellDef> Agosto </th>
+            <td mat-cell *matCellDef="let element"> ${{element.agosto}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="septiembre">
+            <th mat-header-cell *matHeaderCellDef> Septiembre </th>
+            <td mat-cell *matCellDef="let element"> ${{element.septiembre}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="octubre">
+            <th mat-header-cell *matHeaderCellDef> Octubre </th>
+            <td mat-cell *matCellDef="let element"> ${{element.octubre}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="noviembre">
+            <th mat-header-cell *matHeaderCellDef> Noviembre </th>
+            <td mat-cell *matCellDef="let element"> ${{element.noviembre}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="diciembre">
+            <th mat-header-cell *matHeaderCellDef> Diciembre </th>
+            <td mat-cell *matCellDef="let element"> ${{element.diciembre}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element"></td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No existen datos para la búsqueda: "{{input.value}}"</td>
+        </tr>
+      </table>
+</div>

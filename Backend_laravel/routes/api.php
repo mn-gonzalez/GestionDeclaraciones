@@ -41,6 +41,7 @@ Route::post('/registrar_deudor', [DeudorController::class, 'registrar']);
 Route::post('/registrar_funcionario', [FuncionarioController::class, 'registrar']);
 
 Route::get('/deudores',[DeudorController::class, 'listado_deudores']);
+Route::get('/funcionarios',[FuncionarioController::class, 'listado_funcionarios']);
 
 //declaraciones sin revisar
 Route::get('/declaraciones/sinRevisar', [DeclaracionController::class, 'declaracionesSinRevisar']);
@@ -48,7 +49,6 @@ Route::get('/declaraciones/sinRevisar', [DeclaracionController::class, 'declarac
 //informacion de utm
 Route::post('/utm/registrar', [UtmController::class, 'registrar_utm']);
 Route::get('/utm', [UtmController::class, 'listado_utm']);
-Route::get('/utm/{year}', [UtmController::class, 'datos_utm']);
 Route::put('/utm/{year}/actualizar', [UtmController::class, 'actualizar_datos_utm']);
 
 

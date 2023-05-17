@@ -8,32 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class FuncionarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function registrar(Request $request)
     {
         $data = $request->validate([
@@ -69,15 +43,17 @@ class FuncionarioController extends Controller
         return response($response, 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Funcionario  $funcionario
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Funcionario $funcionario)
+    public function listado_funcionarios(Request $request)
     {
-        //
+        $funcionarios = DB::table('persona')
+            ->join('funcionario', 'persona.rut', '=', 'funcionario.rut')
+            ->select('persona.rut', 
+                'persona.nombres', 
+                'persona.ap_paterno', 
+                'persona.ap_materno',
+                'funcionario.tipo_usuario')->get();
+
+        return response($funcionarios, 200);
     }
 
     /**

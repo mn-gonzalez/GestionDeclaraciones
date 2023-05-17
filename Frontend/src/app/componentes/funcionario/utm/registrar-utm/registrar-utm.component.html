@@ -1,0 +1,69 @@
+<form [formGroup]="valorUtm" class="formulario">
+    <h2>Ingrese los valores de la nueva utm.</h2>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Año</mat-label>
+        <input matInput formControlName="year">
+    </mat-form-field>
+
+    <table style="padding-bottom: 5%;">
+        <tr>
+            <th>Mes</th>
+            <th>Valor</th>
+        </tr>
+        <tr>
+            <td>Enero</td>
+            <td><input matInput formControlName="enero"></td>
+        </tr>
+        <tr>
+            <td>Febrero</td>
+            <td><input matInput formControlName="febrero"></td>
+        </tr>
+
+        <tr>
+            <td>Marzo</td>
+            <td><input matInput formControlName="marzo"></td>
+        </tr>
+        <tr>
+            <td>Abril</td>
+            <td><input matInput formControlName="abril"></td>
+        </tr>
+        <tr>
+            <td>Mayo</td>
+            <td><input matInput formControlName="mayo"></td>
+        </tr>
+        <tr>
+            <td>Junio</td>
+            <td><input matInput formControlName="junio"></td>
+        </tr>
+        <tr>
+            <td>Julio</td>
+            <td><input matInput formControlName="julio"></td>
+        </tr>
+        <tr>
+            <td>Agosto</td>
+            <td><input matInput formControlName="agosto"></td>
+        </tr>
+        <tr>
+            <td>Septiembre</td>
+            <td><input matInput formControlName="septiembre"></td>
+        </tr>
+        <tr>
+            <td>Octubre</td>
+            <td><input matInput formControlName="octubre"></td>
+        </tr>
+        <tr>
+            <td>Noviembre</td>
+            <td><input matInput formControlName="noviembre"></td>
+        </tr>
+        <tr>
+            <td>Diciembre</td>
+            <td><input matInput formControlName="diciembre"></td>
+        </tr>
+      </table> 
+
+    <div class="botones">
+        <button mat-raised-button (click)="registrarUTM()">Registrar</button>
+        <button mat-raised-button (click)="cerrar()">Cancelar</button>
+    </div>
+</form>

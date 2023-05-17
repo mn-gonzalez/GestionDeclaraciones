@@ -14,7 +14,11 @@ export class InicioFuncionarioComponent implements OnInit {
   }
 
   listaDeudores(){
-    this.router.navigate(['/home-funcionario/']);
+    this.router.navigate(['/home-funcionario/deudores']);
+  }
+
+  listaFuncionarios(){
+    this.router.navigate(['/home-funcionario/funcionarios']);
   }
 
   listaDeclaracionesSinRevisar(){
@@ -22,7 +26,15 @@ export class InicioFuncionarioComponent implements OnInit {
   }
 
   listaDeclaracionesEnRevision(){
+    this.router.navigate(['/home-funcionario/declaraciones/revision']);
+  }
 
+  listarDeclaracionesEnCorreccion(){
+    this.router.navigate(['/home-funcionario/declaraciones/correccion']);
+  }
+
+  listaUTM(){
+    this.router.navigate(['/home-funcionario/utm']);
   }
 
 }
