@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 
 @Component({
   selector: 'app-inicio-funcionario',
@@ -7,10 +8,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./inicio-funcionario.component.css']
 })
 export class InicioFuncionarioComponent implements OnInit {
+  nombre: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private auth: InicioSesionService) { }
 
   ngOnInit(): void {
+    this.nombre = this.auth.obtenerNombreUsuario()!;
   }
 
   listaDeudores(){
@@ -35,6 +38,14 @@ export class InicioFuncionarioComponent implements OnInit {
 
   listaUTM(){
     this.router.navigate(['/home-funcionario/utm']);
+  }
+
+  listarDevolucionesSinRevisar(){
+    this.router.navigate(['/home-funcionario/devoluciones/revisar']);
+  }
+
+  listarPostergacionesSinRevisar(){
+    this.router.navigate(['/home-funcionario/postergaciones/revisar']);
   }
 
 }

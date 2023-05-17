@@ -4,6 +4,7 @@ import { DeclaracionService } from "src/app/servicios/declaracion.service";
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { Router } from '@angular/router';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Region{
   nombre: string;
@@ -123,7 +124,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
   dataSource = this.ingresos;
 
   constructor(private declaracionService: DeclaracionService, 
-    private auth: InicioSesionService, private router: Router, public dialog: MatDialog) { 
+    private auth: InicioSesionService, private router: Router, public dialog: MatDialog, private notificacion: MatSnackBar) { 
 
     /*
       Contiene los datos necesarios para almacenar los antecedents personales del deudor en la declaracion.
@@ -409,7 +410,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
     if(this.existe_declaracion == false){
       this.declaracionService.registrarDatosPersonales(datosDeclaracion).subscribe({
         next: result =>{
-          
+          this.declaracionService.mostrarNotificacion(result, "Cerrar");
         }, 
         error: result =>{
           console.log(result);
@@ -419,7 +420,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
     else{
       this.declaracionService.actualizarDatosPersonales(datosDeclaracion).subscribe({
         next: result =>{
-          //console.log(result);
+          this.declaracionService.mostrarNotificacion(result, "Cerrar");
         }, 
         error: result =>{
           console.log(result);
@@ -436,7 +437,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
     this.declaracionService.registrarIngresosDeudor(this.rut_deudor, this.id_declaracion ,ingresosDeclaracion).subscribe({
       next: result =>{
-        console.log(result);
+        this.declaracionService.mostrarNotificacion(result, "Cerrar");
       }, 
       error: result =>{
         console.log(result);
@@ -842,7 +843,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
   finalizarDeclaracion(){
     this.declaracionService.actualizarEstadoDeclaracion(this.rut_deudor, this.id_declaracion, 2).subscribe({
       next: result =>{
-        console.log(result);
+        this.declaracionService.mostrarNotificacion("La Declaración se ha enviado correctamente.", "Cerrar");
         this.router.navigate(['/home-deudor']);
       }
     });

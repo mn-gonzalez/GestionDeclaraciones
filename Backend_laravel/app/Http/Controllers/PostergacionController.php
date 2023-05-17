@@ -69,7 +69,7 @@ class PostergacionController extends Controller
 
     public function postergaciones_sin_revisar(){
         $postergaciones = DB::table('postergacion')->join('tramite', 'tramite.id', '=', 'postergacion.id')
-            ->where('tramite.estado', '=', 2)
+            ->where('tramite.estado', '=', 1)
             ->select('tramite.*','postergacion.*')->get();
 
         return response()->json($postergaciones);

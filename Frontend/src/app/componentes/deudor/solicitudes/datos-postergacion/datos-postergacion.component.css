@@ -1,0 +1,38 @@
+.fondo{
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    width:100%; 
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.subir-documento{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    border: 1px solid currentColor;
+    border-radius: 5px;
+    width: 500px;
+    padding: 10px;
+}
+
+.miniatura-pdf{
+    display: flex; 
+    align-items: center; 
+    height: 100%; 
+    width: 55%;
+}
+
+.icono-pdf{
+    max-height: 70%;
+    padding-right: 5px;
+}
+
+.botones{
+    display: flex;
+}

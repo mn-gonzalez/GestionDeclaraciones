@@ -12,6 +12,7 @@ import { ListarDevolucionesComponent } from './solicitudes/listar-devoluciones/l
 import { DatosDevolucionComponent } from './solicitudes/datos-devolucion/datos-devolucion.component';
 import { RegistrarPostergacionComponent } from './solicitudes/registrar-postergacion/registrar-postergacion.component';
 import { ListarPostergacionesComponent } from './solicitudes/listar-postergaciones/listar-postergaciones.component';
+import { DatosPostergacionComponent } from './solicitudes/datos-postergacion/datos-postergacion.component';
 
 const routes: Routes = [
     { path: '', component:InicioDeudorComponent, 
@@ -26,6 +27,7 @@ const routes: Routes = [
         {path: 'devoluciones/:id', component: DatosDevolucionComponent},
         {path: 'postergacion', component: RegistrarPostergacionComponent},
         {path: 'postergaciones', component: ListarPostergacionesComponent},
+        {path: 'postergaciones/:id', component: DatosPostergacionComponent},
         {path: '', component: MenuDeclaracionComponent}
     ]
     }

@@ -171,7 +171,7 @@ CREATE TABLE revision(
 	ref_funcionario varchar(20) NOT NULL REFERENCES funcionario(rut),
 	fecha date NOT NULL,
 	comentarios text,
-	estado integer DEFAULT 1,
+	estado varchar(50),
 	PRIMARY KEY (id)
 );
 

@@ -18,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTreeModule } from '@angular/material/tree'; 
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog'; 
+import {MatSnackBarModule} from '@angular/material/snack-bar'; 
 
 @NgModule({
     exports: [
@@ -39,7 +40,8 @@ import { MatDialogModule } from '@angular/material/dialog';
       MatTableModule,
       MatTreeModule,
       MatButtonModule,
-      MatDialogModule
+      MatDialogModule,
+      MatSnackBarModule
     ]
   })
   export class MaterialModule { }

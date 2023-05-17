@@ -12,6 +12,7 @@ import { RegistrarDeclaracionComponent } from './declaraciones/registrar-declara
 import { MensajesComponent } from './mensajes/mensajes.component';
 import { MenuDeclaracionComponent } from './declaraciones/menu-declaracion/menu-declaracion.component';
 import { DatosDevolucionComponent } from './solicitudes/datos-devolucion/datos-devolucion.component';
+import { DatosPostergacionComponent } from './solicitudes/datos-postergacion/datos-postergacion.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DatosDevolucionComponent } from './solicitudes/datos-devolucion/datos-d
     MisDatosComponent,
     MensajesComponent,
     MenuDeclaracionComponent,
-    DatosDevolucionComponent
+    DatosDevolucionComponent,
+    DatosPostergacionComponent
   ],
   imports: [
     CommonModule,

@@ -9,13 +9,14 @@ import { Deudor } from '../modelos/deudor';
 import { Documento } from '../modelos/documento';
 import { Revision } from '../modelos/revision';
 import { UTM } from '../modelos/utm';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeclaracionService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private notificacion: MatSnackBar) { }
 
   obtenerDatosDeudor(rut: string): Observable<Deudor>{
     return this.http.get<Deudor>(env.api.concat("/deudor/"+rut))
@@ -53,7 +54,7 @@ export class DeclaracionService {
     );
   }
 
-  registrarDatosPersonales(datos : Declaracion): Observable<boolean>{
+  registrarDatosPersonales(datos : Declaracion): Observable<string>{
 
     let anioActual = new Date().getFullYear();
     let fecha = this.obtenerFechaActual();
@@ -81,13 +82,13 @@ export class DeclaracionService {
     return this.http.post<{ mensaje: string}>(env.api.concat("/"+datos.rut_deudor+"/declaraciones/registrar"), body)
     .pipe(
       map(result => {
-        console.log(result.mensaje);
-        return true;
+        this.mostrarNotificacion(result.mensaje, "Cerrar");
+        return result.mensaje;
       })
     );
   }
 
-  actualizarDatosPersonales(datos: Declaracion): Observable<boolean>{
+  actualizarDatosPersonales(datos: Declaracion): Observable<string>{
     let anioActual = new Date().getFullYear();
     let fecha = this.obtenerFechaActual();
     
@@ -114,8 +115,7 @@ export class DeclaracionService {
     return this.http.put<{ mensaje: string}>(env.api.concat("/"+datos.rut_deudor+"/declaraciones/"+datos.id+"/actualizarDatos"), body)
     .pipe(
       map(result => {
-        console.log(result.mensaje);
-        return true;
+        return result.mensaje;
       })
     );
   }
@@ -134,7 +134,7 @@ export class DeclaracionService {
     return fecha;
   }
 
-  registrarIngresosDeudor(rut_deudor: string, id_declaracion: string, datos: Declaracion): Observable<boolean>{
+  registrarIngresosDeudor(rut_deudor: string, id_declaracion: string, datos: Declaracion): Observable<string>{
     let anioActual = new Date().getFullYear();
 
     const body = new HttpParams()
@@ -174,8 +174,7 @@ export class DeclaracionService {
     return this.http.put<{ mensaje: string}>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/actualizarIngresos"), body)
     .pipe(
       map(result => {
-        console.log(result.mensaje);
-        return true;
+        return result.mensaje;
       })
     );
   }
@@ -189,7 +188,7 @@ export class DeclaracionService {
     );
   }
 
-  registrarConyuge(id_declaracion: string, rut_deudor: string, datosConyuge: Conyuge){
+  registrarConyuge(id_declaracion: string, rut_deudor: string, datosConyuge: Conyuge) :Observable<string>{
 
     const body = new HttpParams()
     .set('rut', datosConyuge.rut)
@@ -224,13 +223,12 @@ export class DeclaracionService {
     return this.http.post<{ mensaje: string}>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/registrarConyuge"), body)
     .pipe(
       map(result => {
-        console.log(result.mensaje);
-        return true;
+        return result.mensaje;
       })
     );
   }
 
-  actualizarDatosConyuge(id_declaracion: string, rut_deudor: string, datosConyuge: Conyuge){
+  actualizarDatosConyuge(id_declaracion: string, rut_deudor: string, datosConyuge: Conyuge) :Observable<string>{
     const body = new HttpParams()
     .set('rut', datosConyuge.rut)
     .set('nombres', datosConyuge.nombres)
@@ -264,8 +262,7 @@ export class DeclaracionService {
     return this.http.put<{ mensaje: string}>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/actualizarConyuge"), body)
     .pipe(
       map(result => {
-        console.log(result.mensaje);
-        return true;
+        return result.mensaje;
       })
     );
   }
@@ -329,8 +326,7 @@ export class DeclaracionService {
     return this.http.put<{ mensaje: string}>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/actualizarEstado"), body)
     .pipe(
       map(result => {
-        console.log(result.mensaje);
-        return true;
+        return result.mensaje;
       })
     );
   }
@@ -411,5 +407,12 @@ export class DeclaracionService {
         return true;
       })
     );
+  }
+
+  mostrarNotificacion(mensaje: string, accion: string) {
+    this.notificacion.open(mensaje, accion, {
+      duration: 2000,
+      panelClass: ['snackbar']
+    });
   }
 }

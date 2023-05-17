@@ -68,8 +68,7 @@ class DevolucionController extends Controller
     public function obtener_devoluciones_sin_revisar(Request $request)
     {
         $devoluciones = DB::table('devolucion')->join('tramite', 'tramite.id', '=', 'devolucion.id')
-            ->where('tramite.rut_deudor', '=', $rut_deudor)
-            ->where('tramite.estado', '=', 2)
+            ->where('tramite.estado', '=', 1)
             ->select('tramite.*','devolucion.*')->get();
 
         return response()->json($devoluciones);

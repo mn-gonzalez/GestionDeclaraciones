@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Devolucion } from 'src/app/modelos/devolucion';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
-import { ActivatedRoute } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-datos-devolucion',
@@ -15,12 +15,16 @@ export class DatosDevolucionComponent implements OnInit {
   devolucion: Devolucion;
   id_devolucion: string;
   funcionario: boolean;
-  comentarios: FormControl;
+  formulario: FormGroup;
 
-  constructor(private auth: InicioSesionService, private solicitudService: SolicitudService, private activatedRoute: ActivatedRoute) { 
+  constructor(private auth: InicioSesionService, private solicitudService: SolicitudService, 
+    private activatedRoute: ActivatedRoute, private router: Router) { 
+
     this.devolucion = new Devolucion();
     this.funcionario = false;
-    this.comentarios = new FormControl("");
+    this.formulario = new FormGroup({
+      'comentarios': new FormControl("")
+    });
   }
 
   ngOnInit(): void {
@@ -50,8 +54,38 @@ export class DatosDevolucionComponent implements OnInit {
     }
   }
 
-  registrarRevision(){
+  /*
+    Estados de una solicitud (postergacion y devolucion)
+    1 - POR REVISAR
+    2 - EN REVISION
+    3 - ACEPTADA
+    4 - RECHAZADA
+  */
+  registrarRevision(estado: string){
+    let fecha = this.solicitudService.obtenerFechaActual();
+    let datos = this.formulario.value;
+    let nuevo_estado = 0;
 
+    if(estado == "RECHAZADA"){
+      nuevo_estado = 4;
+    }
+    else if(estado == "ACEPTADA"){
+      nuevo_estado = 3;
+    }
+
+    this.solicitudService.actualizarEstadoTramite(this.devolucion.rut_deudor, this.id_devolucion, nuevo_estado).subscribe({
+      next: result =>{
+        console.log(result);
+      }
+    });
+
+    this.solicitudService.registrarRevision(this.auth.obtenerUsuarioActual()!, this.id_devolucion, 
+      fecha, datos.comentarios, estado).subscribe({
+      next: result =>{
+        this.solicitudService.mostrarNotificacion("La revision se ha registrado correctamente.", "Cerrar");
+        this.router.navigate(['/home-funcionario/devoluciones/revisar']);
+      }
+    });
   }
 
 }

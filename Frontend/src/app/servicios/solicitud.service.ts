@@ -10,13 +10,14 @@ import { Documento } from '../modelos/documento';
 import { Revision } from '../modelos/revision';
 import { Devolucion } from '../modelos/devolucion';
 import { Postergacion } from '../modelos/postergacion';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SolicitudService {
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private notificacion: MatSnackBar) { 
 
   }
 
@@ -128,7 +129,12 @@ export class SolicitudService {
   }
 
   obtenerDatosPostergacion(id_postergacion: string){
-
+    return this.http.get<Postergacion>(env.api.concat("/postergaciones/"+id_postergacion))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
   }
 
   obtenerPostergaciones(rut_deudor: string){
@@ -141,7 +147,54 @@ export class SolicitudService {
   }
 
   obtenerPostergacionesSinRevisar(){
-
+    return this.http.get<Postergacion[]>(env.api.concat("/postergaciones/sinRevisar"))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
   }
 
+  registrarRevision(rut_funcionario: string, id_tramite: string, fecha: string, comentarios: string, estado: string){
+    const body = new HttpParams()
+    .set('ref_funcionario', rut_funcionario)
+    .set('ref_tramite', id_tramite)
+    .set('fecha', fecha)
+    .set('comentarios', comentarios)
+    .set('estado', estado)
+
+    return this.http.post<{ mensaje: string}>(env.api.concat("/revisiones/registrar"), body)
+    .pipe(
+      map(result => {
+        console.log(result.mensaje);
+        return true;
+      })
+    );
+  }
+
+  /*
+    1 - POR REVISAR
+    2 - EN REVISION
+    3 - ACEPTADA
+    4 - RECHAZADA
+  */
+  actualizarEstadoTramite(rut_deudor: string, id_tramite: string, nuevo_estado: number){
+    const body = new HttpParams()
+    .set('estado', nuevo_estado)
+
+    return this.http.put<{ mensaje: string}>(env.api.concat("/"+rut_deudor+"/solicitudes/"+id_tramite+"/actualizarEstado"), body)
+    .pipe(
+      map(result => {
+        console.log(result.mensaje);
+        return true;
+      })
+    );
+  }
+
+  mostrarNotificacion(mensaje: string, accion: string) {
+    this.notificacion.open(mensaje, accion, {
+      duration: 2000,
+      panelClass: ['snackbar']
+    });
+  }
 }

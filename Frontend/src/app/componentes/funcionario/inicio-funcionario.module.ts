@@ -12,6 +12,8 @@ import { RegistrarFuncionarioComponent } from './usuarios/registrar-funcionario/
 import { ListarFuncionariosComponent } from './usuarios/listar-funcionarios/listar-funcionarios.component';
 import { RegistrarUtmComponent } from './utm/registrar-utm/registrar-utm.component';
 import { ListarUtmComponent } from './utm/listar-utm/listar-utm.component';
+import { PostergacionesSinRevisarComponent } from './solicitudes/postergaciones-sin-revisar/postergaciones-sin-revisar.component';
+import { DevolucionesSinRevisarComponent } from './solicitudes/devoluciones-sin-revisar/devoluciones-sin-revisar.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { ListarUtmComponent } from './utm/listar-utm/listar-utm.component';
     RegistrarFuncionarioComponent,
     ListarFuncionariosComponent,
     RegistrarUtmComponent,
-    ListarUtmComponent
+    ListarUtmComponent,
+    PostergacionesSinRevisarComponent,
+    DevolucionesSinRevisarComponent
   ],
   imports: [
     CommonModule,

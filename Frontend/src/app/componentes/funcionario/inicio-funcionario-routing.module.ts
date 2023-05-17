@@ -8,6 +8,10 @@ import { DeclaracionesPorRevisarComponent } from './declaraciones/declaraciones-
 import { RevisarDeclaracionComponent } from './declaraciones/revisar-declaracion/revisar-declaracion.component';
 import { ListarFuncionariosComponent } from './usuarios/listar-funcionarios/listar-funcionarios.component';
 import { ListarUtmComponent } from './utm/listar-utm/listar-utm.component';
+import { DatosDevolucionComponent } from '../deudor/solicitudes/datos-devolucion/datos-devolucion.component';
+import { DevolucionesSinRevisarComponent } from './solicitudes/devoluciones-sin-revisar/devoluciones-sin-revisar.component';
+import { PostergacionesSinRevisarComponent } from './solicitudes/postergaciones-sin-revisar/postergaciones-sin-revisar.component';
+import { DatosPostergacionComponent } from '../deudor/solicitudes/datos-postergacion/datos-postergacion.component';
 
 const routes: Routes = [
     { path: '', component:InicioFuncionarioComponent, 
@@ -18,7 +22,11 @@ const routes: Routes = [
         {path: 'declaraciones/:rut', component: DeclaracionesDeudorComponent},
         {path: 'declaraciones/revisar/pendientes', component: DeclaracionesPorRevisarComponent},
         {path: 'declaraciones/revisar/:id', component: RevisarDeclaracionComponent},
-        {path: 'utm', component: ListarUtmComponent}
+        {path: 'utm', component: ListarUtmComponent},
+        {path: 'devoluciones/revisar', component: DevolucionesSinRevisarComponent},
+        {path: 'devoluciones/revisar/:id', component: DatosDevolucionComponent},
+        {path: 'postergaciones/revisar', component: PostergacionesSinRevisarComponent},
+        {path: 'postergaciones/revisar/:id', component: DatosPostergacionComponent}
     ]
     }
   ];

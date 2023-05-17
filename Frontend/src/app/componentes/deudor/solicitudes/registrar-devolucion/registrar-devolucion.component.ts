@@ -84,7 +84,8 @@ export class RegistrarDevolucionComponent implements OnInit {
 
     this.solicitudService.registrarDevolucion(this.rut_deudor, datos, "FOTOCOPIA CEDULA IDENTIDAD", this.fotocopia_cedula).subscribe({
       next: result =>{
-        console.log(result);
+        this.solicitudService.mostrarNotificacion("La Solicitud de devolución/copia de pagarés se ha enviado correctamente.", "Cerrar");
+        this.router.navigate(['/home-deudor']);
       }, 
       error: result =>{
         console.log(result);

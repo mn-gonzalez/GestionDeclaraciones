@@ -1,57 +1,36 @@
 <div class="fondo">
     <div>
-        <h2>Solicitud de Devolución/Copia de Pagarés</h2>
+        <h2>Solicitud de Postergación de Cobro</h2>
     </div>
 
     <div style="padding-bottom: 3%;">
         <h3><strong>Antedecentes Personales</strong></h3>
         <div>
-            Rut: {{this.devolucion.rut_deudor}}
+            Rut: {{this.postergacion.rut_deudor}}
         </div>
         <div style="display: flex; column-gap: 5%;">
-            <span>Nombres: {{this.devolucion.nombres}}</span>
-            <span>Apellido Paterno: {{this.devolucion.ap_paterno}}</span>
-            <span>Apellido Materno: {{this.devolucion.ap_materno}}</span>
+            <span>Nombres: {{this.postergacion.nombres}}</span>
+            <span>Apellido Paterno: {{this.postergacion.ap_paterno}}</span>
+            <span>Apellido Materno: {{this.postergacion.ap_materno}}</span>
         </div>
     </div>
 
     <div style="padding-bottom: 3%;">
-        <h3><strong>Datos de contacto</strong></h3>
-        <div style="display: flex; column-gap: 5%;">
-            <span>Email: {{this.devolucion.correo}}</span>
-            <span>Teléfono: {{this.devolucion.telefono}}</span>
-        </div>
-    </div>
-
-    <div style="padding-bottom: 3%;">
-        <h3><strong>Solicitud</strong></h3>
-        <div>
-            <span>Solicitud: {{this.devolucion.solicitud}}</span>
-        </div>
-        <div>
-            <span>Tipo Deuda: {{this.devolucion.tipo_deuda}}</span>
-        </div>
-    </div>
-
-    <div style="padding-bottom: 3%;">
-        <h3><strong>Datos de Entrega</strong></h3>
-        <div>
-            <span>Retira en Oficinas AFC: {{this.devolucion.retiro_oficina}}</span>
-        </div>
-        <div>
-            <span>Domicilio: {{this.devolucion.domicilio}}</span>
+        <h3><strong>Motivo</strong></h3>
+        <div style="width: 650px;">
+            <p>{{this.postergacion.motivo}}</p>
         </div>
     </div>
 
     <div style="padding-bottom: 3%;">
         <div>
-            <label><strong>Fotocopia Simple de Cédula de Identidad</strong></label>
+            <label><strong>Documentación</strong></label>
         </div>
         <div class="subir-documento">
             <input type="file" accept="application/pdf" #fotocopia style="display: none;">
             <div (click)="visualizarPDF()" class="miniatura-pdf">
                 <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.devolucion.nombre_archivo}}</div>
+                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.postergacion.nombre_archivo}}</div>
             </div>
         </div>
     </div>

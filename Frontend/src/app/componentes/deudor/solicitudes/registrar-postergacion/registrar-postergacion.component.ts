@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
 import { FormGroup,FormControl, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrar-postergacion',
@@ -13,7 +14,7 @@ export class RegistrarPostergacionComponent implements OnInit {
   datosPostergacion: FormGroup;
   rut_deudor: string;
 
-  constructor(private auth: InicioSesionService, private solicitudService: SolicitudService) { 
+  constructor(private auth: InicioSesionService, private solicitudService: SolicitudService, private router: Router) { 
     this.datosPostergacion = new FormGroup({
       'id': new FormControl(""),
       'rut_deudor': new FormControl(""),
@@ -57,7 +58,8 @@ export class RegistrarPostergacionComponent implements OnInit {
 
     this.solicitudService.registrarPostergacion(this.rut_deudor, datos, "DOCUMENTO_POSTERGACION", this.docPostergacion).subscribe({
       next: result =>{
-        console.log(result);
+        this.solicitudService.mostrarNotificacion("La Solicitud de postergación de cobro se ha enviado correctamente.", "Cerrar");
+        this.router.navigate(['/home-deudor']);
       }, 
       error: result =>{
         console.log(result);

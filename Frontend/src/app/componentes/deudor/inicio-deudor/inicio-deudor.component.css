@@ -19,3 +19,16 @@
     color: #66003c;
     font-size: 14px;
 }
+
+.logo{
+    display: flex;
+    flex-direction: row;
+    height: 90%;
+    align-items: center;
+}
+
+.usuario{
+    display: flex;
+    height: 100%;
+    align-items: center;
+}

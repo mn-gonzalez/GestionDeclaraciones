@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup,FormControl, Validators} from '@angular/forms';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 
 interface Region{
@@ -113,7 +113,7 @@ export class RevisarDeclaracionComponent implements OnInit {
    documento_copia_pagare_conyuge: File;
 
   constructor(private declaracionService: DeclaracionService, private activatedRoute: ActivatedRoute,
-    private auth: InicioSesionService) {
+    private auth: InicioSesionService, private router: Router) {
 
     this.datosPersonales = new FormGroup({
       'id': new FormControl(""),
@@ -443,10 +443,20 @@ export class RevisarDeclaracionComponent implements OnInit {
   }
 
   aceptarDeclaracion(){
+    let rut_funcionario = this.auth.obtenerUsuarioActual()!;
+    let fecha = this.declaracionService.obtenerFechaActual();
+
     //se cambia el estado de la declaracion.
     this.declaracionService.actualizarEstadoDeclaracion(this.rut_deudor, this.id_declaracion, 5).subscribe({
       next: result =>{
-        console.log(result);
+      }
+    });
+
+    this.declaracionService.registrarRevision(rut_funcionario, this.id_declaracion, 
+      fecha, this.comentarios.value, "ACEPTADA").subscribe({
+      next: result =>{
+        this.declaracionService.mostrarNotificacion("La revision de la declaración se ha registrado corrrectamente.", "Cerrar");
+        this.router.navigate(['/home-funcionario/declaraciones/revisar/pendientes']);
       }
     });
 
@@ -471,7 +481,8 @@ export class RevisarDeclaracionComponent implements OnInit {
     this.declaracionService.registrarRevision(rut_funcionario, this.id_declaracion, 
       fecha, this.comentarios.value, "RECHAZADA").subscribe({
       next: result =>{
-        console.log(result);
+        this.declaracionService.mostrarNotificacion("La revision de la declaración se ha registrado corrrectamente.", "Cerrar");
+        this.router.navigate(['/home-funcionario/declaraciones/revisar/pendientes']);
       }
     });
   }

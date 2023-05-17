@@ -91,6 +91,7 @@ Route::get('{rut_deudor}/declaraciones/{id_declaracion}/generarPdf', [Declaracio
 //revisiones
 Route::post('revisiones/registrar',[RevisionController::class, 'registrar_revision']);
 Route::get('revisiones/{id_declaracion}',[RevisionController::class, 'obtener_revisiones']);
+Route::put('{rut_deudor}/solicitudes/{id_solicitud}/actualizarEstado', [DeclaracionController::class, 'actualizar_estado']);
 
 //devoluciones
 Route::post('{rut_deudor}/devoluciones/registrar',[DevolucionController::class, 'registrar_devolucion']);
@@ -102,3 +103,4 @@ Route::get('devoluciones/{id_devolucion}',[DevolucionController::class, 'obtener
 Route::post('{rut_deudor}/postergaciones/registrar',[PostergacionController::class, 'registrar_postergacion']);
 Route::get('{rut_deudor}/postergaciones',[PostergacionController::class, 'obtener_postergaciones_deudor']);
 Route::get('postergaciones/sinRevisar',[PostergacionController::class, 'postergaciones_sin_revisar']);
+Route::get('postergaciones/{id_postergacion}',[PostergacionController::class, 'datos_postergacion']);
