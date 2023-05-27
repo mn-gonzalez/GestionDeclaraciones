@@ -388,6 +388,7 @@ export class DeclaracionService {
     return this.http.get<UTM>(env.api.concat("/utm/"+year))
     .pipe(
       map(result => {
+        console.log(result);
         return result;
       })
     );

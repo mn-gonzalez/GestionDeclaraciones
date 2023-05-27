@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UTM } from 'src/app/modelos/utm';
+import { MatTableDataSource } from '@angular/material/table';
 
 interface Region{
   nombre: string;
@@ -16,7 +17,7 @@ interface Ingreso{
   id: string;
   nombre: string;
   formControl: string;
-  valor: string;
+  valor: number;
   formControlUTM: string;
 }
 
@@ -87,28 +88,14 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
   comunas: string[];
 
-  utm: UTM;
-
-  ingresos: Ingreso[] = [
-    {id: "1", nombre: "Enero", formControl:"enero", valor:"49.673",formControlUTM:"enero_utm" },
-    {id: "2", nombre: "Febrero", formControl:"febrero",valor:"49.723", formControlUTM:"febrero_utm"},
-    {id: "3", nombre: "Marzo", formControl:"marzo", valor:"50.021", formControlUTM:"marzo_utm"},
-    {id: "4", nombre: "Abril", formControl:"abril", valor:"50.221", formControlUTM:"abril_utm"},
-    {id: "5", nombre: "Mayo", formControl:"mayo", valor:"50.372",formControlUTM:"mayo_utm"},
-    {id: "6", nombre: "Junio", formControl:"junio", valor:"50.372", formControlUTM:"junio_utm"},
-    {id: "7", nombre: "Julio", formControl:"julio", valor:"50.322", formControlUTM:"julio_utm"},
-    {id: "8", nombre: "Agosto", formControl:"agosto",valor:"50.272", formControlUTM:"agosto_utm"},
-    {id: "9", nombre: "Septiembre", formControl:"septiembre", valor:"50.322", formControlUTM:"septiembre_utm"},
-    {id: "10", nombre: "Octubre", formControl:"octubre", valor:"50.372", formControlUTM:"octubre_utm"},
-    {id: "11", nombre: "Noviembre", formControl:"noviembre", valor:"50.674", formControlUTM:"noviembre_utm"},
-    {id: "12", nombre: "Diciembre",  formControl:"diciembre", valor:"51.029",formControlUTM:"diciembre_utm"}
-  ];
+  ingresos: Ingreso[] = [];
 
   //array que indica las columnas que se muestran en la tabla de ingresos e ingresos coyuge
   displayedColumns: string[] = ['mes', 'ingresos_pesos', 'utm', 'ingresos_utm'];
 
   //indica la fuente desde la cual se obtienen los datos que se muestran en la tabla de ingresos
-  dataSource = this.ingresos;
+  dataSource: MatTableDataSource<Ingreso>;
+  //dataSource = this.ingresos;
 
   constructor(private declaracionService: DeclaracionService, 
     private auth: InicioSesionService, private router: Router, public dialog: MatDialog) { 
@@ -229,6 +216,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
       //this.router.navigate(['/pagina-inicio']);
     }
     else{
+      this.obtenerValorUTM();
       this.rut_deudor = this.auth.obtenerUsuarioActual()!;
       this.id_declaracion = "DEC"+this.rut_deudor+"_"+this.year;
       //this.obtenerDatosDeclaracion();
@@ -238,11 +226,27 @@ export class RegistrarDeclaracionComponent implements OnInit {
   }
 
   obtenerValorUTM(){
-    let year = new Date().getFullYear();
+    let year = new Date().getFullYear()-1;
 
     this.declaracionService.obtenerValorUtm(year).subscribe({
       next: result =>{
-        this.utm = result;
+
+        this.ingresos = [
+          {id: "1", nombre: "Enero", formControl:"enero", valor: result.enero,formControlUTM:"enero_utm" },
+          {id: "2", nombre: "Febrero", formControl:"febrero",valor: result.febrero, formControlUTM:"febrero_utm"},
+          {id: "3", nombre: "Marzo", formControl:"marzo", valor: result.marzo, formControlUTM:"marzo_utm"},
+          {id: "4", nombre: "Abril", formControl:"abril", valor: result.abril, formControlUTM:"abril_utm"},
+          {id: "5", nombre: "Mayo", formControl:"mayo", valor: result.mayo,formControlUTM:"mayo_utm"},
+          {id: "6", nombre: "Junio", formControl:"junio", valor: result.junio, formControlUTM:"junio_utm"},
+          {id: "7", nombre: "Julio", formControl:"julio", valor: result.julio, formControlUTM:"julio_utm"},
+          {id: "8", nombre: "Agosto", formControl:"agosto",valor: result.agosto, formControlUTM:"agosto_utm"},
+          {id: "9", nombre: "Septiembre", formControl:"septiembre", valor: result.septiembre, formControlUTM:"septiembre_utm"},
+          {id: "10", nombre: "Octubre", formControl:"octubre", valor: result.octubre, formControlUTM:"octubre_utm"},
+          {id: "11", nombre: "Noviembre", formControl:"noviembre", valor: result.noviembre, formControlUTM:"noviembre_utm"},
+          {id: "12", nombre: "Diciembre",  formControl:"diciembre", valor: result.diciembre,formControlUTM:"diciembre_utm"}
+        ];
+
+        this.dataSource = new MatTableDataSource(this.ingresos);
       }
     });
   }
@@ -694,8 +698,8 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
     for(let ingreso of this.ingresos){
       if(ingreso.id == idInput){
-        const valor_utm = ingreso.valor.replace(".","");
-        let nuevo_valor = parseInt(valor)/parseInt(valor_utm);
+        const valor_utm = ingreso.valor;
+        let nuevo_valor = parseInt(valor)/valor_utm;
         nuevo_valor = Math.round(nuevo_valor * 100) / 100
 
         this.ingresosDeudor.get(ingreso.formControlUTM)!.setValue(nuevo_valor);
@@ -712,8 +716,8 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
     for(let ingreso of this.ingresos){
       if(ingreso.id == idInput){
-        const valor_utm = ingreso.valor.replace(".","");
-        let nuevo_valor = parseInt(valor)/parseInt(valor_utm);
+        const valor_utm = ingreso.valor;
+        let nuevo_valor = parseInt(valor)/valor_utm;
         nuevo_valor = Math.round(nuevo_valor * 100) / 100
 
         this.conyuge.get(ingreso.formControlUTM)!.setValue(nuevo_valor);
