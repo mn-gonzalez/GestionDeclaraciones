@@ -5,26 +5,11 @@ import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { Router } from '@angular/router';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UTM } from 'src/app/modelos/utm';
 
 interface Region{
   nombre: string;
   comunas: string[];
-}
-
-interface Utm{
-  year: number;
-  enero: number;
-  febrero: number;
-  marzo: number;
-  abril: number;
-  mayo: number;
-  junio: number;
-  julio: number;
-  agosto: number;
-  septiembre: number;
-  octubre: number;
-  noviembre: number;
-  diciembre: number;
 }
 
 interface Ingreso{
@@ -102,6 +87,8 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
   comunas: string[];
 
+  utm: UTM;
+
   ingresos: Ingreso[] = [
     {id: "1", nombre: "Enero", formControl:"enero", valor:"49.673",formControlUTM:"enero_utm" },
     {id: "2", nombre: "Febrero", formControl:"febrero",valor:"49.723", formControlUTM:"febrero_utm"},
@@ -124,7 +111,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
   dataSource = this.ingresos;
 
   constructor(private declaracionService: DeclaracionService, 
-    private auth: InicioSesionService, private router: Router, public dialog: MatDialog, private notificacion: MatSnackBar) { 
+    private auth: InicioSesionService, private router: Router, public dialog: MatDialog) { 
 
     /*
       Contiene los datos necesarios para almacenar los antecedents personales del deudor en la declaracion.
@@ -251,7 +238,13 @@ export class RegistrarDeclaracionComponent implements OnInit {
   }
 
   obtenerValorUTM(){
+    let year = new Date().getFullYear();
 
+    this.declaracionService.obtenerValorUtm(year).subscribe({
+      next: result =>{
+        this.utm = result;
+      }
+    });
   }
 
   //Verifica si es que existe una declaracion para el año actual que aun no este terminada.

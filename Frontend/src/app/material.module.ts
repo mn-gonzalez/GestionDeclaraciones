@@ -18,7 +18,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTreeModule } from '@angular/material/tree'; 
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog'; 
-import {MatSnackBarModule} from '@angular/material/snack-bar'; 
+import { MatSnackBarModule } from '@angular/material/snack-bar'; 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; 
 
 @NgModule({
     exports: [
@@ -41,7 +42,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
       MatTreeModule,
       MatButtonModule,
       MatDialogModule,
-      MatSnackBarModule
+      MatSnackBarModule,
+      MatProgressSpinnerModule
     ]
   })
   export class MaterialModule { }

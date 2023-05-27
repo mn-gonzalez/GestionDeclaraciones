@@ -1,11 +1,14 @@
 <div class="fondo">
-    <form [formGroup]="busqueda">
-        <mat-form-field appearance="standard">
-            <mat-label>Búsqueda</mat-label>
-            <input matInput (keyup)="applyFilter($event)" formControlName="filtro" #input>
-        </mat-form-field>
-        <button mat-raised-button (click)="menuRegistrarUTM()">Registrar UTM</button>
-    </form>
+    <div class="opciones">
+        <form [formGroup]="busqueda">
+            <mat-form-field appearance="standard">
+                <mat-label>Búsqueda</mat-label>
+                <input matInput (keyup)="applyFilter($event)" formControlName="filtro" #input>
+            </mat-form-field>
+        </form>
+        <button class="boton" mat-raised-button (click)="menuRegistrarUTM()">Registrar UTM</button>
+    </div>
+    
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <ng-container matColumnDef="year">

@@ -1,6 +1,6 @@
 <div class="fondo">
     <div>
-        <h2>Declaraciones sin revisar</h2>
+        <h2>Declaraciones sin Revisar</h2>
     </div>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -48,10 +48,14 @@
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let element"> 
               <div class="acciones">
-                <button mat-raised-button class="botones" (click)="revisarDeclaracion(element.id)">Revisar</button> 
+                <button class="boton" mat-raised-button (click)="revisarDeclaracion(element.id)">Revisar</button> 
               </div>
             </td>
         </ng-container>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="9">De momento, no hay declaraciones sin revisar.</td>
+        </tr>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

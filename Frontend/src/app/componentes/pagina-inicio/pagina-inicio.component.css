@@ -3,12 +3,12 @@
 }
 
 .mat-tab-label{
-    background-color: #66003c;
+    background-color: var(--color-utalca);
 }
 
 .toolbar{
     justify-content: space-between;
-    background-color: #990066;
+    background-color: var(--color-utalca);
     color: white;
 }
 

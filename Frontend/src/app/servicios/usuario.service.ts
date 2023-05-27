@@ -6,13 +6,14 @@ import { Observable } from "rxjs";
 
 import { Deudor } from '../modelos/deudor';
 import { Funcionario } from '../modelos/funcionario';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private notificacion: MatSnackBar) {
 
   }
 
@@ -74,5 +75,19 @@ export class UsuarioService {
         return true;
       })
     );
+  }
+
+  mostrarNotificacion(mensaje: string, accion: string) {
+    this.notificacion.open(mensaje, accion, {
+      duration: 5000,
+      panelClass: ['snackbar']
+    });
+  }
+
+  validarRut(rut: string){
+    let aux_rut = rut.split('-');
+    let verificador;
+
+    let valores = [2, 3, 4, 5, 6, 7];
   }
 }

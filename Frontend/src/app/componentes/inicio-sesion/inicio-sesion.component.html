@@ -1,6 +1,5 @@
 <div class="transparente">
     <mat-toolbar class="toolbar">
-        <mat-icon svgIcon="Utalca.svg.png" aria-hidden="false" aria-label="Logo Utalca"></mat-icon>
         <span>Gestión de Declaraciones Juradas</span>
     </mat-toolbar>
 
@@ -13,9 +12,9 @@
                 <mat-card-content class="contenido_tarjeta">
                     <div class="tipo_usuario">
                         <label>Ingresar como:</label>
-                        <mat-radio-group formControlName="tipo_ingreso">
-                            <mat-radio-button class="opciones" value="1">Deudor</mat-radio-button>
-                            <mat-radio-button class="opciones" value="2">Funcionario</mat-radio-button>
+                        <mat-radio-group class="opciones" formControlName="tipo_ingreso">
+                            <mat-radio-button value="1">Deudor</mat-radio-button>
+                            <mat-radio-button value="2">Funcionario</mat-radio-button>
                         </mat-radio-group>
                     </div>
 
@@ -32,7 +31,12 @@
                         </button>
                     </mat-form-field>
 
-                    <button mat-raised-button class="boton_sesion">Ingresar</button>
+                    <button mat-raised-button class="boton_sesion" (click)="this.ingresando = !this.ingresando" [disabled]="this.form_ingreso.invalid">
+                        <mat-icon *ngIf="this.ingresando">
+                            <mat-spinner color="white" diameter="20"></mat-spinner>
+                        </mat-icon>
+                        {{ this.ingresando ? 'Ingresando...' : 'Ingresar' }}
+                    </button>
 
                     <div class="recuperar_contrasena">¿Olvidó su contraseña?</div>
                 </mat-card-content>

@@ -1,7 +1,7 @@
 .toolbar{
     display: flex;
     justify-content: space-between;
-    background-color: #990066;
+    background-color: var(--color-utalca);
     height: 70px;
     color: white;
 }
@@ -16,7 +16,7 @@
 }
 
 .nav-list{
-    color: #66003c;
+    color: var(--color-utalca);
     font-size: 14px;
 }
 

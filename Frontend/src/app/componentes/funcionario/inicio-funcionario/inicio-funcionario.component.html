@@ -1,12 +1,12 @@
 <mat-toolbar class="toolbar">
     <div class="logo">
-        <img style="height: 90%;" src="../../../assets/imagenes/Utalca.svg.png">
+        <img style="height: 90%;" src="../../../assets/imagenes/logo_blanco.svg">
         <p style="font-size: 12px; line-height: 1.2;">Departamento de Apoyo<br> Financiero al Estudiante</p>
     </div>
 
     <div class="usuario">
-        <p style="font-size: 12px;">Bienvenido: {{this.nombre}}</p>
-        <img style="height: 70%; padding-left: 5px;" src="../../../assets/imagenes/usuario.png">
+        <p style="font-size: 12px;">Bienvenido/a: {{this.nombre}}</p>
+        <!-- <img style="height: 70%; padding-left: 5px;" src="../../../assets/imagenes/usuario.png"> -->
     </div>
 </mat-toolbar>
 
@@ -23,9 +23,9 @@
             <a class="nav-list" (click)="listaDeclaracionesEnRevision()" mat-list-item> Declaraciones en Revisión</a>
             <a class="nav-list" mat-list-item> Declaraciones en Corrección</a>
             <mat-divider></mat-divider>
-            <a class="nav-list" (click)="listarPostergacionesSinRevisar()" mat-list-item> Postergaciones de cobro</a>
+            <a class="nav-list" (click)="listarPostergacionesSinRevisar()" mat-list-item> Postergaciones de Cobro</a>
             <mat-divider></mat-divider>
-            <a class="nav-list"(click)="listarDevolucionesSinRevisar()"  mat-list-item> Devoluciones/Copia de pagarés</a>
+            <a class="nav-list"(click)="listarDevolucionesSinRevisar()"  mat-list-item> Devoluciones/Copia de Pagarés</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-content">

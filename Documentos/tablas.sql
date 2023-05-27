@@ -168,26 +168,9 @@ CREATE TABLE utm(
 CREATE TABLE revision(
 	id SERIAL NOT NULL,
 	ref_tramite varchar(20) NOT NULL REFERENCES tramite(id),
-	ref_funcionario varchar(20) NOT NULL REFERENCES funcionario(rut),
+	ref_funcionario varchar(20) NOT NULL REFERENCES persona(rut),
 	fecha date NOT NULL,
 	comentarios text,
 	estado varchar(50),
 	PRIMARY KEY (id)
-);
-
-CREATE TABLE chat(
-	id SERIAL NOT NULL,
-	tramite integer NOT NULL REFERENCES tramite(id),
-	funcionario varchar(20) NOT NULL REFERENCES funcionario(rut), 
-	deudor varchar(20) NOT NULL REFERENCES deudor(rut),
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE mensaje(
-	id serial NOT NULL,
-	remitente varchar(12) NOT NULL REFERENCES persona(rut),
-	mensaje text NOT NULL,
-	fecha date NOT NULL,
-	ref_chat integer NOT NULL REFERENCES chat(id),
-	PRIMARY KEY(id)
 );

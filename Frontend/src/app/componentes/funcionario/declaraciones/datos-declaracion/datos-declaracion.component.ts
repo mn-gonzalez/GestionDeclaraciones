@@ -196,6 +196,7 @@ export class DatosDeclaracionComponent implements OnInit {
   ngOnInit(): void {
     this.id_declaracion = this.activatedRoute.snapshot.paramMap.get('id') || "";
     this.obtenerDatosDeclaracion(); 
+    this.obtenerDocumentacionDeclaracion();
   }
 
   obtenerDatosDeclaracion(){
@@ -361,11 +362,11 @@ export class DatosDeclaracionComponent implements OnInit {
           this.declaracionService.obtenerArchivoDeclaracion(this.rut_deudor, this.id_declaracion, documento.id, documento.nombre).subscribe({
             next: archivo =>{
               switch(documento.tipo) { 
-                case "RENTAS_DEUDOR": { 
+                case "RENTA_DEUDOR": { 
                   this.documento_renta = archivo;
                   break; 
                 } 
-                case "RENTAS_CONYUGE": { 
+                case "RENTA_CONYUGE": { 
                   this.documento_renta_conyuge = archivo;
                   break; 
                 } 

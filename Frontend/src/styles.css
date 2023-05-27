@@ -3,6 +3,12 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+:root{
+    --color-principal: #990066;
+    --color-utalca: #a41e2e;
+}
+
 .snackbar {
-    background: #2dc976;
+    background: var(--color-utalca);
+    color: white !important;
 }

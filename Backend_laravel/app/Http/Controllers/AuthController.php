@@ -29,18 +29,18 @@ class AuthController extends Controller
                 'deudor.contrasena as contrasena')->first();
 
         if(!$deudor){
-            return response(['El rut ingresado no existe']);
+            return response(['mensaje' => 'El rut ingresado no existe.', 'login' => false]);
         }
         else{
             if(!Hash::check($data['contrasena'], $deudor->contrasena)){
-                return response(['mensaje' => 'La contraseña no es correcta', 'login' => false]);
+                return response(['mensaje' => 'La contraseña no es correcta.', 'login' => false]);
             }
             else{
                 $usuario = new Deudor($data);
                 $nombre = $deudor->nombres.' '.$deudor->ap_paterno.' '.$deudor->ap_materno;
 
                 $token = $usuario->createToken('auth_token')->plainTextToken;
-                $response = ['mensaje'=>'Inicio de sesion exitoso', 
+                $response = ['mensaje'=>'Inicio de sesión exitoso.', 
                 'rut_usuario' => $data['rut'], 
                 'nombre' => $nombre,
                 'token' => $token];

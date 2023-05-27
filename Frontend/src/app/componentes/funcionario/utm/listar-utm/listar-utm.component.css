@@ -11,3 +11,16 @@
 .mat-cell{
     text-align: center;
 }
+
+.opciones{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.boton{
+    height: 60%;
+    color: white;
+    background-color: var(--color-principal);
+}

@@ -50,6 +50,7 @@ Route::get('/declaraciones/sinRevisar', [DeclaracionController::class, 'declarac
 Route::post('/utm/registrar', [UtmController::class, 'registrar_utm']);
 Route::get('/utm', [UtmController::class, 'listado_utm']);
 Route::put('/utm/{year}/actualizar', [UtmController::class, 'actualizar_datos_utm']);
+Route::get('/utm/{year}', [UtmController::class, 'datos_utm']);
 
 
 /*

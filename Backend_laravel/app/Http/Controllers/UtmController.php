@@ -100,38 +100,4 @@ class UtmController extends Controller
         $response = ['mensaje' => 'Los datos de la utm se han actualizado correctamente'];
         return response($response, 200);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Utm  $utm
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Utm $utm)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Utm  $utm
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Utm $utm)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Utm  $utm
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Utm $utm)
-    {
-        //
-    }
 }

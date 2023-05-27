@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment as env } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Observable } from "rxjs";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +11,20 @@ import { Observable } from "rxjs";
 export class InicioSesionService {
   usuario_actual: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private notificacion: MatSnackBar) { 
+
+  }
 
   ingresar_como_deudor(data: any): Observable<boolean>{
     const body = new HttpParams()
     .set('rut', data.rut)
     .set('contrasena', data.contrasena)
 
-    return this.http.post<{mensaje: string, nombre: string, token: string, login: boolean}>(env.api.concat("/login_deudor"), body)
+    return this.http.post<{mensaje: string, rut: string, nombre: string, token: string, login: boolean}>(env.api.concat("/login_deudor"), body)
     .pipe(
       map(result => {
+        this.mostrarNotificacion(result.mensaje, "Cerrar");
+        
         if(result.login == false){
           return false;
         }
@@ -40,9 +45,11 @@ export class InicioSesionService {
     .set('rut', data.rut)
     .set('contrasena', data.contrasena)
 
-    return this.http.post<{mensaje: string,nombre: string, token: string, login: boolean}>(env.api.concat("/login_funcionario"), body)
+    return this.http.post<{mensaje: string, rut: string, nombre: string, token: string, login: boolean}>(env.api.concat("/login_funcionario"), body)
     .pipe(
       map(result => {
+        this.mostrarNotificacion(result.mensaje, "Cerrar");
+
         if(result.login == false){
           return false;
         }
@@ -93,5 +100,12 @@ export class InicioSesionService {
   public obtenerNombreUsuario(){
     const nombre = localStorage.getItem('nombre');
     return nombre;
+  }
+
+  mostrarNotificacion(mensaje: string, accion: string){
+    this.notificacion.open(mensaje, accion, {
+      duration: 5000,
+      panelClass: ['snackbar']
+    });
   }
 }

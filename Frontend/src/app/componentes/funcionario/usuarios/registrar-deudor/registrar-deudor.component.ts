@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 
@@ -14,15 +14,22 @@ export class RegistrarDeudorComponent implements OnInit {
   constructor(private usuarioService: UsuarioService, public dialogRef: MatDialogRef<RegistrarDeudorComponent>) {
 
     this.datosDeudor = new FormGroup({
-      'rut_deudor': new FormControl(""),
-      'nombres': new FormControl(""),
-      'ap_paterno': new FormControl(""),
-      'ap_materno': new FormControl("")
+      'rut_deudor': new FormControl("", {
+        updateOn: 'change',
+        validators: [Validators.required, Validators.pattern('^\\d{8,9}\\-(\\d{1}|k|K)$')]
+      }),
+      'nombres': new FormControl("", Validators.required),
+      'ap_paterno': new FormControl("", Validators.required),
+      'ap_materno': new FormControl("", Validators.required)
     });
   }
 
   ngOnInit(): void {
 
+  }
+
+  actualizarRut(event: any){
+    console.log(event.target.value);
   }
 
   registrarDeudor(){
@@ -31,6 +38,7 @@ export class RegistrarDeudorComponent implements OnInit {
 
     this.usuarioService.registrarDeudor(datos, contrasena).subscribe({
       next: result =>{
+        this.usuarioService.mostrarNotificacion("El deudor se ha registrado correctamente.","Cerrar");
         this.dialogRef.close();
       }, 
       error: result =>{

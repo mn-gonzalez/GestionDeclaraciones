@@ -1,8 +1,8 @@
 <form [formGroup]="datosDeudor" class="formulario">
-    <h2>Ingrese los datos del deudor.</h2>
+    <h2>Ingrese los Datos del Deudor.</h2>
     <mat-form-field appearance="outline">
         <mat-label>RUT</mat-label>
-        <input matInput placeholder="Ej. 12.345.678-9" formControlName="rut_deudor">
+        <input matInput placeholder="Ej. 12345678-9" (keyup)="actualizarRut($event)" formControlName="rut_deudor" autocomplete="off">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -21,7 +21,7 @@
     </mat-form-field>
 
     <div class="botones">
-        <button mat-raised-button (click)="registrarDeudor()">Registrar</button>
+        <button mat-raised-button (click)="registrarDeudor()" [disabled]="this.datosDeudor.invalid">Registrar</button>
         <button mat-raised-button (click)="cerrar()">Cancelar</button>
     </div>
 </form>

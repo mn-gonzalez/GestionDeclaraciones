@@ -11,12 +11,13 @@ import { Router } from '@angular/router';
 export class InicioSesionComponent implements OnInit {
   form_ingreso : FormGroup;
   hide = true;
+  ingresando = false;
 
   constructor(private inicioSesionService: InicioSesionService, private router: Router) { 
     this.form_ingreso = new FormGroup({
-      'rut': new FormControl(""),
-      'contrasena': new FormControl(""),
-      'tipo_ingreso': new FormControl("")
+      'rut': new FormControl("", Validators.required),
+      'contrasena': new FormControl("", Validators.required),
+      'tipo_ingreso': new FormControl("", Validators.required)
     });
   }
 
@@ -36,9 +37,11 @@ export class InicioSesionComponent implements OnInit {
       next: (result) => {
         if(result == false){
           console.log("El usuario o la clave son incorrectos");
+          this.ingresando = false;
         }
         else{
-          //this.router.navigate(['inicio-deudor/'+this.usuario])
+          //this.router.navigate(['inicio-deudor/'+this.usuario]);
+          this.ingresando = true;
           this.router.navigate(['/home-deudor']);
         }
       },
@@ -53,9 +56,11 @@ export class InicioSesionComponent implements OnInit {
       next: (result) => {
         if(result == false){
           console.log("El usuario o la clave son incorrectos");
+          this.ingresando = false;
         }
         else{
-          //this.router.navigate(['inicio-deudor/'+this.usuario])
+          //this.router.navigate(['inicio-deudor/'+this.usuario]);
+          this.ingresando = true;
           this.router.navigate(['/home-funcionario']);
         }
       },

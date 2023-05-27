@@ -384,6 +384,15 @@ export class DeclaracionService {
     );
   }
 
+  obtenerValorUtm(year: number){
+    return this.http.get<UTM>(env.api.concat("/utm/"+year))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
   registrarUtm(datosUtm: UTM){
     const body = new HttpParams()
     .set('year', datosUtm.year)
@@ -411,7 +420,7 @@ export class DeclaracionService {
 
   mostrarNotificacion(mensaje: string, accion: string) {
     this.notificacion.open(mensaje, accion, {
-      duration: 2000,
+      duration: 5000,
       panelClass: ['snackbar']
     });
   }

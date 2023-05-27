@@ -9,10 +9,14 @@ import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
   styleUrls: ['./menu-declaracion.component.css']
 })
 export class MenuDeclaracionComponent implements OnInit {
+  declaracion_firmada: File;
 
-  constructor(private router: Router, private declaracionService: DeclaracionService, private auth: InicioSesionService) { }
+  constructor(private router: Router, private declaracionService: DeclaracionService, private auth: InicioSesionService) {
+
+  }
 
   ngOnInit(): void {
+
   }
 
   verificarEntregaFormulario(){
@@ -42,6 +46,18 @@ export class MenuDeclaracionComponent implements OnInit {
         window.open(result.toString(), '_blank');
       }
     });
+  }
+
+  upload(event: any){
+    
+  }
+
+  visualizarPDF(){
+
+  }
+
+  subirDeclaracionFirmada(){
+
   }
 
   menuSubirDeclaracion(){
