@@ -16,27 +16,27 @@ export class InicioFuncionarioComponent implements OnInit {
     this.nombre = this.auth.obtenerNombreUsuario()!;
   }
 
-  listaDeudores(){
+  listarDeudores(){
     this.router.navigate(['/home-funcionario/deudores']);
   }
 
-  listaFuncionarios(){
+  listarFuncionarios(){
     this.router.navigate(['/home-funcionario/funcionarios']);
   }
 
-  listaDeclaracionesSinRevisar(){
+  listarDeclaracionesSinRevisar(){
     this.router.navigate(['/home-funcionario/declaraciones/revisar/pendientes']);
   }
 
-  listaDeclaracionesEnRevision(){
-    this.router.navigate(['/home-funcionario/declaraciones/revision']);
+  listarDeclaracionesEnRevision(){
+    this.router.navigate(['/home-funcionario/declaraciones/revisar/en_revision']);
   }
 
   listarDeclaracionesEnCorreccion(){
-    this.router.navigate(['/home-funcionario/declaraciones/correccion']);
+    this.router.navigate(['/home-funcionario/declaraciones/revisar/en_correccion']);
   }
 
-  listaUTM(){
+  listarUTM(){
     this.router.navigate(['/home-funcionario/utm']);
   }
 

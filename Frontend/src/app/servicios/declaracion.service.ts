@@ -331,8 +331,17 @@ export class DeclaracionService {
     );
   }
 
-  obtenerDeclaracionesSinRevisar(){
-    return this.http.get<Declaracion[]>(env.api.concat("/declaraciones/sinRevisar"))
+  obtenerDeclaracionesEnRevision(rut_funcionario: string){
+    return this.http.get<Declaracion[]>(env.api.concat("/declaraciones/enRevision/"+rut_funcionario))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  obtenerDeclaracionesSegunEstado(estado: number){
+    return this.http.get<Declaracion[]>(env.api.concat("/declaraciones/estado/"+estado))
     .pipe(
       map(result => {
         return result;
@@ -424,5 +433,23 @@ export class DeclaracionService {
       duration: 5000,
       panelClass: ['snackbar']
     });
+  }
+
+  verificarEntregaFormulario(rut_deudor: string, year: number){
+    return this.http.get<{id_declaracion: string, estado: number}>(env.api.concat("/"+rut_deudor+"/declaraciones/"+year+"/estado"))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  verificarFormularioPDF(id_declaracion: string){
+    return this.http.get<{pdf_disponible: boolean}>(env.api.concat("/declaraciones/"+id_declaracion+"/formularioPDF"))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
   }
 }

@@ -14,6 +14,8 @@ import { RegistrarUtmComponent } from './utm/registrar-utm/registrar-utm.compone
 import { ListarUtmComponent } from './utm/listar-utm/listar-utm.component';
 import { PostergacionesSinRevisarComponent } from './solicitudes/postergaciones-sin-revisar/postergaciones-sin-revisar.component';
 import { DevolucionesSinRevisarComponent } from './solicitudes/devoluciones-sin-revisar/devoluciones-sin-revisar.component';
+import { DeclaracionesEnCorreccionComponent } from './declaraciones/declaraciones-en-correccion/declaraciones-en-correccion.component';
+import { DeclaracionesEnRevisionComponent } from './declaraciones/declaraciones-en-revision/declaraciones-en-revision.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { DevolucionesSinRevisarComponent } from './solicitudes/devoluciones-sin-
     RegistrarUtmComponent,
     ListarUtmComponent,
     PostergacionesSinRevisarComponent,
-    DevolucionesSinRevisarComponent
+    DevolucionesSinRevisarComponent,
+    DeclaracionesEnCorreccionComponent,
+    DeclaracionesEnRevisionComponent
   ],
   imports: [
     CommonModule,

@@ -44,7 +44,10 @@ Route::get('/deudores',[DeudorController::class, 'listado_deudores']);
 Route::get('/funcionarios',[FuncionarioController::class, 'listado_funcionarios']);
 
 //declaraciones sin revisar
-Route::get('/declaraciones/sinRevisar', [DeclaracionController::class, 'declaracionesSinRevisar']);
+Route::get('/declaraciones/estado/{estado}', [DeclaracionController::class, 'obtenerDeclaracionesSegunEstado']);
+
+//listado de declaraciones que estan siendo revisadas por un funcionario
+Route::get('/declaraciones/enRevision/{rut_funcionario}', [DeclaracionController::class, 'obtenerDeclaracionesEnRevision']);
 
 //informacion de utm
 Route::post('/utm/registrar', [UtmController::class, 'registrar_utm']);

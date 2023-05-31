@@ -14,14 +14,14 @@
     <mat-sidenav #sidenav opened="true" mode="side" class="sidenav">
         <mat-nav-list>
             <a class="nav-list" mat-list-item> Mis Datos</a>
-            <a class="nav-list" (click)="listaUTM()" mat-list-item>UTM</a>
+            <a class="nav-list" (click)="listarUTM()" mat-list-item>UTM</a>
             <mat-divider></mat-divider>
-            <a class="nav-list" (click)="listaDeudores()" mat-list-item>Deudores</a>
-            <a class="nav-list" (click)="listaFuncionarios()" mat-list-item>Funcionarios</a>
+            <a class="nav-list" (click)="listarDeudores()" mat-list-item>Deudores</a>
+            <a class="nav-list" (click)="listarFuncionarios()" mat-list-item>Funcionarios</a>
             <mat-divider></mat-divider>
-            <a class="nav-list" (click)="listaDeclaracionesSinRevisar()" mat-list-item> Declaraciones sin Revisar</a>
-            <a class="nav-list" (click)="listaDeclaracionesEnRevision()" mat-list-item> Declaraciones en Revisión</a>
-            <a class="nav-list" mat-list-item> Declaraciones en Corrección</a>
+            <a class="nav-list" (click)="listarDeclaracionesSinRevisar()" mat-list-item> Declaraciones sin Revisar</a>
+            <a class="nav-list" (click)="listarDeclaracionesEnRevision()" mat-list-item> Declaraciones en Revisión</a>
+            <a class="nav-list" (click)="listarDeclaracionesEnCorreccion()" mat-list-item> Declaraciones en Corrección</a>
             <mat-divider></mat-divider>
             <a class="nav-list" (click)="listarPostergacionesSinRevisar()" mat-list-item> Postergaciones de Cobro</a>
             <mat-divider></mat-divider>

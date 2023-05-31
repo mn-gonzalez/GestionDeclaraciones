@@ -25,6 +25,12 @@
     height: 50%;
 }
 
+.pasos{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .subir-documento{
     display: flex;
     flex-direction: row;

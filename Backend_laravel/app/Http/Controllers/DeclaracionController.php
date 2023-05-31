@@ -344,13 +344,25 @@ class DeclaracionController extends Controller
         return response($response, 200);
     }
 
-    public function declaracionesSinRevisar()
+    public function obtenerDeclaracionesEnRevision(Request $request, $rut_funcionario)
     {
-        $declaraciones = DB::table('declaracion')->join('tramite', 'tramite.id', '=', 'declaracion.id')->where('tramite.estado', '=', 2)->select('tramite.*','declaracion.*')->get();
+        $declaraciones = DB::table('declaracion')
+        ->join('tramite', 'tramite.id', '=', 'declaracion.id')
+        ->join('tramite', 'tramite.id', '=', 'revision.ref_tramite')
+        ->where('tramite.estado', '=', 3)
+        ->where('revision.estado', '=', 'REVISION')
+        ->select('tramite.*','declaracion.*')
+        ->get();
         
         return response()->json($declaraciones);
     }
 
+    public function obtenerDeclaracionesSegunEstado(Request $request, $estado)
+    {
+        $declaraciones = DB::table('declaracion')->join('tramite', 'tramite.id', '=', 'declaracion.id')->where('tramite.estado', '=', $estado)->select('tramite.*','declaracion.*')->get();
+        
+        return response()->json($declaraciones);
+    }
 
     public function actualizar_estado(Request $request, $rut_deudor, $id_declaracion)
     {
