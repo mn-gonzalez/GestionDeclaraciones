@@ -348,9 +348,7 @@ class DeclaracionController extends Controller
     {
         $declaraciones = DB::table('declaracion')
         ->join('tramite', 'tramite.id', '=', 'declaracion.id')
-        ->join('tramite', 'tramite.id', '=', 'revision.ref_tramite')
         ->where('tramite.estado', '=', 3)
-        ->where('revision.estado', '=', 'REVISION')
         ->select('tramite.*','declaracion.*')
         ->get();
         
