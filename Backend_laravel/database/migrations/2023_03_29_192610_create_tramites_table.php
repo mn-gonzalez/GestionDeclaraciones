@@ -14,14 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tramite', function (Blueprint $table) {
-            $table->string('id')->unique();
+            $table->string('id')->primary();
             $table->string('rut_deudor');
             $table->string('nombres');
             $table->string('ap_paterno');
             $table->string('ap_materno');
             $table->date('fecha');
             $table->tinyInteger('estado');
-            $table->timestamps();
             //foreign keys
             $table->foreign('rut_deudor')->references('rut')->on('deudor');
         });

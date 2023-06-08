@@ -63,11 +63,15 @@ Route::get('/utm/{year}', [UtmController::class, 'datos_utm']);
 //Declaraciones deudor
 Route::post('{rut_deudor}/declaraciones/registrar', [DeclaracionController::class, 'registrar']);
 Route::put('{rut_deudor}/declaraciones/{id_declaracion}/actualizarDatos', [DeclaracionController::class, 'actualizar_datos_personales']);
-
 Route::put('{rut_deudor}/declaraciones/{id_declaracion}/actualizarIngresos', [DeclaracionController::class, 'actualizar_ingresos']);
+
+//Retorna el id y el estado de una declaracion segun su deudor y el año.
+Route::get('{rut_deudor}/declaraciones/{year}/estado',[DeclaracionController::class, 'obtenerEstadoDeclaracion']);
+
 
 //conyuge
 Route::post('{rut_deudor}/declaraciones/{id_declaracion}/registrarConyuge',[ConyugeController::class, 'registrar_conyuge']);
+Route::put('{rut_deudor}/declaraciones/{id_declaracion}/actualizarConyuge',[ConyugeController::class, 'actualizar_conyuge']);
 Route::get('{rut_deudor}/declaraciones/{id_declaracion}/obtenerConyuge',[ConyugeController::class, 'obtener_conyuge']);
 
 Route::post('{rut_deudor}/declaraciones/{id_declaracion}/documentacion/subir',[DocumentoController::class, 'registrar_documento_declaracion']);
@@ -86,25 +90,35 @@ Route::get('{rut_deudor}/declaraciones/{id_declaracion}/documentacion',[Document
 Route::get('{rut_deudor}/declaraciones/{id_declaracion}/documentacion/{id_documento}',[DocumentoController::class, 'obtener_documento']);
 Route::get('storage/{id_declaracion}/documento/{tipo_documento}',[DocumentoController::class, 'obtener_url_documento']);
 
+//obtiene el formulario firmado ante notario que subio el deudor
+Route::get('{rut_deudor}/declaraciones/{id_declaracion}/DECLARACION_FIRMADA',[DocumentoController::class, 'obtener_archivo_declaracion_firmada']);
+
 //Datos deudor
 Route::get('deudor/{rut_deudor}',[DeudorController::class, 'obtener_datos']);
 
 //generar pdf de una declaracion
 Route::get('{rut_deudor}/declaraciones/{id_declaracion}/generarPdf', [DeclaracionController::class, 'generarPdfDeclaracion']);
 
+//verificar si el pdf de un declaracion ya se generó
+Route::get('{rut_deudor}/declaraciones/{id_declaracion}/formularioPDF', [DeclaracionController::class, 'verificarDisponibilidadPdf']);
+
 //revisiones
 Route::post('revisiones/registrar',[RevisionController::class, 'registrar_revision']);
 Route::get('revisiones/{id_declaracion}',[RevisionController::class, 'obtener_revisiones']);
+Route::put('revisiones/actualizar/{id_revision}',[RevisionController::class, 'actualizar_revision']);
 Route::put('{rut_deudor}/solicitudes/{id_solicitud}/actualizarEstado', [DeclaracionController::class, 'actualizar_estado']);
+Route::get('{rut_funcionario}/revisiones/{id_declaracion}',[RevisionController::class, 'obtener_revision_por_funcionario']);
 
 //devoluciones
 Route::post('{rut_deudor}/devoluciones/registrar',[DevolucionController::class, 'registrar_devolucion']);
 Route::get('{rut_deudor}/devoluciones',[DevolucionController::class, 'obtener_devoluciones']);
 Route::get('devoluciones/sinRevisar',[DevolucionController::class, 'obtener_devoluciones_sin_revisar']);
 Route::get('devoluciones/{id_devolucion}',[DevolucionController::class, 'obtener_datos_devolucion']);
+Route::get('devoluciones/revisadas/{rut_funcionario}',[DevolucionController::class, 'obtener_devoluciones_revisadas']);
 
 //postergaciones
 Route::post('{rut_deudor}/postergaciones/registrar',[PostergacionController::class, 'registrar_postergacion']);
 Route::get('{rut_deudor}/postergaciones',[PostergacionController::class, 'obtener_postergaciones_deudor']);
 Route::get('postergaciones/sinRevisar',[PostergacionController::class, 'postergaciones_sin_revisar']);
 Route::get('postergaciones/{id_postergacion}',[PostergacionController::class, 'datos_postergacion']);
+Route::get('postergaciones/revisadas/{rut_funcionario}',[PostergacionController::class, 'postergaciones_revisadas']);

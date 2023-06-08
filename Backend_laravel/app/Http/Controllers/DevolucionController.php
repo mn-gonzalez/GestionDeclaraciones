@@ -74,6 +74,19 @@ class DevolucionController extends Controller
         return response()->json($devoluciones);
     }
 
+    public function obtener_devoluciones_revisadas(Request $request, $rut_funcionario)
+    {
+        $devoluciones = DB::table('devolucion')
+            ->join('tramite', 'tramite.id', '=', 'devolucion.id')
+            ->join('revision', 'tramite.id', '=', 'revision.ref_tramite')
+            ->where('revision.ref_funcionario', '=', $rut_funcionario)
+            ->whereNot('revision.estado', 'EN REVISION')
+            ->select('tramite.*','devolucion.*')
+            ->get();
+
+        return response()->json($devoluciones);
+    }
+
 
     public function obtener_datos_devolucion(Request $request, $id_devolucion)
     {

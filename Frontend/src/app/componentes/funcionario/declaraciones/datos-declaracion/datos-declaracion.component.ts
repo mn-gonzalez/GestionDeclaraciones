@@ -362,11 +362,11 @@ export class DatosDeclaracionComponent implements OnInit {
           this.declaracionService.obtenerArchivoDeclaracion(this.rut_deudor, this.id_declaracion, documento.id, documento.nombre).subscribe({
             next: archivo =>{
               switch(documento.tipo) { 
-                case "RENTA_DEUDOR": { 
+                case "RENTAS_DEUDOR": { 
                   this.documento_renta = archivo;
                   break; 
                 } 
-                case "RENTA_CONYUGE": { 
+                case "RENTAS_CONYUGE": { 
                   this.documento_renta_conyuge = archivo;
                   break; 
                 } 
@@ -427,11 +427,77 @@ export class DatosDeclaracionComponent implements OnInit {
   }
 
   visualizarPDF(tipo_documento: string){
+    /*
     this.declaracionService.obtenerUrlArchivo(this.id_declaracion, tipo_documento).subscribe({
       next: result =>{
         window.open(result.toString(), '_blank');
       }
     });
   }
+  */
 
+  var blob = new Blob;
+
+    switch(tipo_documento) { 
+      case "RENTAS_DEUDOR": { 
+        blob = new Blob([this.documento_renta], {type: 'application/pdf'});
+        break; 
+      } 
+      case "RENTAS_CONYUGE": {
+        blob = new Blob([ this.documento_renta_conyuge], {type: 'application/pdf'});
+        break; 
+      } 
+      case "CERTIFICADO_COTIZACIONES": {
+        blob = new Blob([this.documento_cotizaciones], {type: 'application/pdf'});
+        break; 
+      } 
+      case "FORMULARIO_N22": {
+        blob = new Blob([this.documento_formulario22], {type: 'application/pdf'});
+        break; 
+      } 
+      case "LIBRETA_MATRIMONIO": { 
+        blob = new Blob([this.documento_libreta_matrimonio], {type: 'application/pdf'});
+        break; 
+      } 
+      case "DEC_JURADA_SIMPLE_DEUDOR": {
+        blob = new Blob([this.documento_declaracion_sin_ingresos], {type: 'application/pdf'});
+        break; 
+      } 
+      case "DEC_JURADA_SIMPLE_CONYUGE": {
+        blob = new Blob([this.documento_declaracion_sin_ingresos_conyuge], {type: 'application/pdf'});
+        break; 
+      } 
+      case "FINIQUITO_DEUDOR": { 
+        blob = new Blob([this.documento_finiquito], {type: 'application/pdf'});
+        break; 
+      }
+      case "FINIQUITO_CONYUGE": { 
+        blob = new Blob([this.documento_finiquito_conyuge], {type: 'application/pdf'});
+        break; 
+      } 
+      case "CERT_NACIMIENTO": {  
+        blob = new Blob([this.documento_cert_nacimiento], {type: 'application/pdf'});
+        break; 
+      } 
+      case "CARPETA_TRIBUTARIA_DEUDOR": { 
+        blob = new Blob([this.documento_carp_tributaria_deudor], {type: 'application/pdf'});
+        break; 
+      } 
+      case "CARPETA_TRIBUTARIA_CONYUGE": { 
+        blob = new Blob([this.documento_carp_tributaria_conyuge], {type: 'application/pdf'});
+        break; 
+      } 
+      case "PAGARE_CONYUGE": { 
+        blob = new Blob([this.documento_copia_pagare_conyuge], {type: 'application/pdf'});
+        break; 
+      } 
+      default: { 
+          console.log("El tipo de documento no esta registrado en el sistema");
+          break; 
+      }
+    }
+
+    var blobURL = URL.createObjectURL(blob);
+    window.open(blobURL);
+  }
 }

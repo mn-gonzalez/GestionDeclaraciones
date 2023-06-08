@@ -46,7 +46,6 @@ return new class extends Migration
             $table->float('diciembre_utm', 8, 2)->default('0.00');
             $table->foreign('ref_declaracion')->references('id')->on('tramite')
             ->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamps();
         });
     }
 

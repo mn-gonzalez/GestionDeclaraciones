@@ -15,13 +15,12 @@ return new class extends Migration
     {
         Schema::create('deudor', function (Blueprint $table) {
             $table->string('rut');
-            $table->string('telefono');
+            $table->string('telefono')->nullable();
             $table->string('contrasena');
-            $table->string('ciudad');
-            $table->string('comuna');
-            $table->string('region');
-            $table->string('direccion');
-            $table->timestamps();
+            $table->string('ciudad')->nullable();
+            $table->string('comuna')->nullable();
+            $table->string('region')->nullable();
+            $table->string('direccion')->nullable();
             //foreign keys
             $table->foreign('rut')->references('rut')->on('persona')
             ->onDelete('cascade')->onUpdate('cascade');

@@ -19,9 +19,16 @@
     align-items: center;
 }
 
+.botones{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 5px;
+}
+
 .boton{
+    font-size: 12px;
     height: 60%;
     color: white;
     background-color: var(--color-utalca);
-    padding-right: 10px;
 }

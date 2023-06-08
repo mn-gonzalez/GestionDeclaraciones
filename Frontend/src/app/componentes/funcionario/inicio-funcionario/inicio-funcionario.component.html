@@ -23,9 +23,11 @@
             <a class="nav-list" (click)="listarDeclaracionesEnRevision()" mat-list-item> Declaraciones en Revisión</a>
             <a class="nav-list" (click)="listarDeclaracionesEnCorreccion()" mat-list-item> Declaraciones en Corrección</a>
             <mat-divider></mat-divider>
-            <a class="nav-list" (click)="listarPostergacionesSinRevisar()" mat-list-item> Postergaciones de Cobro</a>
+            <a class="nav-list" (click)="listarPostergacionesSinRevisar()" mat-list-item> Postergaciones de Cobro Sin Revisar</a>
+            <a class="nav-list" (click)="listarPostergacionesRevisadas()" mat-list-item> Postergaciones de Cobro Revisadas</a>
             <mat-divider></mat-divider>
-            <a class="nav-list"(click)="listarDevolucionesSinRevisar()"  mat-list-item> Devoluciones/Copia de Pagarés</a>
+            <a class="nav-list"(click)="listarDevolucionesSinRevisar()"  mat-list-item> Devoluciones/Copia de Pagarés Sin Revisar</a>
+            <a class="nav-list"(click)="listarDevolucionesRevisadas()"  mat-list-item> Devoluciones/Copia de Pagarés Revisadas</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-content">

@@ -13,9 +13,9 @@
 			<div style="float: left; width: 30%; height: 100%;"></div>
 			<div class="titulo">
 				<p class="parrafo">
-					<b class="texto-titulo">DECLARACION JURADA CUOTA 2022 </b> <br>
+					<b class="texto-titulo">DECLARACION JURADA CUOTA {{date('Y')}} </b> <br>
 					LEY N°19.287, LEY N°19.848 Y LEY N° 20.572 <br>
-					(RENTAS 2021)</p>
+					(RENTAS {{ $utm['year'] }})</p>
 			</div>
 			<div class="rut">
 				<table style="width:100%; height:100%;">
@@ -137,7 +137,7 @@
     	<table style="width:48%; height:100%; float:right;">
           <tr>
             <th></th>
-            <th colspan="3">INGRESOS DEL CONYUGE AÑO 2021</th>
+            <th colspan="3">INGRESOS DEL CONYUGE AÑO {{ $utm['year'] }}</th>
           </tr>
           <tr>
             <td>MES</td>
@@ -148,73 +148,73 @@
           <tr>
             <td>ENERO</td>
             <td>{{ $conyuge['enero'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['enero'] }}</td>
             <td>{{ $conyuge['enero_utm'] }}</td>
           </tr>
           <tr>
             <td>FEBRERO</td>
             <td>{{ $conyuge['febrero'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['febrero'] }}</td>
             <td>{{ $conyuge['febrero_utm'] }}</td>
           </tr>
           <tr>
             <td>MARZO</td>
             <td>{{ $conyuge['marzo'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['marzo'] }}</td>
             <td>{{ $conyuge['marzo_utm'] }}</td>
           </tr>
           <tr>
             <td>ABRIL</td>
             <td>{{ $conyuge['abril'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['abril'] }}</td>
             <td>{{ $conyuge['abril_utm'] }}</td>
           </tr>
           <tr>
             <td>MAYO</td>
             <td>{{ $conyuge['mayo'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['mayo'] }}</td>
             <td>{{ $conyuge['mayo_utm'] }}</td>
           </tr>
           <tr>
             <td>JUNIO</td>
             <td>{{ $conyuge['junio'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['junio'] }}</td>
             <td>{{ $conyuge['junio_utm'] }}</td>
           </tr>
           <tr>
             <td>JULIO</td>
             <td>{{ $conyuge['julio'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{$utm['julio'] }}</td>
             <td>{{ $conyuge['julio_utm'] }}</td>
           </tr>
           <tr>
             <td>AGOSTO</td>
             <td>{{ $conyuge['agosto'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['agosto'] }}</td>
             <td>{{ $conyuge['agosto_utm'] }}</td>
           </tr>
           <tr>
             <td>SEPTIEMBRE</td>
             <td>{{ $conyuge['septiembre'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['septiembre'] }}</td>
             <td>{{ $conyuge['septiembre_utm'] }}</td>
           </tr>
           <tr>
             <td>OCTUBRE</td>
             <td>{{ $conyuge['octubre'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{$utm['octubre'] }}</td>
             <td>{{ $conyuge['octubre_utm'] }}</td>
           </tr>
           <tr>
             <td>NOVIEMBRE</td>
             <td>{{ $conyuge['noviembre'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{$utm['noviembre'] }}</td>
             <td>{{ $conyuge['noviembre_utm'] }}</td>
           </tr>
           <tr>
             <td>DICIEMBRE</td>
             <td>{{ $conyuge['diciembre'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['diciembre'] }}</td>
             <td>{{ $conyuge['diciembre_utm'] }}</td>
           </tr>
           <tr>
@@ -227,7 +227,7 @@
         <table style="width:48%; height:100%; float: left;">
           <tr>
             <th></th>
-            <th colspan="3">INGRESOS DEL DEUDOR AÑO 2021</th>
+            <th colspan="3">INGRESOS DEL DEUDOR AÑO {{ $utm['year'] }}</th>
           </tr>
           <tr>
             <td>MES</td>
@@ -238,73 +238,73 @@
           <tr>
             <td>ENERO</td>
             <td>{{ $declaracion['enero'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['enero'] }}</td>
             <td>{{ $declaracion['enero_utm'] }}</td>
           </tr>
           <tr>
             <td>FEBRERO</td>
             <td>{{ $declaracion['febrero'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['febrero'] }}</td>
             <td>{{ $declaracion['febrero_utm'] }}</td>
           </tr>
           <tr>
             <td>MARZO</td>
             <td>{{ $declaracion['marzo'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['marzo'] }}</td>
             <td>{{ $declaracion['marzo_utm'] }}</td>
           </tr>
           <tr>
             <td>ABRIL</td>
             <td>{{ $declaracion['abril'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['abril'] }}</td>
             <td>{{ $declaracion['abril_utm'] }}</td>
           </tr>
           <tr>
             <td>MAYO</td>
             <td>{{ $declaracion['mayo'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['mayo'] }}</td>
             <td>{{ $declaracion['mayo_utm'] }}</td>
           </tr>
           <tr>
             <td>JUNIO</td>
             <td>{{ $declaracion['junio'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['junio'] }}</td>
             <td>{{ $declaracion['junio_utm'] }}</td>
           </tr>
           <tr>
             <td>JULIO</td>
             <td>{{ $declaracion['julio'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['julio'] }}</td>
             <td>{{ $declaracion['julio_utm'] }}</td>
           </tr>
           <tr>
             <td>AGOSTO</td>
             <td>{{ $declaracion['agosto'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['agosto'] }}</td>
             <td>{{ $declaracion['agosto_utm'] }}</td>
           </tr>
           <tr>
             <td>SEPTIEMBRE</td>
             <td>{{ $declaracion['septiembre'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['septiembre'] }}</td>
             <td>{{ $declaracion['septiembre_utm'] }}</td>
           </tr>
           <tr>
             <td>OCTUBRE</td>
             <td>{{ $declaracion['octubre'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['octubre'] }}</td>
             <td>{{ $declaracion['octubre_utm'] }}</td>
           </tr>
           <tr>
             <td>NOVIEMBRE</td>
             <td>{{ $declaracion['noviembre'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['noviembre'] }}</td>
             <td>{{ $declaracion['noviembre_utm'] }}</td>
           </tr>
           <tr>
             <td>DICIEMBRE</td>
             <td>{{ $declaracion['diciembre'] }}</td>
-            <td>$ 50.978</td>
+            <td>$ {{ $utm['diciembre'] }}</td>
             <td>{{ $declaracion['diciembre_utm'] }}</td>
           </tr>
           <tr>

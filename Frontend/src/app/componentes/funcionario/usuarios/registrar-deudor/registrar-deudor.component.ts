@@ -29,14 +29,15 @@ export class RegistrarDeudorComponent implements OnInit {
   }
 
   actualizarRut(event: any){
-    console.log(event.target.value);
+    //console.log(event.target.value);
   }
 
   registrarDeudor(){
     let datos = this.datosDeudor.value;
     let contrasena = this.datosDeudor.get('rut_deudor')!.value.split('-');
 
-    this.usuarioService.registrarDeudor(datos, contrasena).subscribe({
+    console.log(contrasena);
+    this.usuarioService.registrarDeudor(datos, contrasena[0]).subscribe({
       next: result =>{
         this.usuarioService.mostrarNotificacion("El deudor se ha registrado correctamente.","Cerrar");
         this.dialogRef.close();

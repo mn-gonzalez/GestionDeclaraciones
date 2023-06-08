@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('ref_tramite');
             $table->string('ref_funcionario');
             $table->date('fecha');
-            $table->text('comentarios');
+            $table->text('comentarios')->nullable();
             $table->string('estado');
             $table->foreign('ref_tramite')->references('id')->on('tramite')
             ->onDelete('cascade')->onUpdate('cascade');

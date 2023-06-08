@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('declaracion', function (Blueprint $table) {
             $table->string('id');
-            $table->integer('anio');
+            $table->integer('year');
             $table->string('correo');
             $table->string('telefono');
             $table->string('direccion');
@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('ciudad');
             $table->tinyInteger('estado_civil');
             $table->tinyInteger('afp');
-            $table->string('trabajo');
-            $table->string('tel_trabajo');
+            $table->string('trabajo')->nullable();
+            $table->string('tel_trabajo')->nullable();
             $table->integer('enero')->default('0');
             $table->integer('febrero')->default('0');
             $table->integer('marzo')->default('0');

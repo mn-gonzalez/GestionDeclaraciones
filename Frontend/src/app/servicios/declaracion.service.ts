@@ -61,7 +61,7 @@ export class DeclaracionService {
     
     const body = new HttpParams()
     .set('id', datos.id)
-    .set('anio', anioActual)
+    .set('year', anioActual)
     .set('rut_deudor', datos.rut_deudor)
     .set('nombres', datos.nombres)
     .set('ap_paterno', datos.ap_paterno)
@@ -94,7 +94,7 @@ export class DeclaracionService {
     
     const body = new HttpParams()
     .set('id', datos.id)
-    .set('anio', anioActual)
+    .set('year', anioActual)
     .set('rut_deudor', datos.rut_deudor)
     .set('nombres', datos.nombres)
     .set('ap_paterno', datos.ap_paterno)
@@ -140,7 +140,7 @@ export class DeclaracionService {
     const body = new HttpParams()
     .set('rut', rut_deudor)
     .set('id_declaracion', id_declaracion)
-    .set('anio', anioActual)
+    .set('year', anioActual)
     .set('enero', datos.enero)
     .set('febrero', datos.febrero)
     .set('marzo', datos.marzo)
@@ -302,6 +302,20 @@ export class DeclaracionService {
     );
   }
 
+  obtenerArchivoDeclaracionFirmada(rut_deudor: string, id_declaracion: string){
+    const headers = new HttpHeaders()
+    .set('content-type', 'application/pdf')
+
+    return this.http.get(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/DECLARACION_FIRMADA"), {headers: headers, responseType: 'blob'})
+    .pipe(
+      map(result => {
+        var blob = new Blob([result], { type: 'application/pdf' });
+        var file = new File([blob], "DECLARACION JURADA FIRMADA.pdf");
+        return file;
+      })
+    );
+  }
+
   obtenerUrlArchivo(id_declaracion: string, tipo_documento: string){
     return this.http.get<string>(env.api.concat("/storage/"+id_declaracion+"/documento/"+tipo_documento))
     .pipe(
@@ -375,6 +389,30 @@ export class DeclaracionService {
     );
   }
 
+  actualizarRevision(id_revision: number, fecha: string, comentarios: string, estado: string){
+    const body = new HttpParams()
+    .set('fecha', fecha)
+    .set('comentarios', comentarios)
+    .set('estado', estado)
+
+    return this.http.put<{ mensaje: string}>(env.api.concat("/revisiones/actualizar/"+id_revision), body)
+    .pipe(
+      map(result => {
+        console.log(result.mensaje);
+        return true;
+      })
+    );
+  }
+
+  obtenerRevisionTramite(rut_funcionario: string, id_declaracion: string){
+    return this.http.get<Revision>(env.api.concat("/"+rut_funcionario+"/revisiones/"+id_declaracion))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
   obtenerRevision(id_declaracion: string){
     return this.http.get<Revision[]>(env.api.concat("/revisiones/"+id_declaracion))
     .pipe(
@@ -444,8 +482,8 @@ export class DeclaracionService {
     );
   }
 
-  verificarFormularioPDF(id_declaracion: string){
-    return this.http.get<{pdf_disponible: boolean}>(env.api.concat("/declaraciones/"+id_declaracion+"/formularioPDF"))
+  verificarFormularioPDF(rut_deudor: string, id_declaracion: string){
+    return this.http.get<{pdf_disponible: boolean}>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/formularioPDF"))
     .pipe(
       map(result => {
         return result;

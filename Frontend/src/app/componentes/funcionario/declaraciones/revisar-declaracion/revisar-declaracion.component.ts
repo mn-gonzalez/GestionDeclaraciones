@@ -28,6 +28,8 @@ interface Afp{
   styleUrls: ['./revisar-declaracion.component.css']
 })
 export class RevisarDeclaracionComponent implements OnInit {
+  id_revision: number;
+
   rut_deudor: string;
   id_declaracion: string;
   id_ingresos_deudor: number;
@@ -201,6 +203,7 @@ export class RevisarDeclaracionComponent implements OnInit {
 
   ngOnInit(): void {
     this.id_declaracion = this.activatedRoute.snapshot.paramMap.get('id') || "";
+    this.obtenerRevision();
     this.obtenerDatosDeclaracion(); 
     this.obtenerDocumentacionDeclaracion();
   }
@@ -452,10 +455,9 @@ export class RevisarDeclaracionComponent implements OnInit {
       }
     });
 
-    this.declaracionService.registrarRevision(rut_funcionario, this.id_declaracion, 
-      fecha, this.comentarios.value, "ACEPTADA").subscribe({
+    this.declaracionService.actualizarRevision(this.id_revision, fecha, this.comentarios.value, "ACEPTADA").subscribe({
       next: result =>{
-        this.declaracionService.mostrarNotificacion("La revision de la declaración se ha registrado corrrectamente.", "Cerrar");
+        this.declaracionService.mostrarNotificacion("La revision de la declaración se ha registrado correctamente.", "Cerrar");
         this.router.navigate(['/home-funcionario/declaraciones/revisar/pendientes']);
       }
     });
@@ -463,6 +465,17 @@ export class RevisarDeclaracionComponent implements OnInit {
     this.declaracionService.generarPdfDeclaracion(this.rut_deudor, this.id_declaracion).subscribe({
       next: result =>{
         console.log(result);
+      }
+    });
+  }
+
+  obtenerRevision(){
+    let rut_funcionario = this.auth.obtenerUsuarioActual()!;
+
+    this.declaracionService.obtenerRevisionTramite(rut_funcionario, this.id_declaracion).subscribe({
+      next: result =>{
+        this.id_revision = result.id;
+        console.log("el id de la revision es: "+this.id_revision);
       }
     });
   }
@@ -478,10 +491,9 @@ export class RevisarDeclaracionComponent implements OnInit {
       }
     });
 
-    this.declaracionService.registrarRevision(rut_funcionario, this.id_declaracion, 
-      fecha, this.comentarios.value, "RECHAZADA").subscribe({
+    this.declaracionService.actualizarRevision(this.id_revision, fecha, this.comentarios.value, "RECHAZADA").subscribe({
       next: result =>{
-        this.declaracionService.mostrarNotificacion("La revision de la declaración se ha registrado corrrectamente.", "Cerrar");
+        this.declaracionService.mostrarNotificacion("La revision de la declaración se ha registrado correctamente.", "Cerrar");
         this.router.navigate(['/home-funcionario/declaraciones/revisar/pendientes']);
       }
     });

@@ -40,9 +40,25 @@ export class DeclaracionesPorRevisarComponent implements OnInit {
 
   }
 
-  revisarDeclaracion(id_declaracion: string){
-    //realizar operaciones para que la revision de la declaracion quede asignada al funcionario
-    this.router.navigate(['/home-funcionario/declaraciones/revisar/'+id_declaracion]);
+  //Asocia la declaracion que se va a revisar con el funcionario que solicito revisar la declaracion y 
+  //cre un registro en la base de datos
+  revisarDeclaracion(rut_deudor: string, id_declaracion: string){
+    let rut_funcionario = this.auth.obtenerUsuarioActual()!;
+    let comentarios = "";
+    let fecha = this.declaracionService.obtenerFechaActual();
+
+    this.declaracionService.actualizarEstadoDeclaracion(rut_deudor, id_declaracion, 3).subscribe({
+      next: result =>{
+        console.log(result);
+      }
+    });
+
+    this.declaracionService.registrarRevision(rut_funcionario, id_declaracion, 
+      fecha, comentarios, "EN REVISION").subscribe({
+      next: result =>{
+        this.router.navigate(['/home-funcionario/declaraciones/revisar/'+id_declaracion]);
+      }
+    });
   }
 
 }

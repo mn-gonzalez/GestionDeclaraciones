@@ -15,6 +15,9 @@ export class DeclaracionesDeudorComponent implements OnInit {
   displayedColumns: string[] = ['anio', 'total_ingresos', 'total_ingresos_utm', 'cuota_preliminar', 'estado', 'acciones'];
   dataSource: MatTableDataSource<Declaracion>;
   rut_deudor: string;
+  nombres: string;
+  ap_paterno: string;
+  ap_materno: string;
 
   constructor(private router: Router, private declaracionService: DeclaracionService, 
     private activatedRoute: ActivatedRoute) { 
@@ -23,6 +26,7 @@ export class DeclaracionesDeudorComponent implements OnInit {
 
   ngOnInit(): void {
     this.rut_deudor = this.activatedRoute.snapshot.paramMap.get('rut') || "";
+    this.obtenerDatosDeudor();
     this.obtenerDeclaracionesDeudor(this.rut_deudor);
     this.dataSource = new MatTableDataSource();
   }
@@ -58,6 +62,16 @@ export class DeclaracionesDeudorComponent implements OnInit {
     });
   }
 
+  obtenerDatosDeudor(){
+    this.declaracionService.obtenerDatosDeudor(this.rut_deudor).subscribe({
+      next: result =>{
+        this.nombres = result.nombres;
+        this.ap_paterno = result.ap_paterno;
+        this.ap_paterno = result.ap_materno;
+      }
+    });
+  }
+
   obtenerDeclaracionesDeudor(rut_deudor: string){
     this.declaracionService.obtenerDeclaracionesDeudor(rut_deudor).subscribe({
       next: (result) => {
@@ -69,7 +83,6 @@ export class DeclaracionesDeudorComponent implements OnInit {
   }
 
   verDatosDeclaracion(id_declaracion: string){
-    console.log(id_declaracion);
     this.router.navigate(['/home-funcionario/declaracion/'+id_declaracion]);
   }
 

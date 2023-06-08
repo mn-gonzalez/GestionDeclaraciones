@@ -48,4 +48,12 @@ export class InicioFuncionarioComponent implements OnInit {
     this.router.navigate(['/home-funcionario/postergaciones/revisar']);
   }
 
+  listarPostergacionesRevisadas(){
+    
+  }
+
+  listarDevolucionesRevisadas(){
+
+  }
+
 }

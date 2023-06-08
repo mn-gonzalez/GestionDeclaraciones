@@ -47,8 +47,15 @@ export class ListarUsuariosComponent implements OnInit {
   }
 
   verDeclaracionesDeudor(rut: string){
-    console.log(rut);
     this.router.navigate(['/home-funcionario/declaraciones/'+rut]);
+  }
+
+  verPostergacionesDeudor(rut: string){
+    this.router.navigate(['/home-funcionario/postergaciones/'+rut]);
+  }
+
+  verDevolucionesDeudor(rut: string){
+    this.router.navigate(['/home-funcionario/devoluciones/'+rut]);
   }
 
   menuRegistrarDeudor(){

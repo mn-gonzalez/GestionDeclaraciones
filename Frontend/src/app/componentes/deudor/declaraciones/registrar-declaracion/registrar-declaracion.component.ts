@@ -204,6 +204,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
   documento_carp_tributaria_conyuge: File;
   documento_copia_pagare_conyuge: File;
 
+  //verifican los documentos que debe subir el deudor
   casado = false;
   tieneHijos = false;
   casadoReprog = false;
@@ -218,7 +219,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
     else{
       this.obtenerValorUTM();
       this.rut_deudor = this.auth.obtenerUsuarioActual()!;
-      this.id_declaracion = "DEC"+this.rut_deudor+"_"+this.year;
+      this.id_declaracion = "DEC"+this.rut_deudor.split('-')[0]+"_"+this.year;
       //this.obtenerDatosDeclaracion();
       this.verificarEstadoDeclaracion();
       this.obtenerDatosDeudor();
@@ -353,47 +354,59 @@ export class RegistrarDeclaracionComponent implements OnInit {
           this.tieneHijos = true;
         }
 
-        //obtiene el conyuge de la declaracion (si es que existe en la BD)
-        this.declaracionService.obtenerConyugeDeclaracion(this.rut_deudor, this.id_declaracion).subscribe({
-          next: result =>{
-            if(result.id != null){
-              this.conyuge.get('rut_conyuge')!.setValue(result.rut);
-              this.conyuge.get('nombres')!.setValue(result.nombres);
-              this.conyuge.get('ap_paterno')!.setValue(result.ap_paterno);
-              this.conyuge.get('ap_materno')!.setValue(result.ap_materno);
-              this.conyuge.get('enero')!.setValue(result.enero);
-              this.conyuge.get('febrero')!.setValue(result.febrero);
-              this.conyuge.get('marzo')!.setValue(result.marzo);
-              this.conyuge.get('abril')!.setValue(result.abril);
-              this.conyuge.get('mayo')!.setValue(result.mayo);
-              this.conyuge.get('junio')!.setValue(result.junio);
-              this.conyuge.get('julio')!.setValue(result.julio);
-              this.conyuge.get('agosto')!.setValue(result.agosto);
-              this.conyuge.get('septiembre')!.setValue(result.septiembre);
-              this.conyuge.get('octubre')!.setValue(result.octubre);
-              this.conyuge.get('noviembre')!.setValue(result.noviembre);
-              this.conyuge.get('diciembre')!.setValue(result.diciembre);
-      
-              this.conyuge.get('enero_utm')!.setValue(result.enero_utm);
-              this.conyuge.get('febrero_utm')!.setValue(result.febrero_utm);
-              this.conyuge.get('marzo_utm')!.setValue(result.marzo_utm);
-              this.conyuge.get('abril_utm')!.setValue(result.abril_utm);
-              this.conyuge.get('mayo_utm')!.setValue(result.mayo_utm);
-              this.conyuge.get('junio_utm')!.setValue(result.junio_utm);
-              this.conyuge.get('julio_utm')!.setValue(result.julio_utm);
-              this.conyuge.get('agosto_utm')!.setValue(result.agosto_utm);
-              this.conyuge.get('septiembre_utm')!.setValue(result.septiembre_utm);
-              this.conyuge.get('octubre_utm')!.setValue(result.octubre_utm);
-              this.conyuge.get('noviembre_utm')!.setValue(result.noviembre_utm);
-              this.conyuge.get('diciembre_utm')!.setValue(result.diciembre_utm);
-
-              this.casado = true;
-            }
-          }
-        });
+        if(result.estado_civil == 3){
+          this.casado = true;
+          this.obtenerDatosConyuge();
+        }
+        else if(result.estado_civil == 4){
+          this.casadoReprog = true;
+          this.obtenerDatosConyuge();
+        }
+        
       },
       error: result => {
         console.log(result);
+      }
+    });
+  }
+
+  obtenerDatosConyuge(){
+    //obtiene el conyuge de la declaracion (si es que existe en la BD)
+    this.declaracionService.obtenerConyugeDeclaracion(this.rut_deudor, this.id_declaracion).subscribe({
+      next: result =>{
+        if(result.id != null){
+          this.conyuge.get('rut_conyuge')!.setValue(result.rut);
+          this.conyuge.get('nombres')!.setValue(result.nombres);
+          this.conyuge.get('ap_paterno')!.setValue(result.ap_paterno);
+          this.conyuge.get('ap_materno')!.setValue(result.ap_materno);
+          this.conyuge.get('enero')!.setValue(result.enero);
+          this.conyuge.get('febrero')!.setValue(result.febrero);
+          this.conyuge.get('marzo')!.setValue(result.marzo);
+          this.conyuge.get('abril')!.setValue(result.abril);
+          this.conyuge.get('mayo')!.setValue(result.mayo);
+          this.conyuge.get('junio')!.setValue(result.junio);
+          this.conyuge.get('julio')!.setValue(result.julio);
+          this.conyuge.get('agosto')!.setValue(result.agosto);
+          this.conyuge.get('septiembre')!.setValue(result.septiembre);
+          this.conyuge.get('octubre')!.setValue(result.octubre);
+          this.conyuge.get('noviembre')!.setValue(result.noviembre);
+          this.conyuge.get('diciembre')!.setValue(result.diciembre);
+  
+          this.conyuge.get('enero_utm')!.setValue(result.enero_utm);
+          this.conyuge.get('febrero_utm')!.setValue(result.febrero_utm);
+          this.conyuge.get('marzo_utm')!.setValue(result.marzo_utm);
+          this.conyuge.get('abril_utm')!.setValue(result.abril_utm);
+          this.conyuge.get('mayo_utm')!.setValue(result.mayo_utm);
+          this.conyuge.get('junio_utm')!.setValue(result.junio_utm);
+          this.conyuge.get('julio_utm')!.setValue(result.julio_utm);
+          this.conyuge.get('agosto_utm')!.setValue(result.agosto_utm);
+          this.conyuge.get('septiembre_utm')!.setValue(result.septiembre_utm);
+          this.conyuge.get('octubre_utm')!.setValue(result.octubre_utm);
+          this.conyuge.get('noviembre_utm')!.setValue(result.noviembre_utm);
+          this.conyuge.get('diciembre_utm')!.setValue(result.diciembre_utm);
+
+          this.casado = true;
+        }
       }
     });
   }
@@ -456,7 +469,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
         if(result.id == null){
           this.declaracionService.registrarConyuge(this.id_declaracion, this.rut_deudor, datosConyugeDeclaracion).subscribe({
             next: result =>{
-              console.log(result);
+              this.declaracionService.mostrarNotificacion(result, "Cerrar");
             }, 
             error: result =>{
               console.log(result);
@@ -467,7 +480,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
         else{
           this.declaracionService.actualizarDatosConyuge(this.id_declaracion, this.rut_deudor, datosConyugeDeclaracion).subscribe({
             next: result =>{
-              console.log(result);
+              this.declaracionService.mostrarNotificacion(result, "Cerrar");
             }, 
             error: result =>{
               console.log(result);
@@ -558,11 +571,11 @@ export class RegistrarDeclaracionComponent implements OnInit {
   }
 
   subirDocumentoRentaDeudor(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERTIFICADO DE RENTAS", "RENTA_DEUDOR",this.documento_renta);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERTIFICADO DE RENTAS", "RENTAS_DEUDOR",this.documento_renta);
   }
 
   subirDocumentoRentaConyuge(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERTIFICADO DE RENTAS CONYUGE", "RENTA_CONYUGE",this.documento_renta_conyuge);
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERTIFICADO DE RENTAS CONYUGE", "RENTAS_CONYUGE",this.documento_renta_conyuge);
   }
 
   subirDocumentoCotizaciones(){
@@ -686,7 +699,6 @@ export class RegistrarDeclaracionComponent implements OnInit {
         this.comunas = elemento.comunas;
       }
     }
-    console.log(region);
   }
 
   /*
@@ -812,13 +824,13 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
   verificarDecJuradaSimpleDeudor(){
     let contador = 0;
-    let decJuradaSimpleDeudor = false;
     let formControl;
 
-    let meses = ["enero", "febrero", "marzo", "abril", ""];
+    let meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre",
+        "noviembre", "diciembre"];
 
-    for(let ingreso in this.ingresosDeudor.controls){
-      formControl = this.ingresosDeudor.get(ingreso)!;
+    for(let mes in meses){
+      formControl = this.ingresosDeudor.get(mes)!;
 
       if(formControl.value == 0){
         contador++;
@@ -828,13 +840,32 @@ export class RegistrarDeclaracionComponent implements OnInit {
       }
 
       if(contador >= 3){
-        decJuradaSimpleDeudor = true;
+        this.deudorDebePresentarDecSimple = true;
       }
     }
   }
 
   verificarDecJuradaSimpleConyuge(){
+    let contador = 0;
+    let formControl;
 
+    let meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre",
+        "noviembre", "diciembre"];
+
+    for(let mes in meses){
+      formControl = this.conyuge.get(mes)!;
+
+      if(formControl.value == 0){
+        contador++;
+      }
+      else{
+        contador = 0;
+      }
+
+      if(contador >= 3){
+        this.conyugeDebePresentarDecSimple = true;
+      }
+    }
   }
 
   finalizarDeclaracion(){
@@ -847,11 +878,76 @@ export class RegistrarDeclaracionComponent implements OnInit {
   }
 
   visualizarPDF(tipo_documento: string){
+    /*
     this.declaracionService.obtenerUrlArchivo(this.id_declaracion, tipo_documento).subscribe({
       next: result =>{
         window.open(result.toString(), '_blank');
       }
     });
+    */
+   var blob = new Blob;
+
+    switch(tipo_documento) { 
+      case "RENTAS_DEUDOR": { 
+        blob = new Blob([this.documento_renta], {type: 'application/pdf'});
+        break; 
+      } 
+      case "RENTAS_CONYUGE": {
+        blob = new Blob([ this.documento_renta_conyuge], {type: 'application/pdf'});
+        break; 
+      } 
+      case "CERTIFICADO_COTIZACIONES": {
+        blob = new Blob([this.documento_cotizaciones], {type: 'application/pdf'});
+        break; 
+      } 
+      case "FORMULARIO_N22": {
+        blob = new Blob([this.documento_formulario22], {type: 'application/pdf'});
+        break; 
+      } 
+      case "LIBRETA_MATRIMONIO": { 
+        blob = new Blob([this.documento_libreta_matrimonio], {type: 'application/pdf'});
+        break; 
+      } 
+      case "DEC_JURADA_SIMPLE_DEUDOR": {
+        blob = new Blob([this.documento_declaracion_sin_ingresos], {type: 'application/pdf'});
+        break; 
+      } 
+      case "DEC_JURADA_SIMPLE_CONYUGE": {
+        blob = new Blob([this.documento_declaracion_sin_ingresos_conyuge], {type: 'application/pdf'});
+        break; 
+      } 
+      case "FINIQUITO_DEUDOR": { 
+        blob = new Blob([this.documento_finiquito], {type: 'application/pdf'});
+        break; 
+      }
+      case "FINIQUITO_CONYUGE": { 
+        blob = new Blob([this.documento_finiquito_conyuge], {type: 'application/pdf'});
+        break; 
+      } 
+      case "CERT_NACIMIENTO": {  
+        blob = new Blob([this.documento_cert_nacimiento], {type: 'application/pdf'});
+        break; 
+      } 
+      case "CARPETA_TRIBUTARIA_DEUDOR": { 
+        blob = new Blob([this.documento_carp_tributaria_deudor], {type: 'application/pdf'});
+        break; 
+      } 
+      case "CARPETA_TRIBUTARIA_CONYUGE": { 
+        blob = new Blob([this.documento_carp_tributaria_conyuge], {type: 'application/pdf'});
+        break; 
+      } 
+      case "PAGARE_CONYUGE": { 
+        blob = new Blob([this.documento_copia_pagare_conyuge], {type: 'application/pdf'});
+        break; 
+      } 
+      default: { 
+          console.log("El tipo de documento no esta registrado en el sistema");
+          break; 
+      }
+    }
+
+    var blobURL = URL.createObjectURL(blob);
+    window.open(blobURL);
   }
 
   obtenerRevision(){

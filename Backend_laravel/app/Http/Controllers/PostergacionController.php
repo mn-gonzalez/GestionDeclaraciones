@@ -74,4 +74,16 @@ class PostergacionController extends Controller
 
         return response()->json($postergaciones);
     }
+
+    public function postergaciones_revisadas(Request $request, $rut_funcionario){
+        $postergaciones = DB::table('postergacion')
+            ->join('tramite', 'tramite.id', '=', 'postergacion.id')
+            ->join('revision', 'tramite.id', '=', 'revision.ref_tramite')
+            ->where('revision.ref_funcionario', '=', $rut_funcionario)
+            ->whereNot('revision.estado', 'EN REVISION')
+            ->select('tramite.*','postergacion.*')
+            ->get();
+
+        return response()->json($postergaciones);
+    }
 }

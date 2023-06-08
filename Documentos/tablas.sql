@@ -40,7 +40,7 @@ CREATE TABLE tramite(
 
 CREATE TABLE declaracion(
 	id varchar(20) NOT NULL REFERENCES tramite(id),
-	anio integer NOT NULL,
+	year integer NOT NULL,
 	correo varchar(50) NOT NULL,
 	telefono varchar(15) NOT NULL,
     direccion varchar(100) NOT NULL,
@@ -162,7 +162,7 @@ CREATE TABLE utm(
 	octubre integer NOT NULL, 
 	noviembre integer NOT NULL, 
 	diciembre integer NOT NULL,
-	PRIMARY KEY (anio)
+	PRIMARY KEY (year)
 );
 
 CREATE TABLE revision(

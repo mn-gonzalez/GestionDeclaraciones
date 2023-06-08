@@ -102,6 +102,15 @@ export class SolicitudService {
     );
   }
 
+  obtenerDevolucionesRevisadas(rut_funcionario: string){
+    return this.http.get<Devolucion[]>(env.api.concat("/devoluciones/revisadas/"+rut_funcionario))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
   registrarPostergacion(rut_deudor: string, datos: Postergacion, nombre_archivo: string, documento: File){
     let anioActual = new Date().getFullYear();
     let fecha = this.obtenerFechaActual();
@@ -155,6 +164,15 @@ export class SolicitudService {
     );
   }
 
+  obtenerPostergacionesRevisadas(rut_funcionario: string){
+    return this.http.get<Postergacion[]>(env.api.concat("/postergaciones/revisadas/"+rut_funcionario))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
   registrarRevision(rut_funcionario: string, id_tramite: string, fecha: string, comentarios: string, estado: string){
     const body = new HttpParams()
     .set('ref_funcionario', rut_funcionario)
@@ -196,5 +214,32 @@ export class SolicitudService {
       duration: 2000,
       panelClass: ['snackbar']
     });
+  }
+
+  /*
+    1 - POR REVISAR
+    2 - EN REVISION
+    3 - ACEPTADA
+    4 - RECHAZADA
+  */
+  convertirEstadoATexto(estado: number){
+    let texto = "";
+
+    switch(estado){
+      case 1:
+        texto = "POR REVISAR";
+        break;
+      case 2:
+        texto = "EN REVISION";
+        break;
+      case 3:
+        texto = "ACEPTADA";
+        break;
+      case 4:
+        texto = "RECHAZADA";
+        break;
+    }
+
+    return texto;
   }
 }

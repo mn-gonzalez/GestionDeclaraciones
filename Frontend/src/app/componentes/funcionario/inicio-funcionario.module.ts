@@ -16,6 +16,8 @@ import { PostergacionesSinRevisarComponent } from './solicitudes/postergaciones-
 import { DevolucionesSinRevisarComponent } from './solicitudes/devoluciones-sin-revisar/devoluciones-sin-revisar.component';
 import { DeclaracionesEnCorreccionComponent } from './declaraciones/declaraciones-en-correccion/declaraciones-en-correccion.component';
 import { DeclaracionesEnRevisionComponent } from './declaraciones/declaraciones-en-revision/declaraciones-en-revision.component';
+import { PostergacionesRevisadasComponent } from './solicitudes/postergaciones-revisadas/postergaciones-revisadas.component';
+import { DevolucionesRevisadasComponent } from './solicitudes/devoluciones-revisadas/devoluciones-revisadas.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { DeclaracionesEnRevisionComponent } from './declaraciones/declaraciones-
     PostergacionesSinRevisarComponent,
     DevolucionesSinRevisarComponent,
     DeclaracionesEnCorreccionComponent,
-    DeclaracionesEnRevisionComponent
+    DeclaracionesEnRevisionComponent,
+    PostergacionesRevisadasComponent,
+    DevolucionesRevisadasComponent
   ],
   imports: [
     CommonModule,

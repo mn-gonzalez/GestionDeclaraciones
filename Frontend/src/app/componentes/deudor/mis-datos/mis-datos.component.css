@@ -2,3 +2,13 @@
     display: grid;
     padding: 25px;
 }
+
+.nombre{
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+}
+
+.direccion{
+    width: 410px;
+}

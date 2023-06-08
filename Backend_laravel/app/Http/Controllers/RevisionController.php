@@ -41,6 +41,37 @@ class RevisionController extends Controller
         return response()->json($revisiones);
     }
 
+    public function actualizar_revision(Request $request, $id_revision){
+        $data = $request->validate([
+            'fecha' => 'required',
+            'comentarios' => 'nullable',
+            'estado' => 'required'
+        ]);
+
+        DB::table('revision')
+        ->where('id', $id_revision)
+        ->update([
+            'fecha' => $data['fecha'],
+            'comentarios' => $data['comentarios'],
+            'estado'=> $data['estado']
+        ]);
+
+        $response = ['mensaje' => 'La revisión se ha actualizado correctamente'];
+        return response($response, 200);
+    }
+
+    public function obtener_revision_por_funcionario(Request $request, $rut_funcionario, $id_declaracion){
+        $revision = DB::table('revision')
+            ->where('revision.ref_tramite', '=', $id_declaracion)
+            ->where('revision.ref_funcionario', '=', $rut_funcionario)
+            ->where('revision.estado', '=', 'EN REVISION')
+            ->first();
+
+        return response()->json($revision);
+    }
+
+
+
     /**
      * Store a newly created resource in storage.
      *

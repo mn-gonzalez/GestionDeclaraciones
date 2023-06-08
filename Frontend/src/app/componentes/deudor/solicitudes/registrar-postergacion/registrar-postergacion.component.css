@@ -3,10 +3,7 @@
     flex-direction: column; 
     justify-content: center; 
     width:80%; 
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-top: 5%;
-    padding-bottom: 5%;
+    padding: 25px;
     row-gap: 10px;
 }
 
@@ -32,4 +29,13 @@
 .icono-pdf{
     max-height: 70%;
     padding-right: 5px;
+}
+
+.botones{
+    padding-top: 20px;
+}
+
+.boton{
+    color: white;
+    background-color: var(--color-utalca);
 }

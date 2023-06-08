@@ -10,25 +10,6 @@ use Illuminate\Http\File;
 
 class DocumentoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -100,6 +81,21 @@ class DocumentoController extends Controller
 
         $url = url(Storage::url($ubicacion));
         return response()->json($url);
+    }
+
+    public function obtener_archivo_declaracion_firmada(Request $request, $rut_deudor, $id_declaracion)
+    {
+        $tipo_documento = 'DECLARACION_FIRMADA';
+        $documento = DB::table('documento')
+            ->where('documento.ref_declaracion', '=', $id_declaracion)
+            ->where('documento.tipo', '=', $tipo_documento)
+            ->first();
+
+        $ubicacion = $documento->ubicacion;
+
+        $documento = Storage::disk('public')->get($ubicacion);
+
+        return response($documento, 200)->header('Content-Type', 'application/pdf');
     }
 
     /**

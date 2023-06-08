@@ -26,7 +26,7 @@ export class MisDatosComponent implements OnInit {
   }
 
   obtener_datos(){
-
+    
   }
 
 }

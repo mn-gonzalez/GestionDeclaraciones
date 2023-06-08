@@ -48,7 +48,7 @@
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let element"> 
               <div class="acciones">
-                <button class="boton" mat-raised-button (click)="revisarDeclaracion(element.id)">Revisar</button> 
+                <button class="boton" mat-raised-button (click)="revisarDeclaracion(element.rut_deudor, element.id)">Revisar</button> 
               </div>
             </td>
         </ng-container>

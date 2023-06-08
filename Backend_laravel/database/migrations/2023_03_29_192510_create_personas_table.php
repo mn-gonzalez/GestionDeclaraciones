@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('persona', function (Blueprint $table) {
-            $table->string('rut')->unique();
+            $table->string('rut')->primary();
             $table->string('nombres');
             $table->string('ap_paterno');
             $table->string('ap_materno');
-            $table->string('correo');
+            $table->string('correo')->nullable();
             $table->timestamps();
         });
     }

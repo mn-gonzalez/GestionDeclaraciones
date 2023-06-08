@@ -22,6 +22,10 @@
               </div>
             </td>
         </ng-container>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="3">No existe ninguna solicitud postergación de cobro anterior.</td>
+        </tr>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
