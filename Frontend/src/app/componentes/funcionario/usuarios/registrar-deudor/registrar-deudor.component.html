@@ -2,7 +2,10 @@
     <h2>Ingrese los Datos del Deudor.</h2>
     <mat-form-field appearance="outline">
         <mat-label>RUT</mat-label>
-        <input matInput placeholder="Ej. 12345678-9" (keyup)="verificarRut($event)" formControlName="rut_deudor" autocomplete="off">
+        <input matInput placeholder="Ej. 12345678-9" formControlName="rut_deudor" autocomplete="off">
+        <div class="mensaje-error" *ngIf="this.datosDeudor.controls['rut_deudor'].errors?.rut_valido">
+            El rut ingresado no es válido.
+        </div>
     </mat-form-field>
 
     <mat-form-field appearance="outline">

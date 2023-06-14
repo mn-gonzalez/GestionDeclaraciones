@@ -9,3 +9,9 @@
     display: flex;
     column-gap: 10px;
 }
+
+.mensaje-error{
+    font-size: 10px;
+    padding-top: 2px;
+    color: red;
+}

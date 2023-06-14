@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { validarRut } from 'src/app/compartidos/validador-rut.directive';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class RegistrarFuncionarioComponent implements OnInit {
     this.datosFuncionario = new FormGroup({
       'rut': new FormControl("",{
         updateOn: 'change',
-        validators: [Validators.required, Validators.pattern('^\\d{1,3}\\.\\d{3}\\.\\d{3}\\-(\\d{1}|k|K)$')]
+        validators: [Validators.required, Validators.pattern('^\\d{1,3}\\.\\d{3}\\.\\d{3}\\-(\\d{1}|k|K)$'), validarRut()]
       }),
       'nombres': new FormControl(""),
       'ap_paterno': new FormControl(""),
