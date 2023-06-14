@@ -41,19 +41,19 @@ export class InicioFuncionarioComponent implements OnInit {
   }
 
   listarDevolucionesSinRevisar(){
-    this.router.navigate(['/home-funcionario/devoluciones/revisar']);
+    this.router.navigate(['/home-funcionario/funcionario/devoluciones/sin_revisar']);
   }
 
   listarPostergacionesSinRevisar(){
-    this.router.navigate(['/home-funcionario/postergaciones/revisar']);
+    this.router.navigate(['/home-funcionario/funcionario/postergaciones/sin_revisar']);
   }
 
   listarPostergacionesRevisadas(){
-    
+    this.router.navigate(['/home-funcionario/funcionario/postergaciones/revisadas']);
   }
 
   listarDevolucionesRevisadas(){
-
+    this.router.navigate(['/home-funcionario/funcionario/devoluciones/revisadas']);
   }
 
 }

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->tinyInteger('retiro_oficina');
             $table->string('domicilio');
             $table->text('solicitud');
+            $table->text('nombre_archivo');
             $table->text('archivo');
             //foreign keys
             $table->foreign('id')->references('id')->on('tramite')

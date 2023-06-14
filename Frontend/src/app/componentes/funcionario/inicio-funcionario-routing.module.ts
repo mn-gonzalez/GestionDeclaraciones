@@ -16,6 +16,8 @@ import { DeclaracionesEnRevisionComponent } from './declaraciones/declaraciones-
 import { DeclaracionesEnCorreccionComponent } from './declaraciones/declaraciones-en-correccion/declaraciones-en-correccion.component';
 import { ListarDevolucionesComponent } from '../deudor/solicitudes/listar-devoluciones/listar-devoluciones.component';
 import { ListarPostergacionesComponent } from '../deudor/solicitudes/listar-postergaciones/listar-postergaciones.component';
+import { PostergacionesRevisadasComponent } from './solicitudes/postergaciones-revisadas/postergaciones-revisadas.component';
+import { DevolucionesRevisadasComponent } from './solicitudes/devoluciones-revisadas/devoluciones-revisadas.component';
 
 const routes: Routes = [
     { path: '', component:InicioFuncionarioComponent, 
@@ -30,10 +32,12 @@ const routes: Routes = [
         {path: 'declaraciones/revisar/:id', component: RevisarDeclaracionComponent},
         {path: 'utm', component: ListarUtmComponent},
         {path: 'devoluciones/:rut', component: ListarDevolucionesComponent},
-        {path: 'devoluciones/revisar', component: DevolucionesSinRevisarComponent},
+        {path: 'funcionario/devoluciones/sin_revisar', component: DevolucionesSinRevisarComponent},
+        {path: 'funcionario/devoluciones/revisadas', component: DevolucionesRevisadasComponent},
         {path: 'devoluciones/revisar/:id', component: DatosDevolucionComponent},
         {path: 'postergaciones/:rut', component: ListarPostergacionesComponent},
-        {path: 'postergaciones/revisar', component: PostergacionesSinRevisarComponent},
+        {path: 'funcionario/postergaciones/sin_revisar', component: PostergacionesSinRevisarComponent},
+        {path: 'funcionario/postergaciones/revisadas', component: PostergacionesRevisadasComponent},
         {path: 'postergaciones/revisar/:id', component: DatosPostergacionComponent}
     ]
     }
