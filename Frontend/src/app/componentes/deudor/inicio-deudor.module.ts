@@ -13,6 +13,7 @@ import { MensajesComponent } from './mensajes/mensajes.component';
 import { MenuDeclaracionComponent } from './declaraciones/menu-declaracion/menu-declaracion.component';
 import { DatosDevolucionComponent } from './solicitudes/datos-devolucion/datos-devolucion.component';
 import { DatosPostergacionComponent } from './solicitudes/datos-postergacion/datos-postergacion.component';
+import { PesoChilenoPipe } from 'src/app/compartidos/peso-chileno.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { DatosPostergacionComponent } from './solicitudes/datos-postergacion/dat
     MensajesComponent,
     MenuDeclaracionComponent,
     DatosDevolucionComponent,
-    DatosPostergacionComponent
+    DatosPostergacionComponent,
+    PesoChilenoPipe
   ],
   imports: [
     CommonModule,

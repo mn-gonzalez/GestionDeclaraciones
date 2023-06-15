@@ -11,7 +11,7 @@
       
         <ng-container matColumnDef="total_ingresos">
           <th mat-header-cell *matHeaderCellDef> Total Ingresos</th>
-          <td mat-cell *matCellDef="let element"> {{element.ingreso_total_deudor}} </td>
+          <td mat-cell *matCellDef="let element"> ${{element.ingreso_total_deudor | pesochileno}} </td>
         </ng-container>
       
         <ng-container matColumnDef="total_ingresos_utm">

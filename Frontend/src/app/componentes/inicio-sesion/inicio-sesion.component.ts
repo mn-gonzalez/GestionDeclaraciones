@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { Router } from '@angular/router';
+import { validarRut } from 'src/app/compartidos/validador-rut.directive';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -15,7 +16,7 @@ export class InicioSesionComponent implements OnInit {
 
   constructor(private inicioSesionService: InicioSesionService, private router: Router) { 
     this.form_ingreso = new FormGroup({
-      'rut': new FormControl("", Validators.required),
+      'rut': new FormControl("", [Validators.required, Validators.pattern('^\\d{8,9}\\-(\\d{1}|k|K)$'), validarRut()]),
       'contrasena': new FormControl("", Validators.required),
       'tipo_ingreso': new FormControl("", Validators.required)
     });
@@ -36,7 +37,6 @@ export class InicioSesionComponent implements OnInit {
     this.inicioSesionService.ingresar_como_deudor(datos).subscribe({
       next: (result) => {
         if(result == false){
-          console.log("El usuario o la clave son incorrectos");
           this.ingresando = false;
         }
         else{
@@ -55,7 +55,6 @@ export class InicioSesionComponent implements OnInit {
     this.inicioSesionService.ingresar_como_funcionario(datos).subscribe({
       next: (result) => {
         if(result == false){
-          console.log("El usuario o la clave son incorrectos");
           this.ingresando = false;
         }
         else{

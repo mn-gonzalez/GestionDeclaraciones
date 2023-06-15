@@ -76,3 +76,9 @@
     flex-direction: row;
     height: 80%;
 }
+
+.mensaje-error{
+    font-size: 10px;
+    padding-top: 2px;
+    color: red;
+}

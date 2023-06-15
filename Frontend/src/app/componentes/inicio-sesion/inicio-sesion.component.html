@@ -20,7 +20,10 @@
 
                     <mat-form-field appearance="outline">
                         <mat-label>Rut</mat-label>
-                        <input matInput placeholder="18892403" formControlName="rut">
+                        <input matInput placeholder="12345678-9" formControlName="rut">
+                        <div class="mensaje-error" *ngIf="this.form_ingreso.controls['rut'].errors?.rut_valido">
+                            El rut ingresado no es válido.
+                        </div>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">

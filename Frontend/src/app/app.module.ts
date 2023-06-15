@@ -12,6 +12,7 @@ import { InicioDeudorComponent } from './componentes/deudor/inicio-deudor/inicio
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { InicioSesionService } from './servicios/inicio-sesion.service';
+import { PesoChilenoPipe } from './compartidos/peso-chileno.pipe';
 
 export function jwtTokenGetter() {
   return localStorage.getItem('access_token');
