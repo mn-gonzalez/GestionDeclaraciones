@@ -413,7 +413,7 @@ export class DeclaracionService {
     );
   }
 
-  obtenerRevision(id_declaracion: string){
+  obtenerHistorialRevisiones(id_declaracion: string){
     return this.http.get<Revision[]>(env.api.concat("/revisiones/"+id_declaracion))
     .pipe(
       map(result => {
@@ -460,8 +460,31 @@ export class DeclaracionService {
     return this.http.post<{ mensaje: string}>(env.api.concat("/utm/registrar"), body)
     .pipe(
       map(result => {
-        console.log(result.mensaje);
-        return true;
+        return result.mensaje;
+      })
+    );
+  }
+
+  actualizarUtm(datosUtm: UTM){
+    const body = new HttpParams()
+    .set('year', datosUtm.year)
+    .set('enero', datosUtm.enero)
+    .set('febrero', datosUtm.febrero)
+    .set('marzo', datosUtm.marzo)
+    .set('abril', datosUtm.abril)
+    .set('mayo', datosUtm.mayo)
+    .set('junio', datosUtm.junio)
+    .set('julio', datosUtm.julio)
+    .set('agosto', datosUtm.agosto)
+    .set('septiembre', datosUtm.septiembre)
+    .set('octubre', datosUtm.octubre)
+    .set('noviembre', datosUtm.noviembre)
+    .set('diciembre', datosUtm.diciembre)
+
+    return this.http.put<{ mensaje: string}>(env.api.concat("/utm/"+datosUtm.year+"/actualizar"), body)
+    .pipe(
+      map(result => {
+        return result.mensaje;
       })
     );
   }
@@ -484,6 +507,42 @@ export class DeclaracionService {
 
   verificarFormularioPDF(rut_deudor: string, id_declaracion: string){
     return this.http.get<{pdf_disponible: boolean}>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/formularioPDF"))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  obtenerDeudoresConDeclaracionPendiente(year: number){
+    return this.http.get<{cantidad: number, deudores: Deudor[]}>(env.api.concat("/reportes/deudores/declaraciones/sinEntregar/"+year))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  obtenerDeudoresConDeclaracionesFinalizadas(year: number){
+    return this.http.get<{cantidad: number, deudores: Deudor[]}>(env.api.concat("/reportes/deudores/declaraciones/finalizadas/"+year))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  obtenerDeudoresConDeclaracionesEnCorreccion(year: number){
+    return this.http.get<{cantidad: number, deudores: Deudor[]}>(env.api.concat("/reportes/deudores/declaraciones/conErrores/"+year))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  obtenerDeudoresConPostergacion(year: number){
+    return this.http.get<{cantidad: number, deudores: Deudor[]}>(env.api.concat("/reportes/deudores/conPostergacion/"+year))
     .pipe(
       map(result => {
         return result;

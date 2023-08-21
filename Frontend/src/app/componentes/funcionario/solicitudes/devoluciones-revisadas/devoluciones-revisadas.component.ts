@@ -26,7 +26,7 @@ export class DevolucionesRevisadasComponent implements OnInit {
   }
 
   detallesDevolucion(id_devolucion: string){
-    this.router.navigate(['/home-funcionario/devoluciones/detalle/'+id_devolucion]);
+    this.router.navigate(['/home-funcionario/funcionario/devoluciones/revisadas/'+id_devolucion]);
   }
 
   obtenerDevolucionesRevisadas(){

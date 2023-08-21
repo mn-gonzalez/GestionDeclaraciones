@@ -39,7 +39,7 @@ export class PostergacionesRevisadasComponent implements OnInit {
   }
 
   detallesPostergacion(id_postergacion: string){
-    this.router.navigate(['/home-funcionario/postergaciones/detalle/'+id_postergacion]);
+    this.router.navigate(['/home-funcionario/funcionario/postergaciones/revisadas/'+id_postergacion]);
   }
 
 }

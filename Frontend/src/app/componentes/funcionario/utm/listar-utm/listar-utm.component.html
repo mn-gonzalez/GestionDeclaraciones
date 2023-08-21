@@ -18,68 +18,68 @@
       
         <ng-container matColumnDef="enero">
           <th mat-header-cell *matHeaderCellDef> Enero</th>
-          <td mat-cell *matCellDef="let element"> ${{element.enero}} </td>
+          <td mat-cell *matCellDef="let element"> ${{element.enero | pesochileno}} </td>
         </ng-container>
       
         <ng-container matColumnDef="febrero">
           <th mat-header-cell *matHeaderCellDef> Febrero </th>
-          <td mat-cell *matCellDef="let element"> ${{element.febrero}} </td>
+          <td mat-cell *matCellDef="let element"> ${{element.febrero | pesochileno}} </td>
         </ng-container>
       
         <ng-container matColumnDef="marzo">
           <th mat-header-cell *matHeaderCellDef> Marzo </th>
-          <td mat-cell *matCellDef="let element"> ${{element.marzo}} </td>
+          <td mat-cell *matCellDef="let element"> ${{element.marzo | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="abril">
             <th mat-header-cell *matHeaderCellDef> Abril </th>
-            <td mat-cell *matCellDef="let element"> ${{element.abril}} </td>
+            <td mat-cell *matCellDef="let element"> ${{element.abril | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="mayo">
             <th mat-header-cell *matHeaderCellDef> Mayo </th>
-            <td mat-cell *matCellDef="let element"> ${{element.mayo}} </td>
+            <td mat-cell *matCellDef="let element"> ${{element.mayo | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="junio">
             <th mat-header-cell *matHeaderCellDef> Junio </th>
-            <td mat-cell *matCellDef="let element"> ${{element.junio}} </td>
+            <td mat-cell *matCellDef="let element"> ${{element.junio | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="julio">
             <th mat-header-cell *matHeaderCellDef> Julio </th>
-            <td mat-cell *matCellDef="let element"> ${{element.julio}} </td>
+            <td mat-cell *matCellDef="let element"> ${{element.julio | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="agosto">
             <th mat-header-cell *matHeaderCellDef> Agosto </th>
-            <td mat-cell *matCellDef="let element"> ${{element.agosto}} </td>
+            <td mat-cell *matCellDef="let element"> ${{element.agosto | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="septiembre">
             <th mat-header-cell *matHeaderCellDef> Septiembre </th>
-            <td mat-cell *matCellDef="let element"> ${{element.septiembre}} </td>
+            <td mat-cell *matCellDef="let element"> ${{element.septiembre | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="octubre">
             <th mat-header-cell *matHeaderCellDef> Octubre </th>
-            <td mat-cell *matCellDef="let element"> ${{element.octubre}} </td>
+            <td mat-cell *matCellDef="let element"> ${{element.octubre | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="noviembre">
             <th mat-header-cell *matHeaderCellDef> Noviembre </th>
-            <td mat-cell *matCellDef="let element"> ${{element.noviembre}} </td>
+            <td mat-cell *matCellDef="let element"> ${{element.noviembre | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="diciembre">
             <th mat-header-cell *matHeaderCellDef> Diciembre </th>
-            <td mat-cell *matCellDef="let element"> ${{element.diciembre}} </td>
+            <td mat-cell *matCellDef="let element"> ${{element.diciembre | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="acciones">
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let element">
-                <button class="boton" mat-raised-button (click)="menuEditarUTM()">Editar</button>
+                <button class="boton" mat-raised-button (click)="menuEditarUTM(element)">Editar</button>
             </td>
         </ng-container>
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Postergacion } from 'src/app/modelos/postergacion';
+import { Revision } from 'src/app/modelos/revision';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
 
@@ -17,12 +18,26 @@ export class DatosPostergacionComponent implements OnInit {
   id_postergacion: string;
   funcionario: boolean;
   formulario: FormGroup;
+  datosPostergacion: FormGroup;
+  revision: Revision;
+  comentarios: string = "";
 
   constructor(private auth: InicioSesionService, private solicitudService: SolicitudService, 
     private activatedRoute: ActivatedRoute, private router: Router) { 
 
       this.postergacion = new Postergacion();
       this.funcionario = false;
+
+      this.datosPostergacion = new FormGroup({
+        'id': new FormControl(""),
+        'rut_deudor': new FormControl(""),
+        'nombres': new FormControl(""),
+        'ap_paterno': new FormControl(""),
+        'ap_materno': new FormControl(""),
+        'fecha': new FormControl(""),
+        'motivo': new FormControl("")
+      });
+
       this.formulario = new FormGroup({
         'comentarios': new FormControl("")
       });
@@ -38,6 +53,25 @@ export class DatosPostergacionComponent implements OnInit {
     this.solicitudService.obtenerDatosPostergacion(this.id_postergacion).subscribe({
       next: result =>{
         this.postergacion = result;
+        this.datosPostergacion.get('rut_deudor')!.setValue(result.rut_deudor);
+        this.datosPostergacion.get('nombres')!.setValue(result.nombres);
+        this.datosPostergacion.get('ap_paterno')!.setValue(result.ap_paterno);
+        this.datosPostergacion.get('ap_materno')!.setValue(result.ap_materno);
+        this.datosPostergacion.get('motivo')!.setValue(result.motivo);
+
+        if(this.postergacion.estado == 3 || this.postergacion.estado == 4){
+          this.obtenerComentariosPostergacion(this.postergacion.id);
+        }
+      }
+    });
+  }
+
+  obtenerComentariosPostergacion(id_postergacion: string){
+    this.solicitudService.obtenerComentariosSolicitud(id_postergacion).subscribe({
+      next: result =>{
+        this.revision = result;
+        this.formulario.get('comentarios')!.setValue(result.comentarios);
+        //this.comentarios = this.revision.comentarios;
       }
     });
   }

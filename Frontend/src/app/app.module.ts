@@ -9,10 +9,10 @@ import { InicioSesionComponent } from './componentes/inicio-sesion/inicio-sesion
 import { PaginaInicioComponent } from './componentes/pagina-inicio/pagina-inicio.component';
 import { InicioFuncionarioComponent } from './componentes/funcionario/inicio-funcionario/inicio-funcionario.component';
 import { InicioDeudorComponent } from './componentes/deudor/inicio-deudor/inicio-deudor.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { InicioSesionService } from './servicios/inicio-sesion.service';
-import { PesoChilenoPipe } from './compartidos/peso-chileno.pipe';
+import { HttpconfigInterceptor } from './interceptors/httpconfig.interceptor';
 
 export function jwtTokenGetter() {
   return localStorage.getItem('access_token');
@@ -37,7 +37,7 @@ export function jwtTokenGetter() {
       }
     })
   ],
-  providers: [InicioSesionService],
+  providers: [InicioSesionService, { provide: HTTP_INTERCEPTORS, useClass: HttpconfigInterceptor, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

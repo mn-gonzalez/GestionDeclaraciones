@@ -441,11 +441,19 @@
             
         <mat-step style="height: 100%;">
             <ng-template matStepLabel>Revisión</ng-template>
-            <h4 style="padding-bottom: 20px;">Indicar las correcciones que debe hacer el deudor.</h4>
+           
+            <div *ngIf="this.revisiones.length != 0" class="revisiones">
+                <h4 style="padding-bottom: 20px;"><strong>Historial de Correcciones</strong></h4>
+                <div *ngFor="let revision of this.revisiones" style="display: flex; flex-direction: column; padding-bottom: 10px;">
+                    <span><strong>Fecha: </strong> {{revision.fecha}}</span>
+                    <span><strong>Comentario: </strong> {{revision.comentarios}}</span>
+                </div>
+            </div>
+
+            <h4 style="padding-bottom: 20px;"><strong>Indicar las correcciones que debe hacer el deudor.</strong></h4>
             <div style="width: 100%; height: 100%;">
-                <label>Correcciones</label>
                 <mat-form-field appearance="outline" style="width: 100%; height: 100%;">
-                    <textarea matInput placeholder="Indicar corrección" [formControl]="comentarios"></textarea>
+                    <textarea matInput placeholder="Ingresar correcciones" [formControl]="comentarios"></textarea>
                 </mat-form-field>
             </div>
 

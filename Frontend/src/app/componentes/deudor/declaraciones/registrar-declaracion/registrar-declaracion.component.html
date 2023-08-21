@@ -169,7 +169,7 @@
                             <th mat-header-cell *matHeaderCellDef> Monto en UTM </th>
                             <div class="div_form_ingresos" mat-cell *matCellDef="let element">
                                 <mat-form-field  class="form_ingresos">
-                                    <input matInput formControlName="{{element.formControlUTM}}" required>
+                                    <input matInput formControlName="{{element.formControlUTM}}" required readonly>
                                 </mat-form-field>
                             </div>
                         </ng-container>
@@ -199,7 +199,7 @@
                     <h3>Datos Personales</h3>
 
                     <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>Rut</mat-label>
+                        <mat-label>RUT</mat-label>
                         <input matInput placeholder="Ej. 12345678" formControlName="rut_conyuge" required>
                     </mat-form-field>
 
@@ -248,7 +248,7 @@
                             <th mat-header-cell *matHeaderCellDef> Monto en UTM </th>
                             <div class="div_form_ingresos" mat-cell *matCellDef="let element">
                                 <mat-form-field  class="form_ingresos">
-                                    <input matInput formControlName="{{element.formControlUTM}}" required>
+                                    <input matInput formControlName="{{element.formControlUTM}}" required readonly>
                                 </mat-form-field>
                             </div>
                         </ng-container>
@@ -279,7 +279,7 @@
                         </div>
                         <div class="subir-documento">
                             <input type="file" (change)="upload('RENTAS_DEUDOR', $event)" accept="application/pdf" #renta style="display: none;">
-                            <button style="height:50%;" (click)="renta.click()"> Seleccionar.</button>
+                            <button style="height:50%;" (click)="renta.click()"> Seleccionar</button>
                             <div *ngIf="this.documento_renta == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>
@@ -298,7 +298,7 @@
                         </div>
                         <div class="subir-documento">
                             <input type="file" (change)="upload('RENTAS_CONYUGE',$event)" accept="application/pdf" #rentaConyuge style="display: none;">
-                            <button style="height:50%;" (click)="rentaConyuge.click()"> Seleccionar.</button>
+                            <button style="height:50%;" (click)="rentaConyuge.click()"> Seleccionar</button>
                             <div *ngIf="this.documento_renta_conyuge == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>
@@ -317,7 +317,7 @@
                         </div>
                         <div class="subir-documento">
                             <input type="file" (change)="upload('FORMULARIO_N22', $event)" accept="application/pdf" #formulario22 style="display: none;">
-                            <button style="height:50%;" (click)="formulario22.click()"> Seleccionar.</button>
+                            <button style="height:50%;" (click)="formulario22.click()"> Seleccionar</button>
                             <div *ngIf="this.documento_formulario22 == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>
@@ -336,7 +336,7 @@
                         </div>
                         <div class="subir-documento">
                             <input type="file" (change)="upload('CARPETA_TRIBUTARIA_DEUDOR', $event)" accept="application/pdf" #carpTributaria style="display: none;">
-                            <button style="height:50%;" (click)="carpTributaria.click()"> Seleccionar.</button>
+                            <button style="height:50%;" (click)="carpTributaria.click()"> Seleccionar</button>
                             <div *ngIf="this.documento_carp_tributaria_deudor == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>
@@ -355,7 +355,7 @@
                         </div>
                         <div class="subir-documento">
                             <input type="file" (change)="upload('CARPETA_TRIBUTARIA_CONYUGE', $event)" accept="application/pdf" #carpTributariaConyuge style="display: none;">
-                            <button style="height:50%;" (click)="carpTributariaConyuge.click()"> Seleccionar.</button>
+                            <button style="height:50%;" (click)="carpTributariaConyuge.click()"> Seleccionar</button>
                             <div *ngIf="this.documento_carp_tributaria_conyuge == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>
@@ -374,7 +374,7 @@
                         </div>
                         <div class="subir-documento">
                             <input type="file" (change)="upload('CERTIFICADO_COTIZACIONES', $event)" accept="application/pdf" #cotizaciones style="display: none;">
-                            <button style="height:50%;" (click)="cotizaciones.click()"> Seleccionar.</button>
+                            <button style="height:50%;" (click)="cotizaciones.click()"> Seleccionar</button>
                             <div *ngIf="this.documento_cotizaciones == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>
@@ -393,7 +393,7 @@
                         </div>
                         <div class="subir-documento">
                             <input type="file" (change)="upload('LIBRETA_MATRIMONIO', $event)" accept="application/pdf" #libretaMatrimonio style="display: none;">
-                            <button style="height:50%;" (click)="libretaMatrimonio.click()"> Seleccionar.</button>
+                            <button style="height:50%;" (click)="libretaMatrimonio.click()"> Seleccionar</button>
                             <div *ngIf="this.documento_libreta_matrimonio == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>
@@ -413,7 +413,7 @@
                         </div>
                         <div class="subir-documento">
                             <input type="file" (change)="upload('DEC_JURADA_SIMPLE_DEUDOR', $event)" accept="application/pdf" #decSimple style="display: none;">
-                            <button style="height:50%;" (click)="decSimple.click()"> Seleccionar.</button>
+                            <button style="height:50%;" (click)="decSimple.click()"> Seleccionar</button>
                             <div *ngIf="this.documento_declaracion_sin_ingresos == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>
@@ -433,7 +433,7 @@
                         </div>
                         <div class="subir-documento">
                             <input type="file" (change)="upload('DEC_JURADA_SIMPLE_CONYUGE', $event)" accept="application/pdf" #decSimpleConyuge style="display: none;">
-                            <button style="height:50%;" (click)="decSimpleConyuge.click()"> Seleccionar.</button>
+                            <button style="height:50%;" (click)="decSimpleConyuge.click()"> Seleccionar</button>
                             <div *ngIf="this.documento_declaracion_sin_ingresos_conyuge == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>
@@ -452,7 +452,7 @@
                         </div>
                         <div class="subir-documento">
                             <input type="file" (change)="upload('FINIQUITO_DEUDOR', $event)" accept="application/pdf" #finiquito style="display: none;">
-                            <button style="height:50%;" (click)="finiquito.click()"> Seleccionar.</button>
+                            <button style="height:50%;" (click)="finiquito.click()"> Seleccionar</button>
                             <div *ngIf="this.documento_finiquito == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>
@@ -471,7 +471,7 @@
                         </div>
                         <div class="subir-documento">
                             <input type="file" (change)="upload('FINIQUITO_CONYUGE', $event)" accept="application/pdf" #finiquitoConyuge style="display: none;">
-                            <button style="height:50%;" (click)="finiquitoConyuge.click()"> Seleccionar.</button>
+                            <button style="height:50%;" (click)="finiquitoConyuge.click()"> Seleccionar</button>
                             <div *ngIf="this.documento_finiquito_conyuge == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>
@@ -490,7 +490,7 @@
                         </div>
                         <div class="subir-documento">
                             <input type="file" (change)="upload('CERT_NACIMIENTO', $event)" accept="application/pdf" #certNacimiento style="display: none;">
-                            <button style="height:50%;" (click)="certNacimiento.click()"> Seleccionar.</button>
+                            <button style="height:50%;" (click)="certNacimiento.click()"> Seleccionar</button>
                             <div *ngIf="this.documento_cert_nacimiento == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>
@@ -509,7 +509,7 @@
                         </div>
                         <div class="subir-documento">
                             <input type="file" (change)="upload('PAGARE_CONYUGE', $event)" accept="application/pdf" #pagareConyuge style="display: none;">
-                            <button style="height:50%;" (click)="pagareConyuge.click()"> Seleccionar.</button>
+                            <button style="height:50%;" (click)="pagareConyuge.click()"> Seleccionar</button>
                             <div *ngIf="this.documento_copia_pagare_conyuge == null" class="miniatura-pdf">
                                 <span>No se ha seleccionado ningún archivo.</span>
                             </div>

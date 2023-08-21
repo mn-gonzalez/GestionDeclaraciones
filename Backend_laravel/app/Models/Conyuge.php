@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Conyuge extends Model
 {
     use HasFactory;
+
+    protected $table = 'conyuge';
 }

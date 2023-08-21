@@ -9,5 +9,7 @@ class Persona extends Model
 {
     use HasFactory;
 
+    protected $table = 'persona';
+
     protected $fillable = ['nombres', 'ap_paterno', 'ap_materno'];
 }

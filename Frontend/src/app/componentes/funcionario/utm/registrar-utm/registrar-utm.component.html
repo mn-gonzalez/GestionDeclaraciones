@@ -3,7 +3,8 @@
 
     <mat-form-field appearance="outline">
         <mat-label>Año</mat-label>
-        <input matInput formControlName="year">
+        <input *ngIf="registrar == true" matInput formControlName="year">
+        <input *ngIf="registrar == false" matInput formControlName="year" readonly>
     </mat-form-field>
 
     <table style="padding-bottom: 5%;">
@@ -63,7 +64,8 @@
       </table> 
 
     <div class="botones">
-        <button mat-raised-button (click)="registrarUTM()">Registrar</button>
-        <button mat-raised-button (click)="cerrar()">Cancelar</button>
+        <button mat-raised-button class="boton" (click)="registrarUTM()" *ngIf="registrar == true">Registrar</button>
+        <button mat-raised-button class="boton" (click)="actualizarUTM()" *ngIf="registrar == false">Actualizar</button>
+        <button mat-raised-button class="boton" (click)="cerrar()">Cancelar</button>
     </div>
 </form>

@@ -18,6 +18,8 @@ import { DeclaracionesEnCorreccionComponent } from './declaraciones/declaracione
 import { DeclaracionesEnRevisionComponent } from './declaraciones/declaraciones-en-revision/declaraciones-en-revision.component';
 import { PostergacionesRevisadasComponent } from './solicitudes/postergaciones-revisadas/postergaciones-revisadas.component';
 import { DevolucionesRevisadasComponent } from './solicitudes/devoluciones-revisadas/devoluciones-revisadas.component';
+import { SharedModule } from 'src/app/shared.module';
+import { ReportesComponent } from './reportes/reportes.component';
 
 @NgModule({
   declarations: [
@@ -36,12 +38,14 @@ import { DevolucionesRevisadasComponent } from './solicitudes/devoluciones-revis
     DeclaracionesEnCorreccionComponent,
     DeclaracionesEnRevisionComponent,
     PostergacionesRevisadasComponent,
-    DevolucionesRevisadasComponent
+    DevolucionesRevisadasComponent,
+    ReportesComponent
   ],
   imports: [
     CommonModule,
     InicioFuncionarioRoutingModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule
   ],
   entryComponents: [
     RegistrarDeudorComponent

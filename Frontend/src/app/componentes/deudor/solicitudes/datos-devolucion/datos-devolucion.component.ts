@@ -4,6 +4,7 @@ import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Revision } from 'src/app/modelos/revision';
 
 @Component({
   selector: 'app-datos-devolucion',
@@ -15,13 +16,32 @@ export class DatosDevolucionComponent implements OnInit {
   devolucion: Devolucion;
   id_devolucion: string;
   funcionario: boolean;
+  datosDevolucion: FormGroup;
   formulario: FormGroup;
+  revision: Revision;
+  comentarios: string = "";
 
   constructor(private auth: InicioSesionService, private solicitudService: SolicitudService, 
     private activatedRoute: ActivatedRoute, private router: Router) { 
 
     this.devolucion = new Devolucion();
     this.funcionario = false;
+
+    this.datosDevolucion = new FormGroup({
+      'id': new FormControl(""),
+      'rut_deudor': new FormControl(""),
+      'nombres': new FormControl(""),
+      'ap_paterno': new FormControl(""),
+      'ap_materno': new FormControl(""),
+      'fecha': new FormControl(""),
+      'domicilio': new FormControl(""),
+      'telefono': new FormControl(""),
+      'correo': new FormControl(""),
+      'tipo_deuda': new FormControl(""),
+      'retiro_oficina': new FormControl(""),
+      'solicitud': new FormControl("")
+    });
+
     this.formulario = new FormGroup({
       'comentarios': new FormControl("")
     });
@@ -37,6 +57,30 @@ export class DatosDevolucionComponent implements OnInit {
     this.solicitudService.obtenerDatosDevolucion(this.id_devolucion).subscribe({
       next: result =>{
         this.devolucion = result;
+        this.datosDevolucion.get('rut_deudor')!.setValue(result.rut_deudor);
+        this.datosDevolucion.get('nombres')!.setValue(result.nombres);
+        this.datosDevolucion.get('ap_paterno')!.setValue(result.ap_paterno);
+        this.datosDevolucion.get('ap_materno')!.setValue(result.ap_materno);
+        this.datosDevolucion.get('domicilio')!.setValue(result.domicilio);
+        this.datosDevolucion.get('correo')!.setValue(result.correo);
+        this.datosDevolucion.get('telefono')!.setValue(result.telefono);
+        this.datosDevolucion.get('tipo_deuda')!.setValue(result.tipo_deuda);
+        this.datosDevolucion.get('solicitud')!.setValue(result.solicitud);
+        this.datosDevolucion.get('retiro_oficina')!.setValue(result.retiro_oficina);
+
+        if(this.devolucion.estado == 3 || this.devolucion.estado == 4){
+          this.obtenerComentariosDevolucion(this.devolucion.id);
+        }
+      }
+    });
+  }
+
+  obtenerComentariosDevolucion(id_devolucion: string){
+    this.solicitudService.obtenerComentariosSolicitud(id_devolucion).subscribe({
+      next: result =>{
+        this.revision = result;
+        this.formulario.get('comentarios')!.setValue(result.comentarios);
+        //this.comentarios = this.revision.comentarios;
       }
     });
   }

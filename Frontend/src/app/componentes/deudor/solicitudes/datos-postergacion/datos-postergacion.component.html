@@ -3,29 +3,42 @@
         <h2>Solicitud de Postergación de Cobro</h2>
     </div>
 
-    <div style="padding-bottom: 3%;">
-        <h3><strong>Antedecentes Personales</strong></h3>
+    <form [formGroup]="datosPostergacion">
         <div>
-            Rut: {{this.postergacion.rut_deudor}}
+            <h3><strong>Antedecentes Personales</strong></h3>
+            <mat-form-field appearance="outline">
+                <mat-label>Rut</mat-label>
+                <input matInput placeholder="Ej. 12345678" formControlName="rut_deudor" readonly>
+            </mat-form-field>
+    
+            <div style="display: flex; column-gap: 10px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombres</mat-label>
+                    <input matInput formControlName="nombres" readonly>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellido Paterno</mat-label>
+                    <input matInput formControlName="ap_paterno" readonly>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellido Materno</mat-label>
+                    <input matInput formControlName="ap_materno" readonly>
+                </mat-form-field>
+            </div>
         </div>
-        <div style="display: flex; column-gap: 5%;">
-            <span>Nombres: {{this.postergacion.nombres}}</span>
-            <span>Apellido Paterno: {{this.postergacion.ap_paterno}}</span>
-            <span>Apellido Materno: {{this.postergacion.ap_materno}}</span>
-        </div>
-    </div>
-
-    <div style="padding-bottom: 3%;">
-        <h3><strong>Motivo</strong></h3>
-        <div style="width: 650px;">
-            <p>{{this.postergacion.motivo}}</p>
-        </div>
-    </div>
-
-    <div style="padding-bottom: 3%;">
+    
         <div>
-            <label><strong>Documentación</strong></label>
+            <h3><strong>Motivo de la Postergación</strong></h3>
+            <mat-form-field appearance="outline" style="width: 65%;">
+                <textarea matInput rows="10" cols="40" placeholder="Ej. Solicito la postergación del cobro de mi crédito para este año, debido a..." formControlName="motivo"></textarea>
+            </mat-form-field>
         </div>
+    </form>
+
+    <div style="padding-bottom: 20px;">
+        <h3><strong>Documentación</strong></h3>
         <div class="subir-documento">
             <input type="file" accept="application/pdf" #fotocopia style="display: none;">
             <div (click)="visualizarPDF()" class="miniatura-pdf">
@@ -35,21 +48,30 @@
         </div>
     </div>
 
-    <div *ngIf="funcionario">
+    <div *ngIf="funcionario && this.postergacion.estado == 1">
         <form [formGroup]="formulario">
-            <h3>Comentarios</h3>
+            <h3><strong>Comentarios</strong></h3>
             <mat-form-field appearance="outline" style="width: 65%;">
                 <textarea matInput rows="5" cols="40" placeholder="Comentarios" formControlName="comentarios"></textarea>
             </mat-form-field>
         </form>
     </div>
 
-    <div class="botones" *ngIf="funcionario">
+    <div class="botones" *ngIf="funcionario && this.postergacion.estado == 1">
         <div>
             <button mat-button (click)="registrarRevision('ACEPTADA')">Aceptar</button>
         </div>
         <div>
             <button mat-button (click)="registrarRevision('RECHAZADA')">Rechazar</button>
         </div>
+    </div>
+
+    <div *ngIf="this.postergacion.estado == 3 || this.postergacion.estado == 4">
+        <form [formGroup]="formulario">
+            <h3><strong>Comentarios</strong></h3>
+            <mat-form-field appearance="outline" style="width: 65%;">
+                <textarea matInput rows="5" cols="40" placeholder="Comentarios" formControlName="comentarios"></textarea>
+            </mat-form-field>
+        </form>
     </div>
 </div>

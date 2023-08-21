@@ -19,22 +19,22 @@
                     </div>
 
                     <mat-form-field appearance="outline">
-                        <mat-label>Rut</mat-label>
+                        <mat-label>RUT</mat-label>
                         <input matInput placeholder="12345678-9" formControlName="rut">
                         <div class="mensaje-error" *ngIf="this.form_ingreso.controls['rut'].errors?.rut_valido">
-                            El rut ingresado no es válido.
+                            El RUT ingresado no es válido.
                         </div>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
                         <mat-label>Contraseña</mat-label>
                         <input matInput [type]="hide ? 'password' : 'text'" placeholder="Contraseña" formControlName="contrasena">
-                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
                     </mat-form-field>
 
-                    <button mat-raised-button class="boton_sesion" (click)="this.ingresando = !this.ingresando" [disabled]="this.form_ingreso.invalid">
+                    <button mat-raised-button class="boton_sesion" type="submit" (click)="this.ingresando = !this.ingresando" [disabled]="this.form_ingreso.invalid">
                         <mat-icon *ngIf="this.ingresando">
                             <mat-spinner color="white" diameter="20"></mat-spinner>
                         </mat-icon>

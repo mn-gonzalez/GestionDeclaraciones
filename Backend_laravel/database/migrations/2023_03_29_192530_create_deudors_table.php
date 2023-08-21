@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('comuna')->nullable();
             $table->string('region')->nullable();
             $table->string('direccion')->nullable();
+            $table->timestamps();
             //foreign keys
             $table->foreign('rut')->references('rut')->on('persona')
             ->onDelete('cascade')->onUpdate('cascade');

@@ -7,6 +7,7 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UTM } from 'src/app/modelos/utm';
 import { MatTableDataSource } from '@angular/material/table';
+import { validarRut } from 'src/app/compartidos/validador-rut.directive';
 
 interface Region{
   nombre: string;
@@ -154,7 +155,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
     });
 
     this.conyuge = new FormGroup({
-      'rut_conyuge': new FormControl(""),
+      'rut_conyuge': new FormControl("", [Validators.pattern('^\\d{8,9}\\-(\\d{1}|k|K)$'), validarRut()]),
       'nombres': new FormControl(""),
       'ap_paterno': new FormControl(""),
       'ap_materno': new FormControl(""),
@@ -348,7 +349,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
         this.ingresosDeudor.get('noviembre_utm')!.setValue(result.noviembre_utm);
         this.ingresosDeudor.get('diciembre_utm')!.setValue(result.diciembre_utm);
 
-        this.seleccionarComunas(this.datosPersonales.get('region')!.value);
+        this.seleccionarComunas(result.region);
 
         if(result.estado_civil == 2){
           this.tieneHijos = true;
@@ -951,7 +952,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
   }
 
   obtenerRevision(){
-    this.declaracionService.obtenerRevision(this.id_declaracion).subscribe({
+    this.declaracionService.obtenerHistorialRevisiones(this.id_declaracion).subscribe({
       next: result =>{
         this.comentarios.setValue(result[0].comentarios);
       }

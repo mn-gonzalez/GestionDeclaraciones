@@ -190,6 +190,15 @@ export class SolicitudService {
     );
   }
 
+  obtenerComentariosSolicitud(id_solicitud: string ){
+    return this.http.get<Revision>(env.api.concat("/solicitudes/"+id_solicitud+"/revision"))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
   /*
     1 - POR REVISAR
     2 - EN REVISION

@@ -26,17 +26,17 @@
 
         <ng-container matColumnDef="anio">
             <th mat-header-cell *matHeaderCellDef> Año </th>
-            <td mat-cell *matCellDef="let element"> {{element.anio}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.year}} </td>
         </ng-container>
       
         <ng-container matColumnDef="total_ingresos">
             <th mat-header-cell *matHeaderCellDef> Total Ingresos</th>
-            <td mat-cell *matCellDef="let element"> {{element.ingreso_total_deudor}} </td>
+            <td mat-cell *matCellDef="let element"> ${{element.ingreso_total_deudor | pesochileno}} </td>
         </ng-container>
       
         <ng-container matColumnDef="total_ingresos_utm">
             <th mat-header-cell *matHeaderCellDef> Total Ingresos UTM </th>
-            <td mat-cell *matCellDef="let element"> {{element.ingreso_total_deudor_utm}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.ingreso_total_deudor_utm | utm}} </td>
         </ng-container>
 
         <ng-container matColumnDef="cuota_preliminar">

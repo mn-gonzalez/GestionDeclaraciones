@@ -12,6 +12,8 @@ class Deudor extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'deudor';
+
     protected $fillable = ['rut', 'nombres', 'ap_paterno', 'ap_materno', 'correo', 'telefono', 
     'contrasena', 'ciudad', 'comuna', 'region', 'direccion'];
 

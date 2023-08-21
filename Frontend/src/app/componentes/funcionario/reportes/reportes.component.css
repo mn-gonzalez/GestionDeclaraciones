@@ -1,0 +1,13 @@
+.fondo{
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+}
+
+.mat-header-cell{
+    text-align: center;
+}
+
+.mat-cell{
+    text-align: center;
+}

@@ -3,10 +3,8 @@
     flex-direction: column; 
     justify-content: center; 
     width:100%; 
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-top: 5%;
-    padding-bottom: 5%;
+    padding: 25px;
+    row-gap: 10px;
 }
 
 .subir-documento{

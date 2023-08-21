@@ -21,7 +21,7 @@ class AuthController extends Controller
 
         $deudor = DB::table('deudor')
             ->join('persona', 'persona.rut', '=', 'deudor.rut')
-            ->where('persona.rut', '=', $data['rut'])
+            ->where('deudor.rut', '=', $data['rut'])
             ->select('persona.rut as rut', 
                 'persona.nombres as nombres', 
                 'persona.ap_paterno as ap_paterno', 
@@ -29,7 +29,7 @@ class AuthController extends Controller
                 'deudor.contrasena as contrasena')->first();
 
         if(!$deudor){
-            return response(['mensaje' => 'El rut ingresado no existe.', 'login' => false]);
+            return response(['mensaje' => 'El RUT ingresado no existe.', 'login' => false]);
         }
         else{
             if(!Hash::check($data['contrasena'], $deudor->contrasena)){
@@ -45,6 +45,8 @@ class AuthController extends Controller
                 'nombre' => $nombre,
                 'token' => $token];
 
+                $request->session()->regenerate();
+
                 return response($response, 200);
             }
         }
@@ -59,7 +61,7 @@ class AuthController extends Controller
 
         $funcionario = DB::table('funcionario')
         ->join('persona', 'persona.rut', '=', 'funcionario.rut')
-        ->where('persona.rut', '=', $data['rut'])
+        ->where('funcionario.rut', '=', $data['rut'])
         ->select('persona.rut as rut', 
                 'persona.nombres as nombres', 
                 'persona.ap_paterno as ap_paterno', 
@@ -67,7 +69,7 @@ class AuthController extends Controller
                 'funcionario.contrasena as contrasena')->first();
 
         if(!$funcionario){
-            return response(['El rut ingresado no existe']);
+            return response(['mensaje' => 'El RUT ingresado no existe.', 'login' => false]);
         }
         else{
             if(!Hash::check($data['contrasena'], $funcionario->contrasena)){
@@ -86,6 +88,18 @@ class AuthController extends Controller
                 return response($response, 200);
             }
         }
+    }
+
+    public function logout(Request $request){
+        $data = $request->validate([
+            'rut' => 'required'
+        ]);
+
+        $deudor = Deudor::where('rut', $data['rut'])->first();
+        $deudor->tokens()->delete();
+        $response = ['logout'=> true];
+
+        return response($response, 200);;
     }
 
 }

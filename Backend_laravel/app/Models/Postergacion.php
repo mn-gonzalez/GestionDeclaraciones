@@ -9,6 +9,8 @@ class Postergacion extends Model
 {
     use HasFactory;
 
+    protected $table = 'postergacion';
+
     protected $fillable = [
         'motivo',
         'archivo' 

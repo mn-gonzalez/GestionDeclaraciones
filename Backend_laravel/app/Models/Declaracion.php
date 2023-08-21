@@ -9,6 +9,8 @@ class Declaracion extends Model
 {
     use HasFactory;
 
+    protected $table = 'declaracion';
+
     protected $fillable = [
         'id',
         'rut_deudor',

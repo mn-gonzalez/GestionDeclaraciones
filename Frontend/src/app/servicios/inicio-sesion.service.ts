@@ -16,6 +16,34 @@ export class InicioSesionService {
   }
 
   ingresar_como_deudor(data: any): Observable<boolean>{
+    this.http.get(env.api.concat('/sanctum/csrf-cookie')).pipe(
+      map(response => {
+        const body = new HttpParams()
+        .set('rut', data.rut)
+        .set('contrasena', data.contrasena)
+
+        return this.http.post<{mensaje: string, rut: string, nombre: string, token: string, login: boolean}>(env.api.concat("/login_deudor"), body)
+        .pipe(
+          map(result => {
+            this.mostrarNotificacion(result.mensaje, "Cerrar");
+            
+            if(result.login == false){
+              return false;
+            }
+            else{
+              localStorage.setItem('access_token', result.token);
+              localStorage.setItem('usuario_actual', data.rut);
+              localStorage.setItem('nombre', result.nombre);
+              localStorage.setItem('tipo_usuario', 'DEUDOR');
+              this.usuario_actual = data.rut;
+              return true;
+            }
+          })
+        );
+
+      })
+    );
+      
     const body = new HttpParams()
     .set('rut', data.rut)
     .set('contrasena', data.contrasena)
@@ -70,11 +98,21 @@ export class InicioSesionService {
   }
 
   logout() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('usuario_actual');
-    localStorage.removeItem('tipo_usuario');
-    localStorage.removeItem('nombre');
-    //llamar al backend de logout
+    const body = new HttpParams()
+    .set('rut', this.obtenerUsuarioActual()!)
+
+    this.http.post<{logout: boolean}>(env.api.concat("/logout"), body)
+    .pipe(
+      map(result => {
+        if(result.logout == true){
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('usuario_actual');
+          localStorage.removeItem('tipo_usuario');
+          localStorage.removeItem('nombre');
+        }
+      })
+    );
+
   }
 
   public isAuthenticated(): boolean {

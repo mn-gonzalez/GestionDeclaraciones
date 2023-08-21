@@ -44,4 +44,8 @@ export class InicioDeudorComponent implements OnInit {
     this.router.navigate(['/home-deudor/postergaciones']);
   }
 
+  cerrarSesion(){
+    this.auth.logout();
+    this.router.navigate(['/']);
+  }
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DeclaracionService } from 'src/app/servicios/declaracion.service';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-registrar-utm',
@@ -10,25 +11,49 @@ import { DeclaracionService } from 'src/app/servicios/declaracion.service';
 })
 export class RegistrarUtmComponent implements OnInit {
   valorUtm: FormGroup;
-  
-  constructor(private declaracionService: DeclaracionService, public dialogRef: MatDialogRef<RegistrarUtmComponent>) {
+  registrar: boolean = true;
 
-    this.valorUtm = new FormGroup({
-      'year': new FormControl(""),
-      'enero': new FormControl(""),
-      'febrero': new FormControl(""),
-      'marzo': new FormControl(""),
-      'abril': new FormControl(""),
-      'mayo': new FormControl(""),
-      'junio': new FormControl(""),
-      'julio': new FormControl(""),
-      'agosto': new FormControl(""),
-      'septiembre': new FormControl(""),
-      'octubre': new FormControl(""),
-      'noviembre': new FormControl(""),
-      'diciembre': new FormControl("")
-    });
-   }
+  constructor(private declaracionService: DeclaracionService, 
+    public dialogRef: MatDialogRef<RegistrarUtmComponent>, @Inject(MAT_DIALOG_DATA) data: any) {
+
+      if(data.registrar == true){
+        this.registrar = true;
+
+        this.valorUtm = new FormGroup({
+          'year': new FormControl(""),
+          'enero': new FormControl(0),
+          'febrero': new FormControl(0),
+          'marzo': new FormControl(0),
+          'abril': new FormControl(0),
+          'mayo': new FormControl(0),
+          'junio': new FormControl(0),
+          'julio': new FormControl(0),
+          'agosto': new FormControl(0),
+          'septiembre': new FormControl(0),
+          'octubre': new FormControl(0),
+          'noviembre': new FormControl(0),
+          'diciembre': new FormControl(0)
+        });
+      }
+      else{
+        this.registrar = false;
+        this.valorUtm = new FormGroup({
+          'year': new FormControl(data.utm.year),
+          'enero': new FormControl(data.utm.enero),
+          'febrero': new FormControl(data.utm.febrero),
+          'marzo': new FormControl(data.utm.marzo),
+          'abril': new FormControl(data.utm.abril),
+          'mayo': new FormControl(data.utm.mayo),
+          'junio': new FormControl(data.utm.junio),
+          'julio': new FormControl(data.utm.julio),
+          'agosto': new FormControl(data.utm.agosto),
+          'septiembre': new FormControl(data.utm.septiembre),
+          'octubre': new FormControl(data.utm.octubre),
+          'noviembre': new FormControl(data.utm.noviembre),
+          'diciembre': new FormControl(data.utm.diciembre)
+        });
+      }
+  }
 
   ngOnInit(): void {
 
@@ -39,6 +64,20 @@ export class RegistrarUtmComponent implements OnInit {
 
     this.declaracionService.registrarUtm(datos).subscribe({
       next: result =>{
+        this.declaracionService.mostrarNotificacion(result, "Cerrar");
+        this.dialogRef.close();
+      }, 
+      error: result =>{
+      }
+    });
+  }
+
+  actualizarUTM(){
+    let datos = this.valorUtm.value;
+
+    this.declaracionService.actualizarUtm(datos).subscribe({
+      next: result =>{
+        this.declaracionService.mostrarNotificacion(result, "Cerrar");
         this.dialogRef.close();
       }, 
       error: result =>{

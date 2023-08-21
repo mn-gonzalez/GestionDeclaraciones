@@ -139,6 +139,7 @@
 }
 
 .miniatura-pdf{
+    cursor: pointer;
     display: flex; 
     align-items: center; 
     height: 100%; 

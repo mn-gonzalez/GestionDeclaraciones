@@ -56,4 +56,12 @@ export class InicioFuncionarioComponent implements OnInit {
     this.router.navigate(['/home-funcionario/funcionario/devoluciones/revisadas']);
   }
 
+  reportes(){
+    this.router.navigate(['/home-funcionario/reportes']);
+  }
+
+  cerrarSesion(){
+    this.auth.logout();
+    this.router.navigate(['/']);
+  }
 }

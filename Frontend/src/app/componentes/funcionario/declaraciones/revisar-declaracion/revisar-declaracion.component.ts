@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup,FormControl, Validators} from '@angular/forms';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
 import { ActivatedRoute, Router } from '@angular/router';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
+import { Revision } from 'src/app/modelos/revision';
 
 interface Region{
   nombre: string;
@@ -29,6 +30,7 @@ interface Afp{
 })
 export class RevisarDeclaracionComponent implements OnInit {
   id_revision: number;
+  revisiones: Revision[] = [];
 
   rut_deudor: string;
   id_declaracion: string;
@@ -206,6 +208,7 @@ export class RevisarDeclaracionComponent implements OnInit {
     this.obtenerRevision();
     this.obtenerDatosDeclaracion(); 
     this.obtenerDocumentacionDeclaracion();
+    this.obtenerHistorialRevisiones();
   }
 
   obtenerDatosDeclaracion(){
@@ -475,7 +478,19 @@ export class RevisarDeclaracionComponent implements OnInit {
     this.declaracionService.obtenerRevisionTramite(rut_funcionario, this.id_declaracion).subscribe({
       next: result =>{
         this.id_revision = result.id;
-        console.log("el id de la revision es: "+this.id_revision);
+      }
+    });
+  }
+
+  obtenerHistorialRevisiones(){
+    this.declaracionService.obtenerHistorialRevisiones(this.id_declaracion).subscribe({
+      next: result =>{
+        result.forEach(revision =>{
+          if(revision.estado != "EN REVISION"){
+            this.revisiones.push(revision);
+          }
+        });
+        //this.revisiones = result;
       }
     });
   }

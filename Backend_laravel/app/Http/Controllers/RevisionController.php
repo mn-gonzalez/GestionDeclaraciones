@@ -32,13 +32,22 @@ class RevisionController extends Controller
     }
 
 
-    public function obtener_revisiones(Request $request, $id_declaracion)
+    public function obtener_revisiones_declaracion(Request $request, $id_declaracion)
     {
         $revisiones = DB::table('revision')
             ->where('revision.ref_tramite', '=', $id_declaracion)
             ->get();
 
         return response()->json($revisiones);
+    }
+
+    public function obtener_revision_solicitudes(Request $request, $id_solicitud)
+    {
+        $revision = DB::table('revision')
+            ->where('revision.ref_tramite', '=', $id_solicitud)
+            ->first();
+
+        return response()->json($revision);
     }
 
     public function actualizar_revision(Request $request, $id_revision){

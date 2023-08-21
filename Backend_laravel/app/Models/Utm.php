@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Utm extends Model
 {
     use HasFactory;
+
+    protected $table = 'utm';
 }

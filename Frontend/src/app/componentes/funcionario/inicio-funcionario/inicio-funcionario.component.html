@@ -1,11 +1,12 @@
 <mat-toolbar class="toolbar">
     <div class="logo">
-        <img style="height: 90%;" src="../../../assets/imagenes/logo_blanco.svg">
+        <img style="height: 90%; padding-right: 10px;" src="../../../assets/imagenes/logo_blanco.svg">
         <p style="font-size: 12px; line-height: 1.2;">Departamento de Apoyo<br> Financiero al Estudiante</p>
     </div>
 
     <div class="usuario">
-        <p style="font-size: 12px;">Bienvenido/a: {{this.nombre}}</p>
+        <p style="font-size: 12px; margin-bottom: 0;">Bienvenido/a: {{this.nombre}}</p>
+        <button style="align-self: flex-end;" (click)="cerrarSesion()">Cerrar Sesión</button>
         <!-- <img style="height: 70%; padding-left: 5px;" src="../../../assets/imagenes/usuario.png"> -->
     </div>
 </mat-toolbar>
@@ -26,8 +27,10 @@
             <a class="nav-list" (click)="listarPostergacionesSinRevisar()" mat-list-item> Postergaciones de Cobro Sin Revisar</a>
             <a class="nav-list" (click)="listarPostergacionesRevisadas()" mat-list-item> Postergaciones de Cobro Revisadas</a>
             <mat-divider></mat-divider>
-            <a class="nav-list"(click)="listarDevolucionesSinRevisar()"  mat-list-item> Devoluciones/Copia de Pagarés Sin Revisar</a>
-            <a class="nav-list"(click)="listarDevolucionesRevisadas()"  mat-list-item> Devoluciones/Copia de Pagarés Revisadas</a>
+            <a class="nav-list"(click)="listarDevolucionesSinRevisar()"  mat-list-item> Solicitudes de Pagarés Sin Revisar</a>
+            <a class="nav-list"(click)="listarDevolucionesRevisadas()"  mat-list-item> Solicitudes de Pagarés Revisadas</a>
+            <mat-divider></mat-divider>
+            <a class="nav-list"(click)="reportes()"  mat-list-item> Reportes</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-content">

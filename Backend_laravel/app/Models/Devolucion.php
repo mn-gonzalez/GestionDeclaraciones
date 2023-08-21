@@ -9,6 +9,8 @@ class Devolucion extends Model
 {
     use HasFactory;
 
+    protected $table = 'devolucion';
+
     protected $fillable = [
         'correo',
         'telefono',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Deudor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class DeudorController extends Controller
 {
@@ -56,7 +57,10 @@ class DeudorController extends Controller
             'nombres' => $data['nombres'],
             'ap_paterno' =>$data['ap_paterno'],
             'ap_materno' => $data['ap_materno'],
-            'correo'=> $data['correo']
+            'correo'=> $data['correo'],
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+
         ]);
 
         DB::table('deudor')->insert([
@@ -66,7 +70,9 @@ class DeudorController extends Controller
             'ciudad' => $data['ciudad'],
             'comuna' => $data['comuna'],
             'region' => $data['region'],
-            'direccion' => $data['direccion']
+            'direccion' => $data['direccion'],
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ]);
 
         $deudor = new Deudor($data);
@@ -88,48 +94,59 @@ class DeudorController extends Controller
         return response($response, 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Deudor  $deudor
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Deudor $deudor)
+    public function obtener_datos_completos(string $rut_deudor)
     {
-        //
+        $usuario = DB::table('persona')
+        ->join('deudor', 'deudor.rut', '=', 'persona.rut')
+        ->where('persona.rut', $rut_deudor)
+        ->select('persona.*','deudor.*')
+        ->first();
+
+        $response = [
+            'rut' => $usuario->rut,
+            'nombres' => $usuario->nombres,
+            'ap_paterno' => $usuario->ap_paterno,
+            'ap_materno' => $usuario->ap_materno,
+            'correo' => $usuario->correo,
+            'telefono' => $usuario->telefono,
+            'direccion' => $usuario->direccion,
+            'ciudad' =>$usuario->ciudad,
+            'comuna' =>$usuario->comuna,
+            'region' =>$usuario->region
+
+        ];
+
+        return response($response, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Deudor  $deudor
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Deudor $deudor)
+     public function actualizar_datos(Request $request, $rut_deudor)
     {
-        //
-    }
+        $data = $request->validate([
+            'correo' => 'nullable',
+            'telefono' => 'nullable',
+            'ciudad' => 'nullable',
+            'comuna' => 'nullable',
+            'region' => 'nullable',
+            'direccion' => 'nullable'
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Deudor  $deudor
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Deudor $deudor)
-    {
-        //
-    }
+        DB::table('persona')
+        ->where('persona.rut', '=', $rut_deudor)
+        ->update([
+            'correo'=> $data['correo']
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Deudor  $deudor
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Deudor $deudor)
-    {
-        //
+        DB::table('deudor')
+        ->where('deudor.rut', '=', $rut_deudor)
+        ->update([
+            'telefono' => $data['telefono'],
+            'ciudad' => $data['ciudad'],
+            'comuna' => $data['comuna'],
+            'region' => $data['region'],
+            'direccion' => $data['direccion']
+        ]);
+
+        $response = ['mensaje' => 'Los datos se han actualizado correctamente'];
+        return response($response, 200);
     }
 }

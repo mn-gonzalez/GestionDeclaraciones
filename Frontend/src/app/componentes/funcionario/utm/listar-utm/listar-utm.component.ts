@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { UTM } from 'src/app/modelos/utm';
@@ -40,15 +40,36 @@ export class ListarUtmComponent implements OnInit {
   }
 
   menuRegistrarUTM(){
-    const dialogRef = this.dialog.open(RegistrarUtmComponent);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+        registrar: true
+    };
+
+    const dialogRef = this.dialog.open(RegistrarUtmComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       this.obtenerUtm();
     });
   }
 
-  menuEditarUTM(){
-    
+  menuEditarUTM(utm: UTM){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+        registrar: false,
+        utm
+    };
+
+    const dialogRef = this.dialog.open(RegistrarUtmComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.obtenerUtm();
+    });
   }
 
   applyFilter(event: Event) {

@@ -13,7 +13,7 @@ import { MensajesComponent } from './mensajes/mensajes.component';
 import { MenuDeclaracionComponent } from './declaraciones/menu-declaracion/menu-declaracion.component';
 import { DatosDevolucionComponent } from './solicitudes/datos-devolucion/datos-devolucion.component';
 import { DatosPostergacionComponent } from './solicitudes/datos-postergacion/datos-postergacion.component';
-import { PesoChilenoPipe } from 'src/app/compartidos/peso-chileno.pipe';
+import { SharedModule } from 'src/app/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,13 +27,13 @@ import { PesoChilenoPipe } from 'src/app/compartidos/peso-chileno.pipe';
     MensajesComponent,
     MenuDeclaracionComponent,
     DatosDevolucionComponent,
-    DatosPostergacionComponent,
-    PesoChilenoPipe
+    DatosPostergacionComponent
   ],
   imports: [
     CommonModule,
     InicioDeudorRoutingModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule
   ],
   entryComponents: [
 

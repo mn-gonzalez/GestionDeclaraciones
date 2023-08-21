@@ -12,6 +12,7 @@ use App\Http\Controllers\RevisionController;
 use App\Http\Controllers\DevolucionController;
 use App\Http\Controllers\PostergacionController;
 use App\Http\Controllers\UtmController;
+use App\Http\Controllers\ReportesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +29,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Inicio de sesion
-Route::post('/login_deudor', [AuthController::class, 'login_deudor']);
-Route::post('/login_funcionario', [AuthController::class, 'login_funcionario']);
+
+Route::group(['middleware' => ['api']], function () {
+    Route::post('/login_deudor', [AuthController::class, 'login_deudor']);
+    Route::post('/login_funcionario', [AuthController::class, 'login_funcionario']);
+});
+
+Route::post('/logout', [AuthController::class, 'logout']);
 
 /*
     Api accesible para funcionarios
@@ -95,6 +100,8 @@ Route::get('{rut_deudor}/declaraciones/{id_declaracion}/DECLARACION_FIRMADA',[Do
 
 //Datos deudor
 Route::get('deudor/{rut_deudor}',[DeudorController::class, 'obtener_datos']);
+Route::get('deudor/{rut_deudor}/informacion',[DeudorController::class, 'obtener_datos_completos']);
+Route::put('deudor/{rut_deudor}/actualizarDatos',[DeudorController::class, 'actualizar_datos']);
 
 //generar pdf de una declaracion
 Route::get('{rut_deudor}/declaraciones/{id_declaracion}/generarPdf', [DeclaracionController::class, 'generarPdfDeclaracion']);
@@ -104,7 +111,8 @@ Route::get('{rut_deudor}/declaraciones/{id_declaracion}/formularioPDF', [Declara
 
 //revisiones
 Route::post('revisiones/registrar',[RevisionController::class, 'registrar_revision']);
-Route::get('revisiones/{id_declaracion}',[RevisionController::class, 'obtener_revisiones']);
+Route::get('revisiones/{id_declaracion}',[RevisionController::class, 'obtener_revisiones_declaracion']);
+Route::get('solicitudes/{id_solicitud}/revision',[RevisionController::class, 'obtener_revision_solicitudes']);
 Route::put('revisiones/actualizar/{id_revision}',[RevisionController::class, 'actualizar_revision']);
 Route::put('{rut_deudor}/solicitudes/{id_solicitud}/actualizarEstado', [DeclaracionController::class, 'actualizar_estado']);
 Route::get('{rut_funcionario}/revisiones/{id_declaracion}',[RevisionController::class, 'obtener_revision_por_funcionario']);
@@ -122,3 +130,9 @@ Route::get('{rut_deudor}/postergaciones',[PostergacionController::class, 'obtene
 Route::get('postergaciones/sinRevisar',[PostergacionController::class, 'postergaciones_sin_revisar']);
 Route::get('postergaciones/{id_postergacion}',[PostergacionController::class, 'datos_postergacion']);
 Route::get('postergaciones/revisadas/{rut_funcionario}',[PostergacionController::class, 'postergaciones_revisadas']);
+
+//Reportes
+Route::get('reportes/deudores/declaraciones/sinEntregar/{year}',[ReportesController::class, 'deudores_con_declaraciones_sin_entregar']);
+Route::get('reportes/deudores/declaraciones/finalizadas/{year}',[ReportesController::class, 'deudores_con_declaraciones_entregadas']);
+Route::get('reportes/deudores/declaraciones/conErrores/{year}',[ReportesController::class, 'deudores_con_declaraciones_con_problemas']);
+Route::get('reportes/deudores/conPostergacion/{year}',[ReportesController::class, 'deudores_con_postergacion']);

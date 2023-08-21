@@ -17,6 +17,15 @@ export class UsuarioService {
 
   }
 
+  obtenerDatosCompletosDeudor(rut: string): Observable<Deudor>{
+    return this.http.get<Deudor>(env.api.concat("/deudor/"+rut+"/informacion"))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
   obtenerDeudores(): Observable<Deudor[]>{
     return this.http.get<Deudor[]>(env.api.concat("/deudores"))
     .pipe(
@@ -84,10 +93,23 @@ export class UsuarioService {
     });
   }
 
-  validarRut(rut: string){
-    let aux_rut = rut.split('-');
-    let verificador;
+  actualizarDatosDeudor(datosDeudor: any, rut_deudor: string){
+    const body = new HttpParams()
+    .set('nombres', datosDeudor.nombres)
+    .set('ap_paterno', datosDeudor.ap_paterno)
+    .set('ap_materno', datosDeudor.ap_materno)
+    .set('correo', datosDeudor.correo)
+    .set('telefono', datosDeudor.telefono)
+    .set('ciudad', datosDeudor.ciudad)
+    .set('comuna', datosDeudor.comuna)
+    .set('region', datosDeudor.region)
+    .set('direccion', datosDeudor.direccion)
 
-    let valores = [2, 3, 4, 5, 6, 7];
+    return this.http.put<{ mensaje: string}>(env.api.concat("/deudor/"+rut_deudor+"/actualizarDatos"), body)
+    .pipe(
+      map(result => {
+        return result.mensaje;
+      })
+    );
   }
 }

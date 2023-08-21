@@ -103,17 +103,6 @@ class DevolucionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Devolucion  $devolucion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Devolucion $devolucion)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
