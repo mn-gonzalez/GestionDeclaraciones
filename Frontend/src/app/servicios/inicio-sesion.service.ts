@@ -4,6 +4,8 @@ import { environment as env } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Observable } from "rxjs";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginDTO } from '../modelos/DTO/loginDTO';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -11,44 +13,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class InicioSesionService {
   usuario_actual: string;
 
-  constructor(private http: HttpClient, private notificacion: MatSnackBar) { 
+  constructor(private http: HttpClient, private notificacion: MatSnackBar, private jwtHelper:JwtHelperService) { 
 
   }
 
   ingresar_como_deudor(data: any): Observable<boolean>{
-    this.http.get(env.api.concat('/sanctum/csrf-cookie')).pipe(
-      map(response => {
-        const body = new HttpParams()
-        .set('rut', data.rut)
-        .set('contrasena', data.contrasena)
-
-        return this.http.post<{mensaje: string, rut: string, nombre: string, token: string, login: boolean}>(env.api.concat("/login_deudor"), body)
-        .pipe(
-          map(result => {
-            this.mostrarNotificacion(result.mensaje, "Cerrar");
-            
-            if(result.login == false){
-              return false;
-            }
-            else{
-              localStorage.setItem('access_token', result.token);
-              localStorage.setItem('usuario_actual', data.rut);
-              localStorage.setItem('nombre', result.nombre);
-              localStorage.setItem('tipo_usuario', 'DEUDOR');
-              this.usuario_actual = data.rut;
-              return true;
-            }
-          })
-        );
-
-      })
-    );
-      
     const body = new HttpParams()
     .set('rut', data.rut)
     .set('contrasena', data.contrasena)
 
-    return this.http.post<{mensaje: string, rut: string, nombre: string, token: string, login: boolean}>(env.api.concat("/login_deudor"), body)
+    return this.http.post<LoginDTO>(env.api.concat("/login_deudor"), body)
     .pipe(
       map(result => {
         this.mostrarNotificacion(result.mensaje, "Cerrar");
@@ -57,9 +31,11 @@ export class InicioSesionService {
           return false;
         }
         else{
-          localStorage.setItem('access_token', result.token);
-          localStorage.setItem('usuario_actual', data.rut);
-          localStorage.setItem('nombre', result.nombre);
+          let nombre = result.usuario.nombres +" "+ result.usuario.ap_paterno +" "+ result.usuario.ap_materno;
+              
+          localStorage.setItem('access_token', result.access_token);
+          localStorage.setItem('usuario_actual', result.usuario.rut);
+          localStorage.setItem('nombre', nombre);
           localStorage.setItem('tipo_usuario', 'DEUDOR');
           this.usuario_actual = data.rut;
           return true;
@@ -73,7 +49,7 @@ export class InicioSesionService {
     .set('rut', data.rut)
     .set('contrasena', data.contrasena)
 
-    return this.http.post<{mensaje: string, rut: string, nombre: string, token: string, login: boolean}>(env.api.concat("/login_funcionario"), body)
+    return this.http.post<LoginDTO>(env.api.concat("/login_funcionario"), body)
     .pipe(
       map(result => {
         this.mostrarNotificacion(result.mensaje, "Cerrar");
@@ -82,9 +58,11 @@ export class InicioSesionService {
           return false;
         }
         else{
-          localStorage.setItem('access_token', result.token);
-          localStorage.setItem('usuario_actual', data.rut);
-          localStorage.setItem('nombre', result.nombre);
+          let nombre = result.usuario.nombres +" "+ result.usuario.ap_paterno +" "+ result.usuario.ap_materno;
+              
+          localStorage.setItem('access_token', result.access_token);
+          localStorage.setItem('usuario_actual', result.usuario.rut);
+          localStorage.setItem('nombre', nombre);
           localStorage.setItem('tipo_usuario', 'FUNCIONARIO');
           this.usuario_actual = data.rut;
           return true;
@@ -97,32 +75,29 @@ export class InicioSesionService {
     return localStorage.getItem('access_token');
   }
 
-  logout() {
+  logout(){
     const body = new HttpParams()
-    .set('rut', this.obtenerUsuarioActual()!)
+    .set('rut', localStorage.getItem('usuario_actual')!)
+
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('usuario_actual');
+    localStorage.removeItem('tipo_usuario');
+    localStorage.removeItem('nombre');
 
     this.http.post<{logout: boolean}>(env.api.concat("/logout"), body)
     .pipe(
       map(result => {
-        if(result.logout == true){
-          localStorage.removeItem('access_token');
-          localStorage.removeItem('usuario_actual');
-          localStorage.removeItem('tipo_usuario');
-          localStorage.removeItem('nombre');
-        }
+        console.log(result);
       })
     );
 
+    return true;
   }
 
   public isAuthenticated(): boolean {
-    const token = localStorage.getItem('access_token');
-    if(token != null){
-      return true;
-    }
-    else{
-      return false;
-    }
+    const token = localStorage.getItem('access_token')!;
+
+    return !this.jwtHelper.isTokenExpired(token);
   }
 
   public obtenerUsuarioActual(){

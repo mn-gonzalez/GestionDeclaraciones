@@ -6,9 +6,16 @@ use App\Models\Deudor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Exception;
 
 class DeudorController extends Controller
 {
+
+    public function __construct() 
+    {
+        $this->middleware('auth:api', ['except' => ['registrar']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -47,37 +54,46 @@ class DeudorController extends Controller
             'ciudad' => 'nullable',
             'comuna' => 'nullable',
             'region' => 'nullable',
-            'direccion' => 'nullable'
+            'direccion' => 'nullable',
+            'inicio_cobro' => 'required'
         ]);
 
         $data['contrasena'] = bcrypt($request->contrasena);
 
-        DB::table('persona')->insert([
-            'rut'=> $data['rut'],
-            'nombres' => $data['nombres'],
-            'ap_paterno' =>$data['ap_paterno'],
-            'ap_materno' => $data['ap_materno'],
-            'correo'=> $data['correo'],
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+        DB::beginTransaction();
 
-        ]);
+        try{
+            DB::table('persona')->insert([
+                'rut'=> $data['rut'],
+                'nombres' => $data['nombres'],
+                'ap_paterno' =>$data['ap_paterno'],
+                'ap_materno' => $data['ap_materno'],
+                'contrasena' => $data['contrasena'],
+                'correo'=> $data['correo'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+    
+            DB::table('deudor')->insert([
+                'rut' => $data['rut'],
+                'telefono' => $data['telefono'],
+                'ciudad' => $data['ciudad'],
+                'comuna' => $data['comuna'],
+                'region' => $data['region'],
+                'direccion' => $data['direccion'],
+                'inicio_cobro' => $data['inicio_cobro'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+        } catch (Exception $e){
+            DB::rollBack();
+            $response = ['mensaje' => 'Ha ocurrido un error al intentar registrar el nuevo deudor', $e];
+            return response($response, 500);
+        }
 
-        DB::table('deudor')->insert([
-            'rut' => $data['rut'],
-            'telefono' => $data['telefono'],
-            'contrasena' => $data['contrasena'],
-            'ciudad' => $data['ciudad'],
-            'comuna' => $data['comuna'],
-            'region' => $data['region'],
-            'direccion' => $data['direccion'],
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
+        DB::commit();
 
-        $deudor = new Deudor($data);
-        $token = $deudor->createToken('auth_token')->plainTextToken;
-        $response = ['mensaje' => 'El deudor se ha registrado correctamente', 'token' => $token];
+        $response = ['mensaje' => 'El deudor se ha registrado correctamente'];
         return response($response, 200);
     }
 
@@ -110,10 +126,10 @@ class DeudorController extends Controller
             'correo' => $usuario->correo,
             'telefono' => $usuario->telefono,
             'direccion' => $usuario->direccion,
-            'ciudad' =>$usuario->ciudad,
-            'comuna' =>$usuario->comuna,
-            'region' =>$usuario->region
-
+            'ciudad' => $usuario->ciudad,
+            'comuna' => $usuario->comuna,
+            'region' => $usuario->region,
+            'inicio_cobro' => $usuario->inicio_cobro
         ];
 
         return response($response, 200);

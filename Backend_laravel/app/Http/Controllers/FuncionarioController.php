@@ -28,12 +28,12 @@ class FuncionarioController extends Controller
             'nombres' => $data['nombres'],
             'ap_paterno' =>$data['ap_paterno'],
             'ap_materno' => $data['ap_materno'],
+            'contrasena' =>$data['contrasena'],
             'correo'=> $data['correo']
         ]);
 
         DB::table('funcionario')->insert([
             'rut'=> $data['rut'],
-            'contrasena' =>$data['contrasena'],
             'tipo_usuario' => $data['tipo_usuario']
         ]);
 

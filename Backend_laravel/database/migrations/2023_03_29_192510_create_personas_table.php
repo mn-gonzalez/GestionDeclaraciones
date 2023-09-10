@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nombres');
             $table->string('ap_paterno');
             $table->string('ap_materno');
+            $table->string('contrasena');
             $table->string('correo')->nullable();
             $table->timestamps();
         });

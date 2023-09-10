@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('funcionario', function (Blueprint $table) {
             $table->string('rut');
-            $table->string('contrasena');
             $table->string('tipo_usuario');
             $table->timestamps();
             //foreign keys

@@ -13,9 +13,18 @@ class Funcionario extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'funcionario';
-
-    protected $fillable = ['rut', 'nombres', 'ap_paterno', 'ap_materno', 'correo', 
-    'contrasena', 'tipo_usuario'];
-
     protected $primaryKey = 'rut';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'rut', 
+        'nombres', 
+        'ap_paterno', 
+        'ap_materno', 
+        'correo', 
+        'tipo_usuario',
+        'created_at',
+        'updated_at'
+    ];
 }

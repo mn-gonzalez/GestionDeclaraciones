@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('deudor', function (Blueprint $table) {
             $table->string('rut');
             $table->string('telefono')->nullable();
-            $table->string('contrasena');
             $table->string('ciudad')->nullable();
             $table->string('comuna')->nullable();
             $table->string('region')->nullable();
             $table->string('direccion')->nullable();
+            $table->integer('inicio_cobro');
             $table->timestamps();
             //foreign keys
             $table->foreign('rut')->references('rut')->on('persona')

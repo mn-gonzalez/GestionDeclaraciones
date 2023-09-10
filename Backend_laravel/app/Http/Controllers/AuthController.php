@@ -6,48 +6,67 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Deudor;
+use App\Models\Persona;
 use App\Models\Funcionario;
+use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class AuthController extends Controller
 {
+    public function __construct() 
+    {
+        $this->middleware(
+            'auth:api', 
+            [
+                'except' => ['login_deudor', 'login_funcionario']
+            ]
+        );
+    }
+
     public function login_deudor(Request $request)
     {
-        $data = $request->validate([
-            'rut' => 'required',
-            'contrasena' => 'required'
-        ]);
+        $data = $request->validate(
+            [
+                'rut' => 'required',
+                'contrasena' => 'required'
+            ]
+        );
 
         //$data['contrasena'] = bcrypt($request->contrasena);
 
         $deudor = DB::table('deudor')
             ->join('persona', 'persona.rut', '=', 'deudor.rut')
             ->where('deudor.rut', '=', $data['rut'])
-            ->select('persona.rut as rut', 
+            ->select(
+                'persona.rut as rut', 
                 'persona.nombres as nombres', 
                 'persona.ap_paterno as ap_paterno', 
                 'persona.ap_materno as ap_materno',
-                'deudor.contrasena as contrasena')->first();
+                'persona.contrasena as contrasena'
+            )->first();
 
-        if(!$deudor){
+        if (!$deudor) {
             return response(['mensaje' => 'El RUT ingresado no existe.', 'login' => false]);
-        }
-        else{
-            if(!Hash::check($data['contrasena'], $deudor->contrasena)){
+        } else {
+            if (!Hash::check($data['contrasena'], $deudor->contrasena)) {
                 return response(['mensaje' => 'La contraseña no es correcta.', 'login' => false]);
-            }
-            else{
-                $usuario = new Deudor($data);
-                $nombre = $deudor->nombres.' '.$deudor->ap_paterno.' '.$deudor->ap_materno;
+            } else {
+                $validator = Validator::make(
+                    $request->all(), [
+                    'rut' => 'required',
+                    'contrasena' => 'required'
+                    ]
+                );
 
-                $token = $usuario->createToken('auth_token')->plainTextToken;
-                $response = ['mensaje'=>'Inicio de sesión exitoso.', 
-                'rut_usuario' => $data['rut'], 
-                'nombre' => $nombre,
-                'token' => $token];
+                if ($validator->fails()) {
+                    return response()->json($validator->errors(), 422);
+                }
 
-                $request->session()->regenerate();
-
-                return response($response, 200);
+                if (! $token = auth()->attempt(['rut' => $data['rut'], 'password' => $data['contrasena']])) {
+                    return response()->json(['error' => 'Unauthorized'], 401);
+                }
+                return $this->createNewToken($token);
+                //return response($response, 200);
             }
         }
     }
@@ -66,7 +85,7 @@ class AuthController extends Controller
                 'persona.nombres as nombres', 
                 'persona.ap_paterno as ap_paterno', 
                 'persona.ap_materno as ap_materno',
-                'funcionario.contrasena as contrasena')->first();
+                'persona.contrasena as contrasena')->first();
 
         if(!$funcionario){
             return response(['mensaje' => 'El RUT ingresado no existe.', 'login' => false]);
@@ -76,22 +95,28 @@ class AuthController extends Controller
                 return response(['mensaje' => 'La contraseña no es correcta', 'login' => false]);
             }
             else{
-                $usuario = new Funcionario($data);
-                $nombre = $funcionario->nombres.' '.$funcionario->ap_paterno.' '.$funcionario->ap_materno;
+                $validator = Validator::make(
+                    $request->all(), [
+                    'rut' => 'required',
+                    'contrasena' => 'required'
+                    ]
+                );
 
-                $token = $usuario->createToken('auth_token')->plainTextToken;
-                $response = ['mensaje'=>'Inicio de sesion exitoso', 
-                'rut_usuario' => $data['rut'],
-                'nombre' => $nombre,
-                'token' => $token];
+                if ($validator->fails()) {
+                    return response()->json($validator->errors(), 422);
+                }
 
-                return response($response, 200);
+                if (! $token = auth()->attempt(['rut' => $data['rut'], 'password' => $data['contrasena']])) {
+                    return response()->json(['error' => 'Unauthorized'], 401);
+                }
+                return $this->createNewToken($token);
             }
         }
     }
 
-    public function logout(Request $request){
-        $data = $request->validate([
+    public function logout(Request $request)
+    {
+        /* $data = $request->validate([
             'rut' => 'required'
         ]);
 
@@ -99,8 +124,51 @@ class AuthController extends Controller
         $deudor->tokens()->delete();
         $response = ['logout'=> true];
 
-        return response($response, 200);;
+        return response($response, 200); */
+
+        auth()->logout();
+        return response()->json(['mensaje' => 'User successfully signed out']);
     }
 
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function createNewToken($token) 
+    {
+        return response()->json(
+            [
+                'login' => true,
+                'mensaje' => 'Inicio de sesion exitoso',
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => auth()->factory()->getTTL() * 60,
+                'usuario' => auth()->user()
+            ]
+        );
+    }
+
+    /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function userProfile() 
+    {
+        return response()->json(auth()->user());
+    }
+
+    /**
+     * Refresh a token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh() 
+    {
+        return $this->createNewToken(auth()->refresh());
+    }
 }
 
