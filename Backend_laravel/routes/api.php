@@ -60,6 +60,7 @@ Route::group(['middleware' => ['api']], function() {
     Route::get('/utm', [UtmController::class, 'listado_utm']);
     Route::put('/utm/{year}/actualizar', [UtmController::class, 'actualizar_datos_utm']);
     Route::get('/utm/{year}', [UtmController::class, 'datos_utm']);
+    Route::post('/utm/auto-registrar', [UtmController::class, 'registrar_utm_auto']);
 
 
     /*

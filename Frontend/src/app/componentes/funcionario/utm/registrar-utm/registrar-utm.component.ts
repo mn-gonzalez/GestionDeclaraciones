@@ -12,6 +12,7 @@ import { Inject } from '@angular/core';
 export class RegistrarUtmComponent implements OnInit {
   valorUtm: FormGroup;
   registrar: boolean = true;
+  manual: boolean = false;
 
   constructor(private declaracionService: DeclaracionService, 
     public dialogRef: MatDialogRef<RegistrarUtmComponent>, @Inject(MAT_DIALOG_DATA) data: any) {
@@ -37,6 +38,8 @@ export class RegistrarUtmComponent implements OnInit {
       }
       else{
         this.registrar = false;
+        this.manual = true;
+
         this.valorUtm = new FormGroup({
           'year': new FormControl(data.utm.year),
           'enero': new FormControl(data.utm.enero),
@@ -62,14 +65,27 @@ export class RegistrarUtmComponent implements OnInit {
   registrarUTM(){
     let datos = this.valorUtm.value;
 
-    this.declaracionService.registrarUtm(datos).subscribe({
-      next: result =>{
-        this.declaracionService.mostrarNotificacion(result, "Cerrar");
-        this.dialogRef.close();
-      }, 
-      error: result =>{
-      }
-    });
+    if(this.manual == true){
+      this.declaracionService.registrarUtm(datos).subscribe({
+        next: result =>{
+          this.declaracionService.mostrarNotificacion(result, "Cerrar");
+          this.dialogRef.close();
+        }, 
+        error: result =>{
+        }
+      });
+    }
+    else{
+      this.declaracionService.registrarUtmAutomatico(datos.year).subscribe({
+        next: result =>{
+          this.declaracionService.mostrarNotificacion(result, "Cerrar");
+          this.dialogRef.close();
+        }, 
+        error: result =>{
+        }
+      });
+    }
+    
   }
 
   actualizarUTM(){
@@ -88,5 +104,4 @@ export class RegistrarUtmComponent implements OnInit {
   cerrar(){
     this.dialogRef.close();
   }
-
 }

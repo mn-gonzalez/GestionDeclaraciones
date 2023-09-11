@@ -27,6 +27,7 @@ return new class extends Migration
             $table->integer('octubre');
             $table->integer('noviembre');
             $table->integer('diciembre');
+            $table->timestamps();
         });
     }
 

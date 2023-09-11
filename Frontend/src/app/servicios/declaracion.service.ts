@@ -465,6 +465,18 @@ export class DeclaracionService {
     );
   }
 
+  registrarUtmAutomatico(year: number){
+    const body = new HttpParams()
+    .set('year', year)
+
+    return this.http.post<{ error: boolean, mensaje: string}>(env.api.concat("/utm/auto-registrar"), body)
+    .pipe(
+      map(result => {
+        return result.mensaje;
+      })
+    );
+  }
+
   actualizarUtm(datosUtm: UTM){
     const body = new HttpParams()
     .set('year', datosUtm.year)

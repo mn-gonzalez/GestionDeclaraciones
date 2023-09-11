@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('fecha');
             $table->text('comentarios')->nullable();
             $table->string('estado');
+            $table->timestamps();
             $table->foreign('ref_tramite')->references('id')->on('tramite')
             ->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('ref_funcionario')->references('rut')->on('persona')

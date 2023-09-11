@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('ap_materno');
             $table->date('fecha');
             $table->tinyInteger('estado');
+            $table->timestamps();
             //foreign keys
             $table->foreign('rut_deudor')->references('rut')->on('deudor');
         });

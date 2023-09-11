@@ -221,7 +221,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
       this.obtenerValorUTM();
       this.rut_deudor = this.auth.obtenerUsuarioActual()!;
       this.id_declaracion = "DEC"+this.rut_deudor.split('-')[0]+"_"+this.year;
-      //this.obtenerDatosDeclaracion();
+      this.obtenerDatosDeclaracion();
       this.verificarEstadoDeclaracion();
       this.obtenerDatosDeudor();
     }
