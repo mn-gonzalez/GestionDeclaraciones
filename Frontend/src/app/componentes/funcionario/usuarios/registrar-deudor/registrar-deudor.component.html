@@ -23,6 +23,17 @@
         <input matInput formControlName="ap_materno">
     </mat-form-field>
 
+    <mat-form-field appearance="outline">
+        <mat-label>Año de inicio de cobro</mat-label>
+            <mat-select formControlName="inicio_cobro" required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let year of this.years" [value]="year">
+                    {{year}}
+                </mat-option>
+            </mat-select>
+        <mat-error *ngIf="this.datosDeudor.controls['inicio_cobro'].hasError('required')">Por favor seleccione un año</mat-error>
+    </mat-form-field>
+
     <div class="botones">
         <button mat-raised-button (click)="registrarDeudor()" [disabled]="this.datosDeudor.invalid">Registrar</button>
         <button mat-raised-button (click)="cerrar()">Cancelar</button>

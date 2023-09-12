@@ -716,6 +716,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
         nuevo_valor = Math.round(nuevo_valor * 100) / 100
 
         this.ingresosDeudor.get(ingreso.formControlUTM)!.setValue(nuevo_valor);
+        break;
       }
     }
 
@@ -825,24 +826,22 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
   verificarDecJuradaSimpleDeudor(){
     let contador = 0;
-    let formControl;
 
-    let meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre",
-        "noviembre", "diciembre"];
+    let meses: string[] = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre',
+        'noviembre', 'diciembre'];
 
     for(let mes in meses){
-      formControl = this.ingresosDeudor.get(mes)!;
-
-      if(formControl.value == 0){
+      if(this.ingresosDeudor.value[mes] == 0){
         contador++;
+
+        if(contador >= 3){
+          this.deudorDebePresentarDecSimple = true;
+        }
       }
       else{
         contador = 0;
       }
-
-      if(contador >= 3){
-        this.deudorDebePresentarDecSimple = true;
-      }
+      console.log('contados:' + contador);
     }
   }
 

@@ -7,7 +7,7 @@
         <input *ngIf="registrar == false" matInput formControlName="year" readonly>
     </mat-form-field>
 
-    <div style="padding-bottom: 5%;" class="botones">
+    <div style="padding-bottom: 5%;" class="botones" *ngIf="registrar == true">
         <mat-slide-toggle [(ngModel)]="manual" [ngModelOptions]="{standalone: true}" ngDefaultControl>Registrar Manualmente</mat-slide-toggle>
     </div>
 

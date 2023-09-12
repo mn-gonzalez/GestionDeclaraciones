@@ -12,6 +12,7 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 export class RegistrarDeudorComponent implements OnInit {
   datosDeudor: FormGroup;
   verificador_valido: boolean = false;
+  years : number[] = [];
 
   constructor(private usuarioService: UsuarioService, public dialogRef: MatDialogRef<RegistrarDeudorComponent>) {
 
@@ -22,12 +23,18 @@ export class RegistrarDeudorComponent implements OnInit {
       }),
       'nombres': new FormControl("", Validators.required),
       'ap_paterno': new FormControl("", Validators.required),
-      'ap_materno': new FormControl("", Validators.required)
+      'ap_materno': new FormControl("", Validators.required),
+      'inicio_cobro': new FormControl("", Validators.required)
     });
   }
 
   ngOnInit(): void {
-
+    let year = new Date().getFullYear(); 
+    let rango = 25;
+    
+    for(var i = 0; i <= rango; i++){
+      this.years.push(year+i);
+    }
   }
   
   registrarDeudor(){

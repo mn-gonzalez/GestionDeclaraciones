@@ -48,6 +48,7 @@ export class UsuarioService {
     .set('comuna', "")
     .set('region', "")
     .set('direccion', "")
+    .set('inicio_cobro', datosDeudor.inicio_cobro);
 
     return this.http.post<{ mensaje: string}>(env.api.concat("/registrar_deudor"), body)
     .pipe(
