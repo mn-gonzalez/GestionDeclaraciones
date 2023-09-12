@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Declaracion;
 use App\Models\Deudor;
+use App\Models\Persona;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -13,7 +15,7 @@ class DeudorController extends Controller
 
     public function __construct() 
     {
-        $this->middleware('auth:api', ['except' => ['registrar']]);
+        $this->middleware('auth:api', ['except' => ['registrar', 'test']]);
     }
 
     /**
@@ -164,5 +166,11 @@ class DeudorController extends Controller
 
         $response = ['mensaje' => 'Los datos se han actualizado correctamente'];
         return response($response, 200);
+    }
+
+    public function test(Request $request)
+    {
+        $deudores = "";
+        return response(Deudor::declaraciones(), 200);
     }
 }

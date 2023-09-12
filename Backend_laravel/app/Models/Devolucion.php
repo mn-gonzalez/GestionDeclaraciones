@@ -10,8 +10,12 @@ class Devolucion extends Model
     use HasFactory;
 
     protected $table = 'devolucion';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
+        'id',
         'correo',
         'telefono',
         'tipo_deuda',
@@ -19,6 +23,14 @@ class Devolucion extends Model
         'domicilio',
         'solicitud',
         'observaciones',
-        'archivo'
+        'nombre_archivo',
+        'archivo',
+        'created_at',
+        'updated_at'
     ];
+
+    public function tramite(): HasOne
+    {
+        return $this->hasOne('App\Models\Tramite', 'id', 'id');
+    }
 }

@@ -12,6 +12,7 @@ class Utm extends Model
     protected $table = 'utm';
     protected $primaryKey = 'year';
     public $incrementing = false;
+    protected $keyType = 'integer';
 
     protected $fillable = [
         'year', 
