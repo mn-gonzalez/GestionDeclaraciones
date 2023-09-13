@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Postergacion } from 'src/app/modelos/postergacion';
 import { Revision } from 'src/app/modelos/revision';
@@ -17,8 +17,8 @@ export class DatosPostergacionComponent implements OnInit {
   postergacion: Postergacion;
   id_postergacion: string;
   funcionario: boolean;
-  formulario: FormGroup;
-  datosPostergacion: FormGroup;
+  formulario: UntypedFormGroup;
+  datosPostergacion: UntypedFormGroup;
   revision: Revision;
   comentarios: string = "";
 
@@ -28,18 +28,18 @@ export class DatosPostergacionComponent implements OnInit {
       this.postergacion = new Postergacion();
       this.funcionario = false;
 
-      this.datosPostergacion = new FormGroup({
-        'id': new FormControl(""),
-        'rut_deudor': new FormControl(""),
-        'nombres': new FormControl(""),
-        'ap_paterno': new FormControl(""),
-        'ap_materno': new FormControl(""),
-        'fecha': new FormControl(""),
-        'motivo': new FormControl("")
+      this.datosPostergacion = new UntypedFormGroup({
+        'id': new UntypedFormControl(""),
+        'rut_deudor': new UntypedFormControl(""),
+        'nombres': new UntypedFormControl(""),
+        'ap_paterno': new UntypedFormControl(""),
+        'ap_materno': new UntypedFormControl(""),
+        'fecha': new UntypedFormControl(""),
+        'motivo': new UntypedFormControl("")
       });
 
-      this.formulario = new FormGroup({
-        'comentarios': new FormControl("")
+      this.formulario = new UntypedFormGroup({
+        'comentarios': new UntypedFormControl("")
       });
   } 
 

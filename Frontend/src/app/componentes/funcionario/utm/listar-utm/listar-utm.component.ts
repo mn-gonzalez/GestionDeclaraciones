@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { UTM } from 'src/app/modelos/utm';
 import { DeclaracionService } from 'src/app/servicios/declaracion.service';
 import { RegistrarUtmComponent } from '../registrar-utm/registrar-utm.component';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-listar-utm',
@@ -17,13 +17,13 @@ export class ListarUtmComponent implements OnInit {
   'septiembre', 'octubre', 'noviembre', 'diciembre', 'acciones'];
 
   dataSource: MatTableDataSource<UTM>;
-  busqueda : FormGroup;
+  busqueda : UntypedFormGroup;
   
   constructor(private router: Router, private declaracionService: DeclaracionService, 
     public dialog: MatDialog) {
 
-      this.busqueda = new FormGroup({
-        'filtro': new FormControl("")
+      this.busqueda = new UntypedFormGroup({
+        'filtro': new UntypedFormControl("")
       });
     }
 

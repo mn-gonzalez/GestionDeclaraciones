@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { validarRut } from 'src/app/compartidos/validador-rut.directive';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
@@ -10,21 +10,21 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
   styleUrls: ['./registrar-deudor.component.css']
 })
 export class RegistrarDeudorComponent implements OnInit {
-  datosDeudor: FormGroup;
+  datosDeudor: UntypedFormGroup;
   verificador_valido: boolean = false;
   years : number[] = [];
 
   constructor(private usuarioService: UsuarioService, public dialogRef: MatDialogRef<RegistrarDeudorComponent>) {
 
-    this.datosDeudor = new FormGroup({
-      'rut_deudor': new FormControl("", {
+    this.datosDeudor = new UntypedFormGroup({
+      'rut_deudor': new UntypedFormControl("", {
         updateOn: 'change',
         validators: [Validators.required, Validators.pattern('^\\d{8,9}\\-(\\d{1}|k|K)$'), validarRut()]
       }),
-      'nombres': new FormControl("", Validators.required),
-      'ap_paterno': new FormControl("", Validators.required),
-      'ap_materno': new FormControl("", Validators.required),
-      'inicio_cobro': new FormControl("", Validators.required)
+      'nombres': new UntypedFormControl("", Validators.required),
+      'ap_paterno': new UntypedFormControl("", Validators.required),
+      'ap_materno': new UntypedFormControl("", Validators.required),
+      'inicio_cobro': new UntypedFormControl("", Validators.required)
     });
   }
 

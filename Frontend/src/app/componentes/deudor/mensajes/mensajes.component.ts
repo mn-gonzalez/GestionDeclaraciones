@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Mensaje } from 'src/app/modelos/mensaje';
-import {FormBuilder, FormGroup,FormControl, Validators} from '@angular/forms';
+import {FormBuilder, UntypedFormGroup,UntypedFormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-mensajes',
@@ -8,7 +8,7 @@ import {FormBuilder, FormGroup,FormControl, Validators} from '@angular/forms';
   styleUrls: ['./mensajes.component.css']
 })
 export class MensajesComponent implements OnInit {
-  formulario_mensaje: FormGroup;
+  formulario_mensaje: UntypedFormGroup;
 
   conversaciones: string[] = ["Declaracion Jurada 2021","Solicitud de postergacion 2019",
   "Declaracion Jurada 2020","Declaracion Jurada 2019"];
@@ -22,13 +22,13 @@ export class MensajesComponent implements OnInit {
 
 
   constructor() {
-    this.formulario_mensaje = new FormGroup({
-      'id': new FormControl(""),
-      'remitente': new FormControl(""),
-      'destinatario': new FormControl(""),
-      'mensaje': new FormControl(""),
-      'fecha': new FormControl(""),
-      'ref_conversacion': new FormControl("")
+    this.formulario_mensaje = new UntypedFormGroup({
+      'id': new UntypedFormControl(""),
+      'remitente': new UntypedFormControl(""),
+      'destinatario': new UntypedFormControl(""),
+      'mensaje': new UntypedFormControl(""),
+      'fecha': new UntypedFormControl(""),
+      'ref_conversacion': new UntypedFormControl("")
     });
    }
 

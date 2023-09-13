@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormControl, Validators} from '@angular/forms';
+import { UntypedFormGroup,UntypedFormControl, Validators} from '@angular/forms';
 import { SolicitudService } from "src/app/servicios/solicitud.service";
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { Router } from '@angular/router';
@@ -22,7 +22,7 @@ interface Solicitud{
 export class RegistrarDevolucionComponent implements OnInit {
   rut_deudor: string;
 
-  datosDevolucion: FormGroup;
+  datosDevolucion: UntypedFormGroup;
   solicitud: string;
   fotocopia_cedula: File;
 
@@ -39,19 +39,19 @@ export class RegistrarDevolucionComponent implements OnInit {
 
   constructor(private solicitudService: SolicitudService, private auth: InicioSesionService, private router: Router) {
 
-    this.datosDevolucion = new FormGroup({
-      'id': new FormControl(""),
-      'rut_deudor': new FormControl(""),
-      'nombres': new FormControl(""),
-      'ap_paterno': new FormControl(""),
-      'ap_materno': new FormControl(""),
-      'fecha': new FormControl(""),
-      'domicilio': new FormControl(""),
-      'telefono': new FormControl(""),
-      'correo': new FormControl(""),
-      'tipo_deuda': new FormControl(""),
-      'retiro_oficina': new FormControl(""),
-      'solicitud': new FormControl("")
+    this.datosDevolucion = new UntypedFormGroup({
+      'id': new UntypedFormControl(""),
+      'rut_deudor': new UntypedFormControl(""),
+      'nombres': new UntypedFormControl(""),
+      'ap_paterno': new UntypedFormControl(""),
+      'ap_materno': new UntypedFormControl(""),
+      'fecha': new UntypedFormControl(""),
+      'domicilio': new UntypedFormControl(""),
+      'telefono': new UntypedFormControl(""),
+      'correo': new UntypedFormControl(""),
+      'tipo_deuda': new UntypedFormControl(""),
+      'retiro_oficina': new UntypedFormControl(""),
+      'solicitud': new UntypedFormControl("")
     });
    }
 

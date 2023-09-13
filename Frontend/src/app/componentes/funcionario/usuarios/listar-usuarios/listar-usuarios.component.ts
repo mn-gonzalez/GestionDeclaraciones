@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Deudor } from 'src/app/modelos/deudor';
@@ -16,12 +16,12 @@ import { RegistrarDeudorComponent } from '../registrar-deudor/registrar-deudor.c
 export class ListarUsuariosComponent implements OnInit {
   displayedColumns: string[] = ['rut', 'nombres', 'ap_paterno', 'ap_materno', 'acciones'];
   dataSource: MatTableDataSource<Deudor>;
-  busqueda : FormGroup;
+  busqueda : UntypedFormGroup;
 
   constructor(private router: Router, private usuarioService: UsuarioService, 
     public dialog: MatDialog) {
-    this.busqueda = new FormGroup({
-      'filtro': new FormControl("")
+    this.busqueda = new UntypedFormGroup({
+      'filtro': new UntypedFormControl("")
     });
    }
 

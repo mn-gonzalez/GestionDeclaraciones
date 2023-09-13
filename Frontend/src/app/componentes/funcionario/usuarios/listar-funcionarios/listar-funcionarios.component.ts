@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Funcionario } from 'src/app/modelos/funcionario';
@@ -15,13 +15,13 @@ import { RegistrarFuncionarioComponent } from '../registrar-funcionario/registra
 export class ListarFuncionariosComponent implements OnInit {
   displayedColumns: string[] = ['rut', 'nombres', 'ap_paterno', 'ap_materno'];
   dataSource: MatTableDataSource<Funcionario>;
-  busqueda : FormGroup;
+  busqueda : UntypedFormGroup;
 
   constructor(private router: Router, private usuarioService: UsuarioService, 
     public dialog: MatDialog) {
 
-      this.busqueda = new FormGroup({
-        'filtro': new FormControl("")
+      this.busqueda = new UntypedFormGroup({
+        'filtro': new UntypedFormControl("")
       });
    }
 

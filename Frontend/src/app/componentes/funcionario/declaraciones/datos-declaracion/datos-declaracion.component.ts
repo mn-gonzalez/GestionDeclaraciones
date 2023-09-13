@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup,FormControl, Validators} from '@angular/forms';
+import {FormBuilder, UntypedFormGroup,UntypedFormControl, Validators} from '@angular/forms';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
 import { ActivatedRoute } from '@angular/router';
 
@@ -34,9 +34,9 @@ export class DatosDeclaracionComponent implements OnInit {
   id_ingresos_coyuge: number;
 
   isLinear = false;
-  datosPersonales: FormGroup;
-  ingresosDeudor: FormGroup;
-  conyuge: FormGroup;
+  datosPersonales: UntypedFormGroup;
+  ingresosDeudor: UntypedFormGroup;
+  conyuge: UntypedFormGroup;
 
   //listado de afps disponibles
   afps: Afp[] = [
@@ -111,85 +111,85 @@ export class DatosDeclaracionComponent implements OnInit {
   documento_copia_pagare_conyuge: File;
 
   constructor(private declaracionService: DeclaracionService, private activatedRoute: ActivatedRoute) {
-    this.datosPersonales = new FormGroup({
-      'id': new FormControl(""),
-      'rut_deudor': new FormControl(""),
-      'nombres': new FormControl(""),
-      'ap_paterno': new FormControl(""),
-      'ap_materno': new FormControl(""),
-      'direccion': new FormControl(""),
-      'region': new FormControl(""),
-      'comuna': new FormControl(""),
-      'ciudad': new FormControl(""),
-      'telefono': new FormControl(""),
-      'correo': new FormControl(""),
-      'afp': new FormControl(""),
-      'estado_civil': new FormControl(""),
-      'trabajo': new FormControl(""),
-      'tel_trabajo': new FormControl("")
+    this.datosPersonales = new UntypedFormGroup({
+      'id': new UntypedFormControl(""),
+      'rut_deudor': new UntypedFormControl(""),
+      'nombres': new UntypedFormControl(""),
+      'ap_paterno': new UntypedFormControl(""),
+      'ap_materno': new UntypedFormControl(""),
+      'direccion': new UntypedFormControl(""),
+      'region': new UntypedFormControl(""),
+      'comuna': new UntypedFormControl(""),
+      'ciudad': new UntypedFormControl(""),
+      'telefono': new UntypedFormControl(""),
+      'correo': new UntypedFormControl(""),
+      'afp': new UntypedFormControl(""),
+      'estado_civil': new UntypedFormControl(""),
+      'trabajo': new UntypedFormControl(""),
+      'tel_trabajo': new UntypedFormControl("")
     });
 
-    this.ingresosDeudor = new FormGroup({
-      'enero': new FormControl(0),
-      'febrero': new FormControl(0),
-      'marzo': new FormControl(0),
-      'abril': new FormControl(0),
-      'mayo': new FormControl(0),
-      'junio': new FormControl(0),
-      'julio': new FormControl(0),
-      'agosto': new FormControl(0),
-      'septiembre': new FormControl(0),
-      'octubre': new FormControl(0),
-      'noviembre': new FormControl(0),
-      'diciembre': new FormControl(0),
-      'enero_utm': new FormControl(0),
-      'febrero_utm': new FormControl(0),
-      'marzo_utm': new FormControl(0),
-      'abril_utm': new FormControl(0),
-      'mayo_utm': new FormControl(0),
-      'junio_utm': new FormControl(0),
-      'julio_utm': new FormControl(0),
-      'agosto_utm': new FormControl(0),
-      'septiembre_utm': new FormControl(0),
-      'octubre_utm': new FormControl(0),
-      'noviembre_utm': new FormControl(0),
-      'diciembre_utm': new FormControl(0),
-      'ingreso_total_deudor': new FormControl(0),
-      'ingreso_total_deudor_utm': new FormControl(0),
-      'ingreso_total_conyuge': new FormControl(0),
-      'ingreso_total_conyuge_utm': new FormControl(0),
-      'cuota_preliminar': new FormControl(0)
+    this.ingresosDeudor = new UntypedFormGroup({
+      'enero': new UntypedFormControl(0),
+      'febrero': new UntypedFormControl(0),
+      'marzo': new UntypedFormControl(0),
+      'abril': new UntypedFormControl(0),
+      'mayo': new UntypedFormControl(0),
+      'junio': new UntypedFormControl(0),
+      'julio': new UntypedFormControl(0),
+      'agosto': new UntypedFormControl(0),
+      'septiembre': new UntypedFormControl(0),
+      'octubre': new UntypedFormControl(0),
+      'noviembre': new UntypedFormControl(0),
+      'diciembre': new UntypedFormControl(0),
+      'enero_utm': new UntypedFormControl(0),
+      'febrero_utm': new UntypedFormControl(0),
+      'marzo_utm': new UntypedFormControl(0),
+      'abril_utm': new UntypedFormControl(0),
+      'mayo_utm': new UntypedFormControl(0),
+      'junio_utm': new UntypedFormControl(0),
+      'julio_utm': new UntypedFormControl(0),
+      'agosto_utm': new UntypedFormControl(0),
+      'septiembre_utm': new UntypedFormControl(0),
+      'octubre_utm': new UntypedFormControl(0),
+      'noviembre_utm': new UntypedFormControl(0),
+      'diciembre_utm': new UntypedFormControl(0),
+      'ingreso_total_deudor': new UntypedFormControl(0),
+      'ingreso_total_deudor_utm': new UntypedFormControl(0),
+      'ingreso_total_conyuge': new UntypedFormControl(0),
+      'ingreso_total_conyuge_utm': new UntypedFormControl(0),
+      'cuota_preliminar': new UntypedFormControl(0)
     });
 
-    this.conyuge = new FormGroup({
-      'rut_conyuge': new FormControl(""),
-      'nombres': new FormControl(""),
-      'ap_paterno': new FormControl(""),
-      'ap_materno': new FormControl(""),
-      'enero': new FormControl(0),
-      'febrero': new FormControl(0),
-      'marzo': new FormControl(0),
-      'abril': new FormControl(0),
-      'mayo': new FormControl(0),
-      'junio': new FormControl(0),
-      'julio': new FormControl(0),
-      'agosto': new FormControl(0),
-      'septiembre': new FormControl(0),
-      'octubre': new FormControl(0),
-      'noviembre': new FormControl(0),
-      'diciembre': new FormControl(0),
-      'enero_utm': new FormControl(0),
-      'febrero_utm': new FormControl(0),
-      'marzo_utm': new FormControl(0),
-      'abril_utm': new FormControl(0),
-      'mayo_utm': new FormControl(0),
-      'junio_utm': new FormControl(0),
-      'julio_utm': new FormControl(0),
-      'agosto_utm': new FormControl(0),
-      'septiembre_utm': new FormControl(0),
-      'octubre_utm': new FormControl(0),
-      'noviembre_utm': new FormControl(0),
-      'diciembre_utm': new FormControl(0)
+    this.conyuge = new UntypedFormGroup({
+      'rut_conyuge': new UntypedFormControl(""),
+      'nombres': new UntypedFormControl(""),
+      'ap_paterno': new UntypedFormControl(""),
+      'ap_materno': new UntypedFormControl(""),
+      'enero': new UntypedFormControl(0),
+      'febrero': new UntypedFormControl(0),
+      'marzo': new UntypedFormControl(0),
+      'abril': new UntypedFormControl(0),
+      'mayo': new UntypedFormControl(0),
+      'junio': new UntypedFormControl(0),
+      'julio': new UntypedFormControl(0),
+      'agosto': new UntypedFormControl(0),
+      'septiembre': new UntypedFormControl(0),
+      'octubre': new UntypedFormControl(0),
+      'noviembre': new UntypedFormControl(0),
+      'diciembre': new UntypedFormControl(0),
+      'enero_utm': new UntypedFormControl(0),
+      'febrero_utm': new UntypedFormControl(0),
+      'marzo_utm': new UntypedFormControl(0),
+      'abril_utm': new UntypedFormControl(0),
+      'mayo_utm': new UntypedFormControl(0),
+      'junio_utm': new UntypedFormControl(0),
+      'julio_utm': new UntypedFormControl(0),
+      'agosto_utm': new UntypedFormControl(0),
+      'septiembre_utm': new UntypedFormControl(0),
+      'octubre_utm': new UntypedFormControl(0),
+      'noviembre_utm': new UntypedFormControl(0),
+      'diciembre_utm': new UntypedFormControl(0)
     });
   }
 
