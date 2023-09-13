@@ -16,27 +16,24 @@ import { DatosPostergacionComponent } from './solicitudes/datos-postergacion/dat
 import { SharedModule } from 'src/app/shared.module';
 
 @NgModule({
-  declarations: [
-    RegistrarPostergacionComponent,
-    RegistrarDevolucionComponent,
-    RegistrarDeclaracionComponent,
-    ListarPostergacionesComponent,
-    ListarDevolucionesComponent,
-    ListarDeclaracionesComponent,
-    MisDatosComponent,
-    MensajesComponent,
-    MenuDeclaracionComponent,
-    DatosDevolucionComponent,
-    DatosPostergacionComponent
-  ],
-  imports: [
-    CommonModule,
-    InicioDeudorRoutingModule,
-    MaterialModule,
-    SharedModule
-  ],
-  entryComponents: [
-
-  ],
+    declarations: [
+        RegistrarPostergacionComponent,
+        RegistrarDevolucionComponent,
+        RegistrarDeclaracionComponent,
+        ListarPostergacionesComponent,
+        ListarDevolucionesComponent,
+        ListarDeclaracionesComponent,
+        MisDatosComponent,
+        MensajesComponent,
+        MenuDeclaracionComponent,
+        DatosDevolucionComponent,
+        DatosPostergacionComponent
+    ],
+    imports: [
+        CommonModule,
+        InicioDeudorRoutingModule,
+        MaterialModule,
+        SharedModule
+    ]
 })
 export class InicioDeudorModule { }

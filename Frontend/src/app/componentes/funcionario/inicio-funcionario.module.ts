@@ -22,33 +22,30 @@ import { SharedModule } from 'src/app/shared.module';
 import { ReportesComponent } from './reportes/reportes.component';
 
 @NgModule({
-  declarations: [
-    ListarUsuariosComponent,
-    DatosDeclaracionComponent,
-    DeclaracionesDeudorComponent,
-    RevisarDeclaracionComponent,
-    DeclaracionesPorRevisarComponent,
-    RegistrarDeudorComponent,
-    RegistrarFuncionarioComponent,
-    ListarFuncionariosComponent,
-    RegistrarUtmComponent,
-    ListarUtmComponent,
-    PostergacionesSinRevisarComponent,
-    DevolucionesSinRevisarComponent,
-    DeclaracionesEnCorreccionComponent,
-    DeclaracionesEnRevisionComponent,
-    PostergacionesRevisadasComponent,
-    DevolucionesRevisadasComponent,
-    ReportesComponent
-  ],
-  imports: [
-    CommonModule,
-    InicioFuncionarioRoutingModule,
-    MaterialModule,
-    SharedModule
-  ],
-  entryComponents: [
-    RegistrarDeudorComponent
-  ],
+    declarations: [
+        ListarUsuariosComponent,
+        DatosDeclaracionComponent,
+        DeclaracionesDeudorComponent,
+        RevisarDeclaracionComponent,
+        DeclaracionesPorRevisarComponent,
+        RegistrarDeudorComponent,
+        RegistrarFuncionarioComponent,
+        ListarFuncionariosComponent,
+        RegistrarUtmComponent,
+        ListarUtmComponent,
+        PostergacionesSinRevisarComponent,
+        DevolucionesSinRevisarComponent,
+        DeclaracionesEnCorreccionComponent,
+        DeclaracionesEnRevisionComponent,
+        PostergacionesRevisadasComponent,
+        DevolucionesRevisadasComponent,
+        ReportesComponent
+    ],
+    imports: [
+        CommonModule,
+        InicioFuncionarioRoutingModule,
+        MaterialModule,
+        SharedModule
+    ]
 })
 export class InicioFuncionarioModule { }
