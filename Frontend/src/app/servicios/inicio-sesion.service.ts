@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment as env } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Observable } from "rxjs";
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { LoginDTO } from '../modelos/DTO/loginDTO';
 import { JwtHelperService } from '@auth0/angular-jwt';
 

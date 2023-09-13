@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { Router } from '@angular/router';
 import { Postergacion } from 'src/app/modelos/postergacion';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';

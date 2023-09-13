@@ -3,10 +3,10 @@ import {FormBuilder, UntypedFormGroup,UntypedFormControl, Validators} from '@ang
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { Router } from '@angular/router';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef} from '@angular/material/legacy-dialog';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { UTM } from 'src/app/modelos/utm';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { validarRut } from 'src/app/compartidos/validador-rut.directive';
 
 interface Region{

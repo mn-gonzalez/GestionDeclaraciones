@@ -10,7 +10,7 @@ import { Documento } from '../modelos/documento';
 import { Revision } from '../modelos/revision';
 import { Devolucion } from '../modelos/devolucion';
 import { Postergacion } from '../modelos/postergacion';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
 @Injectable({
   providedIn: 'root'

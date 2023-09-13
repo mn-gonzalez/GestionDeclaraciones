@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 
 import { Deudor } from '../modelos/deudor';
 import { Funcionario } from '../modelos/funcionario';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
 @Injectable({
   providedIn: 'root'

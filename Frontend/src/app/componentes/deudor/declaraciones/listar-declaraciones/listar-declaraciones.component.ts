@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { Declaracion } from 'src/app/modelos/declaracion';
 import { Router } from '@angular/router';
 
