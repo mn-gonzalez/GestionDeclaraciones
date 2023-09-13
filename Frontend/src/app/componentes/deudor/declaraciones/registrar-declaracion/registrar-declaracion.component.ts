@@ -571,6 +571,12 @@ export class RegistrarDeclaracionComponent implements OnInit {
     } 
   }
 
+  subirDocumento(nombre_documento: string, tipo_documento: string, documento: File){
+    this.rut_deudor = this.auth.obtenerUsuarioActual()!;
+
+    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, nombre_documento, tipo_documento, documento);
+  }
+
   subirDocumentoRentaDeudor(){
     this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERTIFICADO DE RENTAS", "RENTAS_DEUDOR",this.documento_renta);
   }

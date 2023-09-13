@@ -287,7 +287,8 @@
                                 <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
                                 <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_renta.name}}</div>
                             </div>
-                            <button mat-icon-button><mat-icon (click)="subirDocumentoRentaDeudor()" class="material-icons-outlined">save</mat-icon></button>
+                            <!-- <button mat-icon-button><mat-icon (click)="subirDocumentoRentaDeudor()" class="material-icons-outlined">save</mat-icon></button> -->
+                            <button mat-icon-button><mat-icon (click)="subirDocumento('CERTIFICADO DE RENTAS', 'RENTAS_DEUDOR', this.documento_renta)" class="material-icons-outlined">save</mat-icon></button>
                             <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
                         </div>
                     </div>
