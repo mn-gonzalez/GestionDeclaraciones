@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from './material.module';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +12,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { InicioSesionService } from './servicios/inicio-sesion.service';
 import { HttpconfigInterceptor } from './interceptors/httpconfig.interceptor';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 export function jwtTokenGetter() {
   return localStorage.getItem('access_token');
@@ -31,13 +32,19 @@ export function jwtTokenGetter() {
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
     JwtModule.forRoot({
       config: {
         tokenGetter: jwtTokenGetter
       }
     })
   ],
-  providers: [InicioSesionService, { provide: HTTP_INTERCEPTORS, useClass: HttpconfigInterceptor, multi:true}],
+  providers: [
+    InicioSesionService, 
+    { provide: HTTP_INTERCEPTORS, useClass: HttpconfigInterceptor, multi:true},
+    [provideNgxMask()]
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

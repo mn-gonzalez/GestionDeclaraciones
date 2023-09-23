@@ -1,7 +1,7 @@
 <div class="fondo">
     <div class="opciones">
       <form [formGroup]="busqueda">
-        <mat-form-field appearance="standard">
+        <mat-form-field appearance="outline">
             <mat-label>Búsqueda</mat-label>
             <input matInput (keyup)="applyFilter($event)" formControlName="filtro" #input>
         </mat-form-field>

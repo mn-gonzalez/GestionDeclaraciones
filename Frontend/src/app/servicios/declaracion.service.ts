@@ -9,7 +9,7 @@ import { Deudor } from '../modelos/deudor';
 import { Documento } from '../modelos/documento';
 import { Revision } from '../modelos/revision';
 import { UTM } from '../modelos/utm';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'

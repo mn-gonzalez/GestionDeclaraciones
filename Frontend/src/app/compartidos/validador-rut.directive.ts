@@ -11,9 +11,9 @@ export function validarRut(): ValidatorFn {
 
         let verificador_valido = false;
         let valores = [2, 3, 4, 5, 6, 7];
-        let rut: number[] =  Array.from(control.value);
+        let rut: number[] =  Array.from(control.value.replace('.', ''));
         let verificador = rut.pop();
-        let guion = rut.pop();
+        //let guion = rut.pop();
         let rut_invertido: number[] = rut.reverse();
         let suma = 0;
         let indice = 0;

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment as env } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Observable } from "rxjs";
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { LoginDTO } from '../modelos/DTO/loginDTO';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -18,8 +18,10 @@ export class InicioSesionService {
   }
 
   ingresar_como_deudor(data: any): Observable<boolean>{
+    let rut = this.verificar_guion_rut(data.rut);
+
     const body = new HttpParams()
-    .set('rut', data.rut)
+    .set('rut', rut)
     .set('contrasena', data.contrasena)
 
     return this.http.post<LoginDTO>(env.api.concat("/login_deudor"), body)
@@ -45,8 +47,10 @@ export class InicioSesionService {
   }
 
   ingresar_como_funcionario(data: any): Observable<boolean>{
+    let rut = this.verificar_guion_rut(data.rut);
+
     const body = new HttpParams()
-    .set('rut', data.rut)
+    .set('rut', rut)
     .set('contrasena', data.contrasena)
 
     return this.http.post<LoginDTO>(env.api.concat("/login_funcionario"), body)
@@ -69,6 +73,19 @@ export class InicioSesionService {
         }
       })
     );
+  }
+
+  private verificar_guion_rut(rut: string) :string{
+    if(rut.includes("-") == false){
+      let rut_array = Array.from(rut);
+      let verificador = rut_array.pop();
+      rut_array.push("-");
+      rut_array.push(verificador!);
+
+      return rut_array.toString().replace(/,/g,'');
+    }
+
+    return rut;
   }
 
   obtenerToken() {
