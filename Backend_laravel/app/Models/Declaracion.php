@@ -4,12 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Declaracion extends Model
+class Declaracion extends Tramite
 {
     use HasFactory;
 
     protected $table = 'declaracion';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
         'id',
@@ -17,9 +24,9 @@ class Declaracion extends Model
         'nombres',
         'ap_paterno',
         'ap_materno',
-        'fecha' => 'datetime:d/m/Y',
+        'fecha' => 'datetime:Y/m/d',
         'estado', 
-        'anio',
+        'year',
         'correo',
         'telefono',
         'region',
@@ -29,6 +36,7 @@ class Declaracion extends Model
         'afp', 
         'trabajo',
         'tel_trabajo',
+        'declaracion_sii',
         'enero',
         'febrero',
         'marzo',
@@ -57,6 +65,23 @@ class Declaracion extends Model
         'ingreso_total_deudor_utm',
         'ingreso_total_conyuge',
         'ingreso_total_conyuge_utm',
-        'cuota_preliminar'
+        'cuota_preliminar',
+        'created_at',
+        'updated_at'
     ];
+
+    public function tramite(): HasOne
+    {
+        return $this->HasOne('App\Models\Tramite', 'id', 'id');
+    }
+
+    public function documentacion(): HasMany
+    {
+        return $this->HasMany('App\Models\Documento', 'ref_declaracion', 'id');
+    }
+
+    public function utm(): HasOne
+    {
+        return $this->HasOne('App\Models\Utm', 'year', 'year');
+    }
 }
