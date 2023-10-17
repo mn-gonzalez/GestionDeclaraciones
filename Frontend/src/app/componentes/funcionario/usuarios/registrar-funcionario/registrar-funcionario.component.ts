@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA} from '@angular/material/legacy-dialog';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { validarRut } from 'src/app/compartidos/validador-rut.directive';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 
@@ -10,20 +10,20 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
   styleUrls: ['./registrar-funcionario.component.css']
 })
 export class RegistrarFuncionarioComponent implements OnInit {
-  datosFuncionario: UntypedFormGroup;
+  datosFuncionario: FormGroup;
 
   constructor(private usuarioService: UsuarioService, public dialogRef: MatDialogRef<RegistrarFuncionarioComponent>) {
 
-    this.datosFuncionario = new UntypedFormGroup({
-      'rut': new UntypedFormControl("",{
+    this.datosFuncionario = new FormGroup({
+      'rut': new FormControl("",{
         updateOn: 'change',
         validators: [Validators.required, Validators.pattern('^\\d{1,3}\\.\\d{3}\\.\\d{3}\\-(\\d{1}|k|K)$'), validarRut()]
       }),
-      'nombres': new UntypedFormControl(""),
-      'ap_paterno': new UntypedFormControl(""),
-      'ap_materno': new UntypedFormControl(""),
-      'correo': new UntypedFormControl(""),
-      'tipo_usuario': new UntypedFormControl("")
+      'nombres': new FormControl(""),
+      'ap_paterno': new FormControl(""),
+      'ap_materno': new FormControl(""),
+      'correo': new FormControl(""),
+      'tipo_usuario': new FormControl("")
     });
    }
 

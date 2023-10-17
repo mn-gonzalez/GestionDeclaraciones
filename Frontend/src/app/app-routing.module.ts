@@ -10,8 +10,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/pagina-inicio', pathMatch: 'full' },
   { path: 'login', component: InicioSesionComponent },
   { path: 'pagina-inicio', component: PaginaInicioComponent },
-  { path: 'home-deudor', loadChildren: () => import('./componentes/deudor/inicio-deudor.module').then(m => m.InicioDeudorModule)},
-  { path: 'home-funcionario', loadChildren: () => import('./componentes/funcionario/inicio-funcionario.module').then(m => m.InicioFuncionarioModule)}
+  { path: 'deudor', loadChildren: () => import('./componentes/deudor/inicio-deudor.module').then(m => m.InicioDeudorModule)},
+  { path: 'funcionario', loadChildren: () => import('./componentes/funcionario/inicio-funcionario.module').then(m => m.InicioFuncionarioModule)}
 ];
 
 @NgModule({

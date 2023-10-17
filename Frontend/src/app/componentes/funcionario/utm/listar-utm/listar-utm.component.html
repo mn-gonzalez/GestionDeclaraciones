@@ -6,88 +6,88 @@
                 <input matInput (keyup)="applyFilter($event)" formControlName="filtro" #input>
             </mat-form-field>
         </form>
-        <button class="boton" mat-raised-button (click)="menuRegistrarUTM()">Registrar UTM</button>
+        <button style="height: 35px; color: white; background-color: var(--color-utalca);" mat-raised-button (click)="menuRegistrarUTM()">Registrar UTM</button>
     </div>
     
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <ng-container matColumnDef="year">
-          <th mat-header-cell *matHeaderCellDef> Año </th>
-          <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+          <th style="text-align: center; color: white; background-color: var(--color-utalca);" mat-header-cell *matHeaderCellDef> Año </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.year}} </td>
         </ng-container>
       
         <ng-container matColumnDef="enero">
-          <th mat-header-cell *matHeaderCellDef> Enero</th>
-          <td mat-cell *matCellDef="let element"> ${{element.enero | pesochileno}} </td>
+          <th style="text-align: center; color: white; background-color: var(--color-utalca);" mat-header-cell *matHeaderCellDef> Enero</th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> ${{element.enero | pesochileno}} </td>
         </ng-container>
       
         <ng-container matColumnDef="febrero">
-          <th mat-header-cell *matHeaderCellDef> Febrero </th>
-          <td mat-cell *matCellDef="let element"> ${{element.febrero | pesochileno}} </td>
+          <th style="text-align: center; color: white; background-color: var(--color-utalca);" mat-header-cell *matHeaderCellDef> Febrero </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> ${{element.febrero | pesochileno}} </td>
         </ng-container>
       
         <ng-container matColumnDef="marzo">
-          <th mat-header-cell *matHeaderCellDef> Marzo </th>
-          <td mat-cell *matCellDef="let element"> ${{element.marzo | pesochileno}} </td>
+          <th style="text-align: center; color: white; background-color: var(--color-utalca);" mat-header-cell *matHeaderCellDef> Marzo </th>
+          <td style="text-align: center;" mat-cell *matCellDef="let element"> ${{element.marzo | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="abril">
-            <th mat-header-cell *matHeaderCellDef> Abril </th>
-            <td mat-cell *matCellDef="let element"> ${{element.abril | pesochileno}} </td>
+            <th style="text-align: center; color: white; background-color: var(--color-utalca);" mat-header-cell *matHeaderCellDef> Abril </th>
+            <td style="text-align: center;" mat-cell *matCellDef="let element"> ${{element.abril | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="mayo">
-            <th mat-header-cell *matHeaderCellDef> Mayo </th>
-            <td mat-cell *matCellDef="let element"> ${{element.mayo | pesochileno}} </td>
+            <th style="text-align: center; color: white; background-color: var(--color-utalca);" mat-header-cell *matHeaderCellDef> Mayo </th>
+            <td style="text-align: center;" mat-cell *matCellDef="let element"> ${{element.mayo | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="junio">
-            <th mat-header-cell *matHeaderCellDef> Junio </th>
-            <td mat-cell *matCellDef="let element"> ${{element.junio | pesochileno}} </td>
+            <th style="text-align: center; color: white; background-color: var(--color-utalca);" mat-header-cell *matHeaderCellDef> Junio </th>
+            <td style="text-align: center;" mat-cell *matCellDef="let element"> ${{element.junio | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="julio">
-            <th mat-header-cell *matHeaderCellDef> Julio </th>
-            <td mat-cell *matCellDef="let element"> ${{element.julio | pesochileno}} </td>
+            <th style="text-align: center; color: white; background-color: var(--color-utalca);" mat-header-cell *matHeaderCellDef> Julio </th>
+            <td style="text-align: center;" mat-cell *matCellDef="let element"> ${{element.julio | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="agosto">
-            <th mat-header-cell *matHeaderCellDef> Agosto </th>
-            <td mat-cell *matCellDef="let element"> ${{element.agosto | pesochileno}} </td>
+            <th style="text-align: center; color: white; background-color: var(--color-utalca);" mat-header-cell *matHeaderCellDef> Agosto </th>
+            <td style="text-align: center;" mat-cell *matCellDef="let element"> ${{element.agosto | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="septiembre">
-            <th mat-header-cell *matHeaderCellDef> Septiembre </th>
-            <td mat-cell *matCellDef="let element"> ${{element.septiembre | pesochileno}} </td>
+            <th style="text-align: center; color: white; background-color: var(--color-utalca);" mat-header-cell *matHeaderCellDef> Septiembre </th>
+            <td style="text-align: center;" mat-cell *matCellDef="let element"> ${{element.septiembre | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="octubre">
-            <th mat-header-cell *matHeaderCellDef> Octubre </th>
-            <td mat-cell *matCellDef="let element"> ${{element.octubre | pesochileno}} </td>
+            <th style="text-align: center; color: white; background-color: var(--color-utalca);" mat-header-cell *matHeaderCellDef> Octubre </th>
+            <td style="text-align: center;" mat-cell *matCellDef="let element"> ${{element.octubre | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="noviembre">
-            <th mat-header-cell *matHeaderCellDef> Noviembre </th>
-            <td mat-cell *matCellDef="let element"> ${{element.noviembre | pesochileno}} </td>
+            <th style="text-align: center; color: white; background-color: var(--color-utalca);" mat-header-cell *matHeaderCellDef> Noviembre </th>
+            <td style="text-align: center;" mat-cell *matCellDef="let element"> ${{element.noviembre | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="diciembre">
-            <th mat-header-cell *matHeaderCellDef> Diciembre </th>
-            <td mat-cell *matCellDef="let element"> ${{element.diciembre | pesochileno}} </td>
+            <th style="text-align: center; color: white; background-color: var(--color-utalca);" mat-header-cell *matHeaderCellDef> Diciembre </th>
+            <td style="text-align: center;" mat-cell *matCellDef="let element"> ${{element.diciembre | pesochileno}} </td>
         </ng-container>
 
         <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <th style="text-align: center; color: white; background-color: var(--color-utalca);" mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let element">
-                <button class="boton" mat-raised-button (click)="menuEditarUTM(element)">Editar</button>
+                <button mat-raised-button style="height: 35px; color: white; background-color: var(--color-utalca);"  (click)="menuEditarUTM(element)">Editar</button>
             </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No existen datos para la búsqueda: "{{input.value}}"</td>
+        <tr style="height: 50px;" *matNoDataRow>
+          <td style="text-align: center;" colspan="13">No existen datos para la búsqueda: "{{input.value}}"</td>
         </tr>
       </table>
 </div>

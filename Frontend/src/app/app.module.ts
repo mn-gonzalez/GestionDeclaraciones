@@ -14,6 +14,7 @@ import { InicioSesionService } from './servicios/inicio-sesion.service';
 import { HttpconfigInterceptor } from './interceptors/httpconfig.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { NgChartsModule } from 'ng2-charts';
 
 export function jwtTokenGetter() {
   return localStorage.getItem('access_token');
@@ -38,7 +39,8 @@ export function jwtTokenGetter() {
       config: {
         tokenGetter: jwtTokenGetter
       }
-    })
+    }),
+    NgChartsModule
   ],
   providers: [
     InicioSesionService, 

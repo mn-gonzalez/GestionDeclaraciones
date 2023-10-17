@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { UntypedFormGroup, UntypedFormControl, Validators, FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Deudor } from 'src/app/modelos/deudor';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { RegistrarDeudorComponent } from '../registrar-deudor/registrar-deudor.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({

@@ -3,34 +3,21 @@
     width: 100%; 
     display: flex; 
     flex-direction: column; 
-    padding: 3%;
+    padding: 20px;
 }
 
 .icon{
-    padding: 3%;
     align-self: center;
-    width: 70%;
-    height: 70%;
+    width: 200px;
 }
 
 .tarjeta{
     cursor: pointer;
     display: flex; 
     flex-direction: column; 
-    width: 250px;
-}
-
-.menu{
-    width: 90%;
-    height: 50%;
-}
-
-.pasos{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+    width: 300px;
+    height: 370px;
+    padding: 20px;
 }
 
 .subir-documento{
@@ -58,15 +45,17 @@
 }
 
 .icono-aceptado{
-    transform: scale(1.5); 
+    transform: scale(2)!important; 
     padding: 20px;
     color: green;
+    overflow: visible;
 }
 
 .icono-alerta{
-    transform: scale(1.5); 
+    transform: scale(2)!important; 
     padding: 20px;
     color: orange;
+    overflow: visible;
 }
 
 .mensaje{
@@ -74,16 +63,38 @@
     flex-direction: row; 
     align-items: center;
     justify-content: space-between;
+    row-gap: 20px;
+    padding: 0;
 }
 
 .pdf-disponible{
-    transform: scale(1.5); 
+    transform: scale(2)!important; 
     padding: 20px;
     color: green;
+    overflow: visible;
 }
 
 .pdf-nodisponible{
-    transform: scale(1.5); 
+    transform: scale(2)!important; 
     padding: 20px;
     color: red;
+    overflow: visible;
+}
+
+.menu_tarjetas{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+mat-icon{
+    overflow: none !important;
+}
+
+.acciones{
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    justify-content: center;
 }

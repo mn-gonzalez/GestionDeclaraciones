@@ -20,6 +20,7 @@ import { PostergacionesRevisadasComponent } from './solicitudes/postergaciones-r
 import { DevolucionesRevisadasComponent } from './solicitudes/devoluciones-revisadas/devoluciones-revisadas.component';
 import { SharedModule } from 'src/app/shared.module';
 import { ReportesComponent } from './reportes/reportes.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import { ReportesComponent } from './reportes/reportes.component';
         CommonModule,
         InicioFuncionarioRoutingModule,
         MaterialModule,
-        SharedModule
+        SharedModule,
+        NgChartsModule
     ]
 })
 export class InicioFuncionarioModule { }

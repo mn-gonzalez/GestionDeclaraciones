@@ -15,15 +15,18 @@
     background-color: #e0e0e0;
 }
 
-.nav-list{
+.mat-list-item{
     color: var(--color-utalca);
-    font-size: 14px;
+    font-size: 15px;
+    height: 40px;
+    padding-left: 20px;
     background-color: #e0e0e0;
 }
 
 .mat-list-item:hover{
-    color: white;
+    color: white !important;
     background-color: var(--color-utalca)!important;
+    cursor: pointer;
 }
 
 .logo{
@@ -39,4 +42,9 @@
     height: 100%;
     align-items: center;
     column-gap: 0;
+}
+
+.activo {
+    background-color: var(--color-utalca);
+    color: white!important;
 }

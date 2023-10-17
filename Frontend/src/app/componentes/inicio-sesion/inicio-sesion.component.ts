@@ -43,7 +43,7 @@ export class InicioSesionComponent implements OnInit {
         else{
           //this.router.navigate(['inicio-deudor/'+this.usuario]);
           this.ingresando = true;
-          this.router.navigate(['/home-deudor']);
+          this.router.navigate(['/deudor']);
         }
       },
       error: (err) => {console.log(err)}
@@ -61,7 +61,7 @@ export class InicioSesionComponent implements OnInit {
         else{
           //this.router.navigate(['inicio-deudor/'+this.usuario]);
           this.ingresando = true;
-          this.router.navigate(['/home-funcionario']);
+          this.router.navigate(['/funcionario']);
         }
       },
       error: (err) => {console.log(err)}

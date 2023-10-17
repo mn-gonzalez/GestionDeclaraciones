@@ -1,0 +1,18 @@
+<div>
+    <div class="label_documento">
+        <label style="font-size: 20px;">{{this.detalleDocumento}}</label>
+    </div>
+    <div class="subir-documento">
+        <input type="file" (change)="upload($event)" accept="application/pdf" #declaracion style="display: none;">
+        <button *ngIf="!this.soloVista" style="height:50%;" (click)="declaracion.click()"> Seleccionar.</button>
+        <div *ngIf="this.documento == null" class="miniatura-pdf">
+            <span>No se ha seleccionado ningún archivo.</span>
+        </div>
+        <div *ngIf="this.documento != null" (click)="visualizarPDF()" class="miniatura-pdf">
+            <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+            <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento.name}}</div>
+        </div>
+        <button *ngIf="!this.soloVista" mat-icon-button><mat-icon (click)="subirDocumento()" class="material-icons-outlined">save</mat-icon></button>
+        <button *ngIf="!this.soloVista" mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+    </div>
+</div>

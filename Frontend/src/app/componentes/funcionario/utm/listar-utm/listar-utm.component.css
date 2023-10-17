@@ -4,11 +4,13 @@
     padding: 25px;
 }
 
-.mat-header-cell{
-    text-align: center;
+.th{
+    text-align: center; 
+    color: white; 
+    background-color: var(--color-utalca);
 }
 
-.mat-cell{
+.data{
     text-align: center;
 }
 
@@ -19,8 +21,9 @@
     align-items: center;
 }
 
-.boton{
+.button{
     height: 60%;
     color: white;
     background-color: var(--color-utalca);
+    align-self: center;
 }

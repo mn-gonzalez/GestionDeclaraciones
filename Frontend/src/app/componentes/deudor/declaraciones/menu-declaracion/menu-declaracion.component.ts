@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DeclaracionService } from 'src/app/servicios/declaracion.service';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { SubirDeclaracionComponent } from '../subir-declaracion/subir-declaracion.component';
 
 @Component({
   selector: 'app-menu-declaracion',
@@ -9,18 +11,21 @@ import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
   styleUrls: ['./menu-declaracion.component.css']
 })
 export class MenuDeclaracionComponent implements OnInit {
+  year: number;
   declaracion_firmada: File;
-  formulario_completado = false;
+  formulario_enviado = false;
   pdf_disponible = false;
+  formulario_aceptado = false;
   mensaje_formulario: string;
   mensaje_pdf: string;
   id_declaracion: string;
 
-  constructor(private router: Router, private declaracionService: DeclaracionService, private auth: InicioSesionService) {
+  constructor(private router: Router, private declaracionService: DeclaracionService, private auth: InicioSesionService, public dialog: MatDialog) {
     
   }
 
   ngOnInit(): void {
+    this.year = new Date().getFullYear();
     this.verificarEntregaFormulario();
   }
 
@@ -48,27 +53,31 @@ export class MenuDeclaracionComponent implements OnInit {
     switch(estado){
       case 0:
         this.mensaje_formulario = "Usted todavia no completa el formulario de su declaración."
-        this.formulario_completado = false;
+        this.formulario_enviado = false;
         break;
       case 1:
         this.mensaje_formulario = "Usted aún tiene un formulario incompleto";
-        this.formulario_completado = false;
+        this.formulario_enviado = false;
         break;
       case 2:
         this.mensaje_formulario = "Su formulario ya fué enviado y esta siendo revisado por uno de nuestros funcionarios.";
-        this.formulario_completado = true;
+        this.formulario_enviado = true;
+        this.formulario_aceptado = false;
         break;
       case 3:
         this.mensaje_formulario = "Su formulario ya fué enviado y esta siendo revisado por uno de nuestros funcionarios.";
-        this.formulario_completado = true;
+        this.formulario_enviado = true;
+        this.formulario_aceptado = false;
         break;
       case 4:
         this.mensaje_formulario = "Su formulario tiene algunos detalles que debe corregir.";
-        this.formulario_completado = false;
+        this.formulario_enviado = false;
+        this.formulario_aceptado = false;
         break;
       case 5:
         this.mensaje_formulario = "Usted ya completó este paso, solo debe descargar y firmar su declaración ante notario.";
-        this.formulario_completado = true;
+        this.formulario_enviado = true;
+        this.formulario_aceptado = true;
         break;
     }
   }
@@ -76,22 +85,22 @@ export class MenuDeclaracionComponent implements OnInit {
   verificarDescargaDeclaracion(){
     //verificar si es que existe un archivo del formulario en pdf para la declaracion actual del usuario
     //indicar ue el formulario ya esta listo para su descarga
-    if(this.formulario_completado == true){
+    if(this.formulario_aceptado == true){
       this.declaracionService.verificarFormularioPDF(this.auth.obtenerUsuarioActual()!, this.id_declaracion).subscribe({
         next: result =>{
           this.pdf_disponible = result.pdf_disponible;
-          this.mensajePDF();
+          
+          if(this.pdf_disponible == true){
+            this.mensaje_pdf = "La declaración en formato PDF ya está disponible para su descarga."
+          }
+          else{
+            this.mensaje_pdf = "La declaración en formato PDF aún no esta disponible."
+          }
         }
       });
     }
-  }
-
-  mensajePDF(){
-    if(this.pdf_disponible == true){
-      this.mensaje_pdf = "La declaración en formato PDF ya está disponible para su descarga."
-    }
     else{
-      this.mensaje_pdf = "La declaración en formato PDF aún no esta disponible."
+      this.mensaje_pdf = "La declaración en formato PDF aún no esta disponible.";
     }
   }
 
@@ -100,20 +109,38 @@ export class MenuDeclaracionComponent implements OnInit {
   }
 
   menuRegistrarDeclaracion(){
-    this.router.navigate(['/home-deudor/declaracion']);
+    if(this.formulario_enviado == false){
+      this.router.navigate(['/deudor/registrar-declaracion']);
+    }
+    else{
+      this.declaracionService.mostrarNotificacion("Su formulario ya fue enviado.", "Cerrar");
+    }
+    
   }
 
   descargarDeclaracion(){
-    let rut_deudor = this.auth.obtenerUsuarioActual()!.split('-');
-    let aux_fecha = new Date();
-    let year = aux_fecha.getFullYear();
+    if(this.pdf_disponible == true){
+      let rut_deudor = this.auth.obtenerUsuarioActual()!.split('-');
+      let aux_fecha = new Date();
+      let year = aux_fecha.getFullYear();
 
-    let id_declaracion = "DEC"+rut_deudor[0]+"_"+year;
-    this.declaracionService.obtenerUrlArchivo(id_declaracion, "PDF_DECLARACION").subscribe({
-      next: result =>{
-        window.open(result.toString(), '_blank');
+      let id_declaracion = "DEC"+rut_deudor[0]+"_"+year;
+      this.declaracionService.obtenerUrlArchivo(id_declaracion, "PDF_DECLARACION").subscribe({
+        next: result =>{
+          window.open(result.toString(), '_blank');
+        }
+      });
+    }
+    else{
+      if(this.formulario_enviado == true){
+        this.declaracionService.mostrarNotificacion("Su formulario esta siendo revisado por nuestros funcionarios.", "Cerrar");
       }
-    });
+      else{
+        this.declaracionService.mostrarNotificacion("Debe completar el formulario de la declaración antes de realizar este paso.", "Cerrar");
+      }
+      
+    }
+    
   }
 
   upload(event: any){
@@ -122,9 +149,45 @@ export class MenuDeclaracionComponent implements OnInit {
   }
 
   visualizarPDF(){
-    var blob = new Blob([this.declaracion_firmada], {type: 'application/pdf'});
-    var blobURL = URL.createObjectURL(blob);
-    window.open(blobURL);
+    if(this.pdf_disponible == true && this.declaracion_firmada != null){
+      var blob = new Blob([this.declaracion_firmada], {type: 'application/pdf'});
+      var blobURL = URL.createObjectURL(blob);
+      window.open(blobURL);
+    }
+    else{
+      if(this.formulario_enviado == true){
+        this.declaracionService.mostrarNotificacion("Su formulario esta siendo revisado por nuestros funcionarios.", "Cerrar");
+      }
+      else{
+        this.declaracionService.mostrarNotificacion("Debe completar el formulario de la declaración antes de realizar este paso.", "Cerrar");
+      }
+    }
+  }
+
+  subirDeclaracionDialog(){
+    if(this.pdf_disponible == true){
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = false;
+      dialogConfig.autoFocus = true;
+
+      dialogConfig.data = {
+        declaracion_firmada: this.declaracion_firmada
+      };
+
+      const dialogRef = this.dialog.open(SubirDeclaracionComponent, dialogConfig);
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('dialog cerrado');
+      });
+    }
+    else{
+      if(this.formulario_enviado == true){
+        this.declaracionService.mostrarNotificacion("Su formulario esta siendo revisado por nuestros funcionarios.", "Cerrar");
+      }
+      else{
+        this.declaracionService.mostrarNotificacion("Debe completar el formulario de la declaración antes de realizar este paso.", "Cerrar");
+      }
+    }
   }
 
   subirDeclaracionFirmada(){
@@ -135,10 +198,12 @@ export class MenuDeclaracionComponent implements OnInit {
   obtenerDeclaracionFirmada(){
     let rut_deudor = this.auth.obtenerUsuarioActual()!;
 
-    if(this.formulario_completado == true){
+    if(this.formulario_aceptado == true){
       this.declaracionService.obtenerArchivoDeclaracionFirmada(rut_deudor, this.id_declaracion).subscribe({
         next: archivo =>{
-          this.declaracion_firmada = archivo;
+          if(archivo != null){
+            this.declaracion_firmada = archivo;
+          }
         }
       });
     }

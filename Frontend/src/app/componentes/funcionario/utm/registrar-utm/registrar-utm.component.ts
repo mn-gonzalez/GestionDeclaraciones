@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { FormControl, FormGroup } from '@angular/forms';
 import { DeclaracionService } from 'src/app/servicios/declaracion.service';
 import { Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-registrar-utm',
@@ -10,7 +10,7 @@ import { Inject } from '@angular/core';
   styleUrls: ['./registrar-utm.component.css']
 })
 export class RegistrarUtmComponent implements OnInit {
-  valorUtm: UntypedFormGroup;
+  valorUtm: FormGroup;
   registrar: boolean = true;
   manual: boolean = false;
 
@@ -20,40 +20,40 @@ export class RegistrarUtmComponent implements OnInit {
       if(data.registrar == true){
         this.registrar = true;
 
-        this.valorUtm = new UntypedFormGroup({
-          'year': new UntypedFormControl(""),
-          'enero': new UntypedFormControl(0),
-          'febrero': new UntypedFormControl(0),
-          'marzo': new UntypedFormControl(0),
-          'abril': new UntypedFormControl(0),
-          'mayo': new UntypedFormControl(0),
-          'junio': new UntypedFormControl(0),
-          'julio': new UntypedFormControl(0),
-          'agosto': new UntypedFormControl(0),
-          'septiembre': new UntypedFormControl(0),
-          'octubre': new UntypedFormControl(0),
-          'noviembre': new UntypedFormControl(0),
-          'diciembre': new UntypedFormControl(0)
+        this.valorUtm = new FormGroup({
+          'year': new FormControl(""),
+          'enero': new FormControl(0),
+          'febrero': new FormControl(0),
+          'marzo': new FormControl(0),
+          'abril': new FormControl(0),
+          'mayo': new FormControl(0),
+          'junio': new FormControl(0),
+          'julio': new FormControl(0),
+          'agosto': new FormControl(0),
+          'septiembre': new FormControl(0),
+          'octubre': new FormControl(0),
+          'noviembre': new FormControl(0),
+          'diciembre': new FormControl(0)
         });
       }
       else{
         this.registrar = false;
         this.manual = true;
 
-        this.valorUtm = new UntypedFormGroup({
-          'year': new UntypedFormControl(data.utm.year),
-          'enero': new UntypedFormControl(data.utm.enero),
-          'febrero': new UntypedFormControl(data.utm.febrero),
-          'marzo': new UntypedFormControl(data.utm.marzo),
-          'abril': new UntypedFormControl(data.utm.abril),
-          'mayo': new UntypedFormControl(data.utm.mayo),
-          'junio': new UntypedFormControl(data.utm.junio),
-          'julio': new UntypedFormControl(data.utm.julio),
-          'agosto': new UntypedFormControl(data.utm.agosto),
-          'septiembre': new UntypedFormControl(data.utm.septiembre),
-          'octubre': new UntypedFormControl(data.utm.octubre),
-          'noviembre': new UntypedFormControl(data.utm.noviembre),
-          'diciembre': new UntypedFormControl(data.utm.diciembre)
+        this.valorUtm = new FormGroup({
+          'year': new FormControl(data.utm.year),
+          'enero': new FormControl(data.utm.enero),
+          'febrero': new FormControl(data.utm.febrero),
+          'marzo': new FormControl(data.utm.marzo),
+          'abril': new FormControl(data.utm.abril),
+          'mayo': new FormControl(data.utm.mayo),
+          'junio': new FormControl(data.utm.junio),
+          'julio': new FormControl(data.utm.julio),
+          'agosto': new FormControl(data.utm.agosto),
+          'septiembre': new FormControl(data.utm.septiembre),
+          'octubre': new FormControl(data.utm.octubre),
+          'noviembre': new FormControl(data.utm.noviembre),
+          'diciembre': new FormControl(data.utm.diciembre)
         });
       }
   }

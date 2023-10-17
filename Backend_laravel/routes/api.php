@@ -44,7 +44,7 @@ Route::group(['middleware' => ['api']], function () {
     /*
         Api accesible para funcionarios
     */
-    Route::get('/test', [DeudorController::class, 'test']);
+    Route::get('/declaraciones_mensuales/{year}', [ReportesController::class, 'declaraciones_entregadas_mensualmente']);
 
     //Registro de usuarios
     Route::get('/deudores', [DeudorController::class, 'listado_deudores']);

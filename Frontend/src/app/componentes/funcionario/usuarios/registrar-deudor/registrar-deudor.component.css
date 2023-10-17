@@ -1,12 +1,13 @@
 .formulario{
     display: flex;
     flex-direction: column;
-    margin: 5px;
+    margin: 20px;
     width: 300px;
 }
 
 .botones{
     display: flex;
+    padding-top: 10px;
     column-gap: 10px;
 }
 

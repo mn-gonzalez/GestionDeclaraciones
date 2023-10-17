@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Declaracion } from 'src/app/modelos/declaracion';
 import { DeclaracionService } from 'src/app/servicios/declaracion.service';
@@ -40,7 +40,7 @@ export class DeclaracionesEnRevisionComponent implements OnInit {
 
   revisarDeclaracion(id_declaracion: string){
     //realizar operaciones para que la revision de la declaracion quede asignada al funcionario
-    this.router.navigate(['/home-funcionario/declaraciones/revisar/'+id_declaracion]);
+    this.router.navigate(['/funcionario/declaraciones/revisar/'+id_declaracion]);
   }
 
 }

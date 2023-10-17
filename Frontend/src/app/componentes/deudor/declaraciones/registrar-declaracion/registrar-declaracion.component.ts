@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, UntypedFormGroup,UntypedFormControl, Validators} from '@angular/forms';
+import { FormBuilder, UntypedFormGroup,UntypedFormControl, Validators, FormGroup, FormControl} from '@angular/forms';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { Router } from '@angular/router';
-import {MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef} from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { UTM } from 'src/app/modelos/utm';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 import { validarRut } from 'src/app/compartidos/validador-rut.directive';
 
 interface Region{
@@ -25,6 +24,14 @@ interface Ingreso{
 interface Afp{
   id: number;
   nombre: string;
+}
+
+interface Documento{
+  tipo: string;
+  nombre: string;
+  detalle: string
+  archivo: File;
+  ocultar: boolean;
 }
 
 @Component({
@@ -53,10 +60,10 @@ export class RegistrarDeclaracionComponent implements OnInit {
   corregir_declaracion = false;
 
   //datos para los formularios donde se almacenan los datos ingresados por el deudor
-  datosPersonales: UntypedFormGroup;
-  ingresosDeudor: UntypedFormGroup;
-  conyuge: UntypedFormGroup;
-  comentarios: UntypedFormControl;
+  datosPersonales: FormGroup;
+  ingresosDeudor: FormGroup;
+  conyuge: FormGroup;
+  comentarios: FormControl;
 
   //listado de afps disponibles
   afps: Afp[] = [
@@ -98,97 +105,6 @@ export class RegistrarDeclaracionComponent implements OnInit {
   dataSource: MatTableDataSource<Ingreso>;
   //dataSource = this.ingresos;
 
-  constructor(private declaracionService: DeclaracionService, 
-    private auth: InicioSesionService, private router: Router, public dialog: MatDialog) { 
-
-    /*
-      Contiene los datos necesarios para almacenar los antecedents personales del deudor en la declaracion.
-    */
-    this.datosPersonales = new UntypedFormGroup({
-      'id': new UntypedFormControl(""),
-      'rut_deudor': new UntypedFormControl(""),
-      'nombres': new UntypedFormControl(""),
-      'ap_paterno': new UntypedFormControl(""),
-      'ap_materno': new UntypedFormControl(""),
-      'direccion': new UntypedFormControl(""),
-      'region': new UntypedFormControl(""),
-      'comuna': new UntypedFormControl(""),
-      'ciudad': new UntypedFormControl(""),
-      'telefono': new UntypedFormControl(""),
-      'correo': new UntypedFormControl(""),
-      'afp': new UntypedFormControl(""),
-      'estado_civil': new UntypedFormControl(""),
-      'trabajo': new UntypedFormControl(""),
-      'tel_trabajo': new UntypedFormControl("")
-    });
-
-    this.ingresosDeudor = new UntypedFormGroup({
-      'enero': new UntypedFormControl(0),
-      'febrero': new UntypedFormControl(0),
-      'marzo': new UntypedFormControl(0),
-      'abril': new UntypedFormControl(0),
-      'mayo': new UntypedFormControl(0),
-      'junio': new UntypedFormControl(0),
-      'julio': new UntypedFormControl(0),
-      'agosto': new UntypedFormControl(0),
-      'septiembre': new UntypedFormControl(0),
-      'octubre': new UntypedFormControl(0),
-      'noviembre': new UntypedFormControl(0),
-      'diciembre': new UntypedFormControl(0),
-      'enero_utm': new UntypedFormControl(0),
-      'febrero_utm': new UntypedFormControl(0),
-      'marzo_utm': new UntypedFormControl(0),
-      'abril_utm': new UntypedFormControl(0),
-      'mayo_utm': new UntypedFormControl(0),
-      'junio_utm': new UntypedFormControl(0),
-      'julio_utm': new UntypedFormControl(0),
-      'agosto_utm': new UntypedFormControl(0),
-      'septiembre_utm': new UntypedFormControl(0),
-      'octubre_utm': new UntypedFormControl(0),
-      'noviembre_utm': new UntypedFormControl(0),
-      'diciembre_utm': new UntypedFormControl(0),
-      'ingreso_total_deudor': new UntypedFormControl(0),
-      'ingreso_total_deudor_utm': new UntypedFormControl(0),
-      'ingreso_total_conyuge': new UntypedFormControl(0),
-      'ingreso_total_conyuge_utm': new UntypedFormControl(0),
-      'cuota_preliminar': new UntypedFormControl(0)
-    });
-
-    this.conyuge = new UntypedFormGroup({
-      'rut_conyuge': new UntypedFormControl("", [Validators.pattern('^\\d{8,9}\\-(\\d{1}|k|K)$'), validarRut()]),
-      'nombres': new UntypedFormControl(""),
-      'ap_paterno': new UntypedFormControl(""),
-      'ap_materno': new UntypedFormControl(""),
-      'enero': new UntypedFormControl(0),
-      'febrero': new UntypedFormControl(0),
-      'marzo': new UntypedFormControl(0),
-      'abril': new UntypedFormControl(0),
-      'mayo': new UntypedFormControl(0),
-      'junio': new UntypedFormControl(0),
-      'julio': new UntypedFormControl(0),
-      'agosto': new UntypedFormControl(0),
-      'septiembre': new UntypedFormControl(0),
-      'octubre': new UntypedFormControl(0),
-      'noviembre': new UntypedFormControl(0),
-      'diciembre': new UntypedFormControl(0),
-      'enero_utm': new UntypedFormControl(0),
-      'febrero_utm': new UntypedFormControl(0),
-      'marzo_utm': new UntypedFormControl(0),
-      'abril_utm': new UntypedFormControl(0),
-      'mayo_utm': new UntypedFormControl(0),
-      'junio_utm': new UntypedFormControl(0),
-      'julio_utm': new UntypedFormControl(0),
-      'agosto_utm': new UntypedFormControl(0),
-      'septiembre_utm': new UntypedFormControl(0),
-      'octubre_utm': new UntypedFormControl(0),
-      'noviembre_utm': new UntypedFormControl(0),
-      'diciembre_utm': new UntypedFormControl(0)
-    });
-
-    this.comentarios = new UntypedFormControl("");
-  }
-
-
   //almacenan de manera temporal los archivos que el deudor va a subir como documentacion.
   documento_renta: File;
   documento_renta_conyuge: File;
@@ -204,13 +120,103 @@ export class RegistrarDeclaracionComponent implements OnInit {
   documento_carp_tributaria_deudor: File;
   documento_carp_tributaria_conyuge: File;
   documento_copia_pagare_conyuge: File;
-
+ 
   //verifican los documentos que debe subir el deudor
   casado = false;
   tieneHijos = false;
   casadoReprog = false;
   deudorDebePresentarDecSimple = false;
   conyugeDebePresentarDecSimple = false;
+
+  constructor(private declaracionService: DeclaracionService, 
+    private auth: InicioSesionService, private router: Router, public dialog: MatDialog) { 
+
+    /*
+      Contiene los datos necesarios para almacenar los antecedents personales del deudor en la declaracion.
+    */
+    this.datosPersonales = new FormGroup({
+      'id': new FormControl(""),
+      'rut_deudor': new FormControl(""),
+      'nombres': new FormControl(""),
+      'ap_paterno': new FormControl(""),
+      'ap_materno': new FormControl(""),
+      'direccion': new FormControl(""),
+      'region': new FormControl(""),
+      'comuna': new FormControl(""),
+      'ciudad': new FormControl(""),
+      'telefono': new FormControl(""),
+      'correo': new FormControl(""),
+      'afp': new FormControl(""),
+      'estado_civil': new FormControl(""),
+      'trabajo': new FormControl(""),
+      'tel_trabajo': new FormControl("")
+    });
+
+    this.ingresosDeudor = new FormGroup({
+      'enero': new FormControl(0),
+      'febrero': new FormControl(0),
+      'marzo': new FormControl(0),
+      'abril': new FormControl(0),
+      'mayo': new FormControl(0),
+      'junio': new FormControl(0),
+      'julio': new FormControl(0),
+      'agosto': new FormControl(0),
+      'septiembre': new FormControl(0),
+      'octubre': new FormControl(0),
+      'noviembre': new FormControl(0),
+      'diciembre': new FormControl(0),
+      'enero_utm': new FormControl(0),
+      'febrero_utm': new FormControl(0),
+      'marzo_utm': new FormControl(0),
+      'abril_utm': new FormControl(0),
+      'mayo_utm': new FormControl(0),
+      'junio_utm': new FormControl(0),
+      'julio_utm': new FormControl(0),
+      'agosto_utm': new FormControl(0),
+      'septiembre_utm': new FormControl(0),
+      'octubre_utm': new FormControl(0),
+      'noviembre_utm': new FormControl(0),
+      'diciembre_utm': new FormControl(0),
+      'ingreso_total_deudor': new FormControl(0),
+      'ingreso_total_deudor_utm': new FormControl(0),
+      'ingreso_total_conyuge': new FormControl(0),
+      'ingreso_total_conyuge_utm': new FormControl(0),
+      'cuota_preliminar': new FormControl(0)
+    });
+
+    this.conyuge = new FormGroup({
+      'rut_conyuge': new FormControl("", [Validators.pattern('^\\d{8,9}\\-(\\d{1}|k|K)$'), validarRut()]),
+      'nombres': new FormControl(""),
+      'ap_paterno': new FormControl(""),
+      'ap_materno': new FormControl(""),
+      'enero': new FormControl(0),
+      'febrero': new FormControl(0),
+      'marzo': new FormControl(0),
+      'abril': new FormControl(0),
+      'mayo': new FormControl(0),
+      'junio': new FormControl(0),
+      'julio': new FormControl(0),
+      'agosto': new FormControl(0),
+      'septiembre': new FormControl(0),
+      'octubre': new FormControl(0),
+      'noviembre': new FormControl(0),
+      'diciembre': new FormControl(0),
+      'enero_utm': new FormControl(0),
+      'febrero_utm': new FormControl(0),
+      'marzo_utm': new FormControl(0),
+      'abril_utm': new FormControl(0),
+      'mayo_utm': new FormControl(0),
+      'junio_utm': new FormControl(0),
+      'julio_utm': new FormControl(0),
+      'agosto_utm': new FormControl(0),
+      'septiembre_utm': new FormControl(0),
+      'octubre_utm': new FormControl(0),
+      'noviembre_utm': new FormControl(0),
+      'diciembre_utm': new FormControl(0)
+    });
+
+    this.comentarios = new FormControl("");
+  }
 
   ngOnInit(): void {
     this.year = new Date().getFullYear();
@@ -307,61 +313,63 @@ export class RegistrarDeclaracionComponent implements OnInit {
   obtenerDatosDeclaracion(){
     this.declaracionService.obtenerDatosDeclaracion(this.id_declaracion,this.rut_deudor).subscribe({
       next: result => {
-        this.datosPersonales.get('id')!.setValue(this.id_declaracion);
-        this.datosPersonales.get('rut_deudor')!.setValue(result.rut_deudor);
-        this.datosPersonales.get('nombres')!.setValue(result.nombres);
-        this.datosPersonales.get('ap_paterno')!.setValue(result.ap_paterno);
-        this.datosPersonales.get('ap_materno')!.setValue(result.ap_materno);
-        this.datosPersonales.get('correo')!.setValue(result.correo);
-        this.datosPersonales.get('direccion')!.setValue(result.direccion);
-        this.datosPersonales.get('telefono')!.setValue(result.telefono);
-        this.datosPersonales.get('estado_civil')!.setValue(result.estado_civil);
-        this.datosPersonales.get('afp')!.setValue(result.afp);
-        this.datosPersonales.get('trabajo')!.setValue(result.trabajo);
-        this.datosPersonales.get('tel_trabajo')!.setValue(result.tel_trabajo);
-        this.datosPersonales.get('region')!.setValue(result.region);
-        this.datosPersonales.get('comuna')!.setValue(result.comuna);
-        this.datosPersonales.get('ciudad')!.setValue(result.ciudad);
+        if(result.id != null){
+          this.datosPersonales.get('id')!.setValue(this.id_declaracion);
+          this.datosPersonales.get('rut_deudor')!.setValue(result.rut_deudor);
+          this.datosPersonales.get('nombres')!.setValue(result.nombres);
+          this.datosPersonales.get('ap_paterno')!.setValue(result.ap_paterno);
+          this.datosPersonales.get('ap_materno')!.setValue(result.ap_materno);
+          this.datosPersonales.get('correo')!.setValue(result.correo);
+          this.datosPersonales.get('direccion')!.setValue(result.direccion);
+          this.datosPersonales.get('telefono')!.setValue(result.telefono);
+          this.datosPersonales.get('estado_civil')!.setValue(result.estado_civil);
+          this.datosPersonales.get('afp')!.setValue(result.afp);
+          this.datosPersonales.get('trabajo')!.setValue(result.trabajo);
+          this.datosPersonales.get('tel_trabajo')!.setValue(result.tel_trabajo);
+          this.datosPersonales.get('region')!.setValue(result.region);
+          this.datosPersonales.get('comuna')!.setValue(result.comuna);
+          this.datosPersonales.get('ciudad')!.setValue(result.ciudad);
 
-        this.ingresosDeudor.get('enero')!.setValue(result.enero);
-        this.ingresosDeudor.get('febrero')!.setValue(result.febrero);
-        this.ingresosDeudor.get('marzo')!.setValue(result.marzo);
-        this.ingresosDeudor.get('abril')!.setValue(result.abril);
-        this.ingresosDeudor.get('mayo')!.setValue(result.mayo);
-        this.ingresosDeudor.get('junio')!.setValue(result.junio);
-        this.ingresosDeudor.get('julio')!.setValue(result.julio);
-        this.ingresosDeudor.get('agosto')!.setValue(result.agosto);
-        this.ingresosDeudor.get('septiembre')!.setValue(result.septiembre);
-        this.ingresosDeudor.get('octubre')!.setValue(result.octubre);
-        this.ingresosDeudor.get('noviembre')!.setValue(result.noviembre);
-        this.ingresosDeudor.get('diciembre')!.setValue(result.diciembre);
+          this.ingresosDeudor.get('enero')!.setValue(result.enero);
+          this.ingresosDeudor.get('febrero')!.setValue(result.febrero);
+          this.ingresosDeudor.get('marzo')!.setValue(result.marzo);
+          this.ingresosDeudor.get('abril')!.setValue(result.abril);
+          this.ingresosDeudor.get('mayo')!.setValue(result.mayo);
+          this.ingresosDeudor.get('junio')!.setValue(result.junio);
+          this.ingresosDeudor.get('julio')!.setValue(result.julio);
+          this.ingresosDeudor.get('agosto')!.setValue(result.agosto);
+          this.ingresosDeudor.get('septiembre')!.setValue(result.septiembre);
+          this.ingresosDeudor.get('octubre')!.setValue(result.octubre);
+          this.ingresosDeudor.get('noviembre')!.setValue(result.noviembre);
+          this.ingresosDeudor.get('diciembre')!.setValue(result.diciembre);
 
-        this.ingresosDeudor.get('enero_utm')!.setValue(result.enero_utm);
-        this.ingresosDeudor.get('febrero_utm')!.setValue(result.febrero_utm);
-        this.ingresosDeudor.get('marzo_utm')!.setValue(result.marzo_utm);
-        this.ingresosDeudor.get('abril_utm')!.setValue(result.abril_utm);
-        this.ingresosDeudor.get('mayo_utm')!.setValue(result.mayo_utm);
-        this.ingresosDeudor.get('junio_utm')!.setValue(result.junio_utm);
-        this.ingresosDeudor.get('julio_utm')!.setValue(result.julio_utm);
-        this.ingresosDeudor.get('agosto_utm')!.setValue(result.agosto_utm);
-        this.ingresosDeudor.get('septiembre_utm')!.setValue(result.septiembre_utm);
-        this.ingresosDeudor.get('octubre_utm')!.setValue(result.octubre_utm);
-        this.ingresosDeudor.get('noviembre_utm')!.setValue(result.noviembre_utm);
-        this.ingresosDeudor.get('diciembre_utm')!.setValue(result.diciembre_utm);
+          this.ingresosDeudor.get('enero_utm')!.setValue(result.enero_utm);
+          this.ingresosDeudor.get('febrero_utm')!.setValue(result.febrero_utm);
+          this.ingresosDeudor.get('marzo_utm')!.setValue(result.marzo_utm);
+          this.ingresosDeudor.get('abril_utm')!.setValue(result.abril_utm);
+          this.ingresosDeudor.get('mayo_utm')!.setValue(result.mayo_utm);
+          this.ingresosDeudor.get('junio_utm')!.setValue(result.junio_utm);
+          this.ingresosDeudor.get('julio_utm')!.setValue(result.julio_utm);
+          this.ingresosDeudor.get('agosto_utm')!.setValue(result.agosto_utm);
+          this.ingresosDeudor.get('septiembre_utm')!.setValue(result.septiembre_utm);
+          this.ingresosDeudor.get('octubre_utm')!.setValue(result.octubre_utm);
+          this.ingresosDeudor.get('noviembre_utm')!.setValue(result.noviembre_utm);
+          this.ingresosDeudor.get('diciembre_utm')!.setValue(result.diciembre_utm);
 
-        this.seleccionarComunas(result.region);
+          this.seleccionarComunas(result.region);
 
-        if(result.estado_civil == 2){
-          this.tieneHijos = true;
-        }
+          if(result.estado_civil == 2){
+            this.tieneHijos = true;
+          }
 
-        if(result.estado_civil == 3){
-          this.casado = true;
-          this.obtenerDatosConyuge();
-        }
-        else if(result.estado_civil == 4){
-          this.casadoReprog = true;
-          this.obtenerDatosConyuge();
+          if(result.estado_civil == 3){
+            this.casado = true;
+            this.obtenerDatosConyuge();
+          }
+          else if(result.estado_civil == 4){
+            this.casadoReprog = true;
+            this.obtenerDatosConyuge();
+          }
         }
         
       },
@@ -495,140 +503,6 @@ export class RegistrarDeclaracionComponent implements OnInit {
     });
   }
 
-  upload(tipo_documento:string, event: any){
-    let documento = event.target.files[0];
-
-    switch(tipo_documento) { 
-      case "RENTAS_DEUDOR": { 
-        //let documento = event.target.files[0];
-        this.documento_renta = documento;
-        break; 
-      } 
-      case "RENTAS_CONYUGE": { 
-        //let documento = event.target.files[0];
-        this.documento_renta_conyuge = documento;
-        break; 
-      } 
-      case "CERTIFICADO_COTIZACIONES": { 
-        //let documento = event.target.files[0];
-        this.documento_cotizaciones = documento;
-        break; 
-      } 
-      case "FORMULARIO_N22": { 
-        //let documento = event.target.files[0];
-        this.documento_formulario22 = documento;
-        break; 
-      } 
-      case "LIBRETA_MATRIMONIO": { 
-        //let documento = event.target.files[0];
-        this.documento_libreta_matrimonio = documento; 
-        break; 
-      } 
-      case "DEC_JURADA_SIMPLE_DEUDOR": { 
-        //let documento = event.target.files[0];
-        this.documento_declaracion_sin_ingresos = documento;
-        break; 
-      } 
-      case "DEC_JURADA_SIMPLE_CONYUGE": { 
-        //let documento = event.target.files[0];
-        this.documento_declaracion_sin_ingresos_conyuge = documento;
-        break; 
-      } 
-      case "FINIQUITO_DEUDOR": { 
-        //let documento = event.target.files[0];
-        this.documento_finiquito = documento; 
-        break; 
-      }
-      case "FINIQUITO_CONYUGE": { 
-        //let documento = event.target.files[0];
-        this.documento_finiquito_conyuge = documento;
-        break; 
-      } 
-      case "CERT_NACIMIENTO": { 
-        //let documento = event.target.files[0];
-        this.documento_cert_nacimiento = documento; 
-        break; 
-      } 
-      case "CARPETA_TRIBUTARIA_DEUDOR": { 
-        //let documento = event.target.files[0];
-        this.documento_carp_tributaria_deudor = documento;
-        break; 
-      } 
-      case "CARPETA_TRIBUTARIA_CONYUGE": { 
-        //let documento = event.target.files[0];
-        this.documento_carp_tributaria_conyuge = documento;
-        break; 
-      } 
-      case "PAGARE_CONYUGE": { 
-        //let documento = event.target.files[0];
-        this.documento_copia_pagare_conyuge = documento; 
-        break; 
-      } 
-      default: { 
-          console.log("El tipo de documento no esta registrado en el sistema");
-          break; 
-      }
-    } 
-  }
-
-  subirDocumento(nombre_documento: string, tipo_documento: string, documento: File){
-    this.rut_deudor = this.auth.obtenerUsuarioActual()!;
-
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, nombre_documento, tipo_documento, documento);
-  }
-
-  subirDocumentoRentaDeudor(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERTIFICADO DE RENTAS", "RENTAS_DEUDOR",this.documento_renta);
-  }
-
-  subirDocumentoRentaConyuge(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERTIFICADO DE RENTAS CONYUGE", "RENTAS_CONYUGE",this.documento_renta_conyuge);
-  }
-
-  subirDocumentoCotizaciones(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "COTIZACIONES","CERTIFICADO_COTIZACIONES",this.documento_cotizaciones);
-  }
-
-  subirDocumentoFormulario22(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "FORMULARIO 22","FORMULARIO_N22",this.documento_formulario22);
-  }
-
-  subirDocumentoLibretaMatrimonio(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "LIBRETA DE MATRIMONIO", "LIBRETA_MATRIMONIO",this.documento_libreta_matrimonio);
-  }
-
-  subirDocumentoDecJuradaDeudor(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "DECLARACION JURADA SIMPLE DEUDOR","DEC_JURADA_SIMPLE_DEUDOR",this.documento_declaracion_sin_ingresos);
-  }
-
-  subirDocumentoDecJuradaConyuge(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "DECLARACION JURADA SIMPLE CONYUGE","DEC_JURADA_SIMPLE_CONYUGE",this.documento_declaracion_sin_ingresos_conyuge);
-  }
-
-  subirDocumentoFinitoDeudor(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "FINIQUITO DEUDOR","FINIQUITO_DEUDOR",this.documento_finiquito);
-  }
-
-  subirDocumentoFinitoConyuge(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "FINIQUITO CONYUGE","FINIQUITO_CONYUGE",this.documento_finiquito_conyuge);
-  }
-
-  subirDocumentoCertNacimiento(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CERTIFICADO DE NACIMIENTO","CERT_NACIMIENTO",this.documento_cert_nacimiento);
-  }
-
-  subirDocumentoCarpTributariaDeudor(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CARPETA TRIBUTARIA DEUDOR","CARPETA_TRIBUTARIA_DEUDOR",this.documento_carp_tributaria_deudor);
-  }
-
-  subirDocumentoCarpTributariaConyuge(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "CARPETA TRIBUTARIA CONYUGE","CARPETA_TRIBUTARIA_CONYUGE",this.documento_carp_tributaria_conyuge);
-  }
-
-  subirDocumentoPagareConyuge(){
-    this.declaracionService.subirDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion, "COPIA DE PAGARE CONYUGE","PAGARE_CONYUGE",this.documento_copia_pagare_conyuge);
-  }
-
   obtenerDocumentacionDeclaracion(){
     this.declaracionService.obtenerDocumentacionDeclaracion(this.rut_deudor, this.id_declaracion).subscribe({
       next: documentos =>{
@@ -714,7 +588,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
   convertirUTM(event: Event){
     const idInput = (event.target as HTMLInputElement).id;
     const valor = (event.target as HTMLInputElement).value;
-
+    
     for(let ingreso of this.ingresos){
       if(ingreso.id == idInput){
         const valor_utm = ingreso.valor;
@@ -878,82 +752,9 @@ export class RegistrarDeclaracionComponent implements OnInit {
     this.declaracionService.actualizarEstadoDeclaracion(this.rut_deudor, this.id_declaracion, 2).subscribe({
       next: result =>{
         this.declaracionService.mostrarNotificacion("La Declaración se ha enviado correctamente.", "Cerrar");
-        this.router.navigate(['/home-deudor']);
+        this.router.navigate(['/deudor/menu-declaracion']);
       }
     });
-  }
-
-  visualizarPDF(tipo_documento: string){
-    /*
-    this.declaracionService.obtenerUrlArchivo(this.id_declaracion, tipo_documento).subscribe({
-      next: result =>{
-        window.open(result.toString(), '_blank');
-      }
-    });
-    */
-   var blob = new Blob;
-
-    switch(tipo_documento) { 
-      case "RENTAS_DEUDOR": { 
-        blob = new Blob([this.documento_renta], {type: 'application/pdf'});
-        break; 
-      } 
-      case "RENTAS_CONYUGE": {
-        blob = new Blob([ this.documento_renta_conyuge], {type: 'application/pdf'});
-        break; 
-      } 
-      case "CERTIFICADO_COTIZACIONES": {
-        blob = new Blob([this.documento_cotizaciones], {type: 'application/pdf'});
-        break; 
-      } 
-      case "FORMULARIO_N22": {
-        blob = new Blob([this.documento_formulario22], {type: 'application/pdf'});
-        break; 
-      } 
-      case "LIBRETA_MATRIMONIO": { 
-        blob = new Blob([this.documento_libreta_matrimonio], {type: 'application/pdf'});
-        break; 
-      } 
-      case "DEC_JURADA_SIMPLE_DEUDOR": {
-        blob = new Blob([this.documento_declaracion_sin_ingresos], {type: 'application/pdf'});
-        break; 
-      } 
-      case "DEC_JURADA_SIMPLE_CONYUGE": {
-        blob = new Blob([this.documento_declaracion_sin_ingresos_conyuge], {type: 'application/pdf'});
-        break; 
-      } 
-      case "FINIQUITO_DEUDOR": { 
-        blob = new Blob([this.documento_finiquito], {type: 'application/pdf'});
-        break; 
-      }
-      case "FINIQUITO_CONYUGE": { 
-        blob = new Blob([this.documento_finiquito_conyuge], {type: 'application/pdf'});
-        break; 
-      } 
-      case "CERT_NACIMIENTO": {  
-        blob = new Blob([this.documento_cert_nacimiento], {type: 'application/pdf'});
-        break; 
-      } 
-      case "CARPETA_TRIBUTARIA_DEUDOR": { 
-        blob = new Blob([this.documento_carp_tributaria_deudor], {type: 'application/pdf'});
-        break; 
-      } 
-      case "CARPETA_TRIBUTARIA_CONYUGE": { 
-        blob = new Blob([this.documento_carp_tributaria_conyuge], {type: 'application/pdf'});
-        break; 
-      } 
-      case "PAGARE_CONYUGE": { 
-        blob = new Blob([this.documento_copia_pagare_conyuge], {type: 'application/pdf'});
-        break; 
-      } 
-      default: { 
-          console.log("El tipo de documento no esta registrado en el sistema");
-          break; 
-      }
-    }
-
-    var blobURL = URL.createObjectURL(blob);
-    window.open(blobURL);
   }
 
   obtenerRevision(){

@@ -11,3 +11,14 @@
 .mat-cell{
     text-align: center;
 }
+
+.grafico{
+    padding-top: 30px;
+    width: 1000px;
+}
+
+.tarjetas{
+    display: flex; 
+    flex-direction: row;
+    column-gap: 20px;
+}

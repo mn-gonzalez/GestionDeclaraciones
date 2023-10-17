@@ -61,28 +61,45 @@
 .formulario_ingresos{
     display:flex;
     justify-content: center;
+    width: 100%;
+    padding-top: 20px;
 }
 
 .form_ingresos{
-    padding: 5px;
-    max-height: 40px;
+    display:flex;
+    justify-content: center;
 }
 
-.mat-header-cell{
-    text-align: center;
+.mat-column-mes{
     border: 1px solid currentColor;
-    padding: 2px;
-}
-
-.mat-cell{
     text-align: center;
-    border: 1px solid currentColor;
-    padding: 2px;
 }
 
-.mat-table{
-    padding-top:20px;
-    width: 650px;
+.mat-column-ingresos_pesos{
+    border: 1px solid currentColor;
+    text-align: center;
+}
+
+.mat-column-utm{
+    border: 1px solid currentColor;
+    text-align: center;
+}
+
+.mat-column-ingresos_utm{
+    border: 1px solid currentColor;
+    text-align: center;
+}
+
+.mat-mdc-table{
+    min-width: 650px;
+}
+
+.mat-mdc-cell{
+    text-align: center;
+}
+
+.botones{
+    display: flex;
 }
 
 .formulario-documentacion{
@@ -113,6 +130,7 @@
 }
 
 .miniatura-pdf{
+    cursor: pointer;
     display: flex; 
     align-items: center; 
     height: 100%; 
@@ -127,4 +145,11 @@
     padding-top: 15px;
     padding-left: 10px;
     height: 40px;
+}
+
+.mat-mdc-form-field {
+    padding: 10px;
+    .mat-mdc-form-field-subscript-wrapper {
+       height: 0 !important;
+    }
 }

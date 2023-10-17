@@ -10,12 +10,19 @@
 
 .botones{
     margin-right: 10px;
+    background-color: var(--color-utalca);
+    color: white;
+}
+
+th{
+    text-align: center;
+    background-color: var(--color-utalca);
+}
+
+td{
+    text-align: center;
 }
 
 .mat-header-cell{
-    text-align: center;
-}
-
-.mat-cell{
-    text-align: center;
+    background-color: var(--color-utalca);
 }

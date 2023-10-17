@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatLegacyTableDataSource as MatTableDataSource} from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 import { FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Declaracion } from 'src/app/modelos/declaracion';
@@ -83,7 +83,7 @@ export class DeclaracionesDeudorComponent implements OnInit {
   }
 
   verDatosDeclaracion(id_declaracion: string){
-    this.router.navigate(['/home-funcionario/declaracion/'+id_declaracion]);
+    this.router.navigate(['/funcionario/declaracion/'+id_declaracion]);
   }
 
 }

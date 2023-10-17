@@ -123,7 +123,7 @@
                         <ng-container matColumnDef="ingresos_pesos">
                             <th mat-header-cell *matHeaderCellDef> Monto en Pesos </th>
                             <td mat-cell *matCellDef="let element"> 
-                                <mat-form-field>
+                                <mat-form-field appearance="outline" class="form_ingresos">
                                     <input matInput formControlName="{{element.formControl}}" readonly>
                                 </mat-form-field>
                             </td>
@@ -137,7 +137,7 @@
                         <ng-container matColumnDef="ingresos_utm">
                             <th mat-header-cell *matHeaderCellDef> Monto en UTM </th>
                             <td mat-cell *matCellDef="let element"> 
-                                <mat-form-field>
+                                <mat-form-field appearance="outline" class="form_ingresos">
                                     <input matInput formControlName="{{element.formControlUTM}}" readonly>
                                 </mat-form-field>
                             </td>
@@ -235,202 +235,148 @@
             <form [formGroup]="conyuge">
                 <ng-template matStepLabel>Documentación</ng-template>
                 <div class="formulario-documentacion">
-                    <div>
-                        <div class="label_documento">
-                            <label>Certificado de Rentas</label>
-                        </div>
-                        <div class="subir-documento">
-                            <div *ngIf="this.documento_renta == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_renta != null" (click)="visualizarPDF('RENTAS_DEUDOR')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_renta.name}}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="false"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Certificado de Rentas'"
+                        [nombreDocumento]="'CERTIFICADO DE RENTAS'"
+                        [tipoDocumento]="'RENTAS_DEUDOR'"
+                        [documento]="this.documento_renta"
+                        [soloVista]="true">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="casado || casadoReprog">
-                        <div class="label_documento">
-                            <label>Certificado de Rentas Conyuge</label>
-                        </div>
-                        <div class="subir-documento">
-                            <div *ngIf="this.documento_renta_conyuge == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_renta_conyuge != null" (click)="visualizarPDF('RENTAS_CONYUGE')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_renta_conyuge.name}}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="!this.casado"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Certificado de Rentas Conyuge'"
+                        [nombreDocumento]="'CERTIFICADO DE RENTAS CONYUGE'"
+                        [tipoDocumento]="'RENTAS_CONYUGE'"
+                        [documento]="this.documento_renta_conyuge"
+                        [soloVista]="true">
+                    </app-subir-documentacion>
 
-                    <div>
-                        <div class="label_documento">
-                            <label>Formulario N°22 Compacto</label>
-                        </div>
-                        <div class="subir-documento">
-                            <div *ngIf="this.documento_formulario22 == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_formulario22 != null" (click)="visualizarPDF('FORMULARIO_N22')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_formulario22.name}}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="false"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Formulario N°22 Compacto'"
+                        [nombreDocumento]="'FORMULARIO 22'"
+                        [tipoDocumento]="'FORMULARIO_N22'"
+                        [documento]="this.documento_formulario22"
+                        [soloVista]="true">
+                    </app-subir-documentacion>
 
-                    <div>
-                        <div class="label_documento">
-                            <label>Carpeta Tributaria Deudor</label>
-                        </div>
-                        <div class="subir-documento">
-                            <div *ngIf="this.documento_carp_tributaria_deudor == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_carp_tributaria_deudor != null" (click)="visualizarPDF('CARPETA_TRIBUTARIA_DEUDOR')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_carp_tributaria_deudor.name}}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="false"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Carpeta Tributaria Deudor'"
+                        [nombreDocumento]="'CARPETA TRIBUTARIA DEUDOR'"
+                        [tipoDocumento]="'CARPETA_TRIBUTARIA_DEUDOR'"
+                        [documento]="this.documento_carp_tributaria_deudor"
+                        [soloVista]="true">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="casado || casadoReprog">
-                        <div class="label_documento">
-                            <label>Carpeta Tributaria Conyuge</label>
-                        </div>
-                        <div class="subir-documento">
-                            <div *ngIf="this.documento_carp_tributaria_conyuge == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_carp_tributaria_conyuge != null" (click)="visualizarPDF('CARPETA_TRIBUTARIA_CONYUGE')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_carp_tributaria_conyuge.name}}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="!this.casado"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Carpeta Tributaria Conyuge'"
+                        [nombreDocumento]="'CARPETA_TRIBUTARIA_CONYUGE'"
+                        [tipoDocumento]="'CARPETA_TRIBUTARIA_CONYUGE'"
+                        [documento]="this.documento_carp_tributaria_conyuge"
+                        [soloVista]="true">
+                    </app-subir-documentacion>
 
-                    <div>
-                        <div class="label_documento">
-                            <label>Certificado de Cotizaciones Previsionales</label>
-                        </div>
-                        <div class="subir-documento">
-                            <div *ngIf="this.documento_cotizaciones == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_cotizaciones != null" (click)="visualizarPDF('CERTIFICADO_COTIZACIONES')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_cotizaciones.name}}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="false"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Certificado de Cotizaciones Previsionales'"
+                        [nombreDocumento]="'COTIZACIONES'"
+                        [tipoDocumento]="'CERTIFICADO_COTIZACIONES'"
+                        [documento]="this.documento_cotizaciones"
+                        [soloVista]="true">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="casado || casadoReprog">
-                        <div class="label_documento">
-                            <label>Fotocopia de Libreta de Matrimonio</label>
-                        </div>
-                        <div class="subir-documento">
-                            <div *ngIf="this.documento_libreta_matrimonio == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_libreta_matrimonio != null" (click)="visualizarPDF('LIBRETA_MATRIMONIO')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_libreta_matrimonio.name}}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="!this.casado"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Fotocopia de Libreta de Matrimonio'"
+                        [nombreDocumento]="'LIBRETA DE MATRIMONIO'"
+                        [tipoDocumento]="'LIBRETA_MATRIMONIO'"
+                        [documento]="this.documento_libreta_matrimonio"
+                        [soloVista]="true">
+                    </app-subir-documentacion>
 
-                    <div>
-                        <div class="label_documento">
-                            <label>Declaracion Jurada Notarial Simple del Deudor (debe acreditar
-                                no haber percibido ingresos en tres o mas meses)</label>
-                        </div>
-                        <div class="subir-documento">
-                            <div *ngIf="this.documento_declaracion_sin_ingresos == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_declaracion_sin_ingresos != null" (click)="visualizarPDF('DEC_JURADA_SIMPLE_DEUDOR')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_declaracion_sin_ingresos.name}}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="!this.deudorDebePresentarDecSimple"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Declaracion Jurada Notarial Simple del Deudor (debe acreditar no haber percibido ingresos en tres o mas meses)'"
+                        [nombreDocumento]="'DECLARACION JURADA SIMPLE DEUDOR'"
+                        [tipoDocumento]="'DEC_JURADA_SIMPLE_DEUDOR'"
+                        [documento]="this.documento_declaracion_sin_ingresos"
+                        [soloVista]="true">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="casado || casadoReprog">
-                        <div class="label_documento">
-                            <label>Declaracion Jurada Notarial Simple del Conyuge (debe acreditar
-                                no haber percibido ingresos en tres o mas meses)</label>
-                        </div>
-                        <div class="subir-documento">
-                            <div *ngIf="this.documento_declaracion_sin_ingresos_conyuge == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_declaracion_sin_ingresos_conyuge != null" (click)="visualizarPDF('DEC_JURADA_SIMPLE_CONYUGE')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_declaracion_sin_ingresos_conyuge.name}}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="!this.casado && !this.conyugeDebePresentarDecSimple"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Declaracion Jurada Notarial Simple del Conyuge (debe acreditar no haber percibido ingresos en tres o mas meses)'"
+                        [nombreDocumento]="'DECLARACION JURADA SIMPLE CONYUGE'"
+                        [tipoDocumento]="'DEC_JURADA_SIMPLE_CONYUGE'"
+                        [documento]="this.documento_declaracion_sin_ingresos_conyuge"
+                        [soloVista]="true">
+                    </app-subir-documentacion>
 
-                    <div>
-                        <div class="label_documento">
-                            <label>Finiquito de Trabajo Deudor</label>
-                        </div>
-                        <div class="subir-documento">
-                            <div *ngIf="this.documento_finiquito == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_finiquito != null" (click)="visualizarPDF('FINIQUITO_DEUDOR')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_finiquito.name}}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="false"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Finiquito de Trabajo Deudor'"
+                        [nombreDocumento]="'FINIQUITO DEUDOR'"
+                        [tipoDocumento]="'FINIQUITO_DEUDOR'"
+                        [documento]="this.documento_finiquito"
+                        [soloVista]="true">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="casado || casadoReprog">
-                        <div class="label_documento">
-                            <label>Finiquito de Trabajo Conyuge</label>
-                        </div>
-                        <div class="subir-documento">
-                            <div *ngIf="this.documento_finiquito_conyuge == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_finiquito_conyuge != null" (click)="visualizarPDF('FINIQUITO_CONYUGE')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_finiquito_conyuge.name}}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="!this.casado"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Finiquito de Trabajo Conyuge'"
+                        [nombreDocumento]="'FINIQUITO CONYUGE'"
+                        [tipoDocumento]="'FINIQUITO_CONYUGE'"
+                        [documento]="this.documento_finiquito_conyuge"
+                        [soloVista]="true">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="tieneHijos">
-                        <div class="label_documento">
-                            <label>Certificado de Nacimiento de Hijo</label>
-                        </div>
-                        <div class="subir-documento">
-                            <div *ngIf="this.documento_cert_nacimiento == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_cert_nacimiento != null" (click)="visualizarPDF('CERT_NACIMIENTO')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_cert_nacimiento.name}}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="!this.tieneHijos"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Certificado de Nacimiento de Hijo'"
+                        [nombreDocumento]="'CERTIFICADO DE NACIMIENTO'"
+                        [tipoDocumento]="'CERT_NACIMIENTO'"
+                        [documento]="this.documento_cert_nacimiento"
+                        [soloVista]="true">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="casadoReprog">
-                        <div class="label_documento">
-                            <label>Copia de Pagaré de Conyuge, para deudores reprogramados Ley 19.287</label>
-                        </div>
-                        <div class="subir-documento">
-                            <div *ngIf="this.documento_copia_pagare_conyuge == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_copia_pagare_conyuge != null" (click)="visualizarPDF('PAGARE_CONYUGE')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_copia_pagare_conyuge.name}}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="false"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Copia de Pagaré de Conyuge, para deudores reprogramados Ley 19.287'"
+                        [nombreDocumento]="'COPIA DE PAGARE CONYUGE'"
+                        [tipoDocumento]="'PAGARE_CONYUGE'"
+                        [documento]="this.documento_copia_pagare_conyuge"
+                        [soloVista]="true">
+                    </app-subir-documentacion>
                 </div>
                 
                 <div>

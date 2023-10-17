@@ -1,11 +1,9 @@
 <form [formGroup]="datosFuncionario" class="formulario">
-    <h2>Ingrese los Datos del Funcionario.</h2>
+    <h2 style="color: var(--color-utalca);">Ingrese los datos del funcionario.</h2>
     <mat-form-field appearance="outline">
-        <mat-label>RUT</mat-label>
+        <mat-label>R.U.T</mat-label>
         <input matInput placeholder="Ej. 12.345.678-9" formControlName="rut" autocomplete="off">
-        <div class="mensaje-error" *ngIf="this.datosFuncionario.controls['rut'].errors?.rut_valido">
-            El rut ingresado no es válido.
-        </div>
+        <mat-error *ngIf="this.datosFuncionario.controls['rut'].errors?.rut_valido">El rut ingresado no es válido.</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -14,12 +12,12 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-        <mat-label>Apellido Paterno</mat-label>
+        <mat-label>Apellido paterno</mat-label>
         <input matInput formControlName="ap_paterno">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-        <mat-label>Apellido Materno</mat-label>
+        <mat-label>Apellido materno</mat-label>
         <input matInput formControlName="ap_materno">
     </mat-form-field>
 
@@ -29,12 +27,12 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-        <mat-label>Tipo de Funcionario</mat-label>
+        <mat-label>Tipo de funcionario</mat-label>
         <input matInput formControlName="tipo_usuario">
     </mat-form-field>
 
     <div class="botones">
-        <button mat-raised-button (click)="registrarFuncionario()">Registrar</button>
-        <button mat-raised-button (click)="cerrar()">Cancelar</button>
+        <button style="height: 35px; color: white; background-color: var(--color-utalca);" mat-raised-button (click)="registrarFuncionario()">Registrar</button>
+        <button style="height: 35px; color: white; background-color: var(--color-utalca);" mat-raised-button (click)="cerrar()">Cancelar</button>
     </div>
 </form>

@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Deudor } from 'src/app/modelos/deudor';
 import { DeclaracionService } from 'src/app/servicios/declaracion.service';
+import DatalabelsPlugin from 'chartjs-plugin-datalabels';
+import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-reportes',
@@ -16,9 +20,98 @@ export class ReportesComponent implements OnInit {
   dataSource3: MatTableDataSource<Deudor>;
   dataSource4: MatTableDataSource<Deudor>;
 
+  declaracionesMensuales: number[] = [];
+  nroDecProblemas: number = 0;
+  nroDeudoresPostergacion: number = 0;
+  nroDeclaracionesEntregadas: number = 0;
+  nroDeclaracionesFinalizadas: number = 0;
+  totalDeclaracionesEntregadas: number = 0;
+  nroDeclaracionesCorreccion: number = 0;
+
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+
+  // Pie
+  public pieChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+      },
+      datalabels: {
+        formatter: (value: any, ctx: any) => {
+          if (ctx.chart.data.labels) {
+            return ctx.chart.data.labels[ctx.dataIndex];
+          }
+        },
+      },
+    },
+  };
+  public pieChartData: ChartData<'pie', number[], string | string[]> = {
+    labels: [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'],
+    datasets: [
+      {
+        data: [300, 500, 100],
+      },
+    ],
+  };
+  public pieChartType: ChartType = 'pie';
+  public pieChartPlugins = [DatalabelsPlugin];
+
+  // events
+  public chartClicked({
+    event,
+    active,
+  }: {
+    event: ChartEvent;
+    active: object[];
+  }): void {
+    console.log(event, active);
+  }
+
+  public chartHovered({
+    event,
+    active,
+  }: {
+    event: ChartEvent;
+    active: object[];
+  }): void {
+    console.log(event, active);
+  }
+
+  public barChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: {
+      x: {},
+      y: {
+        min: 0,
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      },
+    },
+  };
+  public barChartType: ChartType = 'bar';
+  public barChartPlugins = [DataLabelsPlugin];
+  public barChartData: ChartData<'bar'> = {
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    datasets: [
+      { data: this.declaracionesMensuales, label: 'Declaraciones Entregadas' ,  backgroundColor: 'rgba(185, 214, 200, 0.75)'},
+      
+    ],
+  };;
+
   constructor(private declaracionService: DeclaracionService) { }
 
   ngOnInit(): void {
+    this.obtenerDatosGrafico();
     this.obtenerDeudoresConDeclaracionesPendientes();
     this.obtenerDeudoresConDeclaracionesFinalizadas();
     this.obtenerDeudoresConDeclaracionesIncompletas();
@@ -27,6 +120,25 @@ export class ReportesComponent implements OnInit {
     this.dataSource2 = new MatTableDataSource();
     this.dataSource3 = new MatTableDataSource();
     this.dataSource4 = new MatTableDataSource();
+  }
+
+  obtenerDatosGrafico(){
+    let fecha = new Date();
+    let year = fecha.getFullYear();
+
+    this.declaracionService.obtenerDatosGrafico(year).subscribe({
+      next: result =>{
+        result.declaraciones_mensuales.forEach(mes=>{
+          this.declaracionesMensuales.push(mes.total);
+        });
+
+        this.nroDeclaracionesEntregadas = result.nro_declaraciones;
+        this.chart?.update();
+      }, 
+      error: result =>{
+        console.log(result);
+      }
+    });
   }
 
   obtenerDeudoresConDeclaracionesPendientes(){
@@ -63,6 +175,7 @@ export class ReportesComponent implements OnInit {
 
     this.declaracionService.obtenerDeudoresConDeclaracionesEnCorreccion(year).subscribe({
       next: result =>{
+        this.nroDeclaracionesCorreccion = result.cantidad;
         this.dataSource3.data = result.deudores;
       }, 
       error: result =>{
@@ -77,6 +190,7 @@ export class ReportesComponent implements OnInit {
 
     this.declaracionService.obtenerDeudoresConPostergacion(year).subscribe({
       next: result =>{
+        this.nroDeudoresPostergacion = result.cantidad;
         this.dataSource4.data = result.deudores;
       }, 
       error: result =>{

@@ -145,7 +145,7 @@
                 <ng-template matStepLabel>Ingresos del Deudor</ng-template>
     
                 <div class="formulario_ingresos">
-                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="tabla">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                         <ng-container matColumnDef="mes">
                             <th mat-header-cell *matHeaderCellDef> Mes </th>
                             <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
@@ -153,25 +153,25 @@
 
                         <ng-container matColumnDef="ingresos_pesos">
                             <th mat-header-cell *matHeaderCellDef> Monto en Pesos </th>
-                            <div class="div_form_ingresos" mat-cell *matCellDef="let element">
-                                <mat-form-field  class="form_ingresos">
+                            <td mat-cell *matCellDef="let element">
+                                <mat-form-field appearance="outline" class="form_ingresos">
                                     <input matInput formControlName="{{element.formControl}}" id="{{element.id}}" required (keyup)="convertirUTM($event)">
                                 </mat-form-field>
-                            </div>
+                            </td>
                         </ng-container>
 
                         <ng-container matColumnDef="utm">
                             <th mat-header-cell *matHeaderCellDef> Valor UTM </th>
-                            <td mat-cell *matCellDef="let element"> ${{element.valor | pesochileno}} </td>
+                            <td mat-cell *matCellDef="let element"> ${{element.valor | mask: 'separator': {thousandSeparator: '.'} }} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="ingresos_utm">
                             <th mat-header-cell *matHeaderCellDef> Monto en UTM </th>
-                            <div class="div_form_ingresos" mat-cell *matCellDef="let element">
-                                <mat-form-field  class="form_ingresos">
+                            <td mat-cell *matCellDef="let element">
+                                <mat-form-field appearance="outline" class="form_ingresos">
                                     <input matInput formControlName="{{element.formControlUTM}}" required readonly>
                                 </mat-form-field>
-                            </div>
+                            </td>
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -224,7 +224,7 @@
                 <div>
                     <h3>Ingresos del Conyuge</h3>
 
-                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="tabla">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                         <ng-container matColumnDef="mes">
                             <th mat-header-cell *matHeaderCellDef> Mes </th>
                             <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
@@ -232,11 +232,11 @@
 
                         <ng-container matColumnDef="ingresos_pesos">
                             <th mat-header-cell *matHeaderCellDef> Monto en Pesos </th>
-                            <div class="div_form_ingresos" mat-cell *matCellDef="let element">
-                                <mat-form-field  class="form_ingresos">
+                            <td  mat-cell *matCellDef="let element">
+                                <mat-form-field appearance="outline" class="form_ingresos">
                                     <input matInput formControlName="{{element.formControl}}" id="{{element.id}}" required (keyup)="convertirUTMConyuge($event)">
                                 </mat-form-field>
-                            </div>
+                            </td>
                         </ng-container>
 
                         <ng-container matColumnDef="utm">
@@ -246,11 +246,11 @@
 
                         <ng-container matColumnDef="ingresos_utm">
                             <th mat-header-cell *matHeaderCellDef> Monto en UTM </th>
-                            <div class="div_form_ingresos" mat-cell *matCellDef="let element">
-                                <mat-form-field  class="form_ingresos">
+                            <td mat-cell *matCellDef="let element">
+                                <mat-form-field appearance="outline" class="form_ingresos">
                                     <input matInput formControlName="{{element.formControlUTM}}" required readonly>
                                 </mat-form-field>
-                            </div>
+                            </td>
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -273,255 +273,149 @@
             <form [formGroup]="conyuge">
               <ng-template matStepLabel>Documentación</ng-template>
                 <div class="formulario-documentacion">
-                    <div>
-                        <div class="label_documento">
-                            <label>Certificado de Rentas</label>
-                        </div>
-                        <div class="subir-documento">
-                            <input type="file" (change)="upload('RENTAS_DEUDOR', $event)" accept="application/pdf" #renta style="display: none;">
-                            <button style="height:50%;" (click)="renta.click()"> Seleccionar</button>
-                            <div *ngIf="this.documento_renta == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_renta != null" (click)="visualizarPDF('RENTAS_DEUDOR')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_renta.name}}</div>
-                            </div>
-                            <!-- <button mat-icon-button><mat-icon (click)="subirDocumentoRentaDeudor()" class="material-icons-outlined">save</mat-icon></button> -->
-                            <button mat-icon-button><mat-icon (click)="subirDocumento('CERTIFICADO DE RENTAS', 'RENTAS_DEUDOR', this.documento_renta)" class="material-icons-outlined">save</mat-icon></button>
-                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="false"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Certificado de Rentas'"
+                        [nombreDocumento]="'CERTIFICADO DE RENTAS'"
+                        [tipoDocumento]="'RENTAS_DEUDOR'"
+                        [documento]="this.documento_renta"
+                        [soloVista]="false">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="casado || casadoReprog">
-                        <div class="label_documento">
-                            <label>Certificado de Rentas Conyuge</label>
-                        </div>
-                        <div class="subir-documento">
-                            <input type="file" (change)="upload('RENTAS_CONYUGE',$event)" accept="application/pdf" #rentaConyuge style="display: none;">
-                            <button style="height:50%;" (click)="rentaConyuge.click()"> Seleccionar</button>
-                            <div *ngIf="this.documento_renta_conyuge == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_renta_conyuge != null" (click)="visualizarPDF('RENTAS_CONYUGE')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_renta_conyuge.name}}</div>
-                            </div>
-                            <button mat-icon-button><mat-icon (click)="subirDocumentoRentaConyuge()" class="material-icons-outlined">save</mat-icon></button>
-                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="!this.casado"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Certificado de Rentas Conyuge'"
+                        [nombreDocumento]="'CERTIFICADO DE RENTAS CONYUGE'"
+                        [tipoDocumento]="'RENTAS_CONYUGE'"
+                        [documento]="this.documento_renta_conyuge"
+                        [soloVista]="false">
+                    </app-subir-documentacion>
 
-                    <div>
-                        <div class="label_documento">
-                            <label>Formulario N°22 Compacto</label>
-                        </div>
-                        <div class="subir-documento">
-                            <input type="file" (change)="upload('FORMULARIO_N22', $event)" accept="application/pdf" #formulario22 style="display: none;">
-                            <button style="height:50%;" (click)="formulario22.click()"> Seleccionar</button>
-                            <div *ngIf="this.documento_formulario22 == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_formulario22 != null" (click)="visualizarPDF('FORMULARIO_N22')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_formulario22.name}}</div>
-                            </div>
-                            <button mat-icon-button><mat-icon (click)="subirDocumentoFormulario22()" class="material-icons-outlined">save</mat-icon></button>
-                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="false"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Formulario N°22 Compacto'"
+                        [nombreDocumento]="'FORMULARIO 22'"
+                        [tipoDocumento]="'FORMULARIO_N22'"
+                        [documento]="this.documento_formulario22"
+                        [soloVista]="false">
+                    </app-subir-documentacion>
 
-                    <div>
-                        <div class="label_documento">
-                            <label>Carpeta Tributaria Deudor</label>
-                        </div>
-                        <div class="subir-documento">
-                            <input type="file" (change)="upload('CARPETA_TRIBUTARIA_DEUDOR', $event)" accept="application/pdf" #carpTributaria style="display: none;">
-                            <button style="height:50%;" (click)="carpTributaria.click()"> Seleccionar</button>
-                            <div *ngIf="this.documento_carp_tributaria_deudor == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_carp_tributaria_deudor != null" (click)="visualizarPDF('CARPETA_TRIBUTARIA_DEUDOR')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_carp_tributaria_deudor.name}}</div>
-                            </div>
-                            <button mat-icon-button><mat-icon (click)="subirDocumentoCarpTributariaDeudor()" class="material-icons-outlined">save</mat-icon></button>
-                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="false"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Carpeta Tributaria Deudor'"
+                        [nombreDocumento]="'CARPETA TRIBUTARIA DEUDOR'"
+                        [tipoDocumento]="'CARPETA_TRIBUTARIA_DEUDOR'"
+                        [documento]="this.documento_carp_tributaria_deudor"
+                        [soloVista]="false">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="casado || casadoReprog">
-                        <div class="label_documento">
-                            <label>Carpeta Tributaria Conyuge</label>
-                        </div>
-                        <div class="subir-documento">
-                            <input type="file" (change)="upload('CARPETA_TRIBUTARIA_CONYUGE', $event)" accept="application/pdf" #carpTributariaConyuge style="display: none;">
-                            <button style="height:50%;" (click)="carpTributariaConyuge.click()"> Seleccionar</button>
-                            <div *ngIf="this.documento_carp_tributaria_conyuge == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_carp_tributaria_conyuge != null" (click)="visualizarPDF('CARPETA_TRIBUTARIA_CONYUGE')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_carp_tributaria_conyuge.name}}</div>
-                            </div>
-                            <button mat-icon-button><mat-icon (click)="subirDocumentoCarpTributariaConyuge()" class="material-icons-outlined">save</mat-icon></button>
-                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="!this.casado"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Carpeta Tributaria Conyuge'"
+                        [nombreDocumento]="'CARPETA_TRIBUTARIA_CONYUGE'"
+                        [tipoDocumento]="'CARPETA_TRIBUTARIA_CONYUGE'"
+                        [documento]="this.documento_carp_tributaria_conyuge"
+                        [soloVista]="false">
+                    </app-subir-documentacion>
 
-                    <div>
-                        <div class="label_documento">
-                            <label>Certificado de Cotizaciones Previsionales</label>
-                        </div>
-                        <div class="subir-documento">
-                            <input type="file" (change)="upload('CERTIFICADO_COTIZACIONES', $event)" accept="application/pdf" #cotizaciones style="display: none;">
-                            <button style="height:50%;" (click)="cotizaciones.click()"> Seleccionar</button>
-                            <div *ngIf="this.documento_cotizaciones == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_cotizaciones != null" (click)="visualizarPDF('CERTIFICADO_COTIZACIONES')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_cotizaciones.name}}</div>
-                            </div>
-                            <button mat-icon-button><mat-icon (click)="subirDocumentoCotizaciones()" class="material-icons-outlined">save</mat-icon></button>
-                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="false"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Certificado de Cotizaciones Previsionales'"
+                        [nombreDocumento]="'COTIZACIONES'"
+                        [tipoDocumento]="'CERTIFICADO_COTIZACIONES'"
+                        [documento]="this.documento_cotizaciones"
+                        [soloVista]="false">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="casado || casadoReprog">
-                        <div class="label_documento">
-                            <label>Fotocopia de Libreta de Matrimonio</label>
-                        </div>
-                        <div class="subir-documento">
-                            <input type="file" (change)="upload('LIBRETA_MATRIMONIO', $event)" accept="application/pdf" #libretaMatrimonio style="display: none;">
-                            <button style="height:50%;" (click)="libretaMatrimonio.click()"> Seleccionar</button>
-                            <div *ngIf="this.documento_libreta_matrimonio == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_libreta_matrimonio != null" (click)="visualizarPDF('LIBRETA_MATRIMONIO')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_libreta_matrimonio.name}}</div>
-                            </div>
-                            <button mat-icon-button><mat-icon (click)="subirDocumentoLibretaMatrimonio()" class="material-icons-outlined">save</mat-icon></button>
-                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="!this.casado"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Fotocopia de Libreta de Matrimonio'"
+                        [nombreDocumento]="'LIBRETA DE MATRIMONIO'"
+                        [tipoDocumento]="'LIBRETA_MATRIMONIO'"
+                        [documento]="this.documento_libreta_matrimonio"
+                        [soloVista]="false">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="deudorDebePresentarDecSimple">
-                        <div class="label_documento">
-                            <label>Declaracion Jurada Notarial Simple del Deudor (debe acreditar
-                                no haber percibido ingresos en tres o mas meses)</label>
-                        </div>
-                        <div class="subir-documento">
-                            <input type="file" (change)="upload('DEC_JURADA_SIMPLE_DEUDOR', $event)" accept="application/pdf" #decSimple style="display: none;">
-                            <button style="height:50%;" (click)="decSimple.click()"> Seleccionar</button>
-                            <div *ngIf="this.documento_declaracion_sin_ingresos == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_declaracion_sin_ingresos != null" (click)="visualizarPDF('DEC_JURADA_SIMPLE_DEUDOR')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_declaracion_sin_ingresos.name}}</div>
-                            </div>
-                            <button mat-icon-button><mat-icon (click)="subirDocumentoDecJuradaDeudor()" class="material-icons-outlined">save</mat-icon></button>
-                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="!this.deudorDebePresentarDecSimple"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Declaracion Jurada Notarial Simple del Deudor (debe acreditar no haber percibido ingresos en tres o mas meses)'"
+                        [nombreDocumento]="'DECLARACION JURADA SIMPLE DEUDOR'"
+                        [tipoDocumento]="'DEC_JURADA_SIMPLE_DEUDOR'"
+                        [documento]="this.documento_declaracion_sin_ingresos"
+                        [soloVista]="false">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="casado || casadoReprog">
-                        <div class="label_documento">
-                            <label>Declaracion Jurada Notarial Simple del Conyuge (debe acreditar
-                                no haber percibido ingresos en tres o mas meses)</label>
-                        </div>
-                        <div class="subir-documento">
-                            <input type="file" (change)="upload('DEC_JURADA_SIMPLE_CONYUGE', $event)" accept="application/pdf" #decSimpleConyuge style="display: none;">
-                            <button style="height:50%;" (click)="decSimpleConyuge.click()"> Seleccionar</button>
-                            <div *ngIf="this.documento_declaracion_sin_ingresos_conyuge == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_declaracion_sin_ingresos_conyuge != null" (click)="visualizarPDF('DEC_JURADA_SIMPLE_CONYUGE')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_declaracion_sin_ingresos_conyuge.name}}</div>
-                            </div>
-                            <button mat-icon-button><mat-icon (click)="subirDocumentoDecJuradaConyuge()" class="material-icons-outlined">save</mat-icon></button>
-                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="!this.casado && !this.conyugeDebePresentarDecSimple"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Declaracion Jurada Notarial Simple del Conyuge (debe acreditar no haber percibido ingresos en tres o mas meses)'"
+                        [nombreDocumento]="'DECLARACION JURADA SIMPLE CONYUGE'"
+                        [tipoDocumento]="'DEC_JURADA_SIMPLE_CONYUGE'"
+                        [documento]="this.documento_declaracion_sin_ingresos_conyuge"
+                        [soloVista]="false">
+                    </app-subir-documentacion>
 
-                    <div>
-                        <div class="label_documento">
-                            <label>Finiquito de Trabajo Deudor</label>
-                        </div>
-                        <div class="subir-documento">
-                            <input type="file" (change)="upload('FINIQUITO_DEUDOR', $event)" accept="application/pdf" #finiquito style="display: none;">
-                            <button style="height:50%;" (click)="finiquito.click()"> Seleccionar</button>
-                            <div *ngIf="this.documento_finiquito == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_finiquito != null" (click)="visualizarPDF('FINIQUITO_DEUDOR')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_finiquito.name}}</div>
-                            </div>
-                            <button mat-icon-button><mat-icon (click)="subirDocumentoFinitoDeudor()" class="material-icons-outlined">save</mat-icon></button>
-                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="false"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Finiquito de Trabajo Deudor'"
+                        [nombreDocumento]="'FINIQUITO DEUDOR'"
+                        [tipoDocumento]="'FINIQUITO_DEUDOR'"
+                        [documento]="this.documento_finiquito"
+                        [soloVista]="false">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="casado || casadoReprog">
-                        <div class="label_documento">
-                            <label>Finiquito de Trabajo Conyuge</label>
-                        </div>
-                        <div class="subir-documento">
-                            <input type="file" (change)="upload('FINIQUITO_CONYUGE', $event)" accept="application/pdf" #finiquitoConyuge style="display: none;">
-                            <button style="height:50%;" (click)="finiquitoConyuge.click()"> Seleccionar</button>
-                            <div *ngIf="this.documento_finiquito_conyuge == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_finiquito_conyuge != null" (click)="visualizarPDF('FINIQUITO_CONYUGE')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_finiquito_conyuge.name}}</div>
-                            </div>
-                            <button mat-icon-button><mat-icon (click)="subirDocumentoFinitoConyuge()" class="material-icons-outlined">save</mat-icon></button>
-                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="!this.casado"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Finiquito de Trabajo Conyuge'"
+                        [nombreDocumento]="'FINIQUITO CONYUGE'"
+                        [tipoDocumento]="'FINIQUITO_CONYUGE'"
+                        [documento]="this.documento_finiquito_conyuge"
+                        [soloVista]="false">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="tieneHijos">
-                        <div class="label_documento">
-                            <label>Certificado de Nacimiento de Hijo</label>
-                        </div>
-                        <div class="subir-documento">
-                            <input type="file" (change)="upload('CERT_NACIMIENTO', $event)" accept="application/pdf" #certNacimiento style="display: none;">
-                            <button style="height:50%;" (click)="certNacimiento.click()"> Seleccionar</button>
-                            <div *ngIf="this.documento_cert_nacimiento == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_cert_nacimiento != null" (click)="visualizarPDF('CERT_NACIMIENTO')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_cert_nacimiento.name}}</div>
-                            </div>
-                            <button mat-icon-button><mat-icon (click)="subirDocumentoCertNacimiento()" class="material-icons-outlined">save</mat-icon></button>
-                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="!this.tieneHijos"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Certificado de Nacimiento de Hijo'"
+                        [nombreDocumento]="'CERTIFICADO DE NACIMIENTO'"
+                        [tipoDocumento]="'CERT_NACIMIENTO'"
+                        [documento]="this.documento_cert_nacimiento"
+                        [soloVista]="false">
+                    </app-subir-documentacion>
 
-                    <div *ngIf="casadoReprog">
-                        <div class="label_documento">
-                            <label>Copia de Pagaré de Conyuge, para deudores reprogramados Ley 19.287</label>
-                        </div>
-                        <div class="subir-documento">
-                            <input type="file" (change)="upload('PAGARE_CONYUGE', $event)" accept="application/pdf" #pagareConyuge style="display: none;">
-                            <button style="height:50%;" (click)="pagareConyuge.click()"> Seleccionar</button>
-                            <div *ngIf="this.documento_copia_pagare_conyuge == null" class="miniatura-pdf">
-                                <span>No se ha seleccionado ningún archivo.</span>
-                            </div>
-                            <div *ngIf="this.documento_copia_pagare_conyuge != null" (click)="visualizarPDF('PAGARE_CONYUGE')" class="miniatura-pdf">
-                                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento_copia_pagare_conyuge.name}}</div>
-                            </div>
-                            <button mat-icon-button><mat-icon (click)="subirDocumentoPagareConyuge()" class="material-icons-outlined">save</mat-icon></button>
-                            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-                        </div>
-                    </div>
+                    <app-subir-documentacion
+                        [ocultar]="false"
+                        [rutDeudor]="rut_deudor"
+                        [idDeclaracion]="id_declaracion"
+                        [detalleDocumento]="'Copia de Pagaré de Conyuge, para deudores reprogramados Ley 19.287'"
+                        [nombreDocumento]="'COPIA DE PAGARE CONYUGE'"
+                        [tipoDocumento]="'PAGARE_CONYUGE'"
+                        [documento]="this.documento_copia_pagare_conyuge"
+                        [soloVista]="false">
+                    </app-subir-documentacion>
+
                 </div>
                 
                 <div style="padding-top: 20px;">

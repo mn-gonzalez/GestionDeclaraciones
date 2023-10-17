@@ -1,63 +1,73 @@
 <div class="fondo">
-    <h2 style="align-self: flex-start; padding-bottom: 3%;">Declaración Jurada de Ingresos 2023</h2>
+    <h1 style="align-self: flex-start; padding-bottom: 3%; font-size: 25px;">Declaración Jurada de Ingresos {{this.year}}</h1>
 
-    <mat-stepper class="menu">
-        <mat-step>
-            <ng-template matStepLabel>Completar Formulario</ng-template>
-            <div class="pasos">
-                <mat-card class="tarjeta" (click)="menuRegistrarDeclaracion()" disabled>
-                    <img class="icon" mat-card-image src="../../../assets/imagenes/documento.png">
-                    <mat-card-header>
-                        <mat-card-title style="font-size: 20px;">Registrar Declaración</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content class="mensaje">
-                        <mat-icon class="icono-aceptado" *ngIf="this.formulario_completado == true">check_circle</mat-icon>
-                        <mat-icon class="icono-alerta" *ngIf="this.formulario_completado == false">error</mat-icon>
-                        <p>{{ this.mensaje_formulario}}</p>
-                    </mat-card-content>
-                </mat-card>
+    <div class="menu_tarjetas">
+        <div>
+            <h2 style="font-size: 25px;">Paso 1</h2>
+            <mat-card class="tarjeta" (click)="menuRegistrarDeclaracion()" disabled>
+                <img class="icon" mat-card-image src="../../../assets/imagenes/documento.png">
+                <mat-card-header>
+                    <mat-card-title style="text-align: center; padding-bottom: 10px;">Registrar declaración</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="mensaje">
+                    <mat-icon class="icono-aceptado" *ngIf="this.formulario_enviado == true">check_circle</mat-icon>
+                    <mat-icon class="icono-alerta" *ngIf="this.formulario_enviado == false">error</mat-icon>
+                    <p>{{ this.mensaje_formulario}}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        
+        <div>
+            <h2 style="font-size: 25px;">Paso 2</h2>
+            <mat-card class="tarjeta" (click)="this.pdf_disponible == true || descargarDeclaracion()">
+                <img class="icon" mat-card-image src="../../../assets/imagenes/descargar.png">
+                <mat-card-header style="text-align: center; padding-bottom: 10px;">
+                    <mat-card-title style="font-size: 20px;">Descargar declaración</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="mensaje">
+                    <mat-icon class="pdf-disponible" *ngIf="this.pdf_disponible == true">download</mat-icon>
+                    <mat-icon class="pdf-nodisponible" *ngIf="this.pdf_disponible == false">file_download_off</mat-icon>
+                    <p>{{ this.mensaje_pdf}}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        
+        <div>
+            <h2 style="font-size: 25px;">Paso 3</h2>
+            <mat-card class="tarjeta">
+                <img *ngIf="this.declaracion_firmada == null" (click)="subirDeclaracionDialog()" class="icon" mat-card-image src="../../../assets/imagenes/upload_file.png">
+                <img *ngIf="this.declaracion_firmada != null" (click)="visualizarPDF()" class="icon" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                <mat-card-header style="text-align: center; padding-bottom: 10px;">
+                    <mat-card-title style="font-size: 20px;">Subir declaración</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="mensaje">
+                    <p>Suba aquí su declaración jurada firmada ante notario.</p>
+                </mat-card-content>
+                <mat-card-actions align="start" class="acciones">
+                    <button mat-button (click)="subirDeclaracionDialog()">Subir</button>
+                    <button mat-button (click)="visualizarPDF()">Ver</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        
+
+        <!-- <div>
+            <div class="label_documento">
+                <label style="font-size: 20px;">Declaración Firmada ante Notario</label>
             </div>
-        </mat-step>
-
-        <mat-step>
-            <ng-template matStepLabel>Descargar PDF</ng-template>
-            <div class="pasos">
-                <mat-card class="tarjeta" (click)="descargarDeclaracion()">
-                    <img class="icon" mat-card-image src="../../../assets/imagenes/descargar.png">
-                    <mat-card-header style="text-align: center;">
-                        <mat-card-title style="font-size: 20px;">Descargar Declaración</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content class="mensaje">
-                        <mat-icon class="pdf-disponible" *ngIf="this.pdf_disponible == true">download</mat-icon>
-                        <mat-icon class="pdf-nodisponible" *ngIf="this.pdf_disponible == false">file_download_off</mat-icon>
-                        <p>{{ this.mensaje_pdf}}</p>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-        </mat-step>
-
-        <mat-step>
-            <ng-template matStepLabel>Subir Declaración</ng-template>
-            <div class="pasos">
-                <div>
-                    <div class="label_documento">
-                        <label style="font-size: 20px;">Declaración Firmada ante Notario</label>
-                    </div>
-                    <div class="subir-documento">
-                        <input type="file" (change)="upload($event)" accept="application/pdf" #declaracion style="display: none;">
-                        <button style="height:50%;" (click)="declaracion.click()"> Seleccionar.</button>
-                        <div *ngIf="this.declaracion_firmada == null" class="miniatura-pdf">
-                            <span>No se ha seleccionado ningún archivo.</span>
-                        </div>
-                        <div *ngIf="this.declaracion_firmada != null" (click)="visualizarPDF()" class="miniatura-pdf">
-                            <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                            <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.declaracion_firmada.name}}</div>
-                        </div>
-                        <button mat-icon-button><mat-icon (click)="subirDeclaracionFirmada()" class="material-icons-outlined">save</mat-icon></button>
-                        <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-                    </div>
+            <div class="subir-documento">
+                <input type="file" (change)="upload($event)" accept="application/pdf" #declaracion style="display: none;">
+                <button style="height:50%;" (click)="declaracion.click()"> Seleccionar.</button>
+                <div *ngIf="this.declaracion_firmada == null" class="miniatura-pdf">
+                    <span>No se ha seleccionado ningún archivo.</span>
                 </div>
+                <div *ngIf="this.declaracion_firmada != null" (click)="visualizarPDF()" class="miniatura-pdf">
+                    <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                    <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.declaracion_firmada.name}}</div>
+                </div>
+                <button mat-icon-button><mat-icon (click)="subirDeclaracionFirmada()" class="material-icons-outlined">save</mat-icon></button>
+                <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
             </div>
-        </mat-step>
-      </mat-stepper>
+        </div> -->
+    </div>
 </div>

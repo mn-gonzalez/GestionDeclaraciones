@@ -5,7 +5,7 @@
 
     <div class="fondo">
         <form [formGroup]="form_ingreso" (ngSubmit)="ingresar()">
-            <mat-card class="tarjeta">
+            <mat-card appearance="raised" class="tarjeta">
                 <mat-card-header class="header_tarjeta">
                   <img class="imagen" mat-card-image src="../../../assets/imagenes/Utalca.svg.png" id="logo"/>
                 </mat-card-header>
@@ -13,7 +13,7 @@
                     <div class="tipo_usuario">
                         <label>Ingresar como:</label>
                         <mat-radio-group class="opciones" formControlName="tipo_ingreso">
-                            <mat-radio-button value="1">Deudor</mat-radio-button>
+                            <mat-radio-button style=" border-color: var(--color-utalca);" value="1">Deudor</mat-radio-button>
                             <mat-radio-button value="2">Funcionario</mat-radio-button>
                         </mat-radio-group>
                     </div>
@@ -35,9 +35,9 @@
                         </button>
                     </mat-form-field>
 
-                    <button mat-raised-button class="boton_sesion" type="submit" (click)="this.ingresando = !this.ingresando" [disabled]="this.form_ingreso.invalid">
-                        <mat-icon *ngIf="this.ingresando">
-                            <mat-spinner color="white" diameter="20"></mat-spinner>
+                    <button mat-raised-button class="mat-mdc-raised-button" type="submit" (click)="this.ingresando = !this.ingresando" [disabled]="this.form_ingreso.invalid">
+                        <mat-icon class="mat-icon" *ngIf="this.ingresando">
+                            <mat-spinner class="mat-mdc-progress-spinner" diameter="20"></mat-spinner>
                         </mat-icon>
                         {{ this.ingresando ? 'Ingresando...' : 'Ingresar' }}
                     </button>

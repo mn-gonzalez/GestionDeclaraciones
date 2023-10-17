@@ -273,9 +273,9 @@ export class DeclaracionService {
     formData.append('tipo', tipo);
     formData.append('documento', documento);
 
-    this.http.post(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/documentacion/subir"), formData)
-    .subscribe((response) => {
-         console.log('response received is ', response);
+    this.http.post<{ mensaje: string}>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/documentacion/subir"), formData)
+    .subscribe(response => {
+         this.mostrarNotificacion(response.mensaje, "Cerrar");
     });
   }
 
@@ -555,6 +555,15 @@ export class DeclaracionService {
 
   obtenerDeudoresConPostergacion(year: number){
     return this.http.get<{cantidad: number, deudores: Deudor[]}>(env.api.concat("/reportes/deudores/conPostergacion/"+year))
+    .pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  obtenerDatosGrafico(year: number){
+    return this.http.get<{declaraciones_mensuales: {mes: string, total: number}[], nro_declaraciones: number}>(env.api.concat("/declaraciones_mensuales/"+year))
     .pipe(
       map(result => {
         return result;

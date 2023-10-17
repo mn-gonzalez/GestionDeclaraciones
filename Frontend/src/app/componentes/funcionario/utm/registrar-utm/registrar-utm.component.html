@@ -1,5 +1,5 @@
 <form [formGroup]="valorUtm" class="formulario">
-    <h2>Registrar nueva UTM.</h2>
+    <h2 style="color: var(--color-utalca);">Registrar nueva UTM.</h2>
 
     <mat-form-field appearance="outline">
         <mat-label>Año</mat-label>
@@ -7,69 +7,69 @@
         <input *ngIf="registrar == false" matInput formControlName="year" readonly>
     </mat-form-field>
 
-    <div style="padding-bottom: 5%;" class="botones" *ngIf="registrar == true">
+    <div style="padding-bottom: 10px; display: flex; column-gap: 10px;" *ngIf="registrar == true">
         <mat-slide-toggle [(ngModel)]="manual" [ngModelOptions]="{standalone: true}" ngDefaultControl>Registrar Manualmente</mat-slide-toggle>
     </div>
 
-    <table style="padding-bottom: 5%;" *ngIf="manual == true">
+    <table style="padding-bottom: 10px; border-collapse: collapse; padding-bottom: 10px;" *ngIf="manual == true">
         <tr>
             <th>Mes</th>
             <th>Valor</th>
         </tr>
         <tr>
             <td>Enero</td>
-            <td><input matInput formControlName="enero"></td>
+            <td><input matInput class="utm_input" formControlName="enero"></td>
         </tr>
         <tr>
             <td>Febrero</td>
-            <td><input matInput formControlName="febrero"></td>
+            <td><input matInput class="utm_input" formControlName="febrero"></td>
         </tr>
 
         <tr>
             <td>Marzo</td>
-            <td><input matInput formControlName="marzo"></td>
+            <td><input matInput class="utm_input" formControlName="marzo"></td>
         </tr>
         <tr>
             <td>Abril</td>
-            <td><input matInput formControlName="abril"></td>
+            <td><input matInput class="utm_input" formControlName="abril"></td>
         </tr>
         <tr>
             <td>Mayo</td>
-            <td><input matInput formControlName="mayo"></td>
+            <td><input matInput class="utm_input" formControlName="mayo"></td>
         </tr>
         <tr>
             <td>Junio</td>
-            <td><input matInput formControlName="junio"></td>
+            <td><input matInput class="utm_input" formControlName="junio"></td>
         </tr>
         <tr>
             <td>Julio</td>
-            <td><input matInput formControlName="julio"></td>
+            <td><input matInput class="utm_input" formControlName="julio"></td>
         </tr>
         <tr>
             <td>Agosto</td>
-            <td><input matInput formControlName="agosto"></td>
+            <td><input matInput class="utm_input" formControlName="agosto"></td>
         </tr>
         <tr>
             <td>Septiembre</td>
-            <td><input matInput formControlName="septiembre"></td>
+            <td><input matInput class="utm_input" formControlName="septiembre"></td>
         </tr>
         <tr>
             <td>Octubre</td>
-            <td><input matInput formControlName="octubre"></td>
+            <td><input matInput class="utm_input" formControlName="octubre"></td>
         </tr>
         <tr>
             <td>Noviembre</td>
-            <td><input matInput formControlName="noviembre"></td>
+            <td><input matInput class="utm_input" formControlName="noviembre"></td>
         </tr>
         <tr>
             <td>Diciembre</td>
-            <td><input matInput formControlName="diciembre"></td>
+            <td><input matInput class="utm_input" formControlName="diciembre"></td>
         </tr>
       </table> 
 
-    <div class="botones">
-        <button mat-raised-button class="boton" (click)="registrarUTM()" *ngIf="registrar == true">Registrar</button>
-        <button mat-raised-button class="boton" (click)="actualizarUTM()" *ngIf="registrar == false">Actualizar</button>
-        <button mat-raised-button class="boton" (click)="cerrar()">Cancelar</button>
+    <div style="padding-top: 15px; display: flex; column-gap: 10px;">
+        <button mat-raised-button style="height: 40px; color: white; background-color: var(--color-utalca);" (click)="registrarUTM()" *ngIf="registrar == true">Registrar</button>
+        <button mat-raised-button style="height: 40px; color: white; background-color: var(--color-utalca);" (click)="actualizarUTM()" *ngIf="registrar == false">Actualizar</button>
+        <button mat-raised-button style="height: 40px; color: white; background-color: var(--color-utalca);" (click)="cerrar()">Cancelar</button>
     </div>
 </form>

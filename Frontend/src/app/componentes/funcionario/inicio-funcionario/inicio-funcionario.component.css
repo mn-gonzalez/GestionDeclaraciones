@@ -20,9 +20,17 @@
     font-size: 14px;
 }
 
-.mat-list-item:hover{
-    color: white;
-    background-color: var(--color-utalca)!important;
+.mat-list-item{
+    color: var(--color-utalca);
+    font-size: 15px;
+    height: 40px;
+    padding-left: 20px;
+    background-color: #e0e0e0;
+}
+
+.activo {
+    background-color: var(--color-utalca);
+    color: white!important;
 }
 
 .logo{

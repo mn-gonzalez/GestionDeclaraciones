@@ -12,3 +12,46 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background: var(--color-utalca);
     color: white !important;
 }
+
+.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+    border-color:#a41e2e !important;
+}
+
+.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled + .mdc-radio__background .mdc-radio__inner-circle {
+    border-color:#a41e2e !important;
+}
+
+.mat-mdc-header-cell{
+    background-color: #a41e2e !important;
+    color: white !important;
+    text-align: center !important;
+}
+
+.mat-mdc-cell{
+    text-align: center !important;
+    justify-content: center !important;
+}
+
+.mdc-button{
+    background-color: #a41e2e !important;
+    color: white !important;
+}
+
+.mat-list-item{
+    color: var(--color-utalca);
+    font-size: 15px;
+    height: 40px;
+    padding-left: 20px;
+    background-color: #e0e0e0;
+}
+
+.mat-list-item:hover{
+    color: white !important;
+    background-color: var(--color-utalca)!important;
+    cursor: pointer;
+}
+
+.activo {
+    background-color: var(--color-utalca);
+    color: white!important;
+}

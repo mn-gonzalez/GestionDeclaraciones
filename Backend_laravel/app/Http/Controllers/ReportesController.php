@@ -15,7 +15,8 @@ class ReportesController extends Controller
             ->where('tramite.estado', '=', 6)
             ->where('declaracion.year', '=', $year)
             ->selectRaw('count(tramite.id) as cantidad')
-            ->pluck('cantidad');
+            ->pluck('cantidad')
+            ->first();
 
         $deudores = DB::table('tramite')
             ->join('declaracion', 'declaracion.id', '=', 'tramite.id')
@@ -41,7 +42,7 @@ class ReportesController extends Controller
                 WHERE persona.rut = deudor.rut
                 AND tramite.rut_deudor = persona.rut
                 AND declaracion.id = tramite.id
-                AND declaracion.year = 2023)
+                AND declaracion.year = '.$year.')
         ');
 
         return response()->json(['deudores'=>$deudores]);
@@ -54,7 +55,8 @@ class ReportesController extends Controller
             ->where('tramite.estado', '=', 4)
             ->where('declaracion.year', '=', $year)
             ->selectRaw('count(tramite.id) as cantidad')
-            ->pluck('cantidad');
+            ->pluck('cantidad')
+            ->first();
 
         $deudores = DB::table('tramite')
             ->join('declaracion', 'declaracion.id', '=', 'tramite.id')
@@ -75,7 +77,8 @@ class ReportesController extends Controller
             ->join('postergacion', 'postergacion.id', '=', 'tramite.id')
             ->where('tramite.estado', '=', 3)
             ->selectRaw('count(persona.rut) as cantidad')
-            ->pluck('cantidad');
+            ->pluck('cantidad')
+            ->first();
 
         $deudores = DB::table('persona')
             ->join('deudor', 'deudor.rut', '=', 'persona.rut')
@@ -86,6 +89,25 @@ class ReportesController extends Controller
             ->get();
 
         return response()->json(['cantidad'=>$cantidad, 'deudores'=>$deudores]);
+    }
+
+    public function declaraciones_entregadas_mensualmente(Request $request, $year){
+        $nro_declaraciones_recibidas = DB::table('tramite')
+            ->join('declaracion', 'declaracion.id', '=', 'tramite.id')
+            ->where('declaracion.year', '=', $year)
+            ->selectRaw('count(tramite.id) as cantidad')
+            ->pluck('cantidad')
+            ->first();
+
+        $resultado = DB::select(
+            'SELECT MONTHNAME(tramite.fecha) as mes, COUNT(*) as total 
+            FROM tramite 
+            INNER JOIN declaracion ON declaracion.id = tramite.id
+            WHERE YEAR(tramite.fecha) = '.$year.'
+            GROUP BY mes'
+        );
+
+        return response()->json(['declaraciones_mensuales' => $resultado, 'nro_declaraciones' => $nro_declaraciones_recibidas]);
     }
 
     public function revisiones_declaracion($id_declaracion){

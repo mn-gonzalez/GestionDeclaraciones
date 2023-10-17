@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { Router } from '@angular/router';
 import { UTM } from 'src/app/modelos/utm';
 import { DeclaracionService } from 'src/app/servicios/declaracion.service';
 import { RegistrarUtmComponent } from '../registrar-utm/registrar-utm.component';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-listar-utm',
@@ -17,13 +17,13 @@ export class ListarUtmComponent implements OnInit {
   'septiembre', 'octubre', 'noviembre', 'diciembre', 'acciones'];
 
   dataSource: MatTableDataSource<UTM>;
-  busqueda : UntypedFormGroup;
+  busqueda : FormGroup;
   
   constructor(private router: Router, private declaracionService: DeclaracionService, 
     public dialog: MatDialog) {
 
-      this.busqueda = new UntypedFormGroup({
-        'filtro': new UntypedFormControl("")
+      this.busqueda = new FormGroup({
+        'filtro': new FormControl("")
       });
     }
 

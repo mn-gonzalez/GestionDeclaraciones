@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 import { Declaracion } from 'src/app/modelos/declaracion';
 import { Router } from '@angular/router';
 
@@ -56,7 +56,7 @@ export class DeclaracionesPorRevisarComponent implements OnInit {
     this.declaracionService.registrarRevision(rut_funcionario, id_declaracion, 
       fecha, comentarios, "EN REVISION").subscribe({
       next: result =>{
-        this.router.navigate(['/home-funcionario/declaraciones/revisar/'+id_declaracion]);
+        this.router.navigate(['/funcionario/declaraciones/revisar/'+id_declaracion]);
       }
     });
   }

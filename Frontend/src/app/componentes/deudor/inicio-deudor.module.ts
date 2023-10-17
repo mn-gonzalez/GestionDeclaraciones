@@ -14,6 +14,8 @@ import { MenuDeclaracionComponent } from './declaraciones/menu-declaracion/menu-
 import { DatosDevolucionComponent } from './solicitudes/datos-devolucion/datos-devolucion.component';
 import { DatosPostergacionComponent } from './solicitudes/datos-postergacion/datos-postergacion.component';
 import { SharedModule } from 'src/app/shared.module';
+import { SubirDeclaracionComponent } from './declaraciones/subir-declaracion/subir-declaracion.component';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 
 @NgModule({
     declarations: [
@@ -27,13 +29,16 @@ import { SharedModule } from 'src/app/shared.module';
         MensajesComponent,
         MenuDeclaracionComponent,
         DatosDevolucionComponent,
-        DatosPostergacionComponent
+        DatosPostergacionComponent,
+        SubirDeclaracionComponent
     ],
     imports: [
         CommonModule,
         InicioDeudorRoutingModule,
         MaterialModule,
-        SharedModule
+        SharedModule,
+        NgxMaskDirective,
+        NgxMaskPipe
     ]
 })
 export class InicioDeudorModule { }

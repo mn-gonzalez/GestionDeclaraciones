@@ -22,13 +22,13 @@ const routes: Routes = [
         {path: 'devolucion', component: RegistrarDevolucionComponent},
         {path: 'mis-datos', component: MisDatosComponent},
         {path: 'mensajes', component: MensajesComponent},
-        {path: 'declaracion', component: RegistrarDeclaracionComponent},
+        {path: 'registrar-declaracion', component: RegistrarDeclaracionComponent},
         {path: 'devoluciones', component: ListarDevolucionesComponent},
         {path: 'devoluciones/:id', component: DatosDevolucionComponent},
         {path: 'postergacion', component: RegistrarPostergacionComponent},
         {path: 'postergaciones', component: ListarPostergacionesComponent},
         {path: 'postergaciones/:id', component: DatosPostergacionComponent},
-        {path: '', component: MenuDeclaracionComponent}
+        {path: 'menu-declaracion', component: MenuDeclaracionComponent}
     ]
     }
   ];

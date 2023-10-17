@@ -1,0 +1,11 @@
+.formulario{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.botones{
+    display: flex;
+    padding-top: 10px;
+    column-gap: 10px;
+}

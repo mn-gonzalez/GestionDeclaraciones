@@ -1,11 +1,9 @@
 <form [formGroup]="datosDeudor" class="formulario">
-    <h2>Ingrese los Datos del Deudor.</h2>
+    <h2>Ingrese los datos del deudor.</h2>
     <mat-form-field appearance="outline">
-        <mat-label>RUT</mat-label>
+        <mat-label>R.U.T</mat-label>
         <input matInput placeholder="Ej. 12345678-9" formControlName="rut_deudor" autocomplete="off">
-        <div class="mensaje-error" *ngIf="this.datosDeudor.controls['rut_deudor'].errors?.rut_valido">
-            El rut ingresado no es válido.
-        </div>
+        <mat-error *ngIf="this.datosDeudor.controls['rut_deudor'].errors?.rut_valido">El rut ingresado no es válido.</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -35,7 +33,7 @@
     </mat-form-field>
 
     <div class="botones">
-        <button mat-raised-button (click)="registrarDeudor()" [disabled]="this.datosDeudor.invalid">Registrar</button>
-        <button mat-raised-button (click)="cerrar()">Cancelar</button>
+        <button style="height: 40px; color: white; background-color: var(--color-utalca);" mat-raised-button (click)="registrarDeudor()" [disabled]="this.datosDeudor.invalid">Registrar</button>
+        <button style="height: 40px; color: white; background-color: var(--color-utalca);" mat-raised-button (click)="cerrar()">Cancelar</button>
     </div>
 </form>

@@ -1,7 +1,7 @@
 .formulario{
     display: flex;
     flex-direction: column;
-    margin: 5px;
+    margin: 20px;
     width: 300px;
 }
 
@@ -20,4 +20,8 @@ th, td {
     height: 60%;
     color: white;
     background-color: var(--color-utalca);
+}
+
+.utm_input{
+    text-align: center;
 }

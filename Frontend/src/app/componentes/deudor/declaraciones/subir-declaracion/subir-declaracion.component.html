@@ -1,0 +1,20 @@
+<div class="formulario">
+    <app-subir-documentacion
+        [ocultar]="false"
+        [rutDeudor]="rutDeudor"
+        [idDeclaracion]="idDeclaracion"
+        [detalleDocumento]="'Subir declaración jurada firmada ante notario'"
+        [nombreDocumento]="'DECLARACION JURADA FIRMADA'"
+        [tipoDocumento]="'DECLARACION_FIRMADA'"
+        [documento]="declaracionFirmada">
+    </app-subir-documentacion>
+
+    <div>
+        <p>Aqui va el switch indicando que es la copia de la declaracion</p>
+    </div>
+
+    <div class="botones">
+        <button mat-raised-button (click)="cerrar()">Guardar</button>
+        <button mat-raised-button (click)="cerrar()">Cerrar</button>
+    </div>
+</div>

@@ -61,12 +61,8 @@
 .formulario_ingresos{
     display:flex;
     justify-content: center;
-}
-
-.div_form_ingresos{
-    display: flex;
-    justify-content: center;
-    border: 1px solid currentColor;
+    width: 100%;
+    padding-top: 20px;
 }
 
 .form_ingresos{
@@ -76,7 +72,6 @@
 
 .mat-column-mes{
     border: 1px solid currentColor;
-    padding: 0px !important;
     text-align: center;
 }
 
@@ -87,28 +82,24 @@
 
 .mat-column-utm{
     border: 1px solid currentColor;
-    padding: 0px !important;
     text-align: center;
 }
 
 .mat-column-ingresos_utm{
     border: 1px solid currentColor;
-    padding: 0px !important;
     text-align: center;
 }
 
-.mat-table{
-    padding-top:20px;
-    width: 650px;
+.mat-mdc-table{
+    min-width: 650px;
 }
 
-.mat-cell{
+.mat-mdc-cell{
     text-align: center;
 }
 
 .botones{
     display: flex;
-    
 }
 
 .formulario-documentacion{
@@ -154,4 +145,11 @@
     padding-top: 15px;
     padding-left: 10px;
     height: 40px;
+}
+
+.mat-mdc-form-field {
+    padding: 10px;
+    .mat-mdc-form-field-subscript-wrapper {
+       height: 0 !important;
+    }
 }

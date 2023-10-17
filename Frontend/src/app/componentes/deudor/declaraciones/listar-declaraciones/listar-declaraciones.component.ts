@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 import { Declaracion } from 'src/app/modelos/declaracion';
 import { Router } from '@angular/router';
 
@@ -72,7 +72,7 @@ export class ListarDeclaracionesComponent implements OnInit {
   }
 
   verDatosDeclaracion(id_declaracion: string){
-    this.router.navigate(['/home-deudor/declaracion/'+id_declaracion]);
+    this.router.navigate(['/deudor/declaracion/'+id_declaracion]);
   }
 
   verFormularioPDF(id_declaracion: string){

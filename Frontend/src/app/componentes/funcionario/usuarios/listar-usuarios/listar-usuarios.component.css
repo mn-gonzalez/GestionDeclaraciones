@@ -4,12 +4,14 @@
     padding: 25px;
 }
 
-.mat-header-cell{
+td, th{
     text-align: center;
 }
 
-.mat-cell{
-    text-align: center;
+.header{
+    text-align: center; 
+    color: white; 
+    background-color: var(--color-utalca);
 }
 
 .opciones{

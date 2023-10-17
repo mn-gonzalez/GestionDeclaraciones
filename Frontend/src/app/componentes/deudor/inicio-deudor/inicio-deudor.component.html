@@ -14,17 +14,8 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav opened="true" mode="side" class="sidenav">
         <mat-nav-list>
-            <a class="nav-list" (click)="misDatos()" mat-list-item> Mis Datos</a>
-            <mat-divider></mat-divider>
-            <a class="nav-list" (click)="registrarDeclaracion()" mat-list-item> Registrar Declaración Jurada</a>
-            <a class="nav-list" (click)="listarDeclaracion()"mat-list-item> Historial de Declaraciones Juradas</a>
-            <mat-divider></mat-divider>
-            <a class="nav-list" (click)="solicitarPostergacion()" mat-list-item> Solicitar Postergación de Cobro</a>
-            <a class="nav-list" (click)="listarPostergaciones()"mat-list-item> Historial de Postergaciones de Cobro</a>
-            <mat-divider></mat-divider>
-            <a class="nav-list" (click)="solicitarDevolucion()" mat-list-item> Solicitar Devolución de Pagarés</a>
-            <a class="nav-list" (click)="listarDevoluciones()" mat-list-item> Historial de Devoluciones de Pagarés</a>
-        </mat-nav-list>
+            <mat-action-list class="mat-list-item" *ngFor="let ruta of rutas" (click)="menuSeleccionado(ruta.enlace)" routerLink="{{ruta.enlace}}" [routerLinkActive]="['activo']">{{ ruta.nombre }}</mat-action-list>
+        </mat-nav-list>    
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-content">
         <router-outlet></router-outlet>
