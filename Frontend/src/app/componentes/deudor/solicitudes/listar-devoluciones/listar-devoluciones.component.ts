@@ -63,6 +63,6 @@ export class ListarDevolucionesComponent implements OnInit {
   }
 
   verDatosDevolucion(id_devolucion: string){
-    this.router.navigate(['/home-deudor/devoluciones/'+id_devolucion]);
+    this.router.navigate(['/deudor/devoluciones/'+id_devolucion]);
   }
 }

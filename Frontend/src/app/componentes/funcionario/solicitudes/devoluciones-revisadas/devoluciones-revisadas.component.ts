@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Devolucion } from 'src/app/modelos/devolucion';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
@@ -26,7 +26,7 @@ export class DevolucionesRevisadasComponent implements OnInit {
   }
 
   detallesDevolucion(id_devolucion: string){
-    this.router.navigate(['/home-funcionario/funcionario/devoluciones/revisadas/'+id_devolucion]);
+    this.router.navigate(['/funcionario/funcionario/devoluciones/revisadas/'+id_devolucion]);
   }
 
   obtenerDevolucionesRevisadas(){

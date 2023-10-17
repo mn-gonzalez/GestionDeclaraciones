@@ -563,7 +563,7 @@ export class DeclaracionService {
   }
 
   obtenerDatosGrafico(year: number){
-    return this.http.get<{declaraciones_mensuales: {mes: string, total: number}[], nro_declaraciones: number}>(env.api.concat("/declaraciones_mensuales/"+year))
+    return this.http.get<{declaraciones_mensuales: {mes: string, total: number}[], nro_declaraciones: number, declaraciones_sin_revisar: number}>(env.api.concat("/declaraciones_mensuales/"+year))
     .pipe(
       map(result => {
         return result;

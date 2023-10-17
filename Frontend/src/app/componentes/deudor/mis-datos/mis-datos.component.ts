@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, UntypedFormGroup,UntypedFormControl, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup,FormControl, Validators} from '@angular/forms';
 import { DeclaracionService } from 'src/app/servicios/declaracion.service';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
@@ -15,7 +15,7 @@ interface Region{
   styleUrls: ['./mis-datos.component.css']
 })
 export class MisDatosComponent implements OnInit {
-  datosPersonales: UntypedFormGroup;
+  datosPersonales: FormGroup;
   rut_deudor: string;
 
   regiones: Region[] = [
@@ -39,18 +39,18 @@ export class MisDatosComponent implements OnInit {
   comunas: string[];
 
   constructor(private auth: InicioSesionService, private usuarioService: UsuarioService) {
-    this.datosPersonales = new UntypedFormGroup({
-      'rut': new UntypedFormControl(""),
-      'nombres': new UntypedFormControl(""),
-      'ap_paterno': new UntypedFormControl(""),
-      'ap_materno': new UntypedFormControl(""),
-      'direccion': new UntypedFormControl(""),
-      'ciudad': new UntypedFormControl(""),
-      'comuna': new UntypedFormControl(""),
-      'region': new UntypedFormControl(""),
-      'telefono': new UntypedFormControl(""),
-      'correo': new UntypedFormControl(""),
-      'contrasena': new UntypedFormControl("")
+    this.datosPersonales = new FormGroup({
+      'rut': new FormControl(""),
+      'nombres': new FormControl(""),
+      'ap_paterno': new FormControl(""),
+      'ap_materno': new FormControl(""),
+      'direccion': new FormControl(""),
+      'ciudad': new FormControl(""),
+      'comuna': new FormControl(""),
+      'region': new FormControl(""),
+      'telefono': new FormControl(""),
+      'correo': new FormControl(""),
+      'contrasena': new FormControl("")
     });
   }
 

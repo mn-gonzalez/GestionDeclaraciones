@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, UntypedFormGroup,UntypedFormControl, Validators, FormGroup, FormControl} from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl} from '@angular/forms';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { Router } from '@angular/router';

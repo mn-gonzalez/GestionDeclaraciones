@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
-import { UntypedFormGroup,UntypedFormControl, Validators} from '@angular/forms';
+import { FormGroup,FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,18 +11,18 @@ import { Router } from '@angular/router';
 })
 export class RegistrarPostergacionComponent implements OnInit {
   docPostergacion: File;
-  datosPostergacion: UntypedFormGroup;
+  datosPostergacion: FormGroup;
   rut_deudor: string;
 
   constructor(private auth: InicioSesionService, private solicitudService: SolicitudService, private router: Router) { 
-    this.datosPostergacion = new UntypedFormGroup({
-      'id': new UntypedFormControl(""),
-      'rut_deudor': new UntypedFormControl(""),
-      'nombres': new UntypedFormControl(""),
-      'ap_paterno': new UntypedFormControl(""),
-      'ap_materno': new UntypedFormControl(""),
-      'fecha': new UntypedFormControl(""),
-      'motivo': new UntypedFormControl("")
+    this.datosPostergacion = new FormGroup({
+      'id': new FormControl(""),
+      'rut_deudor': new FormControl(""),
+      'nombres': new FormControl(""),
+      'ap_paterno': new FormControl(""),
+      'ap_materno': new FormControl(""),
+      'fecha': new FormControl(""),
+      'motivo': new FormControl("")
     });
   }
 
@@ -59,7 +59,7 @@ export class RegistrarPostergacionComponent implements OnInit {
     this.solicitudService.registrarPostergacion(this.rut_deudor, datos, "DOCUMENTO_POSTERGACION", this.docPostergacion).subscribe({
       next: result =>{
         this.solicitudService.mostrarNotificacion("La Solicitud de postergación de cobro se ha enviado correctamente.", "Cerrar");
-        this.router.navigate(['/home-deudor']);
+        this.router.navigate(['/deudor']);
       }, 
       error: result =>{
         console.log(result);

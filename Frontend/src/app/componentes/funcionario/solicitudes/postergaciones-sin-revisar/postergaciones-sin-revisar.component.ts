@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Postergacion } from 'src/app/modelos/postergacion';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
@@ -36,7 +36,7 @@ export class PostergacionesSinRevisarComponent implements OnInit {
 
   revisarPostergacion(id_postergacion: string){
     //realizar operaciones para que la revision de la declaracion quede asignada al funcionario
-    this.router.navigate(['/home-funcionario/postergaciones/revisar/'+id_postergacion]);
+    this.router.navigate(['/funcionario/postergaciones/revisar/'+id_postergacion]);
   }
 
 }

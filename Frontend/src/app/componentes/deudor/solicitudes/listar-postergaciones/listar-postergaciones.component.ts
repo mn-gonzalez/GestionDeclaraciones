@@ -61,7 +61,7 @@ export class ListarPostergacionesComponent implements OnInit {
   }
 
   verDatosPostergacion(id_postergacion: string){
-    this.router.navigate(['/home-deudor/postergaciones/'+id_postergacion]);
+    this.router.navigate(['/deudor/postergaciones/'+id_postergacion]);
   }
 
 }

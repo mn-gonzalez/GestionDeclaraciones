@@ -3,7 +3,7 @@ import { Devolucion } from 'src/app/modelos/devolucion';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Revision } from 'src/app/modelos/revision';
 
 @Component({
@@ -16,8 +16,8 @@ export class DatosDevolucionComponent implements OnInit {
   devolucion: Devolucion;
   id_devolucion: string;
   funcionario: boolean;
-  datosDevolucion: UntypedFormGroup;
-  formulario: UntypedFormGroup;
+  datosDevolucion: FormGroup;
+  formulario: FormGroup;
   revision: Revision;
   comentarios: string = "";
 
@@ -27,23 +27,23 @@ export class DatosDevolucionComponent implements OnInit {
     this.devolucion = new Devolucion();
     this.funcionario = false;
 
-    this.datosDevolucion = new UntypedFormGroup({
-      'id': new UntypedFormControl(""),
-      'rut_deudor': new UntypedFormControl(""),
-      'nombres': new UntypedFormControl(""),
-      'ap_paterno': new UntypedFormControl(""),
-      'ap_materno': new UntypedFormControl(""),
-      'fecha': new UntypedFormControl(""),
-      'domicilio': new UntypedFormControl(""),
-      'telefono': new UntypedFormControl(""),
-      'correo': new UntypedFormControl(""),
-      'tipo_deuda': new UntypedFormControl(""),
-      'retiro_oficina': new UntypedFormControl(""),
-      'solicitud': new UntypedFormControl("")
+    this.datosDevolucion = new FormGroup({
+      'id': new FormControl(""),
+      'rut_deudor': new FormControl(""),
+      'nombres': new FormControl(""),
+      'ap_paterno': new FormControl(""),
+      'ap_materno': new FormControl(""),
+      'fecha': new FormControl(""),
+      'domicilio': new FormControl(""),
+      'telefono': new FormControl(""),
+      'correo': new FormControl(""),
+      'tipo_deuda': new FormControl(""),
+      'retiro_oficina': new FormControl(""),
+      'solicitud': new FormControl("")
     });
 
-    this.formulario = new UntypedFormGroup({
-      'comentarios': new UntypedFormControl("")
+    this.formulario = new FormGroup({
+      'comentarios': new FormControl("")
     });
   }
 
@@ -127,7 +127,7 @@ export class DatosDevolucionComponent implements OnInit {
       fecha, datos.comentarios, estado).subscribe({
       next: result =>{
         this.solicitudService.mostrarNotificacion("La revision se ha registrado correctamente.", "Cerrar");
-        this.router.navigate(['/home-funcionario/devoluciones/revisar']);
+        this.router.navigate(['/funcionario/devoluciones/revisar']);
       }
     });
   }

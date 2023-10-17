@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Devolucion } from 'src/app/modelos/devolucion';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
@@ -36,7 +36,7 @@ export class DevolucionesSinRevisarComponent implements OnInit {
 
   revisarDevolucion(id_devolucion: string){
     //realizar operaciones para que la revision de la declaracion quede asignada al funcionario
-    this.router.navigate(['/home-funcionario/devoluciones/revisar/'+id_devolucion]);
+    this.router.navigate(['/funcionario/devoluciones/revisar/'+id_devolucion]);
   }
 
 }

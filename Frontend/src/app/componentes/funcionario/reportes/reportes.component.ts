@@ -27,6 +27,7 @@ export class ReportesComponent implements OnInit {
   nroDeclaracionesFinalizadas: number = 0;
   totalDeclaracionesEntregadas: number = 0;
   nroDeclaracionesCorreccion: number = 0;
+  nroDeclaracionesSinRevisar: number = 0;
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
@@ -133,6 +134,7 @@ export class ReportesComponent implements OnInit {
         });
 
         this.nroDeclaracionesEntregadas = result.nro_declaraciones;
+        this.nroDeclaracionesSinRevisar = result.declaraciones_sin_revisar;
         this.chart?.update();
       }, 
       error: result =>{

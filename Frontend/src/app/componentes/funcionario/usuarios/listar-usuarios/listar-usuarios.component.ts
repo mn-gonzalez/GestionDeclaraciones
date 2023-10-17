@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, FormArray} from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Deudor } from 'src/app/modelos/deudor';
@@ -16,12 +16,12 @@ import { MatDialog } from '@angular/material/dialog';
 export class ListarUsuariosComponent implements OnInit {
   displayedColumns: string[] = ['rut', 'nombres', 'ap_paterno', 'ap_materno', 'acciones'];
   dataSource: MatTableDataSource<Deudor>;
-  busqueda : UntypedFormGroup;
+  busqueda : FormGroup;
 
   constructor(private router: Router, private usuarioService: UsuarioService, 
     public dialog: MatDialog) {
-    this.busqueda = new UntypedFormGroup({
-      'filtro': new UntypedFormControl("")
+    this.busqueda = new FormGroup({
+      'filtro': new FormControl("")
     });
    }
 
@@ -47,15 +47,15 @@ export class ListarUsuariosComponent implements OnInit {
   }
 
   verDeclaracionesDeudor(rut: string){
-    this.router.navigate(['/home-funcionario/declaraciones/'+rut]);
+    this.router.navigate(['/funcionario/declaraciones/'+rut]);
   }
 
   verPostergacionesDeudor(rut: string){
-    this.router.navigate(['/home-funcionario/postergaciones/'+rut]);
+    this.router.navigate(['/funcionario/postergaciones/'+rut]);
   }
 
   verDevolucionesDeudor(rut: string){
-    this.router.navigate(['/home-funcionario/devoluciones/'+rut]);
+    this.router.navigate(['/funcionario/devoluciones/'+rut]);
   }
 
   menuRegistrarDeudor(){

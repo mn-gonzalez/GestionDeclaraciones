@@ -37,13 +37,14 @@ class ReportesController extends Controller
             persona.ap_materno
             FROM persona, deudor
             WHERE persona.rut = deudor.rut
+            AND deudor.inicio_cobro <= '.$year.'
             AND persona.rut NOT IN (SELECT persona.rut
                 FROM persona, deudor, tramite, declaracion
                 WHERE persona.rut = deudor.rut
                 AND tramite.rut_deudor = persona.rut
                 AND declaracion.id = tramite.id
-                AND declaracion.year = '.$year.')
-        ');
+                AND declaracion.year = '.$year.')'
+            );
 
         return response()->json(['deudores'=>$deudores]);
     }
@@ -91,10 +92,18 @@ class ReportesController extends Controller
         return response()->json(['cantidad'=>$cantidad, 'deudores'=>$deudores]);
     }
 
-    public function declaraciones_entregadas_mensualmente(Request $request, $year){
+    public function declaraciones_entregadas_mensualmente(Request $request, $year)
+    {
         $nro_declaraciones_recibidas = DB::table('tramite')
             ->join('declaracion', 'declaracion.id', '=', 'tramite.id')
             ->where('declaracion.year', '=', $year)
+            ->selectRaw('count(tramite.id) as cantidad')
+            ->pluck('cantidad')
+            ->first();
+
+        $declaraciones_sin_revisar = DB::table('declaracion')
+            ->join('tramite', 'tramite.id', '=', 'declaracion.id')
+            ->where('tramite.estado', '=', 3)
             ->selectRaw('count(tramite.id) as cantidad')
             ->pluck('cantidad')
             ->first();
@@ -107,10 +116,17 @@ class ReportesController extends Controller
             GROUP BY mes'
         );
 
-        return response()->json(['declaraciones_mensuales' => $resultado, 'nro_declaraciones' => $nro_declaraciones_recibidas]);
+        return response()->json(
+            [
+                'declaraciones_mensuales' => $resultado, 
+                'nro_declaraciones' => $nro_declaraciones_recibidas,
+                'declaraciones_sin_revisar' => $declaraciones_sin_revisar
+            ] 
+        );
     }
 
-    public function revisiones_declaracion($id_declaracion){
+    public function revisiones_declaracion($id_declaracion)
+    {
 
     }
 }

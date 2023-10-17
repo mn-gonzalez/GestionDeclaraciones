@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Postergacion } from 'src/app/modelos/postergacion';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
@@ -39,7 +39,7 @@ export class PostergacionesRevisadasComponent implements OnInit {
   }
 
   detallesPostergacion(id_postergacion: string){
-    this.router.navigate(['/home-funcionario/funcionario/postergaciones/revisadas/'+id_postergacion]);
+    this.router.navigate(['/funcionario/funcionario/postergaciones/revisadas/'+id_postergacion]);
   }
 
 }
