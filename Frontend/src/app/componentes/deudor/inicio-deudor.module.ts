@@ -9,7 +9,6 @@ import { ListarDevolucionesComponent } from './solicitudes/listar-devoluciones/l
 import { ListarDeclaracionesComponent } from './declaraciones/listar-declaraciones/listar-declaraciones.component';
 import { MisDatosComponent } from './mis-datos/mis-datos.component';
 import { RegistrarDeclaracionComponent } from './declaraciones/registrar-declaracion/registrar-declaracion.component';
-import { MensajesComponent } from './mensajes/mensajes.component';
 import { MenuDeclaracionComponent } from './declaraciones/menu-declaracion/menu-declaracion.component';
 import { DatosDevolucionComponent } from './solicitudes/datos-devolucion/datos-devolucion.component';
 import { DatosPostergacionComponent } from './solicitudes/datos-postergacion/datos-postergacion.component';
@@ -26,7 +25,6 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
         ListarDevolucionesComponent,
         ListarDeclaracionesComponent,
         MisDatosComponent,
-        MensajesComponent,
         MenuDeclaracionComponent,
         DatosDevolucionComponent,
         DatosPostergacionComponent,

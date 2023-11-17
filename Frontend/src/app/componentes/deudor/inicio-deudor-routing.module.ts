@@ -7,7 +7,6 @@ import { RegistrarDevolucionComponent } from './solicitudes/registrar-devolucion
 import { MisDatosComponent } from './mis-datos/mis-datos.component';
 import { DatosDeclaracionComponent } from '../funcionario/declaraciones/datos-declaracion/datos-declaracion.component';
 import { MenuDeclaracionComponent } from './declaraciones/menu-declaracion/menu-declaracion.component';
-import { MensajesComponent } from './mensajes/mensajes.component';
 import { ListarDevolucionesComponent } from './solicitudes/listar-devoluciones/listar-devoluciones.component';
 import { DatosDevolucionComponent } from './solicitudes/datos-devolucion/datos-devolucion.component';
 import { RegistrarPostergacionComponent } from './solicitudes/registrar-postergacion/registrar-postergacion.component';
@@ -21,7 +20,6 @@ const routes: Routes = [
         {path: 'declaracion/:id', component: DatosDeclaracionComponent},
         {path: 'devolucion', component: RegistrarDevolucionComponent},
         {path: 'mis-datos', component: MisDatosComponent},
-        {path: 'mensajes', component: MensajesComponent},
         {path: 'registrar-declaracion', component: RegistrarDeclaracionComponent},
         {path: 'devoluciones', component: ListarDevolucionesComponent},
         {path: 'devoluciones/:id', component: DatosDevolucionComponent},
