@@ -34,7 +34,7 @@
             <td mat-cell *matCellDef="let element"> 
               <div class="acciones">
                 <button mat-raised-button class="botones" (click)="verDatosDeclaracion(element.id)">Detalles</button> 
-                <button mat-raised-button class="botones" (click)="verFormularioPDF(element.id)">PDF</button>
+                <button mat-raised-button class="botones" (click)="verFormularioPDF(element.id, element.estado)">PDF</button>
               </div>
             </td>
         </ng-container>

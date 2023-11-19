@@ -19,7 +19,7 @@
         
         <div>
             <h2 style="font-size: 25px;">Paso 2</h2>
-            <mat-card class="tarjeta" (click)="this.pdf_disponible == true || descargarDeclaracion()">
+            <mat-card class="tarjeta" (click)="descargarDeclaracion()">
                 <img class="icon" mat-card-image src="../../../assets/imagenes/descargar.png">
                 <mat-card-header style="text-align: center; padding-bottom: 10px;">
                     <mat-card-title style="font-size: 20px;">Descargar declaración</mat-card-title>
@@ -69,5 +69,9 @@
                 <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
             </div>
         </div> -->
+    </div>
+        
+    <div class="boton_finalizar">
+        <button mat-button (click)="terminarProceso()">Completar Proceso</button>
     </div>
 </div>

@@ -424,6 +424,8 @@ export class RegistrarDeclaracionComponent implements OnInit {
     let datosDeclaracion = this.datosPersonales.value;
     datosDeclaracion.id = this.id_declaracion;
 
+    this.calcularCuotaPreliminar();
+    
     //si la declaracion no existe en la base de datos, entonces se crea una nueva
     //de lo contrario solo se actualizan los datos.
     if(this.existe_declaracion == false){
@@ -763,5 +765,26 @@ export class RegistrarDeclaracionComponent implements OnInit {
         this.comentarios.setValue(result[0].comentarios);
       }
     });
+  }
+
+  calcularCuotaPreliminar(){
+    let total_utm = 0;
+    let cuota_preliminar = 0;
+
+    total_utm = this.ingresosDeudor.get('enero_utm')!.value +
+    this.ingresosDeudor.get('febrero_utm')!.value +
+    this.ingresosDeudor.get('marzo_utm')!.value +
+    this.ingresosDeudor.get('abril_utm')!.value +
+    this.ingresosDeudor.get('mayo_utm')!.value +
+    this.ingresosDeudor.get('junio_utm')!.value +
+    this.ingresosDeudor.get('julio_utm')!.value +
+    this.ingresosDeudor.get('agosto_utm')!.value +
+    this.ingresosDeudor.get('septiembre_utm')!.value +
+    this.ingresosDeudor.get('octubre_utm')!.value + 
+    this.ingresosDeudor.get('noviembre_utm')!.value + 
+    this.ingresosDeudor.get('diciembre_utm')!.value;
+
+    cuota_preliminar = total_utm * 0.05;
+    this.ingresosDeudor.get('cuota_preliminar')!.setValue(cuota_preliminar);
   }
 }

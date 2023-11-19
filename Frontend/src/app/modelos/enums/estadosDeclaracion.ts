@@ -1,4 +1,5 @@
-enum EstadoDeclaracion{
+export enum EstadoDeclaracion{
+    SIN_HACER = 0,
     PENDIENTE = 1,
     POR_REVISAR = 2,
     EN_REVISION = 3,

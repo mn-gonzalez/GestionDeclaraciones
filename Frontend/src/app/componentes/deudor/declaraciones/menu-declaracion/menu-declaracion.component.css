@@ -98,3 +98,10 @@ mat-icon{
     column-gap: 10px;
     justify-content: center;
 }
+
+.boton_finalizar{
+    padding-top: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

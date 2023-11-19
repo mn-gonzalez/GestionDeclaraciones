@@ -75,7 +75,23 @@ export class ListarDeclaracionesComponent implements OnInit {
     this.router.navigate(['/deudor/declaracion/'+id_declaracion]);
   }
 
-  verFormularioPDF(id_declaracion: string){
-    console.log("Ver formulario en formato PDF");
+  verFormularioPDF(idDeclaracion: string, estadoDeclaracion: number){
+    if(estadoDeclaracion == 5){
+      this.declaracionService.obtenerUrlArchivo(idDeclaracion, "PDF_DECLARACION").subscribe({
+        next: result =>{
+          window.open(result.toString(), '_blank');
+        }
+      });
+    }
+    else if(estadoDeclaracion == 6 || estadoDeclaracion == 7) {
+      this.declaracionService.obtenerUrlArchivo(idDeclaracion, "DECLARACION_FIRMADA").subscribe({
+        next: result =>{
+          window.open(result.toString(), '_blank');
+        }
+      });
+    }
+    else {
+      this.declaracionService.mostrarNotificacion("Aún no hay un archivo PDF asociado a la declaración", "Cerrar");
+    }
   }
 }

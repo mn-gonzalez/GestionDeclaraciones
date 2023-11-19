@@ -4,7 +4,7 @@ import { DeclaracionService } from 'src/app/servicios/declaracion.service';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SubirDeclaracionComponent } from '../subir-declaracion/subir-declaracion.component';
-
+import { EstadoDeclaracion } from 'src/app/modelos/enums/estadosDeclaracion';
 @Component({
   selector: 'app-menu-declaracion',
   templateUrl: './menu-declaracion.component.html',
@@ -19,6 +19,7 @@ export class MenuDeclaracionComponent implements OnInit {
   mensaje_formulario: string;
   mensaje_pdf: string;
   id_declaracion: string;
+  declaracion_firmada_enviada = false;
 
   constructor(private router: Router, private declaracionService: DeclaracionService, private auth: InicioSesionService, public dialog: MatDialog) {
     
@@ -78,6 +79,9 @@ export class MenuDeclaracionComponent implements OnInit {
         this.mensaje_formulario = "Usted ya completó este paso, solo debe descargar y firmar su declaración ante notario.";
         this.formulario_enviado = true;
         this.formulario_aceptado = true;
+        break;
+      case 6:
+        this.declaracion_firmada_enviada = true;
         break;
     }
   }
@@ -143,11 +147,6 @@ export class MenuDeclaracionComponent implements OnInit {
     
   }
 
-  upload(event: any){
-    let documento = event.target.files[0];
-    this.declaracion_firmada = documento;
-  }
-
   visualizarPDF(){
     if(this.pdf_disponible == true && this.declaracion_firmada != null){
       var blob = new Blob([this.declaracion_firmada], {type: 'application/pdf'});
@@ -171,13 +170,15 @@ export class MenuDeclaracionComponent implements OnInit {
       dialogConfig.autoFocus = true;
 
       dialogConfig.data = {
+        rutDeudor: this.auth.obtenerUsuarioActual(),
+        idDeclaracion: this.id_declaracion, 
         declaracion_firmada: this.declaracion_firmada
       };
 
       const dialogRef = this.dialog.open(SubirDeclaracionComponent, dialogConfig);
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log('dialog cerrado');
+        this.obtenerDeclaracionFirmada();
       });
     }
     else{
@@ -207,5 +208,9 @@ export class MenuDeclaracionComponent implements OnInit {
         }
       });
     }
+  }
+
+  terminarProceso(){
+    this.declaracionService.actualizarEstadoDeclaracion(this.auth.obtenerUsuarioActual()!, this.id_declaracion, EstadoDeclaracion.ENVIADA_CON_FIRMA);
   }
 }
