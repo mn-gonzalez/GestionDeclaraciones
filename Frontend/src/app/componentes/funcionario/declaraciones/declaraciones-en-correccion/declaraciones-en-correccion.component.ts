@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Declaracion } from 'src/app/modelos/declaracion';
+import { EstadoDeclaracion } from 'src/app/modelos/enums/estadosDeclaracion';
 import { DeclaracionService } from 'src/app/servicios/declaracion.service';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 
@@ -24,9 +25,7 @@ export class DeclaracionesEnCorreccionComponent implements OnInit {
   }
 
   obtenerDeclaracionesEnCorreccion(){
-    let enCorreccion = 4;
-
-    this.declaracionService.obtenerDeclaracionesSegunEstado(enCorreccion).subscribe({
+    this.declaracionService.obtenerDeclaracionesSegunEstado(EstadoDeclaracion.EN_CORRECCION).subscribe({
       next: (result) => {
         console.log(result);
         this.dataSource.data = result;
