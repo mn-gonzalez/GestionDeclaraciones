@@ -4,6 +4,7 @@ import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Declaracion } from 'src/app/modelos/declaracion';
 import { Router } from '@angular/router';
+import { EstadoDeclaracion } from 'src/app/modelos/enums/estadosDeclaracion';
 
 @Component({
   selector: 'app-declaraciones-por-revisar',
@@ -28,9 +29,7 @@ export class DeclaracionesPorRevisarComponent implements OnInit {
   }
 
   obtenerDeclaracionesSinRevisar(){
-    let sinRevisar = 2;
-
-    this.declaracionService.obtenerDeclaracionesSegunEstado(sinRevisar).subscribe({
+    this.declaracionService.obtenerDeclaracionesSegunEstado(EstadoDeclaracion.POR_REVISAR).subscribe({
       next: (result) => {
         console.log(result);
         this.dataSource.data = result;
@@ -47,9 +46,9 @@ export class DeclaracionesPorRevisarComponent implements OnInit {
     let comentarios = "";
     let fecha = this.declaracionService.obtenerFechaActual();
 
-    this.declaracionService.actualizarEstadoDeclaracion(rut_deudor, id_declaracion, 3).subscribe({
+    this.declaracionService.actualizarEstadoDeclaracion(rut_deudor, id_declaracion, EstadoDeclaracion.EN_REVISION).subscribe({
       next: result =>{
-        console.log(result);
+        this.declaracionService.mostrarNotificacion("La revisión de la declaración se ha asociado a usted", "Cerrar");
       }
     });
 

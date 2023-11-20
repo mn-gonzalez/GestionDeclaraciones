@@ -103,13 +103,13 @@ class ReportesController extends Controller
 
         $declaraciones_sin_revisar = DB::table('declaracion')
             ->join('tramite', 'tramite.id', '=', 'declaracion.id')
-            ->where('tramite.estado', '=', 3)
+            ->where('tramite.estado', '=', 2)
             ->selectRaw('count(tramite.id) as cantidad')
             ->pluck('cantidad')
             ->first();
 
         $resultado = DB::select(
-            'SELECT MONTHNAME(tramite.fecha) as mes, COUNT(*) as total 
+            'SELECT MONTH(tramite.fecha) as mes, COUNT(*) as total 
             FROM tramite 
             INNER JOIN declaracion ON declaracion.id = tramite.id
             WHERE YEAR(tramite.fecha) = '.$year.'

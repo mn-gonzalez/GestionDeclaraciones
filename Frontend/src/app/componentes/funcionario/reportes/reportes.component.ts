@@ -20,7 +20,7 @@ export class ReportesComponent implements OnInit {
   dataSource3: MatTableDataSource<Deudor>;
   dataSource4: MatTableDataSource<Deudor>;
 
-  declaracionesMensuales: number[] = [];
+  declaracionesMensuales: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   nroDecProblemas: number = 0;
   nroDeudoresPostergacion: number = 0;
   nroDeclaracionesEntregadas: number = 0;
@@ -130,7 +130,8 @@ export class ReportesComponent implements OnInit {
     this.declaracionService.obtenerDatosGrafico(year).subscribe({
       next: result =>{
         result.declaraciones_mensuales.forEach(mes=>{
-          this.declaracionesMensuales.push(mes.total);
+          
+          this.declaracionesMensuales.splice(mes.mes-1, 0, mes.total);
         });
 
         this.nroDeclaracionesEntregadas = result.nro_declaraciones;
