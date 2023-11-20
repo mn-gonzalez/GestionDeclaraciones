@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\CorreoDeclaracion;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,11 @@ Route::get('/', function () {
 
 Route::get('/pdf', function () {
     return view('welcome');
+});
+
+Route::get('/correo', function() {
+    $name = "Manuel González";
+
+    // The email sending is done using the to method on the Mail facade
+    Mail::to('mn_gonzalez_16@hotmail.com')->send(new CorreoDeclaracion($name));
 });
