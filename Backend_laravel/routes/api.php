@@ -13,6 +13,7 @@ use App\Http\Controllers\DevolucionController;
 use App\Http\Controllers\PostergacionController;
 use App\Http\Controllers\UtmController;
 use App\Http\Controllers\ReportesController;
+use App\Http\Controllers\EmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -139,4 +140,7 @@ Route::group(['middleware' => ['api']], function () {
     Route::get('reportes/deudores/declaraciones/finalizadas/{year}', [ReportesController::class, 'deudores_con_declaraciones_entregadas']);
     Route::get('reportes/deudores/declaraciones/conErrores/{year}', [ReportesController::class, 'deudores_con_declaraciones_con_problemas']);
     Route::get('reportes/deudores/conPostergacion/{year}', [ReportesController::class, 'deudores_con_postergacion']);
+
+    //Correos
+    Route::post('correos', [EmailController::class, 'enviar_correo']);
 });
