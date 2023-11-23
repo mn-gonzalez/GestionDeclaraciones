@@ -453,7 +453,7 @@ export class RevisarDeclaracionComponent implements OnInit {
     let fecha = this.declaracionService.obtenerFechaActual();
 
     //se cambia el estado de la declaracion.
-    this.declaracionService.actualizarEstadoDeclaracion(this.rut_deudor, this.id_declaracion, 5).subscribe({
+    this.declaracionService.actualizarEstadoDeclaracion(this.rut_deudor, this.id_declaracion, 5, "DEC").subscribe({
       next: result =>{
       }
     });
@@ -500,7 +500,7 @@ export class RevisarDeclaracionComponent implements OnInit {
     let fecha = this.declaracionService.obtenerFechaActual();
     let comentarios = "";
 
-    this.declaracionService.actualizarEstadoDeclaracion(this.rut_deudor, this.id_declaracion, 4).subscribe({
+    this.declaracionService.actualizarEstadoDeclaracion(this.rut_deudor, this.id_declaracion, 4, "DEC").subscribe({
       next: result =>{
         console.log(result);
       }

@@ -205,9 +205,10 @@ export class SolicitudService {
     3 - ACEPTADA
     4 - RECHAZADA
   */
-  actualizarEstadoTramite(rut_deudor: string, id_tramite: string, nuevo_estado: number){
+  actualizarEstadoTramite(rut_deudor: string, id_tramite: string, nuevo_estado: number, tramite: string){
     const body = new HttpParams()
     .set('estado', nuevo_estado)
+    .set('tramite', tramite)
 
     return this.http.put<{ mensaje: string}>(env.api.concat("/"+rut_deudor+"/solicitudes/"+id_tramite+"/actualizarEstado"), body)
     .pipe(

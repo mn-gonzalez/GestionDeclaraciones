@@ -108,7 +108,7 @@ export class DatosPostergacionComponent implements OnInit {
         nuevo_estado = 3;
       }
   
-      this.solicitudService.actualizarEstadoTramite(this.postergacion.rut_deudor, this.id_postergacion, nuevo_estado).subscribe({
+      this.solicitudService.actualizarEstadoTramite(this.postergacion.rut_deudor, this.id_postergacion, nuevo_estado, "POS").subscribe({
         next: result =>{
           console.log(result);
         }

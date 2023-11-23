@@ -212,7 +212,7 @@ export class MenuDeclaracionComponent implements OnInit {
 
   terminarProceso(){
     //this.declaracionService.actualizarEstadoDeclaracion(this.auth.obtenerUsuarioActual()!, this.id_declaracion, EstadoDeclaracion.ENVIADA_CON_FIRMA);
-    this.declaracionService.actualizarEstadoDeclaracion(this.auth.obtenerUsuarioActual()!, this.id_declaracion, EstadoDeclaracion.ENVIADA_CON_FIRMA).subscribe({
+    this.declaracionService.actualizarEstadoDeclaracion(this.auth.obtenerUsuarioActual()!, this.id_declaracion, EstadoDeclaracion.ENVIADA_CON_FIRMA, "DEC").subscribe({
       next: result =>{
         console.log(result);
       }

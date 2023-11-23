@@ -117,7 +117,7 @@ export class DatosDevolucionComponent implements OnInit {
       nuevo_estado = 3;
     }
 
-    this.solicitudService.actualizarEstadoTramite(this.devolucion.rut_deudor, this.id_devolucion, nuevo_estado).subscribe({
+    this.solicitudService.actualizarEstadoTramite(this.devolucion.rut_deudor, this.id_devolucion, nuevo_estado, "DEV").subscribe({
       next: result =>{
         console.log(result);
       }

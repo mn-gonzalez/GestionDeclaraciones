@@ -333,9 +333,10 @@ export class DeclaracionService {
     5 - APROBADA
     6 - FINALIZADA
   */
-  actualizarEstadoDeclaracion(rut_deudor: string, id_declaracion: string, nuevo_estado: number){
+  actualizarEstadoDeclaracion(rut_deudor: string, id_declaracion: string, nuevo_estado: number, tramite: string){
     const body = new HttpParams()
     .set('estado', nuevo_estado)
+    .set('tramite', tramite)
 
     return this.http.put<{ mensaje: string}>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/actualizarEstado"), body)
     .pipe(

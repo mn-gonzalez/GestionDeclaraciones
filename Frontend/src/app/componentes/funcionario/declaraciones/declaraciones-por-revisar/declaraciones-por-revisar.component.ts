@@ -46,7 +46,7 @@ export class DeclaracionesPorRevisarComponent implements OnInit {
     let comentarios = "";
     let fecha = this.declaracionService.obtenerFechaActual();
 
-    this.declaracionService.actualizarEstadoDeclaracion(rut_deudor, id_declaracion, EstadoDeclaracion.EN_REVISION).subscribe({
+    this.declaracionService.actualizarEstadoDeclaracion(rut_deudor, id_declaracion, EstadoDeclaracion.EN_REVISION, "DEC").subscribe({
       next: result =>{
         this.declaracionService.mostrarNotificacion("La revisión de la declaración se ha asociado a usted", "Cerrar");
       }

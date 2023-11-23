@@ -751,7 +751,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
   }
 
   finalizarDeclaracion(){
-    this.declaracionService.actualizarEstadoDeclaracion(this.rut_deudor, this.id_declaracion, 2).subscribe({
+    this.declaracionService.actualizarEstadoDeclaracion(this.rut_deudor, this.id_declaracion, 2, "DEC").subscribe({
       next: result =>{
         this.declaracionService.mostrarNotificacion("La Declaración se ha enviado correctamente.", "Cerrar");
         this.router.navigate(['/deudor/menu-declaracion']);
