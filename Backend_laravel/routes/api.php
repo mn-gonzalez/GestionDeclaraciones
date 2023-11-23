@@ -142,5 +142,5 @@ Route::group(['middleware' => ['api']], function () {
     Route::get('reportes/deudores/conPostergacion/{year}', [ReportesController::class, 'deudores_con_postergacion']);
 
     //Correos
-    Route::post('correos', [EmailController::class, 'enviar_correo']);
+    Route::post('correoMasivo', [EmailController::class, 'enviar_correo_masivo']);
 });

@@ -7,21 +7,87 @@ use Illuminate\Support\Facades\DB;
 
 class EmailController extends Controller
 {
-    public function enviar_correo(Request $request)
+    public function enviar_correo_masivo(Request $request)
     {
-        $deudores = DB::table('persona')
-            ->join('deudor', 'deudor.rut', '=', 'persona.rut')
-            ->get();
+        $tramite = isset($request->tramite) ? $request->tramite : null;
+        $deudor_objetivo = isset($request->deudorObjetivo) ? $request->deudorObjetivo : null;
+
+        $deudores = self::obtener_deudores($tramite, $deudor_objetivo);
+        $subject = '';
+
+        if ($tramite == "DECLARACION") {
+            if ($deudor_objetivo == 1) {
+                $subject = "Declaración sin entregar";
+            } else if ($deudor_objetivo == 2) {
+                $subject = "Declaración para corrección";
+            }
+        }
 
         $detalles = [
-            'subject' => 'Notificación declaraciones',
+            'subject' => $subject,
             'deudores' => $deudores
         ];
+        dd($deudores);
 
         $job = (new \App\Jobs\SendQueueEmail($detalles))
             ->delay(now()->addSeconds(2)); 
 
         dispatch($job);
         echo "Email enviado correctamente!!";
+    }
+
+    private function obtener_deudores($tramite, $deudor_objetivo){
+        if ($tramite == "DECLARACION") {
+            switch($deudor_objetivo){
+                case 1:
+                    return self::obtener_deudores_sin_declaracion();
+                    break;
+                case 2:
+                    return self::deudores_declaracion_con_problemas();
+                    break;
+            }
+        } else if ($tramite == "POSTERGACION") {
+
+        } else if ($tramite == "DEVOLUCION") {
+
+        }
+    }
+
+    private function obtener_deudores_sin_declaracion(){
+        $deudores = [];
+        $year = date('Y');
+
+        $deudores = DB::select('SELECT persona.rut, 
+            persona.nombres, 
+            persona.ap_paterno, 
+            persona.ap_materno,
+            persona.correo
+            FROM persona, deudor
+            WHERE persona.rut = deudor.rut
+            AND deudor.inicio_cobro <= '.$year.'
+            AND persona.rut NOT IN (SELECT persona.rut
+                FROM persona, deudor, tramite, declaracion
+                WHERE persona.rut = deudor.rut
+                AND tramite.rut_deudor = persona.rut
+                AND declaracion.id = tramite.id
+                AND declaracion.year = '.$year.')'
+            );
+
+        return $deudores;
+    }
+
+    private function deudores_declaracion_con_problemas(){
+        $deudores = [];
+        $year = date('Y');
+
+        $deudores = DB::table('tramite')
+            ->join('declaracion', 'declaracion.id', '=', 'tramite.id')
+            ->join('persona', 'persona.rut', '=', 'tramite.rut_deudor')
+            ->where('tramite.estado', '=', 4)
+            ->where('declaracion.year', '=', $year)
+            ->select('persona.rut', 'persona.nombres', 'persona.ap_paterno', 'persona.ap_materno', 'persona.correo')
+            ->get();
+
+        return $deudores;
     }
 }
