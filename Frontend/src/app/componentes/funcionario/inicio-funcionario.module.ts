@@ -21,6 +21,7 @@ import { DevolucionesRevisadasComponent } from './solicitudes/devoluciones-revis
 import { SharedModule } from 'src/app/shared.module';
 import { ReportesComponent } from './reportes/reportes.component';
 import { NgChartsModule } from 'ng2-charts';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,9 @@ import { NgChartsModule } from 'ng2-charts';
         InicioFuncionarioRoutingModule,
         MaterialModule,
         SharedModule,
-        NgChartsModule
+        NgChartsModule,
+        NgxMaskDirective,
+        NgxMaskPipe
     ]
 })
 export class InicioFuncionarioModule { }

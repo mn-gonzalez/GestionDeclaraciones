@@ -13,14 +13,12 @@ export class RegistrarDeudorComponent implements OnInit {
   datosDeudor: FormGroup;
   verificador_valido: boolean = false;
   years : number[] = [];
+  public customPatterns = { '0': { pattern: new RegExp('\\d|k|K')} };
 
   constructor(private usuarioService: UsuarioService, public dialogRef: MatDialogRef<RegistrarDeudorComponent>) {
 
     this.datosDeudor = new FormGroup({
-      'rut_deudor': new FormControl("", {
-        updateOn: 'change',
-        validators: [Validators.required, Validators.pattern('^\\d{8,9}\\-(\\d{1}|k|K)$'), validarRut()]
-      }),
+      'rut_deudor': new FormControl("", [Validators.required, validarRut()]),
       'nombres': new FormControl("", Validators.required),
       'ap_paterno': new FormControl("", Validators.required),
       'ap_materno': new FormControl("", Validators.required),
@@ -40,6 +38,7 @@ export class RegistrarDeudorComponent implements OnInit {
   registrarDeudor(){
     let datos = this.datosDeudor.value;
     let contrasena = this.datosDeudor.get('rut_deudor')!.value.split('-');
+    datos.rut_deudor = this.datosDeudor.get('rut_deudor')!.value.replaceAll('.','');
 
     this.usuarioService.registrarDeudor(datos, contrasena[0]).subscribe({
       next: result =>{

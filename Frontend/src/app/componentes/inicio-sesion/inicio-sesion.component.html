@@ -20,7 +20,7 @@
 
                     <mat-form-field appearance="outline">
                         <mat-label>RUT</mat-label>
-                        <input matInput mask="0.000.000-0 || 00.000.000-0" [patterns]="this.customPatterns" placeholder="12.345.678-9" formControlName="rut">
+                        <input matInput mask="0.000.000-0 || 00.000.000-0" [patterns]="this.customPatterns" [dropSpecialCharacters]="false" placeholder="12.345.678-9" formControlName="rut">
                         <!-- <div class="mensaje-error" *ngIf="this.form_ingreso.controls['rut'].errors?.rut_valido">
                             El RUT ingresado no es válido.
                         </div> -->

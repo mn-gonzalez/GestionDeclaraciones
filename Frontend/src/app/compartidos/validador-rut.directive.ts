@@ -3,17 +3,18 @@ import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
 export function validarRut(): ValidatorFn {
     return (control:AbstractControl) : ValidationErrors | null => {
 
-        const value = control.value;
-
+        let value = control.value;
+        const valores = [2, 3, 4, 5, 6, 7];
+        let verificador_valido = false;
+        
         if (!value) {
             return null;
         }
 
-        let verificador_valido = false;
-        let valores = [2, 3, 4, 5, 6, 7];
-        let rut: number[] =  Array.from(control.value.replace('.', ''));
+        value = value.replaceAll('.','');
+        let rut: number[] =  Array.from(value);
         let verificador = rut.pop();
-        //let guion = rut.pop();
+        let guion = rut.pop();
         let rut_invertido: number[] = rut.reverse();
         let suma = 0;
         let indice = 0;
@@ -40,9 +41,11 @@ export function validarRut(): ValidatorFn {
             verificador_valido = true;
         }
         else if(resultado == 10){
-            if(verificador?.toString() == "k"||"K"){
+            if(verificador?.toString() == "k" || verificador?.toString() == "K"){
                 verificador_valido = true;
             }
+        } else if(resultado == 11 && verificador == 0){
+            verificador_valido = true;
         }
 
         return !verificador_valido ? {rut_valido:true}: null;

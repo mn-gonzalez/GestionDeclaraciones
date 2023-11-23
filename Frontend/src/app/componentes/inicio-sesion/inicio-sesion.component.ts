@@ -24,17 +24,19 @@ export class InicioSesionComponent implements OnInit {
   }
 
   ingresar(){
+    let datos = this.form_ingreso.value;
+    datos.rut = this.form_ingreso.get('rut')!.value.replaceAll('.','');
+    console.log(datos);
+
     if(this.form_ingreso.get('tipo_ingreso')!.value == "1"){
-      this.login_deudor();
+      this.login_deudor(datos);
     }
     else if(this.form_ingreso.get('tipo_ingreso')!.value == "2"){
-      this.login_funcionario();
+      this.login_funcionario(datos);
     }
   }
 
-  login_deudor(){
-    let datos = this.form_ingreso.value;
-
+  login_deudor(datos: any){
     this.inicioSesionService.ingresar_como_deudor(datos).subscribe({
       next: (result) => {
         if(result == false){
@@ -50,9 +52,7 @@ export class InicioSesionComponent implements OnInit {
     });
   }
 
-  login_funcionario(){
-    let datos = this.form_ingreso.value;
-
+  login_funcionario(datos: any){
     this.inicioSesionService.ingresar_como_funcionario(datos).subscribe({
       next: (result) => {
         if(result == false){
