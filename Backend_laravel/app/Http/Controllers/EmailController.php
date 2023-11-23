@@ -7,6 +7,21 @@ use Illuminate\Support\Facades\DB;
 
 class EmailController extends Controller
 {
+    public static function enviar_notificacion($deudor, $datosCorreo){
+        $nombreDeudor = $deudor->nombres.' '.$deudor->ap_paterno.' '.$deudor->ap_materno;
+
+        $detalles = [
+            'deudores' => [$deudor],
+            'subject' => $datosCorreo["subject"],
+            'mensaje' => $datosCorreo["mensaje"]
+        ];
+
+        $job = (new \App\Jobs\SendQueueEmail($detalles))
+            ->delay(now()->addSeconds(2)); 
+
+        dispatch($job);
+    }
+
     public function enviar_correo_masivo(Request $request)
     {
         $tramite = isset($request->tramite) ? $request->tramite : null;
@@ -14,26 +29,28 @@ class EmailController extends Controller
 
         $deudores = self::obtener_deudores($tramite, $deudor_objetivo);
         $subject = '';
+        $mensaje = "";
 
         if ($tramite == "DECLARACION") {
             if ($deudor_objetivo == 1) {
                 $subject = "Declaración sin entregar";
+                $mensaje = "Según nuestro registros aún no has realizado el trámite online de la declaración jurada de ingresos.";
             } else if ($deudor_objetivo == 2) {
                 $subject = "Declaración para corrección";
+                $mensaje = "Te queremos indicar que tu declaración fue revisada y tiene detalles que debes corregir.";
             }
         }
 
         $detalles = [
+            'deudores' => $deudores,
             'subject' => $subject,
-            'deudores' => $deudores
+            'mensaje' => $mensaje
         ];
-        dd($deudores);
 
         $job = (new \App\Jobs\SendQueueEmail($detalles))
             ->delay(now()->addSeconds(2)); 
 
         dispatch($job);
-        echo "Email enviado correctamente!!";
     }
 
     private function obtener_deudores($tramite, $deudor_objetivo){

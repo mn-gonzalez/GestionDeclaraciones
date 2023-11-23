@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 use Carbon\Carbon;
 use PDF;
+use App\Http\Controllers\EmailController;
 
 class DeclaracionController extends Controller
 {
@@ -263,11 +264,27 @@ class DeclaracionController extends Controller
         $nombre_documento = 'DECLARACION JURADA DE INGRESOS';
         $ubicacion_documento = 'declaraciones/'.$rut_deudor.'/'.$id_declaracion.'/documentacion/'.$nombre_documento.'.pdf';
 
-        $existe = Storage::disk('public')->exists($ubicacion_documento);
+        //Datos para la notificación
+        $datosCorreo = [
+            'subject' => 'Generación de archivo PDF de su declaración',
+            'mensaje' => 'Su declaración ya fue revisada por nuestros funcionarios y no se encontraron problemas. Puede descargar el'. 
+                'su declaración en formato PDF desde nuestra página para firmarlo ante notario.'
+        ];
 
-        if($existe == false){
+        $deudor = DB::table('persona')
+        ->join('deudor','deudor.rut', '=', 'persona.rut')
+        ->where('persona.rut', '=', $rut_deudor)
+        ->first();
+
+        $existe_en_storage = Storage::disk('public')->exists($ubicacion_documento);
+        $existe_en_db = DB::table('documento')
+            ->where('ref_declaracion','=', $id_declaracion)
+            ->where('tipo', '=', 'PDF_DECLARACION')
+            ->first();
+
+        if($existe_en_db == null){
             /*
-                Genera el documento en formato pdf y lo almacena en el storage del servidor.
+                Genera el documento en formato pdf, lo almacena en el storage del servidor y la guarda en la BD.
             */
             $pdf = PDF::loadView('declaracion', $data)->setPaper('legal', 'portrait');
             Storage::disk('public')->put($ubicacion_documento, $pdf->output());
@@ -279,13 +296,18 @@ class DeclaracionController extends Controller
                 'ref_declaracion' => $id_declaracion
             ]);
 
+            EmailController::enviar_notificacion($deudor, $datosCorreo);
             $response = ['mensaje' => 'Se ha generado el pdf de la declaración para firmar'];
             return response($response, 200);
         }
 
+        /* 
+            Si el documento ya existe en la BD entonces solo se sobrescribe el documento almacenado en storage 
+        */
         $pdf = PDF::loadView('declaracion', $data)->setPaper('legal', 'portrait');
         Storage::disk('public')->put($ubicacion_documento, $pdf->output());
 
+        EmailController::enviar_notificacion($deudor, $datosCorreo);
         $response = ['mensaje' => 'Se ha generado el pdf de la declaración para firmar'];
         return response($response, 200);
     }

@@ -32,7 +32,7 @@ class CorreoDeclaracion extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Notificación declaraciones',
+            subject: $this->datos["subject"],
         );
     }
 
@@ -45,6 +45,9 @@ class CorreoDeclaracion extends Mailable
     {
         return new Content(
             view: 'correoDeclaracion',
+            with: [
+                'mensaje' => $this->datos['mensaje']
+            ]
         );
     }
 

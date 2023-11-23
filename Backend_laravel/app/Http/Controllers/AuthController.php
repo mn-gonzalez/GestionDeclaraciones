@@ -65,6 +65,7 @@ class AuthController extends Controller
                 if (! $token = auth()->attempt(['rut' => $data['rut'], 'password' => $data['contrasena']])) {
                     return response()->json(['error' => 'Unauthorized'], 401);
                 }
+                return $this->createNewToken($token);
                 //return response($response, 200);
             }
         }
@@ -108,6 +109,7 @@ class AuthController extends Controller
                 if (! $token = auth()->attempt(['rut' => $data['rut'], 'password' => $data['contrasena']])) {
                     return response()->json(['error' => 'Unauthorized'], 401);
                 }
+                return $this->createNewToken($token);
             }
         }
     }
