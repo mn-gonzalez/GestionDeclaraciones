@@ -40,7 +40,7 @@ export class RegistrarDeudorComponent implements OnInit {
     let contrasena = this.datosDeudor.get('rut_deudor')!.value.split('-');
     datos.rut_deudor = this.datosDeudor.get('rut_deudor')!.value.replaceAll('.','');
 
-    this.usuarioService.registrarDeudor(datos, contrasena[0]).subscribe({
+    this.usuarioService.registrarDeudor(datos, contrasena[0].replaceAll('.','')).subscribe({
       next: result =>{
         this.usuarioService.mostrarNotificacion("El deudor se ha registrado correctamente.","Cerrar");
         this.dialogRef.close();
