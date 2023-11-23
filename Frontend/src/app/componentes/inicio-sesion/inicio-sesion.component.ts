@@ -26,7 +26,6 @@ export class InicioSesionComponent implements OnInit {
   ingresar(){
     let datos = this.form_ingreso.value;
     datos.rut = this.form_ingreso.get('rut')!.value.replaceAll('.','');
-    console.log(datos);
 
     if(this.form_ingreso.get('tipo_ingreso')!.value == "1"){
       this.login_deudor(datos);

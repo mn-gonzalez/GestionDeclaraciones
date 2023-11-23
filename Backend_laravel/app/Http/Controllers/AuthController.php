@@ -46,10 +46,10 @@ class AuthController extends Controller
             )->first();
 
         if (!$deudor) {
-            return response(['mensaje' => 'El RUT ingresado no existe.', 'login' => false]);
+            return response(['mensaje' => 'El usuario o la contraseña son incorrectas', 'login' => false]);
         } else {
             if (!Hash::check($data['contrasena'], $deudor->contrasena)) {
-                return response(['mensaje' => 'La contraseña no es correcta.', 'login' => false]);
+                return response(['mensaje' => 'El usuario o la contraseña son incorrectas', 'login' => false]);
             } else {
                 $validator = Validator::make(
                     $request->all(), [
@@ -65,7 +65,6 @@ class AuthController extends Controller
                 if (! $token = auth()->attempt(['rut' => $data['rut'], 'password' => $data['contrasena']])) {
                     return response()->json(['error' => 'Unauthorized'], 401);
                 }
-                return $this->createNewToken($token);
                 //return response($response, 200);
             }
         }
@@ -88,11 +87,11 @@ class AuthController extends Controller
                 'persona.contrasena as contrasena')->first();
 
         if(!$funcionario){
-            return response(['mensaje' => 'El RUT ingresado no existe.', 'login' => false]);
+            return response(['mensaje' => 'El usuario o la contraseña son incorrectas', 'login' => false]);
         }
         else{
             if(!Hash::check($data['contrasena'], $funcionario->contrasena)){
-                return response(['mensaje' => 'La contraseña no es correcta', 'login' => false]);
+                return response(['mensaje' => 'El usuario o la contraseña son incorrectas', 'login' => false]);
             }
             else{
                 $validator = Validator::make(
@@ -109,7 +108,6 @@ class AuthController extends Controller
                 if (! $token = auth()->attempt(['rut' => $data['rut'], 'password' => $data['contrasena']])) {
                     return response()->json(['error' => 'Unauthorized'], 401);
                 }
-                return $this->createNewToken($token);
             }
         }
     }
@@ -127,7 +125,7 @@ class AuthController extends Controller
         return response($response, 200); */
 
         auth()->logout();
-        return response()->json(['mensaje' => 'User successfully signed out']);
+        return response()->json(['mensaje' => 'Se ha cerrado la sesión exitosamente']);
     }
 
     /**
