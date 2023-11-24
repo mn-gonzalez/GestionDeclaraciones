@@ -1,32 +1,50 @@
 <!DOCTYPE html>
 <html>
 	<body>
-		<div class="seccion-encabezado">
-			<div class="depto">
-				<p class="parrafo">
-					<b class="texto-titulo">UNIVERSIDAD DE TALCA</b><br>
-					ADMINISTRACION GENERAL <br>
-				FONDO SOLIDARIO DE CREDITO UNIVERSITARIO</p>
+		<div style="width: 100%; height: 55px;">
+			<div style="float: left;">
+        <table>
+            <tr style="border-spacing: 0px;">
+                <td align="center" style="font-size:10pt;"><b>UNIVERSIDAD DE TALCA</b></td>
+            </tr>
+            <tr style="border-spacing: 0px;">
+                <td align="center" style="font-size:8pt;">ADMINISTRACION GENERAL</td>
+            </tr>
+            <tr style="border-spacing: 0px;">
+                <td align="center" style="font-size:8pt;">FONDO SOLIDARIO DE CREDITO UNIVERSITARIO</td>
+            </tr>
+        </table>
 			</div>
 		</div>
-		<div class="seccion-titulo">
-			<div style="float: left; width: 30%; height: 100%;"></div>
-			<div class="titulo">
-				<p class="parrafo">
-					<b class="texto-titulo">DECLARACION JURADA CUOTA {{date('Y')}} </b> <br>
-					LEY N°19.287, LEY N°19.848 Y LEY N° 20.572 <br>
-					(RENTAS {{ $data['utm']->year}})</p>
-			</div>
-			<div class="rut">
-				<table style="width:100%; height:100%;">
-					<tr>
-						<th>RUT DEL DEUDOR</th>
-					</tr>
-					<tr>
-						<td>{{ $data['declaracion']->rut_deudor }}</td>
-					</tr>
-				</table>
-			</div>
+		<div style="width: 100%; height: 80px;">
+      <table style="width: 100%">
+        <tr>
+            <td colspan="1" style="width:33%;"> <div style="width: 100%;"></div> </td>
+            <td colspan="1" style="width:34%;">
+              <table>
+                <tr style="border-spacing: 0px;">
+                    <td align="center" style="font-size:10pt; width: 100%;"><b>DECLARACION JURADA CUOTA {{date('Y')}}</b></td>
+                </tr>
+                <tr style="border-spacing: 0px;">
+                    <td align="center" style="font-size:8pt; width: 100%;">LEY N°19.287, LEY N°19.848 Y LEY N° 20.572</td>
+                </tr>
+                <tr style="border-spacing: 0px;">
+                    <td align="center" style="font-size:8pt; width: 100%;">(RENTAS {{ $data['utm']->year}})</td>
+                </tr>
+              </table>
+            </td>
+            <td colspan="1" style="width:33%;">
+              <table style="padding-left: 25%; width: 44mm; height: 14mm; font-size: 8pt; text-align: center;">
+                <tr>
+                  <th style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">RUT DEL DEUDOR</th>
+                </tr>
+                <tr>
+                  <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ $data['declaracion']->rut_deudor }}</td>
+                </tr>
+              </table>
+            </td>
+        </tr>
+      </table>
 		</div>
 
 		<div class="seccion-nombre">
@@ -116,7 +134,7 @@
     </div>
 
     <div class="seccion-conyuge">
-        <div class="rut-conyuge" style="padding-left: 3mm;">RUT DEL CONYUGE N°</div>
+        <div class="rut-conyuge" style="padding-left: 3mm;">RUT DEL CONYUGE N° {{ $data['conyuge']->rut }}</div>
         <div class="nombre-conyuge">
         	<div style="height: 100%; width:32%; float: left; padding-left: 3mm;">
             	<div>APELLIDO PATERNO</div>
@@ -486,12 +504,12 @@
 		  	border-collapse: collapse;
 		}
 
-		th, td {
+		/* th, td {
 		  border: 2px solid black;
 		  border-collapse: collapse;
 		  height: 23px;
       text-align: center;
-		}
+		} */
 	</style>
 
 </html>
