@@ -151,202 +151,212 @@
         </div>
     </div>
 
-    <div style="width: 100%; font-size: 8pt; height: 367px;">
-    	<table style="width:48%; height:100%; float:right;">
-          <tr>
-            <th style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;"></th>
-            <th style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;" colspan="3">INGRESOS DEL CONYUGE AÑO {{ $data['utm']->year }}</th>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MES</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MONTO EN PESOS</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">VALOR UTM</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MONTO EN UTM</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">ENERO</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->enero, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->enero, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->enero_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">FEBRERO</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->febrero, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{number_format($data['utm']->febrero, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->febrero_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MARZO</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->marzo, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->marzo, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->marzo_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">ABRIL</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->abril, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->abril, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->abril_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MAYO</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->mayo, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->mayo, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->mayo_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">JUNIO</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->junio, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->junio , 0, ",", ".")}}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->junio_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">JULIO</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->julio, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->julio, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->julio_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">AGOSTO</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->agosto, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->agosto, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->agosto_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">SEPTIEMBRE</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->septiembre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->septiembre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->septiembre_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">OCTUBRE</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->octubre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->octubre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->octubre_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">NOVIEMBRE</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->noviembre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->noviembre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->noviembre_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">DICIEMBRE</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->diciembre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->diciembre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->diciembre_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 0px solid black;"></td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;" colspan="2">INGRESOS TOTALES EN UTM</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->ingreso_total_conyuge_utm, 2, ",", ".") }}</td>
-          </tr>
-        </table>
+    <div style="width: 100%; font-size: 8pt; height: 400px;">
+      <table style="width: 100%;">
+        <tr>
+          <td colspan="1" style="width: 48%;">
+            <table style="width:100%; height:100%;">
+              <tr>
+                <th style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;"></th>
+                <th style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;" colspan="3">INGRESOS DEL DEUDOR AÑO {{ $data['utm']->year }}</th>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MES</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MONTO EN PESOS</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">VALOR UTM</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MONTO EN UTM</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">ENERO</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->enero, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{number_format($data['utm']->enero, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->enero_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">FEBRERO</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->febrero, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->febrero, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->febrero_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MARZO</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->marzo, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->marzo, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->marzo_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">ABRIL</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->abril, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->abril, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->abril_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MAYO</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->mayo, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->mayo, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->mayo_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">JUNIO</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->junio, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->junio, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->junio_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">JULIO</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->julio, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->julio, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->julio_utm, 0, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">AGOSTO</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->agosto, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->agosto, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->agosto_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">SEPTIEMBRE</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->septiembre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->septiembre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->septiembre_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">OCTUBRE</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->octubre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->octubre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->octubre_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">NOVIEMBRE</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->noviembre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->noviembre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->noviembre_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">DICIEMBRE</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->diciembre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->diciembre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->diciembre_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 0px solid black;"></td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;" colspan="2"><b>INGRESOS TOTALES EN UTM</b></td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->ingreso_total_deudor_utm, 2, ",", ".") }}</td>
+              </tr>
+            </table>
+          </td>
+          <td colspan="1" style="width: 4%;">
 
-        <table style="width:48%; height:100%; float: left;">
-          <tr>
-            <th style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;"></th>
-            <th style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;" colspan="3">INGRESOS DEL DEUDOR AÑO {{ $data['utm']->year }}</th>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MES</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MONTO EN PESOS</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">VALOR UTM</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MONTO EN UTM</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">ENERO</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->enero, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{number_format($data['utm']->enero, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->enero_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">FEBRERO</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->febrero, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->febrero, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->febrero_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MARZO</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->marzo, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->marzo, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->marzo_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">ABRIL</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->abril, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->abril, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->abril_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MAYO</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->mayo, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->mayo, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->mayo_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">JUNIO</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->junio, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->junio, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->junio_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">JULIO</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->julio, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->julio, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->julio_utm, 0, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">AGOSTO</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->agosto, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->agosto, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->agosto_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">SEPTIEMBRE</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->septiembre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->septiembre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->septiembre_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">OCTUBRE</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->octubre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->octubre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->octubre_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">NOVIEMBRE</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->noviembre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->noviembre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->noviembre_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">DICIEMBRE</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->diciembre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->diciembre, 0, ",", ".") }}</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->diciembre_utm, 2, ",", ".") }}</td>
-          </tr>
-          <tr>
-            <td style="border: 0px solid black;"></td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;" colspan="2">INGRESOS TOTALES EN UTM</td>
-            <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->ingreso_total_deudor_utm, 2, ",", ".") }}</td>
-          </tr>
-        </table>
+          </td>
+          <td colspan="1" style="width: 48%;">
+            <table style="width:100%; height:100%; float:right;">
+              <tr>
+                <th style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;"></th>
+                <th style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;" colspan="3">INGRESOS DEL CONYUGE AÑO {{ $data['utm']->year }}</th>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MES</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MONTO EN PESOS</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">VALOR UTM</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MONTO EN UTM</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">ENERO</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->enero, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->enero, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->enero_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">FEBRERO</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->febrero, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{number_format($data['utm']->febrero, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->febrero_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MARZO</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->marzo, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->marzo, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->marzo_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">ABRIL</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->abril, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->abril, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->abril_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">MAYO</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->mayo, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->mayo, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->mayo_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">JUNIO</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->junio, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->junio , 0, ",", ".")}}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->junio_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">JULIO</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->julio, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->julio, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->julio_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">AGOSTO</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->agosto, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->agosto, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->agosto_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">SEPTIEMBRE</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->septiembre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->septiembre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->septiembre_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">OCTUBRE</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->octubre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->octubre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->octubre_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">NOVIEMBRE</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->noviembre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->noviembre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->noviembre_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">DICIEMBRE</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->diciembre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">$ {{ number_format($data['utm']->diciembre, 0, ",", ".") }}</td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['conyuge']->diciembre_utm, 2, ",", ".") }}</td>
+              </tr>
+              <tr>
+                <td style="border: 0px solid black;"></td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;" colspan="2"><b>INGRESOS TOTALES EN UTM</b></td>
+                <td style="border: 2px solid black; border-collapse: collapse; height: 23px; text-align: center;">{{ number_format($data['declaracion']->ingreso_total_conyuge_utm, 2, ",", ".") }}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
     </div>
 
-    <div style="text-align: justify; text-justify: inter-word; font-size: 7.5pt;">
+    <div style="text-align: justify; text-justify: inter-word; font-size: 7.5pt; padding-top: 20px;">
         <p>DECLARO BAJO JURAMENTO QUE TODOS LOS DATOS PROPORCIONADOS SON FIDEDIGNOS, ASIMISMO AUTORIZO AL FONDO SOLIDARIO DE CREDITO UNIVERSITARIO, VERIFICAR MIS REMUNERACIONES O RENTA SOBRE LOS CUALES EFECTUO MIS COTIZACIONES PREVISIONALES, PUDIENDO SOLICITAR A LA ADMINISTRADORA DE FONDOS DE PENSIONES.</p>
 
         <p>NOTA: CUALQUIER ERROR EN ESTE FORMULARIO, SERA RESPONSABILIDAD EXCLUSIVA DEL DEUDOR. NO SE ACEPTAN DECLARACIONES JURADAS FUERA DE PLAZO.<br>
-            ● LAS INSTRUCCIONES SE ENCUENTRAN AL REVERSO DE ESTE FORMULARIO.<br>
-            ● RECUERDE EL DEJAR UNA COPIA DE SU DECLARACION EN SU PODER.<br>
-            ● PUEDE DESCARGAR EL FORMULARIO EN EL LINK: HTTP://INET.UTALCA.CL/CREDITO/ <br></p>
+            - LAS INSTRUCCIONES SE ENCUENTRAN AL REVERSO DE ESTE FORMULARIO.<br>
+            - RECUERDE EL DEJAR UNA COPIA DE SU DECLARACION EN SU PODER.<br>
+            - PUEDE DESCARGAR EL FORMULARIO EN EL LINK: HTTP://INET.UTALCA.CL/CREDITO/ <br></p>
         <br>
         <p>FECHA______________________________________</p>
         <br>
         <br>
     </div>
 
-    <div style="font-size: 8pt;">
+    <div style="font-size: 8pt; padding-top: 30px;">
         <p class="texto-firmas">______________________________________ <br>
             FIRMA NOTARIO</p>
 
