@@ -257,9 +257,9 @@ class DeclaracionController extends Controller
             ->first();
 
         $data = [
-            'declaracion'=>(array)$declaracion,
-            'conyuge'=>(array)$conyuge,
-            'utm'=>(array)$utm
+            'declaracion'=>$declaracion,
+            'conyuge'=>(object)$conyuge,
+            'utm'=>$utm
         ];
 
         $tipo_documento = 'PDF_DECLARACION';
@@ -306,7 +306,7 @@ class DeclaracionController extends Controller
         /* 
             Si el documento ya existe en la BD entonces solo se sobrescribe el documento almacenado en storage 
         */
-        $pdf = PDF::loadView('declaracion', $data)->setPaper('legal', 'portrait');
+        $pdf = PDF::loadView('declaracion', ['data' => $data])->setPaper('legal', 'portrait');
         Storage::disk('public')->put($ubicacion_documento, $pdf->output());
 
         EmailController::enviar_notificacion($deudor, $datosCorreo);

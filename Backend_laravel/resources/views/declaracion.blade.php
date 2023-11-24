@@ -15,7 +15,7 @@
 				<p class="parrafo">
 					<b class="texto-titulo">DECLARACION JURADA CUOTA {{date('Y')}} </b> <br>
 					LEY N°19.287, LEY N°19.848 Y LEY N° 20.572 <br>
-					(RENTAS {{ $utm['year'] }})</p>
+					(RENTAS {{ $data['utm']->year}})</p>
 			</div>
 			<div class="rut">
 				<table style="width:100%; height:100%;">
@@ -23,7 +23,7 @@
 						<th>RUT DEL DEUDOR</th>
 					</tr>
 					<tr>
-						<td>{{ $declaracion['rut_deudor'] }}</td>
+						<td>{{ $data['declaracion']->rut_deudor }}</td>
 					</tr>
 				</table>
 			</div>
@@ -34,15 +34,15 @@
         <div class="nombre">
             <div style="height: 100%; width:32%; float: left; padding-left: 3mm;">
             	<div>APELLIDO PATERNO</div>
-            	<div>{{ $declaracion['ap_paterno'] }}</div>
+            	<div>{{ $data['declaracion']->ap_paterno }}</div>
             </div>
             <div style="height: 100%; width:32%; float: left; padding-left: 3mm;">
             	<div>APELLIDO MATERNO</div>
-            	<div>{{ $declaracion['ap_materno'] }}</div>
+            	<div>{{ $data['declaracion']->ap_materno }}</div>
             </div>
             <div style="height: 100%; width:32%; float: left; padding-left: 3mm;">
             	<div>NOMBRES</div>
-            	<div>{{ $declaracion['nombres'] }}</div>
+            	<div>{{ $data['declaracion']->nombres }}</div>
             </div>
         </div>
     </div>
@@ -51,19 +51,19 @@
         <div class="nombre">
         	<div style="height: 100%; width:45%; float: left; padding-left: 3mm;">
             	<div>DIRECCIÓN</div>
-            	<div>{{ $declaracion['direccion'] }}</div>
+            	<div>{{ $data['declaracion']->direccion }}</div>
             </div>
             <div style="height: 100%; width:15%; float: left; padding-left: 3mm;">
             	<div>COMUNA</div>
-            	<div>{{ $declaracion['comuna'] }}</div>
+            	<div>{{ $data['declaracion']->comuna }}</div>
             </div>
             <div style="height: 100%; width:15%; float: left; padding-left: 3mm;">
             	<div>CIUDAD</div>
-            	<div>{{ $declaracion['ciudad'] }}</div>
+            	<div>{{ $data['declaracion']->ciudad }}</div>
             </div>
             <div style="height: 100%; width:15%; float: left; padding-left: 3mm;">
             	<div>TELÉFONO</div>
-            	<div>{{ $declaracion['telefono'] }}</div>
+            	<div>{{ $data['declaracion']->telefono }}</div>
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
         <div class="estado-civil">
             <span style="float: left;  width: 15%;">ESTADO CIVIL</span>
             <div class="valor-estado-civil">
-            	<div>{{ $declaracion['estado_civil'] }}</div>
+            	<div>{{ $data['declaracion']->estado_civil }}</div>
             </div>
             <div class="opciones-estado">
                 <div>1. SOLTERO SIN HIJOS</div>
@@ -85,11 +85,11 @@
         <div class="trabajo">
             <div style="float: left; height:100%; width: 33%;">
             	<div>INSTITUCIÓN EN LA QUE TRABAJA</div>
-            	<div style="padding-top: 1mm;">{{ $declaracion['trabajo'] }}</div>
+            	<div style="padding-top: 1mm;">{{ $data['declaracion']->trabajo }}</div>
             </div>
             <div style="float: left; height:100%; width: 25%;">
             	<div>TELÉFONO DEL TRABAJO</div>
-            	<div style="padding-top: 1mm;">{{ $declaracion['tel_trabajo'] }}</div>
+            	<div style="padding-top: 1mm;">{{ $data['declaracion']->tel_trabajo }}</div>
             </div>
             <div style="float: left; height:100%; width: 33%;">
                 <div>PRESENTA DECLARACIÓN DE RENTA S.I.I</div>
@@ -102,11 +102,11 @@
         <div class="nombre">
         	<div style="height: 100%; width:33%; float: left; padding-left: 3mm;">
             	<div>AFP DE LA QUE ES AFILIADO</div>
-            	<div>{{ $declaracion['afp'] }}</div>
+            	<div>{{ $data['declaracion']->afp }}</div>
             </div>
             <div style="height: 100%; width:33%; float: left;">
             	<div>CORREO ELECTRÓNICO DEUDOR</div>
-            	<div>{{ $declaracion['correo'] }}</div>
+            	<div>{{ $data['declaracion']->correo }}</div>
             </div>
             <div style="height: 100%; width:33%; float: left;">
             	<div>DESEA INFORMACIÓN AL CORREO ELECTRÓNICO</div>
@@ -120,15 +120,15 @@
         <div class="nombre-conyuge">
         	<div style="height: 100%; width:32%; float: left; padding-left: 3mm;">
             	<div>APELLIDO PATERNO</div>
-            	<div>{{ $conyuge['ap_paterno'] }}</div>
+            	<div>{{ $data['conyuge']->ap_paterno }}</div>
             </div>
             <div style="height: 100%; width:32%; float: left;">
             	<div>APELLIDO MATERNO</div>
-            	<div>{{ $conyuge['ap_materno'] }}</div>
+            	<div>{{ $data['conyuge']->ap_materno }}</div>
             </div>
             <div style="height: 100%; width:32%; float: left;">
             	<div>NOMBRES</div>
-            	<div>{{ $conyuge['nombres'] }}</div>
+            	<div>{{ $data['conyuge']->nombres }}</div>
             </div>
         </div>
     </div>
@@ -137,7 +137,7 @@
     	<table style="width:48%; height:100%; float:right;">
           <tr>
             <th></th>
-            <th colspan="3">INGRESOS DEL CONYUGE AÑO {{ $utm['year'] }}</th>
+            <th colspan="3">INGRESOS DEL CONYUGE AÑO {{ $data['utm']->year }}</th>
           </tr>
           <tr>
             <td>MES</td>
@@ -147,87 +147,87 @@
           </tr>
           <tr>
             <td>ENERO</td>
-            <td>{{ $conyuge['enero'] }}</td>
-            <td>$ {{ $utm['enero'] }}</td>
-            <td>{{ $conyuge['enero_utm'] }}</td>
+            <td>{{ $data['conyuge']->enero }}</td>
+            <td>$ {{ $data['utm']->enero }}</td>
+            <td>{{ $data['conyuge']->enero_utm }}</td>
           </tr>
           <tr>
             <td>FEBRERO</td>
-            <td>{{ $conyuge['febrero'] }}</td>
-            <td>$ {{ $utm['febrero'] }}</td>
-            <td>{{ $conyuge['febrero_utm'] }}</td>
+            <td>{{ $data['conyuge']->febrero }}</td>
+            <td>$ {{$data['utm']->febrero }}</td>
+            <td>{{ $data['conyuge']->febrero_utm }}</td>
           </tr>
           <tr>
             <td>MARZO</td>
-            <td>{{ $conyuge['marzo'] }}</td>
-            <td>$ {{ $utm['marzo'] }}</td>
-            <td>{{ $conyuge['marzo_utm'] }}</td>
+            <td>{{ $data['conyuge']->marzo }}</td>
+            <td>$ {{ $data['utm']->marzo }}</td>
+            <td>{{ $data['conyuge']->marzo_utm }}</td>
           </tr>
           <tr>
             <td>ABRIL</td>
-            <td>{{ $conyuge['abril'] }}</td>
-            <td>$ {{ $utm['abril'] }}</td>
-            <td>{{ $conyuge['abril_utm'] }}</td>
+            <td>{{ $data['conyuge']->abril }}</td>
+            <td>$ {{ $data['utm']->abril }}</td>
+            <td>{{ $data['conyuge']->abril_utm }}</td>
           </tr>
           <tr>
             <td>MAYO</td>
-            <td>{{ $conyuge['mayo'] }}</td>
-            <td>$ {{ $utm['mayo'] }}</td>
-            <td>{{ $conyuge['mayo_utm'] }}</td>
+            <td>{{ $data['conyuge']->mayo }}</td>
+            <td>$ {{ $data['utm']->mayo }}</td>
+            <td>{{ $data['conyuge']->mayo_utm }}</td>
           </tr>
           <tr>
             <td>JUNIO</td>
-            <td>{{ $conyuge['junio'] }}</td>
-            <td>$ {{ $utm['junio'] }}</td>
-            <td>{{ $conyuge['junio_utm'] }}</td>
+            <td>{{ $data['conyuge']->junio }}</td>
+            <td>$ {{ $data['utm']->junio }}</td>
+            <td>{{ $data['conyuge']->junio_utm }}</td>
           </tr>
           <tr>
             <td>JULIO</td>
-            <td>{{ $conyuge['julio'] }}</td>
-            <td>$ {{$utm['julio'] }}</td>
-            <td>{{ $conyuge['julio_utm'] }}</td>
+            <td>{{ $data['conyuge']->julio }}</td>
+            <td>$ {{ $data['utm']->julio }}</td>
+            <td>{{ $data['conyuge']->julio_utm }}</td>
           </tr>
           <tr>
             <td>AGOSTO</td>
-            <td>{{ $conyuge['agosto'] }}</td>
-            <td>$ {{ $utm['agosto'] }}</td>
-            <td>{{ $conyuge['agosto_utm'] }}</td>
+            <td>{{ $data['conyuge']->agosto }}</td>
+            <td>$ {{ $data['utm']->agosto }}</td>
+            <td>{{ $data['conyuge']->agosto_utm }}</td>
           </tr>
           <tr>
             <td>SEPTIEMBRE</td>
-            <td>{{ $conyuge['septiembre'] }}</td>
-            <td>$ {{ $utm['septiembre'] }}</td>
-            <td>{{ $conyuge['septiembre_utm'] }}</td>
+            <td>{{ $data['conyuge']->septiembre }}</td>
+            <td>$ {{ $data['utm']->septiembre }}</td>
+            <td>{{ $data['conyuge']->septiembre_utm }}</td>
           </tr>
           <tr>
             <td>OCTUBRE</td>
-            <td>{{ $conyuge['octubre'] }}</td>
-            <td>$ {{$utm['octubre'] }}</td>
-            <td>{{ $conyuge['octubre_utm'] }}</td>
+            <td>{{ $data['conyuge']->octubre }}</td>
+            <td>$ {{ $data['utm']->octubre }}</td>
+            <td>{{ $data['conyuge']->octubre_utm }}</td>
           </tr>
           <tr>
             <td>NOVIEMBRE</td>
-            <td>{{ $conyuge['noviembre'] }}</td>
-            <td>$ {{$utm['noviembre'] }}</td>
-            <td>{{ $conyuge['noviembre_utm'] }}</td>
+            <td>{{ $data['conyuge']->noviembre }}</td>
+            <td>$ {{ $data['utm']->noviembre }}</td>
+            <td>{{ $data['conyuge']->noviembre_utm }}</td>
           </tr>
           <tr>
             <td>DICIEMBRE</td>
-            <td>{{ $conyuge['diciembre'] }}</td>
-            <td>$ {{ $utm['diciembre'] }}</td>
-            <td>{{ $conyuge['diciembre_utm'] }}</td>
+            <td>{{ $data['conyuge']->diciembre }}</td>
+            <td>$ {{ $data['utm']->diciembre }}</td>
+            <td>{{ $data['conyuge']->diciembre_utm }}</td>
           </tr>
           <tr>
             <td style="border: 0px solid black;"></td>
             <td colspan="2">INGRESOS TOTALES EN UTM</td>
-            <td>{{ $declaracion['ingreso_total_conyuge_utm'] }}</td>
+            <td>{{ $data['declaracion']->ingreso_total_conyuge_utm }}</td>
           </tr>
         </table>
 
         <table style="width:48%; height:100%; float: left;">
           <tr>
             <th></th>
-            <th colspan="3">INGRESOS DEL DEUDOR AÑO {{ $utm['year'] }}</th>
+            <th colspan="3">INGRESOS DEL DEUDOR AÑO {{ $data['utm']->year }}</th>
           </tr>
           <tr>
             <td>MES</td>
@@ -237,80 +237,80 @@
           </tr>
           <tr>
             <td>ENERO</td>
-            <td>{{ $declaracion['enero'] }}</td>
-            <td>$ {{ $utm['enero'] }}</td>
-            <td>{{ $declaracion['enero_utm'] }}</td>
+            <td>{{ $data['declaracion']->enero }}</td>
+            <td>$ {{ $data['utm']->enero }}</td>
+            <td>{{ $data['declaracion']->enero_utm }}</td>
           </tr>
           <tr>
             <td>FEBRERO</td>
-            <td>{{ $declaracion['febrero'] }}</td>
-            <td>$ {{ $utm['febrero'] }}</td>
-            <td>{{ $declaracion['febrero_utm'] }}</td>
+            <td>{{ $data['declaracion']->febrero }}</td>
+            <td>$ {{$data['utm']->febrero }}</td>
+            <td>{{ $data['declaracion']->febrero_utm }}</td>
           </tr>
           <tr>
             <td>MARZO</td>
-            <td>{{ $declaracion['marzo'] }}</td>
-            <td>$ {{ $utm['marzo'] }}</td>
-            <td>{{ $declaracion['marzo_utm'] }}</td>
+            <td>{{ $data['declaracion']->marzo }}</td>
+            <td>$ {{ $data['utm']->marzo }}</td>
+            <td>{{ $data['declaracion']->marzo_utm }}</td>
           </tr>
           <tr>
             <td>ABRIL</td>
-            <td>{{ $declaracion['abril'] }}</td>
-            <td>$ {{ $utm['abril'] }}</td>
-            <td>{{ $declaracion['abril_utm'] }}</td>
+            <td>{{ $data['declaracion']->abril }}</td>
+            <td>$ {{ $data['utm']->abril }}</td>
+            <td>{{ $data['declaracion']->abril_utm }}</td>
           </tr>
           <tr>
             <td>MAYO</td>
-            <td>{{ $declaracion['mayo'] }}</td>
-            <td>$ {{ $utm['mayo'] }}</td>
-            <td>{{ $declaracion['mayo_utm'] }}</td>
+            <td>{{ $data['declaracion']->mayo }}</td>
+            <td>$ {{ $data['utm']->mayo }}</td>
+            <td>{{ $data['declaracion']->mayo_utm }}</td>
           </tr>
           <tr>
             <td>JUNIO</td>
-            <td>{{ $declaracion['junio'] }}</td>
-            <td>$ {{ $utm['junio'] }}</td>
-            <td>{{ $declaracion['junio_utm'] }}</td>
+            <td>{{ $data['declaracion']->junio }}</td>
+            <td>$ {{ $data['utm']->junio }}</td>
+            <td>{{ $data['declaracion']->junio_utm }}</td>
           </tr>
           <tr>
             <td>JULIO</td>
-            <td>{{ $declaracion['julio'] }}</td>
-            <td>$ {{ $utm['julio'] }}</td>
-            <td>{{ $declaracion['julio_utm'] }}</td>
+            <td>{{ $data['declaracion']->julio }}</td>
+            <td>$ {{ $data['utm']->julio }}</td>
+            <td>{{ $data['declaracion']->julio_utm }}</td>
           </tr>
           <tr>
             <td>AGOSTO</td>
-            <td>{{ $declaracion['agosto'] }}</td>
-            <td>$ {{ $utm['agosto'] }}</td>
-            <td>{{ $declaracion['agosto_utm'] }}</td>
+            <td>{{ $data['declaracion']->agosto }}</td>
+            <td>$ {{ $data['utm']->agosto }}</td>
+            <td>{{ $data['declaracion']->agosto_utm }}</td>
           </tr>
           <tr>
             <td>SEPTIEMBRE</td>
-            <td>{{ $declaracion['septiembre'] }}</td>
-            <td>$ {{ $utm['septiembre'] }}</td>
-            <td>{{ $declaracion['septiembre_utm'] }}</td>
+            <td>{{ $data['declaracion']->septiembre }}</td>
+            <td>$ {{ $data['utm']->septiembre }}</td>
+            <td>{{ $data['declaracion']->septiembre_utm }}</td>
           </tr>
           <tr>
             <td>OCTUBRE</td>
-            <td>{{ $declaracion['octubre'] }}</td>
-            <td>$ {{ $utm['octubre'] }}</td>
-            <td>{{ $declaracion['octubre_utm'] }}</td>
+            <td>{{ $data['declaracion']->octubre }}</td>
+            <td>$ {{ $data['utm']->octubre }}</td>
+            <td>{{ $data['declaracion']->octubre_utm }}</td>
           </tr>
           <tr>
             <td>NOVIEMBRE</td>
-            <td>{{ $declaracion['noviembre'] }}</td>
-            <td>$ {{ $utm['noviembre'] }}</td>
-            <td>{{ $declaracion['noviembre_utm'] }}</td>
+            <td>{{ $data['declaracion']->noviembre }}</td>
+            <td>$ {{ $data['utm']->noviembre }}</td>
+            <td>{{ $data['declaracion']->noviembre_utm }}</td>
           </tr>
           <tr>
             <td>DICIEMBRE</td>
-            <td>{{ $declaracion['diciembre'] }}</td>
-            <td>$ {{ $utm['diciembre'] }}</td>
-            <td>{{ $declaracion['diciembre_utm'] }}</td>
+            <td>{{ $data['declaracion']->diciembre }}</td>
+            <td>$ {{ $data['utm']->diciembre }}</td>
+            <td>{{ $data['declaracion']->diciembre_utm }}</td>
           </tr>
           <tr>
             <td style="border: 0px solid black;"></td>
             <td colspan="2">INGRESOS TOTALES EN UTM</td>
-            <td>{{ $declaracion['ingreso_total_deudor_utm'] }}</td>
+            <td>{{ $data['declaracion']->ingreso_total_deudor_utm }}</td>
           </tr>
         </table>
     </div>
