@@ -81,6 +81,12 @@
     stroke: white;
 }
 
+.mat-mdc-raised-button:disabled{
+    background-color: rgba(0, 0, 0, 0.12)!important;
+    color: rgba(0, 0, 0, 0.38)!important;
+    stroke: black!important;
+}
+
 .mensaje-error{
     font-size: 10px;
     padding-top: 2px;
