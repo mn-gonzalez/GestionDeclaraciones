@@ -288,7 +288,7 @@ class DeclaracionController extends Controller
             /*
                 Genera el documento en formato pdf, lo almacena en el storage del servidor y la guarda en la BD.
             */
-            $pdf = PDF::loadView('declaracion', $data)->setPaper('legal', 'portrait');
+            $pdf = PDF::loadView('declaracion', ['data' => $data])->setPaper('legal', 'portrait');
             Storage::disk('public')->put($ubicacion_documento, $pdf->output());
 
             DB::table('documento')->insert([
@@ -354,57 +354,49 @@ class DeclaracionController extends Controller
         $subject = '';
         $mensaje = '';
         switch($request->tramite){
+            //Notificacion para las solicitudes de potergacion 
             case 'POS':
                 if($request->estado == 3){
                     $subject = 'Solicitud de postergación aceptada';
+                    $mensaje = '';
+                    EmailController::enviar_notificacion($deudor, ['subject' => $subject, 'mensaje' => $mensaje]);
                 }
                 else if($request->estado == 4){
                     $subject = 'Solicitud de postergación rechazada';
+                    $mensaje = '';
+                    EmailController::enviar_notificacion($deudor, ['subject' => $subject, 'mensaje' => $mensaje]);
                 }
-                $mensaje = '';
                 break;
+            //Notificacion para las devoluciones de pagares
             case 'DEV':
                 if($request->estado == 3){
                     $subject = 'Solicitud de devolución/copia de pagarés aceptada';
+                    $mensaje = '';
+                    EmailController::enviar_notificacion($deudor, ['subject' => $subject, 'mensaje' => $mensaje]);
                 }
                 else if($request->estado == 4){
                     $subject = 'Solicitud de devolución/copia de pagarés rechazada';
+                    $mensaje = '';
+                    EmailController::enviar_notificacion($deudor, ['subject' => $subject, 'mensaje' => $mensaje]);
                 }
-                $mensaje = '';
                 break;
+            //Notificacion para las declaraciones
             case 'DEC':
-                $resultado = self::notificarEstadoDeclaracion($request->estado);
-                $subject = $resultado['subject'];
-                $mensaje = $resultado['mensaje'];
+                if($request->estado == 4){
+                    $subject = 'Declaración con detalles a corregir';
+                    $mensaje = '';
+                    EmailController::enviar_notificacion($deudor, ['subject' => $subject, 'mensaje' => $mensaje]);
+                } 
+                else if($request->estado == 7){
+                    $subject = 'Ha finalizado su proceso de declaración jurada de ingresos de este año';
+                    $mensaje = '';
+                    EmailController::enviar_notificacion($deudor, ['subject' => $subject, 'mensaje' => $mensaje]);
+                }
                 break;
         }
-
-        $datosCorreo = [
-            'subject' => $subject,
-            'mensaje' => $mensaje
-        ];
-
-        EmailController::enviar_notificacion($deudor, $datosCorreo);
 
         $response = ['mensaje' => 'El estado del trámite se ha actualizado correctamente'];
         return response($response, 200);
-    }
-
-    private function notificarEstadoDeclaracion($estado){
-        $subject = '';
-        $mensaje = '';
-
-        switch($estado){
-            case 4;
-                $subject = 'Declaración con detalles a corregir';
-                $mensaje = '';
-                break;
-            case 7;
-                $subject = 'Ha finalizado su proceso de declaración jurada de ingresos de este año';
-                $mensaje = '';
-                break;
-        }
-        return ['subject'=> $subject, 'mensaje' => $mensaje];
     }
 
     public function obtenerEstadoDeclaracion(Request $request, $rut_deudor, $year)
