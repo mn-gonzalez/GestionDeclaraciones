@@ -149,7 +149,8 @@ export class RegistrarDeclaracionComponent implements OnInit {
       'afp': new FormControl(""),
       'estado_civil': new FormControl(""),
       'trabajo': new FormControl(""),
-      'tel_trabajo': new FormControl("")
+      'tel_trabajo': new FormControl(""),
+      'declaracion_sii': new FormControl("")
     });
 
     this.ingresosDeudor = new FormGroup({
@@ -329,6 +330,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
           this.datosPersonales.get('region')!.setValue(result.region);
           this.datosPersonales.get('comuna')!.setValue(result.comuna);
           this.datosPersonales.get('ciudad')!.setValue(result.ciudad);
+          this.datosPersonales.get('declaracion_sii')!.setValue(result.declaracion_sii);
 
           this.ingresosDeudor.get('enero')!.setValue(result.enero);
           this.ingresosDeudor.get('febrero')!.setValue(result.febrero);

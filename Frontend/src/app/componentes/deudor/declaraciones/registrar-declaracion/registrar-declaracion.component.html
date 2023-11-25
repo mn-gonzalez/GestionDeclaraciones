@@ -1,5 +1,5 @@
 <div class="fondo">
-    <h2 class="titulo">Registrar Declaración Jurada de Ingresos</h2>
+    <h1 class="titulo"><b>Registrar Declaración Jurada de Ingresos</b></h1>
     <mat-horizontal-stepper [linear]="isLinear" #stepper>
 
         <mat-step style="height: 100%;" *ngIf="corregir_declaracion">
@@ -19,124 +19,153 @@
         <mat-step [stepControl]="datosPersonales">
             <form [formGroup]="datosPersonales">
               <ng-template matStepLabel>Datos del Deudor</ng-template>
-              <div class="formulario">
-                <div class="datos_personales">
-                    <h3>Datos Personales</h3>
+                <div class="formulario">
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title style="font-size: 16px;"><b>Datos Personales</b></mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content class="datos_personales">
+                            <mat-form-field appearance="outline" class="inputs">
+                                <mat-label>RUT</mat-label>
+                                <input matInput placeholder="Ej. 12345678" formControlName="rut_deudor" readonly>
+                            </mat-form-field>
 
-                    <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>RUT</mat-label>
-                        <input matInput placeholder="Ej. 12345678" formControlName="rut_deudor" readonly>
-                    </mat-form-field>
+                            <div class="form_nombre">
+                                <mat-form-field appearance="outline" class="inputs" >
+                                    <mat-label>Nombres</mat-label>
+                                    <input matInput placeholder="Primer y Segundo Nombre" formControlName="nombres" readonly>
+                                </mat-form-field>
+                    
+                                <mat-form-field appearance="outline" class="inputs">
+                                    <mat-label>Apellido Paterno</mat-label>
+                                    <input matInput formControlName="ap_paterno" readonly>
+                                </mat-form-field>
+                    
+                                <mat-form-field appearance="outline" class="inputs">
+                                    <mat-label>Apellido Materno</mat-label>
+                                    <input matInput formControlName="ap_materno" readonly>
+                                </mat-form-field>
+                            </div>
 
-                    <div class="form_nombre">
-                        <mat-form-field appearance="outline" class="inputs" >
-                            <mat-label>Nombres</mat-label>
-                            <input matInput placeholder="Primer y Segundo Nombre" formControlName="nombres" readonly>
-                        </mat-form-field>
-            
-                        <mat-form-field appearance="outline" class="inputs">
-                            <mat-label>Apellido Paterno</mat-label>
-                            <input matInput formControlName="ap_paterno" readonly>
-                        </mat-form-field>
-            
-                        <mat-form-field appearance="outline" class="inputs">
-                            <mat-label>Apellido Materno</mat-label>
-                            <input matInput formControlName="ap_materno" readonly>
-                        </mat-form-field>
-                    </div>
+                            <div class="div_radio_group">
+                                <label>Estado Civil:</label>
+                                <mat-radio-group class="estado_civil" formControlName="estado_civil">
+                                    <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 1" 
+                                    (change)="verificacionEstadoCivil($event.value)" class="opciones" value=1>Soltero sin hijos</mat-radio-button>
+                                    <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 2" 
+                                    (change)="verificacionEstadoCivil($event.value)" class="opciones" value=2>Soltero con hijos</mat-radio-button>
+                                    <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 3" 
+                                    (change)="verificacionEstadoCivil($event.value)" class="opciones" value=3>Casado</mat-radio-button>
+                                    <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 4" 
+                                    (change)="verificacionEstadoCivil($event.value)" class="opciones" value=4>Casado con deudor Reprog.Cred.Univ. o Fiscal</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
 
-                    <div class="div_estado_civil">
-                        <label>Estado Civil:</label>
-                        <mat-radio-group class="estado_civil" formControlName="estado_civil">
-                            <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 1" 
-                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value=1>Soltero sin hijos</mat-radio-button>
-                            <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 2" 
-                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value=2>Soltero con hijos</mat-radio-button>
-                            <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 3" 
-                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value=3>Casado</mat-radio-button>
-                            <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 4" 
-                            (change)="verificacionEstadoCivil($event.value)" class="opciones" value=4>Casado con deudor Reprog.Cred.Univ. o Fiscal</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                </div>
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title style="font-size: 16px;"><b>Domicilio</b></mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content class="form_direccion">
+                            <mat-form-field appearance="outline" class="input_direccion">
+                                <mat-label>Dirección</mat-label>
+                                <input matInput placeholder="Pasaje 1 nro 37" formControlName="direccion" required>
+                            </mat-form-field>
                 
-
-                <h3>Domicilio</h3>
-                <div class="form_direccion">
-                    <mat-form-field appearance="outline" class="input_direccion">
-                        <mat-label>Dirección</mat-label>
-                        <input matInput placeholder="Pasaje 1 nro 37" formControlName="direccion" required>
-                    </mat-form-field>
-        
-                    <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>Región</mat-label>
-                        <mat-select formControlName="region" name="region" (selectionChange)="seleccionarComunas($event.value)">
-                            <mat-option *ngFor="let region of regiones" [value]="region.nombre">
-                                {{region.nombre}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>Comuna</mat-label>
-                        <mat-select formControlName="comuna" name="comuna">
-                            <mat-option *ngFor="let comuna of comunas" [value]="comuna">
-                                {{comuna}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-        
-                    <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>Ciudad</mat-label>
-                        <input matInput placeholder="Rancagua" formControlName="ciudad" required>
-                    </mat-form-field>
-                </div>
-
-                <h3>Datos de Contacto</h3>
-                <div class="form_contacto">
-                    <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>Teléfono</mat-label>
-                        <input matInput placeholder="912345678" formControlName="telefono" required>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>Correo Electrónico</mat-label>
-                        <input matInput placeholder="correo@gmail.com" formControlName="correo" required>
-                    </mat-form-field>
-                </div>
-
-                <h3>Datos del Trabajo</h3>
-                <div class="form_trabajo">
-                    <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>Institución en la que trabaja</mat-label>
-                        <input matInput placeholder="Lugar de trabajo" formControlName="trabajo">
-                    </mat-form-field>
+                            <mat-form-field appearance="outline" class="inputs">
+                                <mat-label>Región</mat-label>
+                                <mat-select formControlName="region" name="region" (selectionChange)="seleccionarComunas($event.value)">
+                                    <mat-option *ngFor="let region of regiones" [value]="region.nombre">
+                                        {{region.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
     
-                    <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>Teléfono del trabajo</mat-label>
-                        <input matInput formControlName="tel_trabajo">
-                    </mat-form-field>
-    
-                    <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>AFP a la que esta afiliado</mat-label>
-                        <mat-select formControlName="afp" name="afp">
-                            <mat-option *ngFor="let afp of afps" [value]="afp.nombre">
-                                {{afp.nombre}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-              </div>
+                            <mat-form-field appearance="outline" class="inputs">
+                                <mat-label>Comuna</mat-label>
+                                <mat-select formControlName="comuna" name="comuna">
+                                    <mat-option *ngFor="let comuna of comunas" [value]="comuna">
+                                        {{comuna}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="outline" class="inputs">
+                                <mat-label>Ciudad</mat-label>
+                                <input matInput placeholder="Rancagua" formControlName="ciudad" required>
+                            </mat-form-field>
+                        </mat-card-content>
+                    </mat-card>
 
-              <div class="botones">
-                <div class="boton">
-                    <button mat-stroked-button matStepperNext (click)="registrarDeclaracion()">Guardar</button>
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title style="font-size: 16px;"><b>Datos de Contacto</b></mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content class="form_contacto">
+                            <mat-form-field appearance="outline" class="inputs">
+                                <mat-label>Teléfono</mat-label>
+                                <input matInput placeholder="912345678" formControlName="telefono" required>
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="outline" class="inputs">
+                                <mat-label>Correo Electrónico</mat-label>
+                                <input matInput placeholder="correo@gmail.com" formControlName="correo" required>
+                            </mat-form-field>
+                        </mat-card-content>
+                    </mat-card>
+
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title style="font-size: 16px;"><b>Datos del Trabajo</b></mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                            <div class="form_trabajo">
+                                <mat-form-field appearance="outline" class="inputs">
+                                    <mat-label>Institución en la que trabaja</mat-label>
+                                    <input matInput placeholder="Lugar de trabajo" formControlName="trabajo">
+                                </mat-form-field>
+                
+                                <mat-form-field appearance="outline" class="inputs">
+                                    <mat-label>Teléfono del trabajo</mat-label>
+                                    <input matInput formControlName="tel_trabajo">
+                                </mat-form-field>
+                
+                                <mat-form-field appearance="outline" class="inputs">
+                                    <mat-label>AFP a la que esta afiliado</mat-label>
+                                    <mat-select formControlName="afp" name="afp">
+                                        <mat-option *ngFor="let afp of afps" [value]="afp.nombre">
+                                            {{afp.nombre}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="div_radio_group">
+                                <label>Presenta declaración de renta S.I.I:</label>
+                                <mat-radio-group class="declaracion_sii" formControlName="declaracion_sii">
+                                    <mat-radio-button [checked]="this.datosPersonales.get('declaracion_sii')!.value == 'SI'" 
+                                        class="opciones" value="SI">Si</mat-radio-button>
+                                    <mat-radio-button [checked]="this.datosPersonales.get('declaracion_sii')!.value == 'NO'" 
+                                        class="opciones" value="NO">No</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
                 </div>
-        
-                <div class="boton">
-                    <button mat-stroked-button matStepperNext >Siguiente</button>
+
+                <div class="botones">
+                    <div class="boton">
+                        <button mat-stroked-button matStepperNext (click)="registrarDeclaracion()">Guardar</button>
+                    </div>
+            
+                    <div class="boton">
+                        <button mat-stroked-button matStepperNext >Siguiente</button>
+                    </div>
                 </div>
-              </div>
             </form>
         </mat-step>
         <mat-step [stepControl]="ingresosDeudor">
@@ -195,34 +224,38 @@
             <form [formGroup]="conyuge">
               <ng-template matStepLabel>Datos e Ingresos del Conyuge</ng-template>
 
-                <div>
-                    <h3>Datos Personales</h3>
-
-                    <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>RUT</mat-label>
-                        <input matInput placeholder="Ej. 12345678" formControlName="rut_conyuge" required>
-                    </mat-form-field>
-
-                    <div class="form_nombre">
-                        <mat-form-field appearance="outline" class="inputs" >
-                            <mat-label>Nombres</mat-label>
-                            <input matInput placeholder="Last name, First name" formControlName="nombres" required>
-                        </mat-form-field>
-            
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title style="font-size: 16px;"><b>Datos Personales</b></mat-card-title>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
                         <mat-form-field appearance="outline" class="inputs">
-                            <mat-label>Apellido Paterno</mat-label>
-                            <input matInput placeholder="Last name, First name" formControlName="ap_paterno" required>
+                            <mat-label>RUT</mat-label>
+                            <input matInput placeholder="Ej. 12345678" formControlName="rut_conyuge" required>
                         </mat-form-field>
-            
-                        <mat-form-field appearance="outline" class="inputs">
-                            <mat-label>Apellido Materno</mat-label>
-                            <input matInput placeholder="Last name, First name" formControlName="ap_materno" required>
-                        </mat-form-field>
-                    </div>
-                </div>
 
-                <div>
-                    <h3>Ingresos del Conyuge</h3>
+                        <div class="form_nombre">
+                            <mat-form-field appearance="outline" class="inputs" >
+                                <mat-label>Nombres</mat-label>
+                                <input matInput placeholder="Last name, First name" formControlName="nombres" required>
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="outline" class="inputs">
+                                <mat-label>Apellido Paterno</mat-label>
+                                <input matInput placeholder="Last name, First name" formControlName="ap_paterno" required>
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="outline" class="inputs">
+                                <mat-label>Apellido Materno</mat-label>
+                                <input matInput placeholder="Last name, First name" formControlName="ap_materno" required>
+                            </mat-form-field>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                <div style="padding-top: 20px;">
+                    <h3 style="font-size: 16px;"><b>Ingresos del Conyuge</b></h3>
 
                     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                         <ng-container matColumnDef="mes">

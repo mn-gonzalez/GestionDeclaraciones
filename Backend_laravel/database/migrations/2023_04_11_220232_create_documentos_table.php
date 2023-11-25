@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('tipo');
             $table->string('ubicacion');
             $table->string('ref_declaracion');
+            $table->boolean('aceptado')->nullable();
+            $table->text('comentario')->nullable();
             $table->timestamps();
         });
     }

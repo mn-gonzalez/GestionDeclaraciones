@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('afp');
             $table->string('trabajo')->nullable();
             $table->string('tel_trabajo')->nullable();
-            $table->boolean('declaracion_sii')->default(false);
+            $table->string('declaracion_sii');
             $table->integer('enero')->default('0');
             $table->integer('febrero')->default('0');
             $table->integer('marzo')->default('0');

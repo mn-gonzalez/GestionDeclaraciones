@@ -1,5 +1,5 @@
 .fondo{
-    padding: 25px;
+    padding: 30px;
 }
 
 .titulo{
@@ -9,6 +9,8 @@
 .formulario{
     display: flex;
     flex-direction: column;
+    row-gap: 10px;
+    padding-top: 10px;
 }
 
 .form_nombre{
@@ -42,15 +44,24 @@
     padding-right: 15px;
 }
 
-.div_estado_civil{
+.div_radio_group{
     display: flex;
     flex-direction: column;
+    row-gap: 5px!important;
+    padding-top: 10px;
+    padding-left: 10px;
     padding-bottom: 20px;
 }
 
 .estado_civil{
     display: flex;
     flex-direction: column;
+}
+
+.declaracion_sii{
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
 }
 
 .opciones{

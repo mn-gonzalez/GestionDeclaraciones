@@ -1,85 +1,105 @@
 <div class="fondo">
-    <h1>Mis Datos</h1>
+    <h1><b>Mis Datos</b></h1>
     <form [formGroup]="datosPersonales">
-        <div>
-            <div class="datos_personales">
-                <h2 class="titulo">Datos Personales</h2>
-                <mat-form-field appearance="outline">
-                    <mat-label>RUT</mat-label>
-                    <input matInput formControlName="rut" readonly>
-                </mat-form-field>
-
-                <div class="nombre">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Nombres</mat-label>
-                        <input matInput formControlName="nombres" readonly>
-                    </mat-form-field>
+        <div class="tarjetas">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title style="font-size: 16px;"><b>Datos Personales</b></mat-card-title>
+                </mat-card-header>
+                <mat-divider></mat-divider>
+                <mat-card-content style="padding-top: 20px;">
+                    <div style="padding-top: 10px;">
+                        <mat-form-field appearance="outline">
+                            <mat-label>RUT</mat-label>
+                            <input matInput formControlName="rut" readonly>
+                        </mat-form-field>
         
-                    <mat-form-field appearance="outline">
-                        <mat-label>Apellido Paterno</mat-label>
-                        <input matInput formControlName="ap_paterno" readonly>
-                    </mat-form-field>
-        
-                    <mat-form-field appearance="outline">
-                        <mat-label>Apellido Materno</mat-label>
-                        <input matInput formControlName="ap_materno" readonly>
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <div class="contacto">
-                <h2 class="titulo">Dirección</h2>
-
-                <div class="nombre">
-                    <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>Región</mat-label>
-                        <mat-select formControlName="region" name="region" (selectionChange)="seleccionarComunas($event.value)">
-                            <mat-option *ngFor="let region of regiones" [value]="region.nombre">
-                                {{region.nombre}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-    
-                    <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>Comuna</mat-label>
-                        <mat-select formControlName="comuna" name="comuna">
-                            <mat-option *ngFor="let comuna of comunas" [value]="comuna">
-                                {{comuna}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-        
-                    <mat-form-field appearance="outline" class="inputs">
-                        <mat-label>Ciudad</mat-label>
-                        <input matInput placeholder="Rancagua" formControlName="ciudad" required>
-                    </mat-form-field>
-                </div>
-
-                <mat-form-field appearance="outline" class="direccion">
-                    <mat-label>Dirección</mat-label>
-                    <input matInput formControlName="direccion">
-                </mat-form-field>
+                        <div class="nombre">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nombres</mat-label>
+                                <input matInput formControlName="nombres" readonly>
+                            </mat-form-field>
                 
-                <h2 class="titulo">Datos de Contacto</h2>
-                <div class="nombre">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Teléfono</mat-label>
-                        <input matInput formControlName="telefono">
-                    </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Apellido Paterno</mat-label>
+                                <input matInput formControlName="ap_paterno" readonly>
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="outline">
+                                <mat-label>Apellido Materno</mat-label>
+                                <input matInput formControlName="ap_materno" readonly>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
     
-                    <mat-form-field appearance="outline">
-                        <mat-label>Correo</mat-label>
-                        <input matInput formControlName="correo">
-                    </mat-form-field>
-                </div>
-            </div>
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title style="font-size: 16px;"><b>Dirección</b></mat-card-title>
+                </mat-card-header>
+                <mat-divider></mat-divider>
+                <mat-card-content style="padding-top: 20px;">
+                    <div style="display: flex; flex-direction: column; row-gap: 10px;">
+                        <div class="nombre">
+                            <mat-form-field appearance="outline" style="width: 400px;">
+                                <mat-label>Región</mat-label>
+                                <mat-select formControlName="region" name="region" (selectionChange)="seleccionarComunas($event.value)">
+                                    <mat-option *ngFor="let region of regiones" [value]="region.nombre" required>
+                                        {{region.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+            
+                            <mat-form-field appearance="outline" class="inputs">
+                                <mat-label>Comuna</mat-label>
+                                <mat-select formControlName="comuna" name="comuna">
+                                    <mat-option *ngFor="let comuna of comunas" [value]="comuna" required>
+                                        {{comuna}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="outline" class="inputs">
+                                <mat-label>Ciudad</mat-label>
+                                <input matInput placeholder="Rancagua" formControlName="ciudad" required>
+                            </mat-form-field>
+                        </div>
 
+                        <mat-form-field appearance="outline" style="width: 400px;">
+                            <mat-label >Dirección</mat-label>
+                            <input matInput formControlName="direccion">
+                        </mat-form-field>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+    
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title style="font-size: 16px;"><b>Datos de Contacto</b></mat-card-title>
+                </mat-card-header>
+                <mat-divider></mat-divider>
+                <mat-card-content style="padding-top: 20px;">
+                    <div class="nombre">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Teléfono</mat-label>
+                            <input matInput formControlName="telefono" required>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" style="width: 400px;" required>
+                            <mat-label>Correo</mat-label>
+                            <input matInput formControlName="correo">
+                        </mat-form-field>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            
             <div class="botones">
                 <div class="boton">
                     <button mat-stroked-button (click)="actualizarDatos()">Actualizar Datos</button>
                 </div>
             </div>
-
+    
             <div class="contrasena">
                 <h2 class="titulo">Actualizar Contraseña</h2>
                 <mat-form-field appearance="outline">

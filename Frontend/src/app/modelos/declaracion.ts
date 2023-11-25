@@ -17,6 +17,7 @@ export class Declaracion{
     afp: string;
     trabajo: string;
     tel_trabajo: string;
+    declaracion_sii: string;
     estado_text: string;
     enero: number;
     febrero: number;

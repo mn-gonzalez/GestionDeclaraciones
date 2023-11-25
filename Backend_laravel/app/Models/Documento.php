@@ -11,5 +11,5 @@ class Documento extends Model
 
     protected $table = 'documento';
 
-    protected $fillable = ['tipo', 'ubicacion', 'ref_declaracion'];
+    protected $fillable = ['tipo', 'ubicacion', 'ref_declaracion', 'aceptado', 'comentarios'];
 }

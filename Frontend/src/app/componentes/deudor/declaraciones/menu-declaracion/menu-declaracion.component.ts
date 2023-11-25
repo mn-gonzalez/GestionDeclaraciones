@@ -21,7 +21,11 @@ export class MenuDeclaracionComponent implements OnInit {
   id_declaracion: string;
   declaracion_firmada_enviada = false;
 
-  constructor(private router: Router, private declaracionService: DeclaracionService, private auth: InicioSesionService, public dialog: MatDialog) {
+  constructor(
+    private router: Router, 
+    private declaracionService: DeclaracionService, 
+    private auth: InicioSesionService, 
+    public dialog: MatDialog) {
     
   }
 
@@ -44,44 +48,65 @@ export class MenuDeclaracionComponent implements OnInit {
       next: result =>{
         this.id_declaracion = result.id_declaracion;
         this.procesarEstado(result.estado);
-        this.verificarDescargaDeclaracion();
-        this.obtenerDeclaracionFirmada();
+        //this.verificarDescargaDeclaracion();
+        //this.obtenerDeclaracionFirmada();
       }
     });
   }
 
   procesarEstado(estado: number){
+    this.mensaje_pdf = "La declaración en formato PDF aún no esta disponible."
+
     switch(estado){
       case 0:
         this.mensaje_formulario = "Usted todavia no completa el formulario de su declaración."
         this.formulario_enviado = false;
+        this.formulario_aceptado = false;
+        this.pdf_disponible = false;
         break;
       case 1:
         this.mensaje_formulario = "Usted aún tiene un formulario incompleto";
         this.formulario_enviado = false;
+        this.formulario_aceptado = false;
+        this.pdf_disponible = false;
         break;
       case 2:
         this.mensaje_formulario = "Su formulario ya fué enviado y esta siendo revisado por uno de nuestros funcionarios.";
         this.formulario_enviado = true;
         this.formulario_aceptado = false;
+        this.pdf_disponible = false;
         break;
       case 3:
         this.mensaje_formulario = "Su formulario ya fué enviado y esta siendo revisado por uno de nuestros funcionarios.";
         this.formulario_enviado = true;
         this.formulario_aceptado = false;
+        this.pdf_disponible = false;
         break;
       case 4:
         this.mensaje_formulario = "Su formulario tiene algunos detalles que debe corregir.";
         this.formulario_enviado = false;
         this.formulario_aceptado = false;
+        this.pdf_disponible = false;
         break;
       case 5:
         this.mensaje_formulario = "Usted ya completó este paso, solo debe descargar y firmar su declaración ante notario.";
+        this.mensaje_pdf = "La declaración en formato PDF ya está disponible para su descarga."
         this.formulario_enviado = true;
         this.formulario_aceptado = true;
+        this.pdf_disponible = true;
+        this.obtenerDeclaracionFirmada();
         break;
       case 6:
+        this.mensaje_formulario = "Usted ya completó este paso, solo debe descargar y firmar su declaración ante notario.";
+        this.mensaje_pdf = "La declaración en formato PDF ya está disponible para su descarga."
+        this.formulario_enviado = true;
+        this.formulario_aceptado = true;
+        this.pdf_disponible = true;
         this.declaracion_firmada_enviada = true;
+        this.obtenerDeclaracionFirmada();
+        break;
+      case 7:
+        //mostrar dialog de proceso terminado
         break;
     }
   }
@@ -211,7 +236,6 @@ export class MenuDeclaracionComponent implements OnInit {
   }
 
   terminarProceso(){
-    //this.declaracionService.actualizarEstadoDeclaracion(this.auth.obtenerUsuarioActual()!, this.id_declaracion, EstadoDeclaracion.ENVIADA_CON_FIRMA);
     this.declaracionService.actualizarEstadoDeclaracion(this.auth.obtenerUsuarioActual()!, this.id_declaracion, EstadoDeclaracion.ENVIADA_CON_FIRMA, "DEC").subscribe({
       next: result =>{
         console.log(result);

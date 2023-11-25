@@ -1,12 +1,25 @@
 .fondo{
     display: grid;
-    padding: 25px;
+    padding: 30px;
+}
+
+.tarjetas{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+.mat-mdc-card-header{
+    /* background-color: var(--color-utalca); */
+    color: black;
+    padding-bottom: 10px;
 }
 
 .nombre{
     display: flex;
     flex-direction: row;
     column-gap: 10px;
+    padding-top: 10px;
 }
 
 .direccion{

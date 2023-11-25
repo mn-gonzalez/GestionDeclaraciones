@@ -53,7 +53,8 @@ class DeclaracionController extends Controller
             'estado_civil' => 'required',
             'afp' => 'required', 
             'trabajo' => 'nullable',
-            'tel_trabajo' => 'nullable'
+            'tel_trabajo' => 'nullable',
+            'declaracion_sii' => 'required'
         ]);
 
         DB::table('tramite')->insert([
@@ -78,7 +79,8 @@ class DeclaracionController extends Controller
             'estado_civil' => $data['estado_civil'],
             'afp' => $data['afp'], 
             'trabajo' => $data['trabajo'],
-            'tel_trabajo' => $data['tel_trabajo']
+            'tel_trabajo' => $data['tel_trabajo'],
+            'declaracion_sii' => $data['declaracion_sii']
         ]);
 
         $response = ['mensaje' => 'La declaracion se ha registrado exitosamente'];
@@ -102,7 +104,8 @@ class DeclaracionController extends Controller
             'estado_civil' => 'required',
             'afp' => 'required', 
             'trabajo' => 'nullable',
-            'tel_trabajo' => 'nullable'
+            'tel_trabajo' => 'nullable',
+            'declaracion_sii' => 'required'
         ]);
 
         DB::table('tramite')->where('id', $data['id'])
@@ -119,7 +122,8 @@ class DeclaracionController extends Controller
                 'estado_civil'=> $data['estado_civil'],
                 'afp'=> $data['afp'],
                 'trabajo'=> $data['trabajo'],
-                'tel_trabajo'=> $data['tel_trabajo']
+                'tel_trabajo'=> $data['tel_trabajo'],
+                'declaracion_sii' => 'required'
             ]);
 
         $response = ['mensaje' => 'Los datos de la declaracion se han actualizado correctamente'];
@@ -431,28 +435,5 @@ class DeclaracionController extends Controller
         $existe = Storage::disk('public')->exists($ubicacion_documento);
         $response = ['pdf_disponible' => $existe];
         return response($response, 200);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Declaracion  $declaracion
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Declaracion $declaracion)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Declaracion  $declaracion
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Declaracion $declaracion)
-    {
-        //
     }
 }
