@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('comuna');
             $table->string('ciudad');
             $table->tinyInteger('estado_civil');
-            $table->tinyInteger('afp');
+            $table->string('afp');
             $table->string('trabajo')->nullable();
             $table->string('tel_trabajo')->nullable();
             $table->boolean('declaracion_sii')->default(false);

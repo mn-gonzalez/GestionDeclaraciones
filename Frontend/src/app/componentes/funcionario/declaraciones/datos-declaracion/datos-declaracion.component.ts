@@ -211,7 +211,7 @@ export class DatosDeclaracionComponent implements OnInit {
         this.datosPersonales.get('direccion')!.setValue(result.direccion);
         this.datosPersonales.get('telefono')!.setValue(result.telefono);
         this.datosPersonales.get('estado_civil')!.setValue(result.estado_civil);
-        //this.datosPersonales.get('afp')!.setValue(result.afp);
+        this.datosPersonales.get('afp')!.setValue(result.afp);
         this.datosPersonales.get('trabajo')!.setValue(result.trabajo);
         this.datosPersonales.get('tel_trabajo')!.setValue(result.tel_trabajo);
         this.datosPersonales.get('region')!.setValue(result.region);
@@ -246,7 +246,6 @@ export class DatosDeclaracionComponent implements OnInit {
 
         this.year = result.anio;
 
-        this.convertirValorAfp(result.afp);
         this.seleccionarComunas(this.datosPersonales.get('region')!.value);
 
         if(result.estado_civil == 2){

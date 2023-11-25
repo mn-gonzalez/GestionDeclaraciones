@@ -14,7 +14,7 @@ export class Declaracion{
     comuna: string;
     ciudad: string;
     estado_civil: number;
-    afp: number;
+    afp: string;
     trabajo: string;
     tel_trabajo: string;
     estado_text: string;

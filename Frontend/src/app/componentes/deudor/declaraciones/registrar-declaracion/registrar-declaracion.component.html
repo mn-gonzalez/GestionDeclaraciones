@@ -120,7 +120,7 @@
                     <mat-form-field appearance="outline" class="inputs">
                         <mat-label>AFP a la que esta afiliado</mat-label>
                         <mat-select formControlName="afp" name="afp">
-                            <mat-option *ngFor="let afp of afps" [value]="afp.id">
+                            <mat-option *ngFor="let afp of afps" [value]="afp.nombre">
                                 {{afp.nombre}}
                             </mat-option>
                         </mat-select>
