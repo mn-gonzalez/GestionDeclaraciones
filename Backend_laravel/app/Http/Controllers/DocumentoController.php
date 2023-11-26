@@ -98,37 +98,28 @@ class DocumentoController extends Controller
         return response($documento, 200)->header('Content-Type', 'application/pdf');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Documento  $documento
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Documento $documento)
-    {
-        //
-    }
+    public function eliminar_documento_declaracion(Request $request){
+        $id_declaracion = $request->id_declaracion;
+        $tipo_documento = $request->tipo_documento;
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Documento  $documento
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Documento $documento)
-    {
-        //
-    }
+        $documento = DB::table('documento')
+            ->where('ref_declaracion', '=', $id_declaracion)
+            ->where('tipo', '=', $tipo_documento)
+            ->first();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Documento  $documento
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Documento $documento)
-    {
-        //
+
+        $existe = Storage::disk('public')->exists($documento->ubicacion);
+
+        if($existe){
+            Storage::disk('public')->delete($documento->ubicacion);
+        }
+
+        DB::table('documento')
+            ->where('ref_declaracion', '=', $id_declaracion)
+            ->where('tipo', '=', $tipo_documento)
+            ->delete();
+        
+        $response = ['mensaje' => 'El documento se ha eliminado exitosamente.'];
+        return response($response, 200);
     }
 }

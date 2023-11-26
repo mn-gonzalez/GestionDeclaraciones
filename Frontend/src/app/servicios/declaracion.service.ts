@@ -281,6 +281,17 @@ export class DeclaracionService {
     });
   }
 
+  eliminarDocumento(id_declaracion: string, tipo_documento: string){
+    const formData = new FormData();
+    formData.append('id_declaracion', id_declaracion);
+    formData.append('tipo_documento', tipo_documento);
+
+    this.http.post<{ mensaje: string}>(env.api.concat("/documentacion/eliminar"), formData)
+    .subscribe(response => {
+        this.mostrarNotificacion(response.mensaje, "Cerrar");
+    });
+  }
+
   obtenerDocumentacionDeclaracion(rut_deudor: string, id_declaracion: string){
     return this.http.get<Documento[]>(env.api.concat("/"+rut_deudor+"/declaraciones/"+id_declaracion+"/documentacion"))
     .pipe(

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { DeclaracionService } from 'src/app/servicios/declaracion.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class SubirDocumentacionComponent {
   @Input() public tipoDocumento: string;
   @Input() public documento: File;
   @Input() public soloVista: boolean;
-
+  
   constructor( private declaracionService: DeclaracionService ) { 
 
   }
@@ -38,6 +38,15 @@ export class SubirDocumentacionComponent {
     blob = new Blob([this.documento], {type: 'application/pdf'});
     var blobURL = URL.createObjectURL(blob);
     window.open(blobURL);
+  }
+
+  eliminarDocumento(event: any){
+    if(this.documento != null){
+      event.target.files = null;
+      this.documento = event.target.files;
+      this.declaracionService.eliminarDocumento(this.idDeclaracion, this.tipoDocumento);
+    }
+    
   }
 }
 

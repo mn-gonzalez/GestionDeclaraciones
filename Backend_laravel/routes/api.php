@@ -98,6 +98,7 @@ Route::group(['middleware' => ['api']], function () {
     Route::get('{rut_deudor}/declaraciones/{id_declaracion}/documentacion', [DocumentoController::class, 'obtener_listado_documentos_declaracion']);
     Route::get('{rut_deudor}/declaraciones/{id_declaracion}/documentacion/{id_documento}', [DocumentoController::class, 'obtener_documento']);
     Route::get('storage/{id_declaracion}/documento/{tipo_documento}', [DocumentoController::class, 'obtener_url_documento']);
+    Route::post('/documentacion/eliminar', [DocumentoController::class, 'eliminar_documento_declaracion']);
 
     //obtiene el formulario firmado ante notario que subio el deudor
     Route::get('{rut_deudor}/declaraciones/{id_declaracion}/DECLARACION_FIRMADA', [DocumentoController::class, 'obtener_archivo_declaracion_firmada']);
@@ -143,4 +144,6 @@ Route::group(['middleware' => ['api']], function () {
 
     //Correos
     Route::post('correoMasivo', [EmailController::class, 'enviar_correo_masivo']);
+
+
 });

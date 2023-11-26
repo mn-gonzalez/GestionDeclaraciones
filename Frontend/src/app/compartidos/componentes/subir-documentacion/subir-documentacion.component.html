@@ -12,7 +12,7 @@
             <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
             <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.documento.name}}</div>
         </div>
-        <button *ngIf="!this.soloVista" mat-icon-button><mat-icon (click)="subirDocumento()" class="material-icons-outlined">save</mat-icon></button>
-        <button *ngIf="!this.soloVista" mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
+        <button *ngIf="!this.soloVista" mat-icon-button (click)="subirDocumento()"><mat-icon  class="material-icons-outlined">save</mat-icon></button>
+        <button *ngIf="!this.soloVista" mat-icon-button (click)="eliminarDocumento($event)"><mat-icon  class="material-icons-outlined">delete</mat-icon></button>
     </div>
 </div>
