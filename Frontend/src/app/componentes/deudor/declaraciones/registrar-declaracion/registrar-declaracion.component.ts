@@ -150,6 +150,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
       'estado_civil': new FormControl(""),
       'trabajo': new FormControl(""),
       'tel_trabajo': new FormControl(""),
+      'estado': new FormControl(""),
       'declaracion_sii': new FormControl("")
     });
 
@@ -330,6 +331,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
           this.datosPersonales.get('region')!.setValue(result.region);
           this.datosPersonales.get('comuna')!.setValue(result.comuna);
           this.datosPersonales.get('ciudad')!.setValue(result.ciudad);
+          this.datosPersonales.get('estado')!.setValue(result.estado);
           this.datosPersonales.get('declaracion_sii')!.setValue(result.declaracion_sii);
 
           this.ingresosDeudor.get('enero')!.setValue(result.enero);
@@ -425,8 +427,6 @@ export class RegistrarDeclaracionComponent implements OnInit {
   registrarDeclaracion(){
     let datosDeclaracion = this.datosPersonales.value;
     datosDeclaracion.id = this.id_declaracion;
-
-    this.calcularCuotaPreliminar();
     
     //si la declaracion no existe en la base de datos, entonces se crea una nueva
     //de lo contrario solo se actualizan los datos.
@@ -567,7 +567,6 @@ export class RegistrarDeclaracionComponent implements OnInit {
                   break; 
                 } 
                 default: { 
-                    console.log("El tipo de documento no esta registrado en el sistema");
                     break; 
                 }
               }
@@ -671,6 +670,8 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
     this.ingresosDeudor.get('ingreso_total_deudor')!.setValue(total);
     this.ingresosDeudor.get('ingreso_total_deudor_utm')!.setValue(total_utm);
+
+    this.calcularCuotaPreliminar();
   }
 
   calcularIngresoTotalConyuge(){
@@ -725,7 +726,6 @@ export class RegistrarDeclaracionComponent implements OnInit {
       else{
         contador = 0;
       }
-      console.log('contados:' + contador);
     }
   }
 

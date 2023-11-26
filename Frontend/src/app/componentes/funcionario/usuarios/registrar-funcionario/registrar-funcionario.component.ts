@@ -11,13 +11,14 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 })
 export class RegistrarFuncionarioComponent implements OnInit {
   datosFuncionario: FormGroup;
-
+  public customPatterns = { '0': { pattern: new RegExp('\\d|k|K')} };
+  
   constructor(private usuarioService: UsuarioService, public dialogRef: MatDialogRef<RegistrarFuncionarioComponent>) {
-
+    
     this.datosFuncionario = new FormGroup({
       'rut': new FormControl("",{
         updateOn: 'change',
-        validators: [Validators.required, Validators.pattern('^\\d{1,3}\\.\\d{3}\\.\\d{3}\\-(\\d{1}|k|K)$'), validarRut()]
+        validators: [Validators.required, validarRut()]
       }),
       'nombres': new FormControl(""),
       'ap_paterno': new FormControl(""),

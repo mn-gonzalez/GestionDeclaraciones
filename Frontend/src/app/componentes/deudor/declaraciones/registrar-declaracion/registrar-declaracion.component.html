@@ -325,7 +325,8 @@
                         [nombreDocumento]="'CERTIFICADO DE RENTAS CONYUGE'"
                         [tipoDocumento]="'RENTAS_CONYUGE'"
                         [documento]="this.documento_renta_conyuge"
-                        [soloVista]="false">
+                        [soloVista]="false"
+                        *ngIf="this.casado || this.casadoReprog">
                     </app-subir-documentacion>
 
                     <app-subir-documentacion
@@ -358,7 +359,8 @@
                         [nombreDocumento]="'CARPETA_TRIBUTARIA_CONYUGE'"
                         [tipoDocumento]="'CARPETA_TRIBUTARIA_CONYUGE'"
                         [documento]="this.documento_carp_tributaria_conyuge"
-                        [soloVista]="false">
+                        [soloVista]="false"
+                        *ngIf="this.casado || this.casadoReprog">
                     </app-subir-documentacion>
 
                     <app-subir-documentacion
@@ -380,7 +382,8 @@
                         [nombreDocumento]="'LIBRETA DE MATRIMONIO'"
                         [tipoDocumento]="'LIBRETA_MATRIMONIO'"
                         [documento]="this.documento_libreta_matrimonio"
-                        [soloVista]="false">
+                        [soloVista]="false"
+                        *ngIf="this.casado || this.casadoReprog">
                     </app-subir-documentacion>
 
                     <app-subir-documentacion
@@ -391,7 +394,8 @@
                         [nombreDocumento]="'DECLARACION JURADA SIMPLE DEUDOR'"
                         [tipoDocumento]="'DEC_JURADA_SIMPLE_DEUDOR'"
                         [documento]="this.documento_declaracion_sin_ingresos"
-                        [soloVista]="false">
+                        [soloVista]="false"
+                        *ngIf="this.deudorDebePresentarDecSimple">
                     </app-subir-documentacion>
 
                     <app-subir-documentacion
@@ -402,7 +406,8 @@
                         [nombreDocumento]="'DECLARACION JURADA SIMPLE CONYUGE'"
                         [tipoDocumento]="'DEC_JURADA_SIMPLE_CONYUGE'"
                         [documento]="this.documento_declaracion_sin_ingresos_conyuge"
-                        [soloVista]="false">
+                        [soloVista]="false"
+                        *ngIf="this.casado || this.conyugeDebePresentarDecSimple">
                     </app-subir-documentacion>
 
                     <app-subir-documentacion
@@ -424,7 +429,8 @@
                         [nombreDocumento]="'FINIQUITO CONYUGE'"
                         [tipoDocumento]="'FINIQUITO_CONYUGE'"
                         [documento]="this.documento_finiquito_conyuge"
-                        [soloVista]="false">
+                        [soloVista]="false"
+                        *ngIf="this.casado || this.casadoReprog">
                     </app-subir-documentacion>
 
                     <app-subir-documentacion
@@ -435,7 +441,8 @@
                         [nombreDocumento]="'CERTIFICADO DE NACIMIENTO'"
                         [tipoDocumento]="'CERT_NACIMIENTO'"
                         [documento]="this.documento_cert_nacimiento"
-                        [soloVista]="false">
+                        [soloVista]="false"
+                        *ngIf="this.tieneHijos">
                     </app-subir-documentacion>
 
                     <app-subir-documentacion
@@ -446,7 +453,8 @@
                         [nombreDocumento]="'COPIA DE PAGARE CONYUGE'"
                         [tipoDocumento]="'PAGARE_CONYUGE'"
                         [documento]="this.documento_copia_pagare_conyuge"
-                        [soloVista]="false">
+                        [soloVista]="false"
+                        *ngIf="this.casadoReprog">
                     </app-subir-documentacion>
 
                 </div>

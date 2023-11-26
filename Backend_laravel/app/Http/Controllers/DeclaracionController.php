@@ -123,7 +123,7 @@ class DeclaracionController extends Controller
                 'afp'=> $data['afp'],
                 'trabajo'=> $data['trabajo'],
                 'tel_trabajo'=> $data['tel_trabajo'],
-                'declaracion_sii' => 'required'
+                'declaracion_sii' => $data['declaracion_sii']
             ]);
 
         $response = ['mensaje' => 'Los datos de la declaracion se han actualizado correctamente'];

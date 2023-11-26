@@ -110,8 +110,8 @@
             	<div style="padding-top: 1mm; font-size: 9pt;">{{ $data['declaracion']->tel_trabajo }}</div>
             </div>
             <div style="float: left; height:100%; width: 33%;">
-                <div style="font-size: 9pt;">PRESENTA DECLARACIÓN DE RENTA S.I.I</div>
-                <div style="padding-top: 1mm; font-size: 9pt;">SI........    NO........</div>
+                <div style="font-size: 8pt;">PRESENTA DECLARACIÓN DE RENTA S.I.I</div>
+                <div style="padding-top: 1mm; font-size: 9pt;">{{$data['declaracion']->declaracion_sii}}</div>
             </div>
         </div>
     </div>
@@ -127,7 +127,7 @@
             	<div style="font-size: 9pt;">{{ $data['declaracion']->correo }}</div>
             </div>
             <div style="height: 100%; width:33%; float: left;">
-            	<div style="font-size: 9pt;">DESEA INFORMACIÓN AL CORREO ELECTRÓNICO</div>
+            	<div style="font-size: 8pt;">DESEA INFORMACIÓN AL CORREO ELECTRÓNICO</div>
             	<div style="font-size: 9pt;">NO</div>
             </div>
         </div>

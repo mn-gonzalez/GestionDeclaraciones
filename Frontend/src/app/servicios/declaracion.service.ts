@@ -77,7 +77,7 @@ export class DeclaracionService {
     .set('afp', datos.afp)
     .set('trabajo', datos.trabajo)
     .set('tel_trabajo', datos.tel_trabajo)
-    .set('estado', 1)
+    .set('estado', datos.estado)
     .set('declaracion_sii', datos.declaracion_sii) 
 
     return this.http.post<{ mensaje: string}>(env.api.concat("/"+datos.rut_deudor+"/declaraciones/registrar"), body)
@@ -111,7 +111,7 @@ export class DeclaracionService {
     .set('afp', datos.afp)
     .set('trabajo', datos.trabajo)
     .set('tel_trabajo', datos.tel_trabajo)
-    .set('estado', 1)
+    .set('estado', datos.estado)
     .set('declaracion_sii', datos.declaracion_sii) 
 
     return this.http.put<{ mensaje: string}>(env.api.concat("/"+datos.rut_deudor+"/declaraciones/"+datos.id+"/actualizarDatos"), body)
