@@ -66,7 +66,13 @@ export class DatosDevolucionComponent implements OnInit {
         this.datosDevolucion.get('telefono')!.setValue(result.telefono);
         this.datosDevolucion.get('tipo_deuda')!.setValue(result.tipo_deuda);
         this.datosDevolucion.get('solicitud')!.setValue(result.solicitud);
-        this.datosDevolucion.get('retiro_oficina')!.setValue(result.retiro_oficina);
+        if(result.retiro_oficina == 1){
+          this.datosDevolucion.get('retiro_oficina')!.setValue('SI');
+        }
+        else{
+          this.datosDevolucion.get('retiro_oficina')!.setValue("NO");
+        }
+        
 
         if(this.devolucion.estado == 3 || this.devolucion.estado == 4){
           this.obtenerComentariosDevolucion(this.devolucion.id);

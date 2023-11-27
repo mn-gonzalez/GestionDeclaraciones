@@ -268,6 +268,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
       next: result=>{
         if(result.id == null){
           this.existe_declaracion = false;
+          this.datosPersonales.get('estado')!.setValue(1);
         }
         else{
           //La declaracion aun no se envia/completa

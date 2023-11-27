@@ -1,11 +1,12 @@
-<div class="fondo">
-    <div>
-        <h2>Solicitud de Postergación de Cobro</h2>
-    </div>
+<form [formGroup]="datosPostergacion" class="fondo">
+    <h1><b>Solicitud de Postergación de Cobro</b></h1>
 
-    <form [formGroup]="datosPostergacion">
-        <div>
-            <h3><strong>Antedecentes Personales</strong></h3>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Antedecentes Personales</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
             <mat-form-field appearance="outline">
                 <mat-label>Rut</mat-label>
                 <input matInput placeholder="Ej. 12345678" formControlName="rut_deudor" readonly>
@@ -27,35 +28,50 @@
                     <input matInput formControlName="ap_materno" readonly>
                 </mat-form-field>
             </div>
-        </div>
-    
-        <div>
-            <h3><strong>Motivo de la Postergación</strong></h3>
-            <mat-form-field appearance="outline" style="width: 65%;">
-                <textarea matInput rows="10" cols="40" placeholder="Ej. Solicito la postergación del cobro de mi crédito para este año, debido a..." formControlName="motivo"></textarea>
-            </mat-form-field>
-        </div>
-    </form>
+        </mat-card-content>
+    </mat-card>
 
-    <div style="padding-bottom: 20px;">
-        <h3><strong>Documentación</strong></h3>
-        <div class="subir-documento">
-            <input type="file" accept="application/pdf" #fotocopia style="display: none;">
-            <div (click)="visualizarPDF()" class="miniatura-pdf">
-                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.postergacion.nombre_archivo}}</div>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Motivo de la Postergación</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
+            <mat-form-field appearance="outline" style="width: 65%;">
+                <textarea matInput rows="10" cols="40" placeholder="Ej. Solicito la postergación del cobro de mi crédito para este año, debido a..." formControlName="motivo" readonly></textarea>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+   
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Documentación</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
+            <div class="subir-documento">
+                <input type="file" accept="application/pdf" #fotocopia style="display: none;">
+                <div (click)="visualizarPDF()" class="miniatura-pdf">
+                    <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                    <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.postergacion.nombre_archivo}}</div>
+                </div>
             </div>
-        </div>
-    </div>
+        </mat-card-content>
+    </mat-card>
 
-    <div *ngIf="funcionario && this.postergacion.estado == 1">
-        <form [formGroup]="formulario">
-            <h3><strong>Comentarios</strong></h3>
-            <mat-form-field appearance="outline" style="width: 65%;">
-                <textarea matInput rows="5" cols="40" placeholder="Comentarios" formControlName="comentarios"></textarea>
-            </mat-form-field>
-        </form>
-    </div>
+    <mat-card *ngIf="funcionario && this.postergacion.estado == 1">
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Comentarios</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
+            <form [formGroup]="formulario">
+                <mat-form-field appearance="outline" style="width: 65%;">
+                    <textarea matInput rows="5" cols="40" placeholder="Comentarios" formControlName="comentarios"></textarea>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+    </mat-card>
 
     <div class="botones" *ngIf="funcionario && this.postergacion.estado == 1">
         <div>
@@ -66,12 +82,17 @@
         </div>
     </div>
 
-    <div *ngIf="this.postergacion.estado == 3 || this.postergacion.estado == 4">
-        <form [formGroup]="formulario">
-            <h3><strong>Comentarios</strong></h3>
-            <mat-form-field appearance="outline" style="width: 65%;">
-                <textarea matInput rows="5" cols="40" placeholder="Comentarios" formControlName="comentarios"></textarea>
-            </mat-form-field>
-        </form>
-    </div>
-</div>
+    <mat-card *ngIf="this.postergacion.estado == 3 || this.postergacion.estado == 4">
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Comentarios</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
+            <form [formGroup]="formulario">
+                <mat-form-field appearance="outline" style="width: 65%;">
+                    <textarea matInput rows="5" cols="40" placeholder="Comentarios" formControlName="comentarios" readonly></textarea>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</form>

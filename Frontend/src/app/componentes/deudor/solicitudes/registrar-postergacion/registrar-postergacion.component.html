@@ -1,57 +1,69 @@
 <form [formGroup]="datosPostergacion" class="fondo">
-    <div>
-        <h2>Solicitar la Postergación del Cobro para este Año</h2>
-    </div>
+    <h1><b>Solicitar la Postergación del Cobro para este Año</b></h1>
 
-    <div>
-        <h3>Antedecentes Personales</h3>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Rut</mat-label>
-            <input matInput placeholder="Ej. 12345678" formControlName="rut_deudor" readonly>
-        </mat-form-field>
-
-        <div style="display: flex; column-gap: 10px;">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Antedecentes Personales</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
             <mat-form-field appearance="outline">
-                <mat-label>Nombres</mat-label>
-                <input matInput formControlName="nombres" readonly>
+                <mat-label>Rut</mat-label>
+                <input matInput placeholder="Ej. 12345678" formControlName="rut_deudor" readonly>
             </mat-form-field>
-
-            <mat-form-field appearance="outline">
-                <mat-label>Apellido Paterno</mat-label>
-                <input matInput formControlName="ap_paterno" readonly>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-                <mat-label>Apellido Materno</mat-label>
-                <input matInput formControlName="ap_materno" readonly>
-            </mat-form-field>
-        </div>
-    </div>
-
-    <div style="width: 100%;">
-        <h3>Motivo de la Postergación</h3>
-        <mat-form-field appearance="outline" style="width: 80%;">
-            <mat-label>Motivo</mat-label>
-            <textarea matInput rows="10" cols="40" placeholder="Ej. Solicito la postergación del cobro de mi crédito para este año, debido a..." formControlName="motivo"></textarea>
-        </mat-form-field>
-    </div>
-
-    <div>
-        <h3>Adjuntar Documento</h3>
-        <div class="subir-documento">
-            <input type="file" (change)="upload($event)" accept="application/pdf" #documento style="display: none;">
-            <button style="height:50%;" (click)="documento.click()"> Seleccionar.</button>
-            <div *ngIf="this.docPostergacion == null" class="miniatura-pdf">
-                <span>No se ha seleccionado ningún archivo.</span>
+    
+            <div style="display: flex; column-gap: 10px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombres</mat-label>
+                    <input matInput formControlName="nombres" readonly>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellido Paterno</mat-label>
+                    <input matInput formControlName="ap_paterno" readonly>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellido Materno</mat-label>
+                    <input matInput formControlName="ap_materno" readonly>
+                </mat-form-field>
             </div>
-            <div *ngIf="this.docPostergacion != null" (click)="visualizarPDF()" class="miniatura-pdf">
-                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.docPostergacion.name}}</div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Motivo de la Postergación</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
+            <mat-form-field appearance="outline" style="width: 80%;">
+                <mat-label>Motivo</mat-label>
+                <textarea matInput rows="10" cols="40" placeholder="Ej. Solicito la postergación del cobro de mi crédito para este año, debido a..." formControlName="motivo"></textarea>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Adjuntar Documento</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
+            <div class="subir-documento">
+                <input type="file" (change)="upload($event)" accept="application/pdf" #documento style="display: none;">
+                <button style="height:50%;" (click)="documento.click()"> Seleccionar.</button>
+                <div *ngIf="this.docPostergacion == null" class="miniatura-pdf">
+                    <span>No se ha seleccionado ningún archivo.</span>
+                </div>
+                <div *ngIf="this.docPostergacion != null" (click)="visualizarPDF()" class="miniatura-pdf">
+                    <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                    <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.docPostergacion.name}}</div>
+                </div>
+                <button mat-icon-button (click)="eliminarDocumento($event)"><mat-icon class="material-icons-outlined">delete</mat-icon></button>
             </div>
-            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-        </div>
-    </div>
+        </mat-card-content>
+    </mat-card>
 
     <div class="botones">
         <button mat-raised-button class="boton" (click)="registrarPostergacion()">Enviar</button>

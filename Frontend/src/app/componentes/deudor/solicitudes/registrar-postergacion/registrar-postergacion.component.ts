@@ -68,7 +68,17 @@ export class RegistrarPostergacionComponent implements OnInit {
   }
 
   visualizarPDF(){
-    
+    var blob = new Blob;
+    blob = new Blob([this.docPostergacion], {type: 'application/pdf'});
+    var blobURL = URL.createObjectURL(blob);
+    window.open(blobURL);
+  }
+
+  eliminarDocumento(event: any){
+    if(this.docPostergacion != null){
+      event.target.files = null;
+      this.docPostergacion = event.target.files;
+    }
   }
 
 }

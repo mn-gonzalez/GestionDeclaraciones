@@ -4,38 +4,45 @@
 </mat-toolbar>
 
 <div style="width: 100%; height: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <h2>Recuperar contraseña</h2>
-    <form [formGroup]="formulario" class="formulario">
-        <mat-form-field appearance="outline">
-            <mat-label>Ingrese su correo:</mat-label>
-            <input matInput formControlName="correo" required>
-        </mat-form-field>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Recuperar contraseña</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <form [formGroup]="formulario" class="formulario">
+                <mat-form-field appearance="outline">
+                    <mat-label>Ingrese su correo:</mat-label>
+                    <input matInput formControlName="correo" required>
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline">
+                    <mat-label>Ingrese su nueva contraseña</mat-label>
+                    <input matInput type="password" 
+                    (keyup)="verificarContrasena(password.value)" 
+                    (blur)="verificarContrasena(password.value)" 
+                    formControlName="contrasena" required>
+                </mat-form-field>
+            
+                <mat-form-field appearance="outline">
+                    <mat-label>Repita su nueva contraseña</mat-label>
+                    <input matInput #password type="password" 
+                    (keyup)="verificarContrasena(password.value)" 
+                    (blur)="verificarContrasena(password.value)" 
+                    formControlName="verificacion" required>
+                    <mat-error *ngIf="this.error">Las contraseñas no coinciden</mat-error>
+                </mat-form-field>
+            
+                <div class="botones">
+                    <button style="height: 40px; color: white; background-color: var(--color-utalca);" 
+                    mat-raised-button 
+                    (click)="actualizarContrasena()" 
+                    [disabled]="this.formulario.invalid || this.error">Actualizar</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Ingrese su nueva contraseña</mat-label>
-            <input matInput type="password" 
-            (keyup)="verificarContrasena(password.value)" 
-            (blur)="verificarContrasena(password.value)" 
-            formControlName="contrasena" required>
-        </mat-form-field>
-    
-        <mat-form-field appearance="outline">
-            <mat-label>Repita su nueva contraseña</mat-label>
-            <input matInput #password type="password" 
-            (keyup)="verificarContrasena(password.value)" 
-            (blur)="verificarContrasena(password.value)" 
-            formControlName="verificacion" required>
-            <mat-error *ngIf="this.error">Las contraseñas no coinciden</mat-error>
-        </mat-form-field>
-    
-        <div class="botones">
-            <button style="height: 40px; color: white; background-color: var(--color-utalca);" 
-            mat-raised-button 
-            (click)="actualizarContrasena()" 
-            [disabled]="this.formulario.invalid || this.error">Actualizar</button>
-        </div>
-    </form>
-    
     <div *ngIf="this.expiro == true">
         <h1>El enlace ya no es válido</h1>
     </div>

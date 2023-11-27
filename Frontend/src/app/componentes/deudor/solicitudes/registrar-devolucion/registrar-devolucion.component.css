@@ -3,7 +3,7 @@
     flex-direction: column; 
     justify-content: center; 
     width:100%; 
-    padding: 25px;
+    padding: 30px;
     row-gap: 10px;
 }
 
@@ -24,6 +24,7 @@
     align-items: center; 
     height: 100%; 
     width: 55%;
+    cursor: pointer;
 }
 
 .icono-pdf{

@@ -36,13 +36,13 @@
                             <div class="div_radio_group">
                                 <label>Estado Civil:</label>
                                 <mat-radio-group class="estado_civil" formControlName="estado_civil">
-                                    <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 1" 
+                                    <mat-radio-button disabled [checked]="this.datosPersonales.get('estado_civil')!.value == 1" 
                                     class="opciones" value=1>Soltero sin hijos</mat-radio-button>
-                                    <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 2" 
+                                    <mat-radio-button disabled [checked]="this.datosPersonales.get('estado_civil')!.value == 2" 
                                     class="opciones" value=2>Soltero con hijos</mat-radio-button>
-                                    <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 3" 
+                                    <mat-radio-button disabled [checked]="this.datosPersonales.get('estado_civil')!.value == 3" 
                                     class="opciones" value=3>Casado</mat-radio-button>
-                                    <mat-radio-button [checked]="this.datosPersonales.get('estado_civil')!.value == 4" 
+                                    <mat-radio-button disabled [checked]="this.datosPersonales.get('estado_civil')!.value == 4" 
                                     class="opciones" value=4>Casado con deudor Reprog.Cred.Univ. o Fiscal</mat-radio-button>
                                 </mat-radio-group>
                             </div>
@@ -88,7 +88,7 @@
                                 <input matInput placeholder="912345678" formControlName="telefono" readonly>
                             </mat-form-field>
 
-                            <mat-form-field appearance="outline" class="inputs">
+                            <mat-form-field appearance="outline" style="width: 400px; padding-right: 15px;">
                                 <mat-label>Correo Electrónico</mat-label>
                                 <input matInput placeholder="correo@gmail.com" formControlName="correo" readonly>
                             </mat-form-field>
@@ -102,7 +102,7 @@
                         <mat-divider></mat-divider>
                         <mat-card-content>
                             <div class="form_trabajo">
-                                <mat-form-field appearance="outline" class="inputs">
+                                <mat-form-field appearance="outline" style="width: 400px; padding-right: 15px;">
                                     <mat-label>Institución en la que trabaja</mat-label>
                                     <input matInput placeholder="Lugar de trabajo" formControlName="trabajo" readonly>
                                 </mat-form-field>
@@ -120,9 +120,9 @@
                             <div class="div_radio_group">
                                 <label>Presenta declaración de renta S.I.I:</label>
                                 <mat-radio-group class="declaracion_sii" formControlName="declaracion_sii">
-                                    <mat-radio-button [checked]="this.datosPersonales.get('declaracion_sii')!.value == 'SI'" 
+                                    <mat-radio-button disabled [checked]="this.datosPersonales.get('declaracion_sii')!.value == 'SI'" 
                                         class="opciones" value="SI">Si</mat-radio-button>
-                                    <mat-radio-button [checked]="this.datosPersonales.get('declaracion_sii')!.value == 'NO'" 
+                                    <mat-radio-button disabled [checked]="this.datosPersonales.get('declaracion_sii')!.value == 'NO'" 
                                         class="opciones" value="NO">No</mat-radio-button>
                                 </mat-radio-group>
                             </div>

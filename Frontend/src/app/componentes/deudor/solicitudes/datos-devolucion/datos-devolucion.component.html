@@ -1,12 +1,12 @@
-<div class="fondo">
-    <div>
-        <h2>Solicitud de Devolución/Copia de Pagarés</h2>
-    </div>
+<form [formGroup]="datosDevolucion" class="fondo">
+    <h1><b>Solicitud de Devolución/Copia de Pagarés</b></h1>
 
-    <form [formGroup]="datosDevolucion">
-        <div>
-            <h3><strong>Antedecentes Personales</strong></h3>
-    
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Antedecentes Personales</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
             <mat-form-field appearance="outline">
                 <mat-label>Rut</mat-label>
                 <input matInput placeholder="Ej. 12345678" formControlName="rut_deudor" readonly>
@@ -28,75 +28,91 @@
                     <input matInput formControlName="ap_materno" readonly>
                 </mat-form-field>
             </div>
-        </div>
-    
+        </mat-card-content>
+    </mat-card>
 
-        <div>
-            <h3><strong>Datos de contacto</strong></h3>
-
-            <div style="display: flex; column-gap: 10px;">
-                <mat-form-field appearance="outline" style="width: 35%;">
-                    <mat-label>Email</mat-label>
-                    <input matInput placeholder="Ej. correo@gmail.com" formControlName="correo" readonly>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>Teléfono</mat-label>
-                    <input matInput placeholder="Ej.912345678" formControlName="telefono" readonly>
-                </mat-form-field>
-            </div>
-        </div>
-
-        <div>
-            <h3><strong>Solicitud:</strong></h3>
-            <div style="display: flex; flex-direction: column;">
-                <mat-form-field appearance="outline" style="width: 50%;">
-                    <input matInput placeholder="" formControlName="solicitud" readonly>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" style="width: 35%;">
-                    <mat-label>Tipo de Deuda</mat-label>
-                    <input matInput placeholder="" formControlName="tipo_deuda" readonly>
-                </mat-form-field>
-            </div>
-        </div>
-
-        <div>
-            <h3><strong>Datos de Entrega</strong></h3>
-            <div style="display: flex; flex-direction: column;">
-                <mat-form-field appearance="outline" style="width: 35%;">
-                    <mat-label>Retira en Oficinas AFC</mat-label>
-                    <input matInput placeholder="" formControlName="retiro_oficina" readonly>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" style="width: 35%;">
-                    <mat-label>Domicilio</mat-label>
-                    <input matInput placeholder="" formControlName="domicilio" readonly>
-                </mat-form-field>
-            </div>
-        </div>
-    </form>
-    <div style="padding-bottom: 3%;">
-        <div>
-            <label><strong>Fotocopia Simple de Cédula de Identidad</strong></label>
-        </div>
-        <div class="subir-documento">
-            <input type="file" accept="application/pdf" #fotocopia style="display: none;">
-            <div (click)="visualizarPDF()" class="miniatura-pdf">
-                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.devolucion.nombre_archivo}}</div>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="funcionario && this.devolucion.estado == 1">
-        <form [formGroup]="formulario">
-            <h3>Comentarios</h3>
-            <mat-form-field appearance="outline" style="width: 65%;">
-                <textarea matInput rows="5" cols="40" placeholder="Comentarios" formControlName="comentarios"></textarea>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Datos de contacto</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="display: flex; column-gap: 10px; padding-top: 20px;">
+            <mat-form-field appearance="outline" style="width: 35%;">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Ej. correo@gmail.com" formControlName="correo" readonly>
             </mat-form-field>
-        </form>
-    </div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Teléfono</mat-label>
+                <input matInput placeholder="Ej.912345678" formControlName="telefono" readonly>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Solicitud:</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="display: flex; flex-direction: column; padding-top: 20px;">
+            <mat-form-field appearance="outline" style="width: 50%;">
+                <input matInput placeholder="" formControlName="solicitud" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 35%;">
+                <mat-label>Tipo de Deuda</mat-label>
+                <input matInput placeholder="" formControlName="tipo_deuda" readonly>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Datos de Entrega</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="display: flex; flex-direction: column; padding-top: 20px;">
+            <mat-form-field appearance="outline" style="width: 35%;">
+                <mat-label>Retira en Oficinas AFC</mat-label>
+                <input matInput placeholder="" formControlName="retiro_oficina" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 35%;">
+                <mat-label>Domicilio</mat-label>
+                <input matInput placeholder="" formControlName="domicilio" readonly>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Fotocopia Simple de Cédula de Identidad</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
+            <div class="subir-documento">
+                <input type="file" accept="application/pdf" #fotocopia style="display: none;">
+                <div (click)="visualizarPDF()" class="miniatura-pdf">
+                    <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                    <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.devolucion.nombre_archivo}}</div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="funcionario && this.devolucion.estado == 1">
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Comentarios</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
+            <form [formGroup]="formulario">
+                <mat-form-field appearance="outline" style="width: 65%;">
+                    <textarea matInput rows="5" cols="40" placeholder="Comentarios" formControlName="comentarios"></textarea>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+    </mat-card>
 
     <div class="botones" *ngIf="funcionario && this.devolucion.estado == 1">
         <div>
@@ -107,12 +123,17 @@
         </div>
     </div>
 
-    <div *ngIf="this.devolucion.estado == 3 || this.devolucion.estado == 4">
-        <form [formGroup]="formulario">
-            <h3><strong>Comentarios</strong></h3>
-            <mat-form-field appearance="outline" style="width: 65%;">
-                <textarea matInput rows="5" cols="40" placeholder="Comentarios" formControlName="comentarios"></textarea>
-            </mat-form-field>
-        </form>
-    </div>
-</div>
+    <mat-card *ngIf="this.devolucion.estado == 3 || this.devolucion.estado == 4">
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Comentarios</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
+            <form [formGroup]="formulario">
+                <mat-form-field appearance="outline" style="width: 65%;">
+                    <textarea matInput rows="5" cols="40" placeholder="Comentarios" formControlName="comentarios" readonly></textarea>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</form>

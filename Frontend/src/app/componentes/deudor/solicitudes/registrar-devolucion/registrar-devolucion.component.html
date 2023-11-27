@@ -1,38 +1,42 @@
 <form [formGroup]="datosDevolucion" class="fondo">
-    <div>
-        <h2>Solicitud de Devolución/Copia de Pagarés</h2>
-    </div>
+    <h1><b>Solicitud de Devolución/Copia de Pagarés</b></h1>
     
-    <div>
-        <h3>Antedecentes Personales</h3>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Rut</mat-label>
-            <input matInput placeholder="Ej. 12345678" formControlName="rut_deudor" readonly>
-        </mat-form-field>
-
-        <div style="display: flex; column-gap: 10px;">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Antedecentes Personales</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
             <mat-form-field appearance="outline">
-                <mat-label>Nombres</mat-label>
-                <input matInput formControlName="nombres" readonly>
+                <mat-label>Rut</mat-label>
+                <input matInput placeholder="Ej. 12345678" formControlName="rut_deudor" readonly>
             </mat-form-field>
+    
+            <div style="display: flex; column-gap: 10px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombres</mat-label>
+                    <input matInput formControlName="nombres" readonly>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellido Paterno</mat-label>
+                    <input matInput formControlName="ap_paterno" readonly>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellido Materno</mat-label>
+                    <input matInput formControlName="ap_materno" readonly>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+    </mat-card>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Apellido Paterno</mat-label>
-                <input matInput formControlName="ap_paterno" readonly>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-                <mat-label>Apellido Materno</mat-label>
-                <input matInput formControlName="ap_materno" readonly>
-            </mat-form-field>
-        </div>
-    </div>
-
-    <div>
-        <h3>Datos de contacto</h3>
-
-        <div style="display: flex; column-gap: 10px;">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Datos de contacto</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="display: flex; column-gap: 10px; padding-top: 20px;">
             <mat-form-field appearance="outline" style="width: 35%;">
                 <mat-label>Email</mat-label>
                 <input matInput placeholder="Ej. correo@gmail.com" formControlName="correo">
@@ -42,66 +46,78 @@
                 <mat-label>Teléfono</mat-label>
                 <input matInput placeholder="Ej.912345678" formControlName="telefono">
             </mat-form-field>
-        </div>
-    </div>
+        </mat-card-content>
+    </mat-card>
 
-    <div style="display: flex; flex-direction: column; row-gap: 5px;">
-        <h3>Solicitud</h3>
-        <div>
-            <mat-radio-group formControlName="solicitud" style="display: flex; flex-direction: column; row-gap: 5px; padding-bottom:10px;">
-                <mat-radio-button value="Solicito la devolución de los pagarés correspondientes a las deudas ya detalladas,
-                 por encontrarse las deudas ya canceladas.">
-                 Solicito la devolución de los pagarés correspondientes a las deudas ya detalladas, por encontrarse las deudas ya canceladas.
-                </mat-radio-button>
-                <mat-radio-button value="Pagaré(s) anulado(s) en reemplazo por cambio de situación académica.">Pagaré(s) anulado(s) en reemplazo por cambio de situación académica.</mat-radio-button>
-                <mat-radio-button value="Solicito copia de mis pagarés.">Solicito copia de mis pagarés.</mat-radio-button>
-            </mat-radio-group>
-        </div>
-
-        <mat-form-field appearance="outline" style="width: 350px;">
-            <mat-label>Tipo de Deuda</mat-label>
-            <mat-select formControlName="tipo_deuda" name="tipo_deuda">
-                <mat-option *ngFor="let deuda of deudas" [value]="deuda.nombre">
-                    {{deuda.nombre}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-
-    <div style="display: flex; flex-direction: column; row-gap: 10px;">
-        <h3>Datos de Entrega</h3>
-
-        <div style="display: flex; flex-direction: column; row-gap: 5px; padding-bottom: 5px;">
-            <label>Retira Personalmente en Oficinas AFC:</label>
-            <mat-radio-group formControlName="retiro_oficina" style="display: flex; flex-direction: column; row-gap: 5px;">
-                <mat-radio-button value="1">Si</mat-radio-button>
-                <mat-radio-button value="2">No</mat-radio-button>
-            </mat-radio-group>
-        </div>
-
-        <mat-form-field appearance="outline" style="width:40%;">
-            <mat-label>Domicilio</mat-label>
-            <input matInput placeholder="Ej. 12345678" formControlName="domicilio">
-        </mat-form-field>
-    </div>
-
-    <div>
-        <div>
-            <label>Fotocopia Simple de Cédula de Identidad</label>
-        </div>
-        <div class="subir-documento">
-            <input type="file" (change)="upload('FOTOCOPIA CEDULA', $event)" accept="application/pdf" #fotocopia style="display: none;">
-            <button style="height:50%;" (click)="fotocopia.click()"> Seleccionar.</button>
-            <div *ngIf="this.fotocopia_cedula == null" class="miniatura-pdf">
-                <span>No se ha seleccionado ningún archivo.</span>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Solicitud</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
+            <div>
+                <mat-radio-group formControlName="solicitud" style="display: flex; flex-direction: column; row-gap: 5px; padding-bottom:10px;">
+                    <mat-radio-button value="Solicito la devolución de los pagarés correspondientes a las deudas ya detalladas,
+                     por encontrarse las deudas ya canceladas.">
+                     Solicito la devolución de los pagarés correspondientes a las deudas ya detalladas, por encontrarse las deudas ya canceladas.
+                    </mat-radio-button>
+                    <mat-radio-button value="Pagaré(s) anulado(s) en reemplazo por cambio de situación académica.">Pagaré(s) anulado(s) en reemplazo por cambio de situación académica.</mat-radio-button>
+                    <mat-radio-button value="Solicito copia de mis pagarés.">Solicito copia de mis pagarés.</mat-radio-button>
+                </mat-radio-group>
             </div>
-            <div *ngIf="this.fotocopia_cedula != null" (click)="visualizarPDF()" class="miniatura-pdf">
-                <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
-                <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.fotocopia_cedula.name}}</div>
+    
+            <mat-form-field appearance="outline" style="width: 350px;">
+                <mat-label>Tipo de Deuda</mat-label>
+                <mat-select formControlName="tipo_deuda" name="tipo_deuda">
+                    <mat-option *ngFor="let deuda of deudas" [value]="deuda.nombre">
+                        {{deuda.nombre}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Datos de Entrega</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
+            <div style="display: flex; flex-direction: column; row-gap: 5px; padding-bottom: 5px;">
+                <label>Retira Personalmente en Oficinas AFC:</label>
+                <mat-radio-group formControlName="retiro_oficina" style="display: flex; flex-direction: column; row-gap: 5px;">
+                    <mat-radio-button value="1">Si</mat-radio-button>
+                    <mat-radio-button value="2">No</mat-radio-button>
+                </mat-radio-group>
             </div>
-            <button mat-icon-button><mat-icon class="material-icons-outlined">delete</mat-icon></button>
-        </div>
-    </div>
+    
+            <mat-form-field appearance="outline" style="width:40%;">
+                <mat-label>Domicilio</mat-label>
+                <input matInput placeholder="Ej. 12345678" formControlName="domicilio">
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title style="font-size: 16px;"><b>Fotocopia Simple de Cédula de Identidad</b></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 20px;">
+            <div class="subir-documento">
+                <input type="file" (change)="upload('FOTOCOPIA CEDULA', $event)" accept="application/pdf" #fotocopia style="display: none;">
+                <button style="height:50%;" (click)="fotocopia.click()"> Seleccionar.</button>
+                <div *ngIf="this.fotocopia_cedula == null" class="miniatura-pdf">
+                    <span>No se ha seleccionado ningún archivo.</span>
+                </div>
+                <div *ngIf="this.fotocopia_cedula != null" (click)="visualizarPDF()" class="miniatura-pdf">
+                    <img class="icono-pdf" src="../../../assets/imagenes/pdf.png" id="logo"/>
+                    <div style="text-overflow: ellipsis; overflow: hidden; ">{{this.fotocopia_cedula.name}}</div>
+                </div>
+                <button mat-icon-button (click)="eliminarDocumento($event)"><mat-icon class="material-icons-outlined" >delete</mat-icon></button>
+            </div>
+        </mat-card-content>
+    </mat-card>
 
     <div class="botones">
         <button mat-raised-button class="boton" (click)="registrarDevolucion()">Guardar</button>

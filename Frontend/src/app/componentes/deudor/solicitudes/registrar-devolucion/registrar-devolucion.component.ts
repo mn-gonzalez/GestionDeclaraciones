@@ -98,7 +98,17 @@ export class RegistrarDevolucionComponent implements OnInit {
   }
 
   visualizarPDF(){
-    
+    var blob = new Blob;
+    blob = new Blob([this.fotocopia_cedula], {type: 'application/pdf'});
+    var blobURL = URL.createObjectURL(blob);
+    window.open(blobURL);
+  }
+
+  eliminarDocumento(event: any){
+    if(this.fotocopia_cedula != null){
+      event.target.files = null;
+      this.fotocopia_cedula = event.target.files;
+    }
   }
 
 }

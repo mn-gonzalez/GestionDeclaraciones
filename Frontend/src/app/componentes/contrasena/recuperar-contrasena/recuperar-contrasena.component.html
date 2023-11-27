@@ -2,12 +2,12 @@
     <h2>Recuperar contraseña</h2>
     <mat-form-field appearance="outline">
         <mat-label>Correo</mat-label>
-        <input matInput placeholder="correoEjemple@correo.com" formControlName="correo" autocomplete="off" required>
-        <mat-error *ngIf="false">El rut ingresado no es válido.</mat-error>
+        <input matInput type="email" placeholder="correoEjemple@correo.com" formControlName="correo" autocomplete="off" required>
+        <mat-error *ngIf="this.datos.invalid">El correo ingresado no es válido.</mat-error>
     </mat-form-field>
 
     <div class="botones">
-        <button style="height: 40px; color: white; background-color: var(--color-utalca);" mat-raised-button (click)="enviarSolicitud()">Enviar</button>
+        <button style="height: 40px; color: white; background-color: var(--color-utalca);" mat-raised-button [disabled]="this.datos.invalid" (click)="enviarSolicitud()">Enviar</button>
         <button style="height: 40px; color: white; background-color: var(--color-utalca);" mat-raised-button (click)="cerrar()">Cerrar</button>
     </div>
 </form>
