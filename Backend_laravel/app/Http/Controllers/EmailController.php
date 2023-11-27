@@ -107,4 +107,20 @@ class EmailController extends Controller
 
         return $deudores;
     }
+
+    public static function enviar_recuperar_contrasena($correo, $token){
+        $enlace = env('FRONT_URL').'/recuperarContrasena/'.$token;
+
+        $detalles = [
+            'correo' => $correo,
+            'subject' => "Recuperar Contraseña",
+            'mensaje' => 'Presiones en el siguiente enlace para recuperar su contraseña',
+            'enlace' => $enlace
+        ];
+
+        $job = (new \App\Jobs\SendPasswordRecovery($detalles))
+            ->delay(now()->addSeconds(2)); 
+        
+        dispatch($job);
+    }
 }

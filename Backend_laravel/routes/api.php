@@ -38,6 +38,10 @@ Route::group(['middleware' => ['api']], function () {
 
     Route::post('/registrar_deudor', [DeudorController::class, 'registrar']);
     Route::post('/registrar_funcionario', [FuncionarioController::class, 'registrar']);
+    //Recuperar contrasena
+    Route::post('recuperarContrasena', [AuthController::class, 'recuperar_contrasena']);
+    Route::post('actualizarContrasena', [AuthController::class, 'actualizar_contrasena']);
+    Route::post('/reset_password', [AuthController::class, 'reset_contrasena']);
 });
 
 Route::group(['middleware' => ['api']], function () {
@@ -144,6 +148,4 @@ Route::group(['middleware' => ['api']], function () {
 
     //Correos
     Route::post('correoMasivo', [EmailController::class, 'enviar_correo_masivo']);
-
-
 });

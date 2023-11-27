@@ -1,0 +1,30 @@
+.formulario{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    width: 300px;
+}
+
+.botones{
+    display: flex;
+    padding-top: 10px;
+    column-gap: 10px;
+}
+
+.mensaje-error{
+    font-size: 10px;
+    padding-top: 2px;
+    color: red;
+}
+
+.toolbar{
+    justify-content: center;
+    background-color: var(--color-utalca);
+    color: white;
+}
+
+.mat-mdc-raised-button:disabled{
+    background-color: rgba(0, 0, 0, 0.12)!important;
+    color: rgba(0, 0, 0, 0.38)!important;
+    stroke: black!important;
+}

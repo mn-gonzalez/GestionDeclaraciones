@@ -11,8 +11,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Contracts\Auth\CanResetPassword;
 
-class Persona extends Authenticatable implements JWTSubject
+class Persona extends Authenticatable implements JWTSubject, CanResetPassword
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -57,6 +58,11 @@ class Persona extends Authenticatable implements JWTSubject
     public function getIncrementing()
     {
         return $this->incrementing;
+    }
+
+    public function getEmailForPasswordReset()
+    {
+        return $this->correo;
     }
 
     /**

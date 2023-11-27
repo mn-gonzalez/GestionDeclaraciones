@@ -15,6 +15,8 @@ import { HttpconfigInterceptor } from './interceptors/httpconfig.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { NgChartsModule } from 'ng2-charts';
+import { RecuperarContrasenaComponent } from './componentes/contrasena/recuperar-contrasena/recuperar-contrasena.component';
+import { CambiarContrasenaComponent } from './componentes/contrasena/cambiar-contrasena/cambiar-contrasena.component';
 
 export function jwtTokenGetter() {
   return localStorage.getItem('access_token');
@@ -26,7 +28,9 @@ export function jwtTokenGetter() {
     InicioSesionComponent,
     PaginaInicioComponent,
     InicioFuncionarioComponent,
-    InicioDeudorComponent
+    InicioDeudorComponent,
+    RecuperarContrasenaComponent,
+    CambiarContrasenaComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,9 @@ use App\Models\Persona;
 use App\Models\Funcionario;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use Illuminate\Support\Facades\Password;
+use App\Http\Controllers\EmailController;
+use Psy\Util\Str;
 
 class AuthController extends Controller
 {
@@ -18,7 +21,7 @@ class AuthController extends Controller
         $this->middleware(
             'auth:api', 
             [
-                'except' => ['login_deudor', 'login_funcionario']
+                'except' => ['login_deudor', 'login_funcionario', 'recuperar_contrasena', 'reset_contrasena']
             ]
         );
     }
@@ -170,5 +173,47 @@ class AuthController extends Controller
     {
         return $this->createNewToken(auth()->refresh());
     }
+
+    public function recuperar_contrasena(Request $request){
+        $correo = strtolower($request->correo);
+
+        $usuarios = Persona::get();
+
+        foreach ($usuarios as $usuario) {
+            if(isset($usuario->correo)){
+                if($correo === strtolower($usuario->correo)){
+                    //$status = Password::sendResetLink($request->only('email'));
+                    $token = app('auth.password.broker')->createToken($usuario);
+                    EmailController::enviar_recuperar_contrasena($usuario->correo, $token);
+                    return response(['mensaje' => 'Se ha enviado el correo para recuperar contraseña']);
+                }
+            }
+        }
+
+        return response(['mensaje' => 'El correo no se encuentra registrado']);
+    }
+
+    public function reset_contrasena(Request $request){
+        $request->validate([
+            'token' => 'required',
+            'correo' => 'required|email',
+            'contrasena' => 'required',
+        ]);
+
+        $correo = strtolower($request->correo);
+        $usuarios = Persona::get();
+
+        foreach ($usuarios as $usuario) {
+            if(isset($usuario->correo)){
+                if($correo === strtolower($usuario->correo)){
+                    $usuario->contrasena = Hash::make($request->contrasena);
+                    //$usuario->setRememberToken(Str::random(60));
+                    $usuario->save();
+                    return response(['mensaje' => 'La contraseña se ha actualizado correctamente']);
+                }
+            }
+        }
+    }
+
 }
 

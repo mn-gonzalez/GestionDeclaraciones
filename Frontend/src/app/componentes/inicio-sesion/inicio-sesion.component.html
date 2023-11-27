@@ -42,7 +42,7 @@
                         {{ this.ingresando ? 'Ingresando...' : 'Ingresar' }}
                     </button>
 
-                    <div class="recuperar_contrasena">¿Olvidó su contraseña?</div>
+                    <a class="recuperar_contrasena" (click)="mostrarModalCorreo()">¿Olvidó su contraseña?</a>
                 </mat-card-content>
             </mat-card>
         </form>

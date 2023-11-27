@@ -138,4 +138,28 @@ export class InicioSesionService {
       panelClass: ['snackbar']
     });
   }
+
+  public solicitarCambioContrasena(correo: string): Observable<string>{
+    const body = new HttpParams().set('correo', correo);
+
+    return this.http.post<{mensaje: string}>(env.api.concat("/recuperarContrasena"), body)
+    .pipe(
+      map(result => {
+        return result.mensaje;
+      })
+    );
+  }
+
+  public actualizarContrasena(rut_deudor: string, contrasena: string){
+    const body = new HttpParams()
+    .set('rut_deudor', rut_deudor)
+    .set('contrasena', contrasena);
+
+    this.http.post<{mensaje: string}>(env.api.concat("/recuperarContrasena"), body)
+    .pipe(
+      map(result => {
+        console.log(result);
+      })
+    );
+  }
 }

@@ -3,6 +3,9 @@ import { Validators, FormArray, FormGroup, FormControl} from '@angular/forms';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { Router } from '@angular/router';
 import { validarRut } from 'src/app/compartidos/validador-rut.directive';
+import { RecuperarContrasenaComponent } from '../contrasena/recuperar-contrasena/recuperar-contrasena.component';
+import { MatDialog } from '@angular/material/dialog';
+import { CambiarContrasenaComponent } from '../contrasena/cambiar-contrasena/cambiar-contrasena.component';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -15,7 +18,7 @@ export class InicioSesionComponent implements OnInit {
   ingresando = false;
   public customPatterns = { '0': { pattern: new RegExp('\\d|k|K')} };
 
-  constructor(private inicioSesionService: InicioSesionService, private router: Router) { 
+  constructor(private inicioSesionService: InicioSesionService, private router: Router, public dialog: MatDialog) { 
     this.form_ingreso = new FormGroup({
       'rut': new FormControl("", [Validators.required, validarRut()]),
       'contrasena': new FormControl("", Validators.required),
@@ -64,6 +67,14 @@ export class InicioSesionComponent implements OnInit {
         }
       },
       error: (err) => {console.log(err)}
+    });
+  }
+
+  mostrarModalCorreo(){
+    const dialogRef = this.dialog.open(RecuperarContrasenaComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Se cerró el modal');
     });
   }
 
