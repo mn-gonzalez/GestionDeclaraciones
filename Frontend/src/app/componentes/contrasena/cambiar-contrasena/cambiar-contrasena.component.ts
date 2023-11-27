@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InicioSesionComponent } from '../../inicio-sesion/inicio-sesion.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 
 @Component({
@@ -17,7 +17,8 @@ export class CambiarContrasenaComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute, 
-    private auth: InicioSesionService){
+    private auth: InicioSesionService,
+    private router: Router){
 
     this.formulario = new FormGroup({
       'correo': new FormControl("", [Validators.required, Validators.email]),
@@ -45,6 +46,17 @@ export class CambiarContrasenaComponent implements OnInit {
   }
 
   actualizarContrasena(){
-    //enviar datos
+    let correo = this.formulario.get('correo')!.value;
+    let contrasena = this.formulario.get('contrasena')!.value;
+
+    this.auth.actualizarContrasena(correo, contrasena, this.token).subscribe({
+      next: result =>{
+        this.auth.mostrarNotificacion(result, "Cerrar");
+        this.router.navigate(['/login']);
+      }, 
+      error: result =>{
+        console.log(result);
+      }
+    });
   }
 }

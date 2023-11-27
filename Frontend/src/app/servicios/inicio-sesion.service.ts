@@ -150,15 +150,16 @@ export class InicioSesionService {
     );
   }
 
-  public actualizarContrasena(rut_deudor: string, contrasena: string){
+  public actualizarContrasena(correo: string, contrasena: string, token: string): Observable<string>{
     const body = new HttpParams()
-    .set('rut_deudor', rut_deudor)
+    .set('token', token)
+    .set('correo', correo)
     .set('contrasena', contrasena);
 
-    this.http.post<{mensaje: string}>(env.api.concat("/recuperarContrasena"), body)
+    return this.http.post<{mensaje: string}>(env.api.concat("/reset_password"), body)
     .pipe(
       map(result => {
-        console.log(result);
+        return result.mensaje;
       })
     );
   }
