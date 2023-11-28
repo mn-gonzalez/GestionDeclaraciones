@@ -67,6 +67,7 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
   //listado de afps disponibles
   afps: Afp[] = [
+    {id: 0, nombre: "SIN AFP"},
     {id: 1, nombre: "CAPITAL"},
     {id: 2, nombre: "CUPRUM"},
     {id: 3, nombre: "HABITAT"},
@@ -136,85 +137,85 @@ export class RegistrarDeclaracionComponent implements OnInit {
     */
     this.datosPersonales = new FormGroup({
       'id': new FormControl(""),
-      'rut_deudor': new FormControl(""),
-      'nombres': new FormControl(""),
-      'ap_paterno': new FormControl(""),
-      'ap_materno': new FormControl(""),
-      'direccion': new FormControl(""),
-      'region': new FormControl(""),
-      'comuna': new FormControl(""),
-      'ciudad': new FormControl(""),
+      'rut_deudor': new FormControl("", Validators.required),
+      'nombres': new FormControl("", Validators.required),
+      'ap_paterno': new FormControl("", Validators.required),
+      'ap_materno': new FormControl("", Validators.required),
+      'direccion': new FormControl("", Validators.required),
+      'region': new FormControl("", Validators.required),
+      'comuna': new FormControl("", Validators.required),
+      'ciudad': new FormControl("", Validators.required),
       'telefono': new FormControl(""),
-      'correo': new FormControl(""),
-      'afp': new FormControl(""),
+      'correo': new FormControl("", [Validators.required, Validators.email]),
+      'afp': new FormControl("", Validators.required),
       'estado_civil': new FormControl(""),
       'trabajo': new FormControl(""),
       'tel_trabajo': new FormControl(""),
       'estado': new FormControl(""),
-      'declaracion_sii': new FormControl("")
+      'declaracion_sii': new FormControl("", Validators.required)
     });
 
     this.ingresosDeudor = new FormGroup({
-      'enero': new FormControl(0),
-      'febrero': new FormControl(0),
-      'marzo': new FormControl(0),
-      'abril': new FormControl(0),
-      'mayo': new FormControl(0),
-      'junio': new FormControl(0),
-      'julio': new FormControl(0),
-      'agosto': new FormControl(0),
-      'septiembre': new FormControl(0),
-      'octubre': new FormControl(0),
-      'noviembre': new FormControl(0),
-      'diciembre': new FormControl(0),
-      'enero_utm': new FormControl(0),
-      'febrero_utm': new FormControl(0),
-      'marzo_utm': new FormControl(0),
-      'abril_utm': new FormControl(0),
-      'mayo_utm': new FormControl(0),
-      'junio_utm': new FormControl(0),
-      'julio_utm': new FormControl(0),
-      'agosto_utm': new FormControl(0),
-      'septiembre_utm': new FormControl(0),
-      'octubre_utm': new FormControl(0),
-      'noviembre_utm': new FormControl(0),
-      'diciembre_utm': new FormControl(0),
-      'ingreso_total_deudor': new FormControl(0),
-      'ingreso_total_deudor_utm': new FormControl(0),
-      'ingreso_total_conyuge': new FormControl(0),
-      'ingreso_total_conyuge_utm': new FormControl(0),
+      'enero': new FormControl(0, Validators.required),
+      'febrero': new FormControl(0, Validators.required),
+      'marzo': new FormControl(0, Validators.required),
+      'abril': new FormControl(0, Validators.required),
+      'mayo': new FormControl(0, Validators.required),
+      'junio': new FormControl(0, Validators.required),
+      'julio': new FormControl(0, Validators.required),
+      'agosto': new FormControl(0, Validators.required),
+      'septiembre': new FormControl(0, Validators.required),
+      'octubre': new FormControl(0, Validators.required),
+      'noviembre': new FormControl(0, Validators.required),
+      'diciembre': new FormControl(0, Validators.required),
+      'enero_utm': new FormControl(0, Validators.required),
+      'febrero_utm': new FormControl(0, Validators.required),
+      'marzo_utm': new FormControl(0, Validators.required),
+      'abril_utm': new FormControl(0, Validators.required),
+      'mayo_utm': new FormControl(0, Validators.required),
+      'junio_utm': new FormControl(0, Validators.required),
+      'julio_utm': new FormControl(0, Validators.required),
+      'agosto_utm': new FormControl(0, Validators.required),
+      'septiembre_utm': new FormControl(0, Validators.required),
+      'octubre_utm': new FormControl(0, Validators.required),
+      'noviembre_utm': new FormControl(0, Validators.required),
+      'diciembre_utm': new FormControl(0, Validators.required),
+      'ingreso_total_deudor': new FormControl(0, Validators.required),
+      'ingreso_total_deudor_utm': new FormControl(0, Validators.required),
+      'ingreso_total_conyuge': new FormControl(0, Validators.required),
+      'ingreso_total_conyuge_utm': new FormControl(0, Validators.required),
       'cuota_preliminar': new FormControl(0)
     });
 
     this.conyuge = new FormGroup({
       'rut_conyuge': new FormControl("", [Validators.pattern('^\\d{8,9}\\-(\\d{1}|k|K)$'), validarRut()]),
-      'nombres': new FormControl(""),
-      'ap_paterno': new FormControl(""),
-      'ap_materno': new FormControl(""),
-      'enero': new FormControl(0),
-      'febrero': new FormControl(0),
-      'marzo': new FormControl(0),
-      'abril': new FormControl(0),
-      'mayo': new FormControl(0),
-      'junio': new FormControl(0),
-      'julio': new FormControl(0),
-      'agosto': new FormControl(0),
-      'septiembre': new FormControl(0),
-      'octubre': new FormControl(0),
-      'noviembre': new FormControl(0),
-      'diciembre': new FormControl(0),
-      'enero_utm': new FormControl(0),
-      'febrero_utm': new FormControl(0),
-      'marzo_utm': new FormControl(0),
-      'abril_utm': new FormControl(0),
-      'mayo_utm': new FormControl(0),
-      'junio_utm': new FormControl(0),
-      'julio_utm': new FormControl(0),
-      'agosto_utm': new FormControl(0),
-      'septiembre_utm': new FormControl(0),
-      'octubre_utm': new FormControl(0),
-      'noviembre_utm': new FormControl(0),
-      'diciembre_utm': new FormControl(0)
+      'nombres': new FormControl("", Validators.required),
+      'ap_paterno': new FormControl("", Validators.required),
+      'ap_materno': new FormControl("", Validators.required),
+      'enero': new FormControl(0, Validators.required),
+      'febrero': new FormControl(0, Validators.required),
+      'marzo': new FormControl(0, Validators.required),
+      'abril': new FormControl(0, Validators.required),
+      'mayo': new FormControl(0, Validators.required),
+      'junio': new FormControl(0, Validators.required),
+      'julio': new FormControl(0, Validators.required),
+      'agosto': new FormControl(0, Validators.required),
+      'septiembre': new FormControl(0, Validators.required),
+      'octubre': new FormControl(0, Validators.required),
+      'noviembre': new FormControl(0, Validators.required),
+      'diciembre': new FormControl(0, Validators.required),
+      'enero_utm': new FormControl(0, Validators.required),
+      'febrero_utm': new FormControl(0, Validators.required),
+      'marzo_utm': new FormControl(0, Validators.required),
+      'abril_utm': new FormControl(0, Validators.required),
+      'mayo_utm': new FormControl(0, Validators.required),
+      'junio_utm': new FormControl(0, Validators.required),
+      'julio_utm': new FormControl(0, Validators.required),
+      'agosto_utm': new FormControl(0, Validators.required),
+      'septiembre_utm': new FormControl(0, Validators.required),
+      'octubre_utm': new FormControl(0, Validators.required),
+      'noviembre_utm': new FormControl(0, Validators.required),
+      'diciembre_utm': new FormControl(0, Validators.required)
     });
 
     this.comentarios = new FormControl("");
@@ -708,16 +709,19 @@ export class RegistrarDeclaracionComponent implements OnInit {
 
     this.ingresosDeudor.get('ingreso_total_conyuge')!.setValue(total);
     this.ingresosDeudor.get('ingreso_total_conyuge_utm')!.setValue(total_utm);
+
+    this.verificarDecJuradaSimpleConyuge();
   }
 
   verificarDecJuradaSimpleDeudor(){
     let contador = 0;
+    this.deudorDebePresentarDecSimple = false;
 
     let meses: string[] = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre',
         'noviembre', 'diciembre'];
 
-    for(let mes in meses){
-      if(this.ingresosDeudor.value[mes] == 0){
+    meses.forEach(mes => {
+      if(this.ingresosDeudor.get(mes)!.value == 0){
         contador++;
 
         if(contador >= 3){
@@ -727,30 +731,28 @@ export class RegistrarDeclaracionComponent implements OnInit {
       else{
         contador = 0;
       }
-    }
+    });
   }
 
   verificarDecJuradaSimpleConyuge(){
     let contador = 0;
-    let formControl;
+    this.conyugeDebePresentarDecSimple = false;
 
     let meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre",
         "noviembre", "diciembre"];
 
-    for(let mes in meses){
-      formControl = this.conyuge.get(mes)!;
-
-      if(formControl.value == 0){
+    meses.forEach(mes => {
+      if(this.conyuge.get(mes)!.value == 0){
         contador++;
+
+        if(contador >= 3){
+          this.conyugeDebePresentarDecSimple = true;
+        }
       }
       else{
         contador = 0;
       }
-
-      if(contador >= 3){
-        this.conyugeDebePresentarDecSimple = true;
-      }
-    }
+    });
   }
 
   finalizarDeclaracion(){

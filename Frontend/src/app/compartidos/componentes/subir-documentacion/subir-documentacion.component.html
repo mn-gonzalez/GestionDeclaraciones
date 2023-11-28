@@ -1,10 +1,10 @@
-<div>
+<div style="width: 500px; padding-bottom: 10px;">
     <div class="label_documento">
-        <label style="font-size: 20px;">{{this.detalleDocumento}}</label>
+        <label style="font-size: 16px;"><b>{{this.detalleDocumento}}</b> </label>
     </div>
     <div class="subir-documento">
         <input type="file" (change)="upload($event)" accept="application/pdf" #declaracion style="display: none;">
-        <button *ngIf="!this.soloVista" style="height:50%;" (click)="declaracion.click()"> Seleccionar.</button>
+        <button mat-button *ngIf="!this.soloVista" style="height:60%;" (click)="declaracion.click()"> Seleccionar.</button>
         <div *ngIf="this.documento == null" class="miniatura-pdf">
             <span>No se ha seleccionado ningún archivo.</span>
         </div>

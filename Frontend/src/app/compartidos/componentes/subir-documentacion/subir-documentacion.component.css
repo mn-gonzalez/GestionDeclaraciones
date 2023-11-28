@@ -6,6 +6,7 @@
 
 .label_documento{
     padding-bottom: 10px;
+    max-width: 500px;
 }
 
 .subir-documento{
@@ -31,6 +32,7 @@
     align-items: center; 
     height: 100%; 
     width: 55%;
+    padding-left: 10px;
 }
 
 .botones{

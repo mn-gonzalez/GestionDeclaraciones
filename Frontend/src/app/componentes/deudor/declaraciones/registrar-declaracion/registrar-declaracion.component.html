@@ -27,7 +27,7 @@
                         <mat-divider></mat-divider>
                         <mat-card-content class="datos_personales">
                             <mat-form-field appearance="outline" class="inputs">
-                                <mat-label>RUT</mat-label>
+                                <mat-label>R.U.T</mat-label>
                                 <input matInput placeholder="Ej. 12345678" formControlName="rut_deudor" readonly>
                             </mat-form-field>
 
@@ -136,7 +136,7 @@
                                 </mat-form-field>
                 
                                 <mat-form-field appearance="outline" class="inputs">
-                                    <mat-label>AFP a la que esta afiliado</mat-label>
+                                    <mat-label>AFP</mat-label>
                                     <mat-select formControlName="afp" name="afp">
                                         <mat-option *ngFor="let afp of afps" [value]="afp.nombre">
                                             {{afp.nombre}}
@@ -159,11 +159,11 @@
 
                 <div class="botones">
                     <div class="boton">
-                        <button mat-stroked-button matStepperNext (click)="registrarDeclaracion()">Guardar</button>
+                        <button mat-stroked-button matStepperNext [disabled]="this.datosPersonales.invalid" (click)="registrarDeclaracion()">Guardar</button>
                     </div>
             
                     <div class="boton">
-                        <button mat-stroked-button matStepperNext >Siguiente</button>
+                        <button mat-stroked-button matStepperNext [disabled]="this.datosPersonales.invalid">Siguiente</button>
                     </div>
                 </div>
             </form>
@@ -184,7 +184,7 @@
                             <th mat-header-cell *matHeaderCellDef> Monto en Pesos </th>
                             <td mat-cell *matCellDef="let element">
                                 <mat-form-field appearance="outline" class="form_ingresos">
-                                    <input matInput formControlName="{{element.formControl}}" id="{{element.id}}" required (keyup)="convertirUTM($event)">
+                                    <input type="number" matInput formControlName="{{element.formControl}}" id="{{element.id}}" required (keyup)="convertirUTM($event)">
                                 </mat-form-field>
                             </td>
                         </ng-container>
@@ -210,11 +210,11 @@
 
                 <div class="botones">
                     <div class="boton">
-                        <button mat-button matStepperNext (click)="registrarIngresosDeclaracion()">Guardar</button>
+                        <button mat-stroked-button [disabled]="this.ingresosDeudor.invalid"  matStepperNext (click)="registrarIngresosDeclaracion()">Guardar</button>
                     </div>
                     
                     <div class="boton">
-                        <button mat-button matStepperNext>Siguiente</button>
+                        <button mat-stroked-button [disabled]="this.ingresosDeudor.invalid" matStepperNext>Siguiente</button>
                     </div>
                 </div>
                 </form>
@@ -293,10 +293,10 @@
 
                 <div class="botones">
                     <div class="boton">
-                        <button mat-button matStepperNext (click)="registrarConyuge()">Guardar</button>
+                        <button mat-button matStepperNext [disabled]="this.conyuge.invalid" (click)="registrarConyuge()">Guardar</button>
                     </div>
                     <div class="boton">
-                        <button mat-button matStepperNext>Siguiente</button>
+                        <button mat-button matStepperNext [disabled]="this.conyuge.invalid">Siguiente</button>
                     </div>
                 </div>
             </form>
@@ -310,7 +310,7 @@
                         [ocultar]="false"
                         [rutDeudor]="rut_deudor"
                         [idDeclaracion]="id_declaracion"
-                        [detalleDocumento]="'Certificado de Rentas'"
+                        [detalleDocumento]="'Certificado de Rentas del Deudor'"
                         [nombreDocumento]="'CERTIFICADO DE RENTAS'"
                         [tipoDocumento]="'RENTAS_DEUDOR'"
                         [documento]="this.documento_renta"
@@ -321,7 +321,7 @@
                         [ocultar]="!this.casado"
                         [rutDeudor]="rut_deudor"
                         [idDeclaracion]="id_declaracion"
-                        [detalleDocumento]="'Certificado de Rentas Conyuge'"
+                        [detalleDocumento]="'Certificado de Rentas del Conyuge'"
                         [nombreDocumento]="'CERTIFICADO DE RENTAS CONYUGE'"
                         [tipoDocumento]="'RENTAS_CONYUGE'"
                         [documento]="this.documento_renta_conyuge"
@@ -344,7 +344,7 @@
                         [ocultar]="false"
                         [rutDeudor]="rut_deudor"
                         [idDeclaracion]="id_declaracion"
-                        [detalleDocumento]="'Carpeta Tributaria Deudor'"
+                        [detalleDocumento]="'Carpeta Tributaria del Deudor'"
                         [nombreDocumento]="'CARPETA TRIBUTARIA DEUDOR'"
                         [tipoDocumento]="'CARPETA_TRIBUTARIA_DEUDOR'"
                         [documento]="this.documento_carp_tributaria_deudor"
@@ -355,7 +355,7 @@
                         [ocultar]="!this.casado"
                         [rutDeudor]="rut_deudor"
                         [idDeclaracion]="id_declaracion"
-                        [detalleDocumento]="'Carpeta Tributaria Conyuge'"
+                        [detalleDocumento]="'Carpeta Tributaria del Conyuge'"
                         [nombreDocumento]="'CARPETA_TRIBUTARIA_CONYUGE'"
                         [tipoDocumento]="'CARPETA_TRIBUTARIA_CONYUGE'"
                         [documento]="this.documento_carp_tributaria_conyuge"
@@ -390,7 +390,7 @@
                         [ocultar]="!this.deudorDebePresentarDecSimple"
                         [rutDeudor]="rut_deudor"
                         [idDeclaracion]="id_declaracion"
-                        [detalleDocumento]="'Declaracion Jurada Notarial Simple del Deudor (debe acreditar no haber percibido ingresos en tres o mas meses)'"
+                        [detalleDocumento]="'Declaración Jurada Notarial Simple del Deudor. (Debe acreditar no haber percibido ingresos en tres o mas meses seguidos)'"
                         [nombreDocumento]="'DECLARACION JURADA SIMPLE DEUDOR'"
                         [tipoDocumento]="'DEC_JURADA_SIMPLE_DEUDOR'"
                         [documento]="this.documento_declaracion_sin_ingresos"
@@ -402,7 +402,7 @@
                         [ocultar]="!this.casado && !this.conyugeDebePresentarDecSimple"
                         [rutDeudor]="rut_deudor"
                         [idDeclaracion]="id_declaracion"
-                        [detalleDocumento]="'Declaracion Jurada Notarial Simple del Conyuge (debe acreditar no haber percibido ingresos en tres o mas meses)'"
+                        [detalleDocumento]="'Declaración Jurada Notarial Simple del Conyuge. (Debe acreditar no haber percibido ingresos en tres o mas meses seguidos)'"
                         [nombreDocumento]="'DECLARACION JURADA SIMPLE CONYUGE'"
                         [tipoDocumento]="'DEC_JURADA_SIMPLE_CONYUGE'"
                         [documento]="this.documento_declaracion_sin_ingresos_conyuge"
@@ -414,7 +414,7 @@
                         [ocultar]="false"
                         [rutDeudor]="rut_deudor"
                         [idDeclaracion]="id_declaracion"
-                        [detalleDocumento]="'Finiquito de Trabajo Deudor'"
+                        [detalleDocumento]="'Finiquito de Trabajo del Deudor'"
                         [nombreDocumento]="'FINIQUITO DEUDOR'"
                         [tipoDocumento]="'FINIQUITO_DEUDOR'"
                         [documento]="this.documento_finiquito"
@@ -425,7 +425,7 @@
                         [ocultar]="!this.casado"
                         [rutDeudor]="rut_deudor"
                         [idDeclaracion]="id_declaracion"
-                        [detalleDocumento]="'Finiquito de Trabajo Conyuge'"
+                        [detalleDocumento]="'Finiquito de Trabajo del Conyuge'"
                         [nombreDocumento]="'FINIQUITO CONYUGE'"
                         [tipoDocumento]="'FINIQUITO_CONYUGE'"
                         [documento]="this.documento_finiquito_conyuge"
@@ -437,7 +437,7 @@
                         [ocultar]="!this.tieneHijos"
                         [rutDeudor]="rut_deudor"
                         [idDeclaracion]="id_declaracion"
-                        [detalleDocumento]="'Certificado de Nacimiento de Hijo'"
+                        [detalleDocumento]="'Certificado(s) de Nacimiento del o los Hijos/as'"
                         [nombreDocumento]="'CERTIFICADO DE NACIMIENTO'"
                         [tipoDocumento]="'CERT_NACIMIENTO'"
                         [documento]="this.documento_cert_nacimiento"
@@ -449,7 +449,7 @@
                         [ocultar]="false"
                         [rutDeudor]="rut_deudor"
                         [idDeclaracion]="id_declaracion"
-                        [detalleDocumento]="'Copia de Pagaré de Conyuge, para deudores reprogramados Ley 19.287'"
+                        [detalleDocumento]="'Copia de Pagaré de Conyuge. (Para casados con deudores reprogramados Ley 19.287)'"
                         [nombreDocumento]="'COPIA DE PAGARE CONYUGE'"
                         [tipoDocumento]="'PAGARE_CONYUGE'"
                         [documento]="this.documento_copia_pagare_conyuge"
@@ -468,15 +468,16 @@
         <mat-step [stepControl]="conyuge">
             <form [formGroup]="conyuge">
               <ng-template matStepLabel>Finalizar</ng-template>
-                <div>
-                    Una vez que envíe el formulario, debe esperar a que uno de nuestros funcionarios revise su declaración 
-                    para verificar que todo esta correcto. 
-                    
-                    Si todo esta correcto, podrá descargar el formulario en formato PDF
-                    para ser firmado ante notario o mediante Firma Electrónica Avanzada. 
+                <div style="display: flex; flex-direction: column; row-gap: 10px; font-size: 16px; padding-top: 20px; padding-bottom: 20px;">
+                    <h2><b>Importante:</b> </h2>
 
-                    Si el formulario o su Documentación tienen algún problema el formulario 
-                    se desbloqueará para que realice las correcciones indicadas por el funcionario.
+                    <p>Una vez que envíe el formulario, debe esperar a que uno de nuestros funcionarios revise su declaración 
+                        para verificar que todo esta correcto. </p> 
+                    
+                    <p> Si todo esta correcto, se generará una declaración con todos los datos ingresados en formato PDF para ser descargada y firmada ante notario o mediante Firma Electrónica Avanzada. </p>
+                    
+                    <p>Si el formulario o su documentación tienen algún problema se le notificará mediante un correo 
+                        para que realice las correcciones indicadas por el funcionario.</p>
                 </div>
                 <div>
                     <button mat-button matStepperNext (click)="finalizarDeclaracion()">Enviar</button>
