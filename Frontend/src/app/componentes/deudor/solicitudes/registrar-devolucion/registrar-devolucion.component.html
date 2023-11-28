@@ -106,7 +106,7 @@
         <mat-card-content style="padding-top: 20px;">
             <div class="subir-documento">
                 <input type="file" (change)="upload('FOTOCOPIA CEDULA', $event)" accept="application/pdf" #fotocopia style="display: none;">
-                <button style="height:50%;" (click)="fotocopia.click()"> Seleccionar.</button>
+                <button mat-button style="height:60%;" (click)="fotocopia.click()"> Seleccionar.</button>
                 <div *ngIf="this.fotocopia_cedula == null" class="miniatura-pdf">
                     <span>No se ha seleccionado ningún archivo.</span>
                 </div>
