@@ -3,7 +3,8 @@ import { SolicitudService } from "src/app/servicios/solicitud.service";
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Devolucion } from 'src/app/modelos/devolucion';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DeclaracionService } from 'src/app/servicios/declaracion.service';
 
 @Component({
   selector: 'app-listar-devoluciones',
@@ -14,18 +15,43 @@ export class ListarDevolucionesComponent implements OnInit {
 
   displayedColumns: string[] = ['fecha', 'tipo_deuda', 'solicitud', 'estado', 'acciones'];
   dataSource: MatTableDataSource<Devolucion>;
+  funcionario: boolean;
+  rut_deudor: string;
+  nombres: string;
+  ap_paterno: string;
+  ap_materno: string;
 
-  constructor(private solicitudService: SolicitudService, private auth: InicioSesionService, private router: Router) {
+  constructor(
+    private solicitudService: SolicitudService, 
+    private auth: InicioSesionService, 
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private declaracionService: DeclaracionService) {
 
   }
 
   ngOnInit(): void {
-    this.obtener_devoluciones_deudor();
-    this.dataSource = new MatTableDataSource();
+    if(this.auth.obtenerTipoUsuario() == 'FUNCIONARIO' || this.auth.obtenerTipoUsuario() == 'ADMIN'){
+      this.funcionario == true;
+      this.rut_deudor = this.activatedRoute.snapshot.paramMap.get('rut') || "";
+      this.obtenerDatosDeudor();
+    }
+    else{
+      this.funcionario = false;
+      this.obtener_devoluciones_deudor();
+      this.dataSource = new MatTableDataSource();
+    }
   }
 
   obtener_devoluciones_deudor(){
-    let rut_deudor = this.auth.obtenerUsuarioActual()!;
+    let rut_deudor;
+
+    if(this.funcionario){
+      rut_deudor = this.rut_deudor;
+    }
+    else{
+      rut_deudor = this.auth.obtenerUsuarioActual()!;
+    }
 
     this.solicitudService.obtenerDevoluciones(rut_deudor).subscribe({
       next: (result) => {
@@ -63,6 +89,25 @@ export class ListarDevolucionesComponent implements OnInit {
   }
 
   verDatosDevolucion(id_devolucion: string){
-    this.router.navigate(['/deudor/devoluciones/'+id_devolucion]);
+    if(this.funcionario == true){
+      this.router.navigate(['/funcionario/devoluciones/revisar/'+id_devolucion]);
+    }
+    else{
+      this.router.navigate(['/deudor/devoluciones/'+id_devolucion]);
+    }
+  }
+
+  private obtenerDatosDeudor(){
+    this.declaracionService.obtenerDatosDeudor(this.rut_deudor).subscribe({
+      next: result =>{
+        this.nombres = result.nombres;
+        this.ap_paterno = result.ap_paterno;
+        this.ap_materno = result.ap_materno;
+        this.funcionario = true;
+
+        this.obtener_devoluciones_deudor();
+        this.dataSource = new MatTableDataSource();
+      }
+    });
   }
 }

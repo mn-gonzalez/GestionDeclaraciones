@@ -38,6 +38,10 @@
               </div>
             </td>
         </ng-container>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" style="padding: 20px;" colspan="6">No existen declaraciones anteriores.</td>
+        </tr>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

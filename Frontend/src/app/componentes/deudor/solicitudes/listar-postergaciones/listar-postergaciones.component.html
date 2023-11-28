@@ -1,6 +1,9 @@
 <div class="fondo">
-    <div>
-        <h2>Historial de Postergaciones de Cobro</h2>
+    <h1 *ngIf="this.funcionario == false"><b>Historial de Postergaciones de Cobro</b></h1>
+
+    <div *ngIf="this.funcionario">
+      <h1><b>Postergaciones Deudor:</b></h1>
+      <h2>Rut: {{this.rut_deudor}} <br> Nombre: {{ this.nombres +" "+ this.ap_paterno +" "+ this.ap_materno}}</h2>
     </div>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -24,7 +27,7 @@
         </ng-container>
 
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="3">No existe ninguna solicitud postergación de cobro anterior.</td>
+          <td class="mat-cell" style="padding: 20px;" colspan="3">No existe ninguna solicitud postergación de cobro anterior.</td>
         </tr>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

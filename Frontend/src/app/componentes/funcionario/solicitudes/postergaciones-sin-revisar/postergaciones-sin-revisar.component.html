@@ -37,6 +37,10 @@
               </div>
             </td>
         </ng-container>
+
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" style="padding: 20px;" colspan="7">De momento, no hay postergaciones sin revisar.</td>
+        </tr>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

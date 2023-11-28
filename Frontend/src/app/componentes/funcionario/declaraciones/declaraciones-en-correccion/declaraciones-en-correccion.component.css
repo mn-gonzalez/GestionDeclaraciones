@@ -1,7 +1,7 @@
 .fondo{
     display: flex;
     flex-direction: column;
-    padding: 25px;
+    padding: 30px;
 }
 
 .mat-header-cell{

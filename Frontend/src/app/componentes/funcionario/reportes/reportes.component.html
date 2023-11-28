@@ -1,11 +1,11 @@
 <mat-tab-group>
-    <mat-tab label="Graficos" style="width: 100%;">
+    <mat-tab label="Resúmen" style="width: 100%;">
       <div class="fondo">
 
         <div class="tarjetas">
           <mat-card style="width: 200px; height: 200px;">
-            <mat-card-header style="background-color: var(--color-utalca); color: white; text-align: center; padding: 10px;">
-              <mat-card-title style="font-size: 14px; text-align: center; width: 100%;" >Declaraciones recibidas </mat-card-title>
+            <mat-card-header style="background-color: var(--color-utalca); color: white; text-align: center; padding: 10px; height: 50%">
+              <mat-card-title style="font-size: 14px; text-align: center; width: 100%;" >Nro. declaraciones recibidas </mat-card-title>
             </mat-card-header>
             <mat-card-content style=" display:flex; flex-direction: column; align-items: center; justify-content: center; height:100%; text-align: center;">
               <p style="font-size: 50px;">{{this.nroDeclaracionesEntregadas}}</p>
@@ -13,8 +13,8 @@
           </mat-card>
           
           <mat-card style="width: 200px; height: 200px;">
-            <mat-card-header style="background-color: var(--color-utalca); color: white; text-align: center; padding: 10px;">
-              <mat-card-title style="font-size: 14px; text-align: center; width: 100%;">Declaraciones con problemas </mat-card-title>
+            <mat-card-header style="background-color: var(--color-utalca); color: white; text-align: center; padding: 10px; height: 50%">
+              <mat-card-title style="font-size: 14px; text-align: center; width: 100%;">Nro. declaraciones con problemas </mat-card-title>
             </mat-card-header>
             <mat-card-content style=" display:flex; flex-direction: column; align-items: center; justify-content: center; height:100%; text-align: center;">
               <p style="font-size: 50px;">{{this.nroDeclaracionesCorreccion}}</p>
@@ -22,8 +22,8 @@
           </mat-card>
 
           <mat-card style="width: 200px; height: 200px;">
-            <mat-card-header style="background-color: var(--color-utalca); color: white; text-align: center; padding: 10px;">
-              <mat-card-title style="font-size: 14px; text-align: center; width: 100%;">Declaraciones sin revisar </mat-card-title>
+            <mat-card-header style="background-color: var(--color-utalca); color: white; text-align: center; padding: 10px; height: 50%">
+              <mat-card-title style="font-size: 14px; text-align: center; width: 100%;">Nro. declaraciones sin revisar </mat-card-title>
             </mat-card-header>
             <mat-card-content style=" display:flex; flex-direction: column; align-items: center; justify-content: center; height:100%; text-align: center;">
               <p style="font-size: 50px;">{{this.nroDeclaracionesSinRevisar}}</p>
@@ -31,8 +31,8 @@
           </mat-card>
 
           <mat-card style="width: 200px; height: 200px;">
-            <mat-card-header style="background-color: var(--color-utalca); color: white; text-align: center; padding: 10px;">
-              <mat-card-title style="font-size: 14px; text-align: center; width: 100%;">Deudores con postergación de cobro </mat-card-title>
+            <mat-card-header style="background-color: var(--color-utalca); color: white; text-align: center; padding: 10px; height: 50%">
+              <mat-card-title style="font-size: 14px; text-align: center; width: 100%;">Nro. deudores con postergación de cobro </mat-card-title>
             </mat-card-header>
             <mat-card-content style=" display:flex; flex-direction: column; align-items: center; justify-content: center; height:100%; text-align: center;">
               <p style="font-size: 50px;">{{this.nroDeudoresPostergacion}}</p>
@@ -40,8 +40,8 @@
           </mat-card>
 
           <mat-card style="width: 200px; height: 200px;">
-            <mat-card-header style="background-color: var(--color-utalca); color: white; text-align: center; padding: 10px;">
-              <mat-card-title style="font-size: 14px; text-align: center; width: 100%;">Declaraciones en corrección </mat-card-title>
+            <mat-card-header style="background-color: var(--color-utalca); color: white; text-align: center; padding: 10px; height: 50%">
+              <mat-card-title style="font-size: 14px; text-align: center; width: 100%;">Nro. declaraciones en corrección </mat-card-title>
             </mat-card-header>
             <mat-card-content style=" display:flex; flex-direction: column; align-items: center; justify-content: center; height:100%; text-align: center;">
               <p style="font-size: 50px;">{{this.nroDeclaracionesCorreccion}}</p>
@@ -50,7 +50,7 @@
         </div>
 
         <div class="grafico">
-          <h2>Número de declaraciones entregadas mensualmente</h2>
+          <h2><b>Número de declaraciones entregadas mensualmente</b></h2>
           <canvas
             baseChart
             class="chart"
@@ -101,7 +101,7 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               
                 <tr class="mat-row" *matNoDataRow>
-                  <td class="mat-cell" colspan="4">No Hay Deudores con Declaraciones sin Entregar</td>
+                  <td class="mat-cell" style="padding: 20px;" colspan="4">No Hay Deudores con Declaraciones sin Entregar</td>
                 </tr>
               </table>
         </div>
@@ -134,7 +134,7 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               
                 <tr class="mat-row" *matNoDataRow>
-                  <td class="mat-cell" colspan="4">No Hay Deudores con Declaraciones Finalizadas</td>
+                  <td class="mat-cell" style="padding: 20px;" colspan="4">No Hay Deudores con Declaraciones Finalizadas</td>
                 </tr>
             </table>
         </div>
@@ -168,7 +168,7 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               
                 <tr class="mat-row" *matNoDataRow>
-                  <td class="mat-cell" colspan="4">No Hay Deudores con Declaraciones en Corrección</td>
+                  <td class="mat-cell" style="padding: 20px;" colspan="4">No Hay Deudores con Declaraciones en Corrección</td>
                 </tr>
               </table>
         </div>
@@ -203,7 +203,7 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             
                 <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">No Hay Deudores que solicitaron Postergación</td>
+                <td class="mat-cell" style="padding: 20px;" colspan="4">No Hay Deudores que solicitaron Postergación</td>
                 </tr>
             </table>
         </div>

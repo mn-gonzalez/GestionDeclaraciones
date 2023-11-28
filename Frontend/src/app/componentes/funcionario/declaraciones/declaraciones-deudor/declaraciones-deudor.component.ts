@@ -67,7 +67,7 @@ export class DeclaracionesDeudorComponent implements OnInit {
       next: result =>{
         this.nombres = result.nombres;
         this.ap_paterno = result.ap_paterno;
-        this.ap_paterno = result.ap_materno;
+        this.ap_materno = result.ap_materno;
       }
     });
   }

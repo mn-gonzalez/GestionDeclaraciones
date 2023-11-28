@@ -1,7 +1,5 @@
 <div class="fondo">
-    <div>
-        <h2>Declaraciones sin Revisar</h2>
-    </div>
+    <h1><b>Declaraciones sin Revisar</b></h1>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="rut">
@@ -54,7 +52,7 @@
         </ng-container>
 
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="9">De momento, no hay declaraciones sin revisar.</td>
+          <td class="mat-cell" style="padding: 20px;" colspan="9">De momento, no hay declaraciones sin revisar.</td>
         </tr>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

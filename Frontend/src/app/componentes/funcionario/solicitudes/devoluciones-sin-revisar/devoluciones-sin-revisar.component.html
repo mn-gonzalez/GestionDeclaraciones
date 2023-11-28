@@ -1,7 +1,5 @@
 <div class="fondo">
-    <div>
-        <h2>Solicitudes de Devolución/Copia de Pagarés sin Revisar</h2>
-    </div>
+    <h1><b>Solicitudes de Devolución/Copia de Pagarés sin Revisar</b></h1>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="rut">
@@ -37,6 +35,10 @@
               </div>
             </td>
         </ng-container>
+
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" style="padding: 20px;" colspan="7">De momento, no hay solicitudes de devolución sin revisar.</td>
+        </tr>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

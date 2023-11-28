@@ -4,6 +4,8 @@ import { SolicitudService } from "src/app/servicios/solicitud.service";
 import { InicioSesionService } from 'src/app/servicios/inicio-sesion.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { DeclaracionService } from 'src/app/servicios/declaracion.service';
 
 @Component({
   selector: 'app-listar-postergaciones',
@@ -14,20 +16,45 @@ export class ListarPostergacionesComponent implements OnInit {
 
   displayedColumns: string[] = ['fecha', 'estado', 'acciones'];
   dataSource: MatTableDataSource<Postergacion>;
+  funcionario: boolean;
+  rut_deudor: string;
+  nombres: string;
+  ap_paterno: string;
+  ap_materno: string;
 
-  constructor(private solicitudService: SolicitudService, private auth: InicioSesionService, private router: Router) { }
+  constructor(private solicitudService: SolicitudService, 
+    private auth: InicioSesionService, 
+    private declaracionService: DeclaracionService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.obtenerPostergacionesDeudor();
-    this.dataSource = new MatTableDataSource();
+    if(this.auth.obtenerTipoUsuario() == 'FUNCIONARIO' || this.auth.obtenerTipoUsuario() == 'ADMIN'){
+      this.funcionario == true;
+      this.rut_deudor = this.activatedRoute.snapshot.paramMap.get('rut') || "";
+      this.obtenerDatosDeudor();
+    }
+    else{
+      this.funcionario = false;
+      this.obtenerPostergacionesDeudor();
+      this.dataSource = new MatTableDataSource();
+    }
   }
 
   obtenerPostergacionesDeudor(){
-    let rut_deudor = this.auth.obtenerUsuarioActual()!;
+    let rut_deudor;
+
+    if(this.funcionario){
+      rut_deudor = this.rut_deudor;
+    }
+    else{
+      rut_deudor = this.auth.obtenerUsuarioActual()!;
+    }
 
     this.solicitudService.obtenerPostergaciones(rut_deudor).subscribe({
       next: (result) => {
         this.dataSource.data = result;
+        console.log(result);
         this.convertirEstado();
       },
       error: (err) => {console.log(err)}
@@ -61,7 +88,26 @@ export class ListarPostergacionesComponent implements OnInit {
   }
 
   verDatosPostergacion(id_postergacion: string){
-    this.router.navigate(['/deudor/postergaciones/'+id_postergacion]);
+    if(this.funcionario){
+      this.router.navigate(['/funcionario/postergaciones/revisar/'+id_postergacion]);
+    }
+    else{
+      this.router.navigate(['/deudor/postergaciones/'+id_postergacion]);
+    }
+  }
+
+  private obtenerDatosDeudor(){
+    this.declaracionService.obtenerDatosDeudor(this.rut_deudor).subscribe({
+      next: result =>{
+        this.nombres = result.nombres;
+        this.ap_paterno = result.ap_paterno;
+        this.ap_materno = result.ap_materno;
+        this.funcionario = true;
+
+        this.obtenerPostergacionesDeudor();
+        this.dataSource = new MatTableDataSource();
+      }
+    });
   }
 
 }
