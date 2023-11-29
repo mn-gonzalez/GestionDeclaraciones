@@ -46,6 +46,7 @@ class CorreoDeclaracion extends Mailable
         return new Content(
             view: 'correoDeclaracion',
             with: [
+                'deudor' => $this->datos['deudor'],
                 'mensaje' => $this->datos['mensaje']
             ]
         );

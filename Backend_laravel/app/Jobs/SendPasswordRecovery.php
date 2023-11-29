@@ -34,11 +34,13 @@ class SendPasswordRecovery implements ShouldQueue
      */
     public function handle()
     {
+        $deudor = $this->detalles['deudor'];
         $correo = $this->detalles['correo'];
         $subject = $this->detalles['subject'];
         $mensaje = $this->detalles['mensaje'];
         $enlace = $this->detalles['enlace'];
         $datos = [
+            "deudor" => $deudor,
             "subject" => $subject,
             "mensaje" => $mensaje,
             "enlace" => $enlace

@@ -79,3 +79,16 @@ Route::get('/pdf', function () {
 
     return $pdf->stream();
 });
+
+Route::get('/notificacion', function () {
+    return view('correoDeclaracion', ['mensaje' => 'Según nuestros registros usted aún no ha entregado su declaración jurada de este año.
+     Debe entregar su fomulario de forma online o presencial en nuestras oficinas para evitar castigos.',
+    'deudor' => 'Manuel Nicolás González Guerrero']);
+});
+
+Route::get('/contrasena', function () {
+    return view('correoContrasena', ['mensaje' => 'Se ha solicitado la recuperación de la contraseña de su cuenta, en el siguiente enlace para recuperar su contraseña',
+    'deudor' => 'Manuel Nicolás González Guerrero',
+    'enlace' => 'http://localhost:4200/recuperarContrasena/8563e01088bf8ea28edba76f2409165e0f6783ed78e4ebbec584a6bf7b099059']);
+});
+

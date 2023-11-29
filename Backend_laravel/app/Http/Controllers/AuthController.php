@@ -184,7 +184,8 @@ class AuthController extends Controller
                 if($correo === strtolower($usuario->correo)){
                     //$status = Password::sendResetLink($request->only('email'));
                     $token = app('auth.password.broker')->createToken($usuario);
-                    EmailController::enviar_recuperar_contrasena($usuario->correo, $token);
+                    $nombre = $usuario->nombres.' '.$usuario->ap_paterno.' '.$usuario->ap_materno;
+                    EmailController::enviar_recuperar_contrasena($nombre, $usuario->correo, $token);
                     return response(['mensaje' => 'Se ha enviado el correo para recuperar contraseña']);
                 }
             }

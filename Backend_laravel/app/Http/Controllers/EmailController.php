@@ -108,13 +108,14 @@ class EmailController extends Controller
         return $deudores;
     }
 
-    public static function enviar_recuperar_contrasena($correo, $token){
+    public static function enviar_recuperar_contrasena($deudor, $correo, $token){
         $enlace = env('FRONT_URL').'/recuperarContrasena/'.$token;
 
         $detalles = [
             'correo' => $correo,
+            'deudor' => $deudor,
             'subject' => "Recuperar Contraseña",
-            'mensaje' => 'Presiones en el siguiente enlace para recuperar su contraseña',
+            'mensaje' => 'Se ha solicitado el cambio de la contraseña de su cuenta. Presione en el siguiente enlace para cambiar su contraseña.',
             'enlace' => $enlace
         ];
 

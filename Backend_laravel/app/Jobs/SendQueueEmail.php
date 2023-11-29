@@ -37,15 +37,16 @@ class SendQueueEmail implements ShouldQueue
         $subject = $this->detalles['subject'];
         $mensaje = $this->detalles['mensaje'];
         $deudores = $this->detalles['deudores'];
-        $datos = [
-            "subject" => $subject,
-            "mensaje" => $mensaje,
-            "adjunto" => ''
-        ];
 
         foreach ($deudores as $key => $deudor) {
             $correo = '';
-            //$nombre = $deudor->nombres;
+            $nombre = $deudor->nombres.' '.$deudor->ap_paterno.' '.$deudor->ap_materno;
+            $datos = [
+                "deudor" => $nombre,
+                "subject" => $subject,
+                "mensaje" => $mensaje,
+                "adjunto" => ''
+            ];
 
             if (isset($deudor->correo) == true) {
                 $correo = $deudor->correo;

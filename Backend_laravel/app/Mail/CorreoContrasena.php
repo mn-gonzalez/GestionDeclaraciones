@@ -46,6 +46,7 @@ class CorreoContrasena extends Mailable
         return new Content(
             view: 'correoContrasena',
             with: [
+                'deudor' => $this->datos['deudor'],
                 'mensaje' => $this->datos['mensaje'],
                 'enlace' => $this->datos['enlace']
             ]

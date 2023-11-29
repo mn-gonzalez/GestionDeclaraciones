@@ -272,9 +272,8 @@ class DeclaracionController extends Controller
 
         //Datos para la notificación
         $datosCorreo = [
-            'subject' => 'Generación de archivo PDF de su declaración',
-            'mensaje' => 'Su declaración ya fue revisada por nuestros funcionarios y no se encontraron problemas. Puede descargar el'. 
-                'su declaración en formato PDF desde nuestra página para firmarlo ante notario.'
+            'subject' => 'Declaración en formato PDF ya disponible',
+            'mensaje' => 'Se ha completado la revision de su formulario de declaración jurada de ingresos, por lo que su declaración en formato PDF ya esta disponible. Puede descargarla desde el menu de registro de declaración'
         ];
 
         $deudor = DB::table('persona')
@@ -362,12 +361,12 @@ class DeclaracionController extends Controller
             case 'POS':
                 if($request->estado == 3){
                     $subject = 'Solicitud de postergación aceptada';
-                    $mensaje = '';
+                    $mensaje = 'Su solicitud de postergación de cobro para este año fue aceptada por nuestros funcionarios.';
                     EmailController::enviar_notificacion($deudor, ['subject' => $subject, 'mensaje' => $mensaje]);
                 }
                 else if($request->estado == 4){
                     $subject = 'Solicitud de postergación rechazada';
-                    $mensaje = '';
+                    $mensaje = 'Su solicitud de postergación de cobro para este año fue rechazada por nuestros funcionarios. Puede ver el motivo del rechazo en los detalles de su solicitud de postergación';
                     EmailController::enviar_notificacion($deudor, ['subject' => $subject, 'mensaje' => $mensaje]);
                 }
                 break;
@@ -375,12 +374,12 @@ class DeclaracionController extends Controller
             case 'DEV':
                 if($request->estado == 3){
                     $subject = 'Solicitud de devolución/copia de pagarés aceptada';
-                    $mensaje = '';
+                    $mensaje = 'Su solicitud de devolución/copia de pagarés fue aceptada por nuestros funcionarios. Dentro de los próximos días sus pagarés estarán disponibles para envío o retiro';
                     EmailController::enviar_notificacion($deudor, ['subject' => $subject, 'mensaje' => $mensaje]);
                 }
                 else if($request->estado == 4){
                     $subject = 'Solicitud de devolución/copia de pagarés rechazada';
-                    $mensaje = '';
+                    $mensaje = 'Su solicitud de devolución/copia de pagarés para este año fue rechazada por nuestros funcionarios. Puede ver el motivo del rechazo en los detalles de su solicitud de devolución/copia de pagarés';
                     EmailController::enviar_notificacion($deudor, ['subject' => $subject, 'mensaje' => $mensaje]);
                 }
                 break;
@@ -388,12 +387,12 @@ class DeclaracionController extends Controller
             case 'DEC':
                 if($request->estado == 4){
                     $subject = 'Declaración con detalles a corregir';
-                    $mensaje = '';
+                    $mensaje = 'Se ha completado la revisión de su declaración y se han encontrado detalles que debe corregir a la brevedad. Puede ver los comentarios de la revisión en el formulario de registro de declaración';
                     EmailController::enviar_notificacion($deudor, ['subject' => $subject, 'mensaje' => $mensaje]);
                 } 
                 else if($request->estado == 7){
                     $subject = 'Ha finalizado su proceso de declaración jurada de ingresos de este año';
-                    $mensaje = '';
+                    $mensaje = 'Su declaración firmada ante notario fue recibida y aprobada por nuestros funcionarios, por lo que ha completado su proceso de declaración de ingresos para este año.';
                     EmailController::enviar_notificacion($deudor, ['subject' => $subject, 'mensaje' => $mensaje]);
                 }
                 break;
