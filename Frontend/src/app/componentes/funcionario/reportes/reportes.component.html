@@ -76,6 +76,10 @@
 
     <mat-tab label="No han Entregado Declaración">
         <div class="fondo">
+          <div style="display: flex; padding: 20px; justify-content: flex-end;">
+            <button mat-raised-button style="height: 35px; color: white; background-color: var(--color-utalca);" [disabled]="this.dataSource1.data.length == 0" (click)="enviarCorreos(1)">Enviar Correos</button>
+          </div>
+
             <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
                 <ng-container matColumnDef="rut">
                   <th mat-header-cell *matHeaderCellDef> Rut </th>
@@ -142,6 +146,10 @@
 
     <mat-tab label="Declaraciones con Errores"> 
         <div class="fondo">
+          <div style="display: flex; padding: 20px; justify-content: flex-end;">
+            <button mat-raised-button style="height: 35px; color: white; background-color: var(--color-utalca);" [disabled]="this.dataSource3.data.length == 0" (click)="enviarCorreos(2)">Enviar Correos</button>
+          </div>
+
             <table mat-table [dataSource]="dataSource3" class="mat-elevation-z8">
 
                 <ng-container matColumnDef="rut">

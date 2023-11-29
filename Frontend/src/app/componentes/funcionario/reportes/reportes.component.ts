@@ -202,4 +202,12 @@ export class ReportesComponent implements OnInit {
     });
   }
 
+  /* 
+    1 -> Enviar correos a deudores que no han enviado o completado su declaracion.
+    2 -> Enviar correos a deudores que tienen su declaracion con correcciones que deben realizar.
+  */
+  enviarCorreos(objetivo: number){
+    this.declaracionService.enviarCorreosMasivos(objetivo);
+  }
+
 }

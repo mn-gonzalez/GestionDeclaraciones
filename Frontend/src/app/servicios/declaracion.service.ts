@@ -584,4 +584,15 @@ export class DeclaracionService {
       })
     );
   }
+
+  enviarCorreosMasivos(objetivo: number){
+    const body = new HttpParams()
+    .set('tramite', "DECLARACION")
+    .set('deudorObjetivo', objetivo)
+
+    this.http.post<{ mensaje: string}>(env.api.concat("/correoMasivo"), body)
+    .subscribe(response => {
+         this.mostrarNotificacion(response.mensaje, "Cerrar");
+    });
+  }
 }

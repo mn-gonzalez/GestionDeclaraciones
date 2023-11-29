@@ -51,6 +51,8 @@ class EmailController extends Controller
             ->delay(now()->addSeconds(2)); 
 
         dispatch($job);
+        $response = ['mensaje' => 'Los correos se han enviado correctamente.'];
+        return response($response, 200);
     }
 
     private function obtener_deudores($tramite, $deudor_objetivo){
@@ -87,7 +89,8 @@ class EmailController extends Controller
                 WHERE persona.rut = deudor.rut
                 AND tramite.rut_deudor = persona.rut
                 AND declaracion.id = tramite.id
-                AND declaracion.year = '.$year.')'
+                AND declaracion.year = '.$year.'
+                AND tramite.estado != 1)'
             );
 
         return $deudores;

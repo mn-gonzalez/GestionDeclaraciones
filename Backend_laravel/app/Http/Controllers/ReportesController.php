@@ -43,7 +43,8 @@ class ReportesController extends Controller
                 WHERE persona.rut = deudor.rut
                 AND tramite.rut_deudor = persona.rut
                 AND declaracion.id = tramite.id
-                AND declaracion.year = '.$year.')'
+                AND declaracion.year = '.$year.'
+                AND tramite.estado != 1)'
             );
 
         return response()->json(['deudores'=>$deudores]);
