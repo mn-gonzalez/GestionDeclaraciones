@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup,FormControl, Validators} from '@angular/forms';
 import { DeclaracionService } from "src/app/servicios/declaracion.service";
 import { ActivatedRoute } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
 
 interface Region{
   nombre: string;
@@ -12,7 +13,7 @@ interface Ingreso{
   id: string;
   nombre: string;
   formControl: string;
-  valor: string;
+  valor: number;
   formControlUTM: string;
 }
 
@@ -69,23 +70,10 @@ export class DatosDeclaracionComponent implements OnInit {
 
   comunas: string[];
 
-  ingresos: Ingreso[] = [
-    {id: "1", nombre: "Enero", formControl:"enero", valor:"49.673",formControlUTM:"enero_utm" },
-    {id: "2", nombre: "Febrero", formControl:"febrero",valor:"49.723", formControlUTM:"febrero_utm"},
-    {id: "3", nombre: "Marzo", formControl:"marzo", valor:"50.021", formControlUTM:"marzo_utm"},
-    {id: "4", nombre: "Abril", formControl:"abril", valor:"50.221", formControlUTM:"abril_utm"},
-    {id: "5", nombre: "Mayo", formControl:"mayo", valor:"50.372",formControlUTM:"mayo_utm"},
-    {id: "6", nombre: "Junio", formControl:"junio", valor:"50.372", formControlUTM:"junio_utm"},
-    {id: "7", nombre: "Julio", formControl:"julio", valor:"50.322", formControlUTM:"julio_utm"},
-    {id: "8", nombre: "Agosto", formControl:"agosto",valor:"50.272", formControlUTM:"agosto_utm"},
-    {id: "9", nombre: "Septiembre", formControl:"septiembre", valor:"50.322", formControlUTM:"septiembre_utm"},
-    {id: "10", nombre: "Octubre", formControl:"octubre", valor:"50.372", formControlUTM:"octubre_utm"},
-    {id: "11", nombre: "Noviembre", formControl:"noviembre", valor:"50.674", formControlUTM:"noviembre_utm"},
-    {id: "12", nombre: "Diciembre",  formControl:"diciembre", valor:"51.029",formControlUTM:"diciembre_utm"}
-  ];
+  ingresos: Ingreso[] = [];
 
   displayedColumns: string[] = ['mes', 'ingresos_pesos', 'utm', 'ingresos_utm'];
-  dataSource = this.ingresos;
+  dataSource: MatTableDataSource<Ingreso>;
 
   casado = false;
   tieneHijos = false;
@@ -196,6 +184,7 @@ export class DatosDeclaracionComponent implements OnInit {
 
   ngOnInit(): void {
     this.id_declaracion = this.activatedRoute.snapshot.paramMap.get('id') || "";
+    this.obtenerValorUTM();
     this.obtenerDatosDeclaracion(); 
     this.obtenerDocumentacionDeclaracion();
   }
@@ -500,5 +489,31 @@ export class DatosDeclaracionComponent implements OnInit {
 
     var blobURL = URL.createObjectURL(blob);
     window.open(blobURL);
+  }
+
+  obtenerValorUTM(){
+    let year = new Date().getFullYear()-1;
+
+    this.declaracionService.obtenerValorUtm(year).subscribe({
+      next: result =>{
+
+        this.ingresos = [
+          {id: "1", nombre: "Enero", formControl:"enero", valor: result.enero,formControlUTM:"enero_utm" },
+          {id: "2", nombre: "Febrero", formControl:"febrero",valor: result.febrero, formControlUTM:"febrero_utm"},
+          {id: "3", nombre: "Marzo", formControl:"marzo", valor: result.marzo, formControlUTM:"marzo_utm"},
+          {id: "4", nombre: "Abril", formControl:"abril", valor: result.abril, formControlUTM:"abril_utm"},
+          {id: "5", nombre: "Mayo", formControl:"mayo", valor: result.mayo,formControlUTM:"mayo_utm"},
+          {id: "6", nombre: "Junio", formControl:"junio", valor: result.junio, formControlUTM:"junio_utm"},
+          {id: "7", nombre: "Julio", formControl:"julio", valor: result.julio, formControlUTM:"julio_utm"},
+          {id: "8", nombre: "Agosto", formControl:"agosto",valor: result.agosto, formControlUTM:"agosto_utm"},
+          {id: "9", nombre: "Septiembre", formControl:"septiembre", valor: result.septiembre, formControlUTM:"septiembre_utm"},
+          {id: "10", nombre: "Octubre", formControl:"octubre", valor: result.octubre, formControlUTM:"octubre_utm"},
+          {id: "11", nombre: "Noviembre", formControl:"noviembre", valor: result.noviembre, formControlUTM:"noviembre_utm"},
+          {id: "12", nombre: "Diciembre",  formControl:"diciembre", valor: result.diciembre,formControlUTM:"diciembre_utm"}
+        ];
+
+        this.dataSource = new MatTableDataSource(this.ingresos);
+      }
+    });
   }
 }
