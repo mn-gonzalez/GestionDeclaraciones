@@ -161,7 +161,7 @@
 
                         <ng-container matColumnDef="utm">
                             <th mat-header-cell *matHeaderCellDef> Valor UTM </th>
-                            <td mat-cell *matCellDef="let element">$ {{element.valor}} </td>
+                            <td mat-cell *matCellDef="let element">$ {{element.valor | mask: 'separator': {thousandSeparator: '.'} }} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="ingresos_utm">
@@ -240,7 +240,7 @@
 
                         <ng-container matColumnDef="utm">
                             <th mat-header-cell *matHeaderCellDef> Valor UTM </th>
-                            <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.valor | mask: 'separator': {thousandSeparator: '.'} }} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="ingresos_utm">
